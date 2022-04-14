@@ -10,6 +10,9 @@ namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary> 
     /// Nuli Bang
+    /// <summary>
+    /// /// <summary> 
+    /// Nirmalya Ghosh
     /// <summary> 
     public class IndexModel : PageModel
     {
