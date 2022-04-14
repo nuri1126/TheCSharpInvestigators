@@ -8,10 +8,13 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Pages
 {
+    /// <summary> 
+    /// Nuli Bang
+    /// <summary> 
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-
+        s
         public IndexModel(ILogger<IndexModel> logger,
             JsonFileProductService productService)
         {
