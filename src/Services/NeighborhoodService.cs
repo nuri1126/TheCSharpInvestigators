@@ -7,21 +7,21 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
-    public class NeighbourhoodService
+    public class NeighborhoodService
     {
-        public NeighbourhoodService(IWebHostEnvironment webHostEnvironment)
+        public NeighborhoodService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
         private IWebHostEnvironment WebHostEnvironment { get; }
 
-        private string NeighbourhoodFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "neighbourhoods.json");
+        private string NeighborhoodFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "neighborhoods.json");
 
-        public IEnumerable<Neighbourhood> GetNeighbourhoods()
+        public IEnumerable<Neighborhood> GetNeighborhoods()
         {
-            using var jsonFileReader = File.OpenText(NeighbourhoodFileName);
-            return JsonSerializer.Deserialize<Neighbourhood[]>(jsonFileReader.ReadToEnd(),
+            using var jsonFileReader = File.OpenText(NeighborhoodFileName);
+            return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
     }
