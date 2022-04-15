@@ -2,7 +2,7 @@
 
 namespace ContosoCrafts.WebSite.Models
 {
-    public class Neighbourhood
+    public class Neighborhood
     {
         public string Name { get; set; }
         public string Image { get; set; }
@@ -10,6 +10,6 @@ namespace ContosoCrafts.WebSite.Models
         public string State { get; set; }
         public string[] Comments { get; set; }
 
-        public override string ToString() => JsonSerializer.Serialize<Neighbourhood>(this);
+        public override string ToString() => JsonSerializer.Serialize<Neighborhood>(this);
     }
 }
