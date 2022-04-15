@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -23,20 +24,22 @@ namespace ContosoCrafts.WebSite.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        
+        private readonly NeighborhoodService _neighborhoodService;
+        public IEnumerable<Neighborhood> Neighborhoods { get; private set; }
+
         public IndexModel(ILogger<IndexModel> logger,
-            JsonFileProductService productService)
+            NeighborhoodService neighborhoodService)
         {
             _logger = logger;
-            ProductService = productService;
+            _neighborhoodService = neighborhoodService;
         }
 
-        public JsonFileProductService ProductService { get; }
         public IEnumerable<ProductModel> Products { get; private set; }
+        
 
         public void OnGet()
         {
-            Products = ProductService.GetProducts();
+            Neighborhoods = _neighborhoodService.GetNeighborhoods();
         }
     }
 }
