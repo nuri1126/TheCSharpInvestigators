@@ -143,3 +143,20 @@ ul {
     background: -moz-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
     background: linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
 }
+
+/* About Us Page
+-------------------------------------------------- */
+.team-cards {
+    /*Consider add horizontal scroll*/
+}
+
+.team-member {
+    height: 310px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.team-member .member-name h1 {
+    font-size: 30px;
+    display: inline-flex;
+}
