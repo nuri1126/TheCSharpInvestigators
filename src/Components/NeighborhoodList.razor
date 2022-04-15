@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using ContosoCrafts.WebSite.Models
+@using ContosoCrafts.WebSite.Services
+@inject NeighborhoodService _neighborhoodService
+<h3>Neighborhoods of Seattle</h3>
+
+<div class="card-columns">
+@foreach (var neighborhood in _neighborhoodService.GetNeighborhoods())
+{
+    <div class="card">
+        <div class="card-img" style="background-image: url('@neighborhood.Image');">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@neighborhood.Name</h5>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted"><button
+              data-toggle="modal" data-target="#productModal" class="btn btn-primary">More Info</button>
+            </small>
+        </div>
+    </div>
+}
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@code {
+    
+}
