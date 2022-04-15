@@ -1,3 +1,5 @@
+// Not sure if this page is necessary... 
+
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
