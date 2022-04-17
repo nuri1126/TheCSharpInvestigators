@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContosoCrafts.WebSite.Controllers
+namespace LetsGoSEA.WebSite.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class NeighborhoodsController : Controller
     {
@@ -24,12 +23,15 @@ namespace ContosoCrafts.WebSite.Controllers
             return NeighborhoodService.GetNeighborhoods();
         }
 
-        [Route("Name")]
-        [HttpGet]
-        public Neighborhood Get([FromQuery] string name)
+       /// <summary>
+       /// Returns a new view of the Neighborhood matching input name. 
+       /// </summary>
+       /// <param name="name">Name of Neighborhood</param>
+       /// <returns></returns>
+        public ViewResult GetNeighborhood(string name) 
         {
-            return NeighborhoodService.GetNeighborhoodByName(name);
+           return View(NeighborhoodService.GetNeighborhoodByName(name));
         }
-
+        
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Text.Json;
 using LetsGoSEA.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ContosoCrafts.WebSite.Services
+namespace LetsGoSEA.WebSite.Services
 {
     public class NeighborhoodService
     {
@@ -23,15 +22,24 @@ namespace ContosoCrafts.WebSite.Services
         public IEnumerable<Neighborhood> GetNeighborhoods()
         {
             using var jsonFileReader = File.OpenText(NeighborhoodFileName);
-            return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
+
+            var list = JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+
+            return list; 
         }
-        
+
+
+
+        /// <summary>
+        ///  Returns the specified Neighborhood.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns> The corresponding Neighborhood object </returns>
         public Neighborhood GetNeighborhoodByName(string name)
         {
-            var data = GetNeighborhoods().Where(x => x.Name == name) as Neighborhood;
-            Console.WriteLine(data);
-            return data;
+            return (Neighborhood)GetNeighborhoods().Where(x => x.Name == name); 
         }
     }
+
 }
