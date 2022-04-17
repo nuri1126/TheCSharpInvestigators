@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json;
-using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
+using LetsGoSEA.WebSite.Models;
+using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ContosoCrafts.WebSite
+namespace LetsGoSEA.WebSite
 {
     public class Startup
     {
@@ -28,7 +28,6 @@ namespace ContosoCrafts.WebSite
             services.AddServerSideBlazor();
             services.AddHttpClient();
             services.AddControllers();
-            services.AddTransient<JsonFileProductService>();
             services.AddTransient<NeighborhoodService>();
         }
 

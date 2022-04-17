@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using ContosoCrafts.WebSite.Models;
+using LetsGoSEA.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ContosoCrafts.WebSite.Services
+namespace LetsGoSEA.WebSite.Services
 {
     public class NeighborhoodService
     {

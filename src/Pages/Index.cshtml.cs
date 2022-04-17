@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
+using LetsGoSEA.WebSite.Models;
+using LetsGoSEA.WebSite.Services;
 
-namespace ContosoCrafts.WebSite.Pages
+namespace LetsGoSEA.WebSite.Pages
 {
     /// <summary> 
     /// Nuli Bang
@@ -34,7 +34,7 @@ namespace ContosoCrafts.WebSite.Pages
             _neighborhoodService = neighborhoodService;
         }
 
-        public IEnumerable<ProductModel> Products { get; private set; }
+        // public IEnumerable<ProductModel> Products { get; private set; }
         
 
         public void OnGet()

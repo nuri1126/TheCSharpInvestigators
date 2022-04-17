@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace ContosoCrafts.WebSite.Models
+namespace LetsGoSEA.WebSite.Models
 {
     public class Neighborhood
     {

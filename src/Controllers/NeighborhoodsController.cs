@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
+using LetsGoSEA.WebSite.Models;
+using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContosoCrafts.WebSite.Controllers
+namespace LetsGoSEA.WebSite.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
