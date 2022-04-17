@@ -8,7 +8,7 @@ namespace ContosoCrafts.WebSite.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NeighborhoodsController : ControllerBase
+    public class NeighborhoodsController : Controller
     {
         public NeighborhoodsController(NeighborhoodService neighborhoodService)
         {
@@ -22,5 +22,12 @@ namespace ContosoCrafts.WebSite.Controllers
         {
             return NeighborhoodService.GetNeighborhoods();
         }
+
+       
+        public ViewResult GetNeighborhood(string name) 
+        {
+           return View(NeighborhoodService.GetNeighborhoodByName(name));
+        }
+        
     }
 }
