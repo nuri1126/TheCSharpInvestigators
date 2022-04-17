@@ -16,7 +16,11 @@
             <div class="card-footer">
                 <small>@neighborhood.shortDesc</small> <br />
                 <small class="text-muted" style="display: block">
-                    <a href="/@neighborhood.Name">
+                    @{ 
+                        // Remove space in neighborhood.Name to allow path to Page
+                        string modName = neighborhood.Name.Replace(" ", "");
+                    }
+                    <a href="/@modName">
                         <button data-toggle="modal" data-target="#productModal" class="btn btn-primary">More Info</button>
                     </a>
                 </small>
@@ -28,9 +32,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @code {
-    static string AddDelimiter(string name)
-    {
-        return name.Replace(" ", "_");
-    }
+
 }
 `
