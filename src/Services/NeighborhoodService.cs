@@ -22,8 +22,17 @@ namespace ContosoCrafts.WebSite.Services
         public IEnumerable<Neighborhood> GetNeighborhoods()
         {
             using var jsonFileReader = File.OpenText(NeighborhoodFileName);
-            return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
+
+            var list = JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+
+            return list; 
+        }
+
+        // remove later 
+        public Neighborhood GetNeighborhoodByName(string name)
+        {
+            return (Neighborhood)GetNeighborhoods().Where(x => x.Name == name); 
         }
 
         /// <summary>
