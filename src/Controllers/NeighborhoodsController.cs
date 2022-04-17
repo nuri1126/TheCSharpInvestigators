@@ -23,7 +23,11 @@ namespace ContosoCrafts.WebSite.Controllers
             return NeighborhoodService.GetNeighborhoods();
         }
 
-       
+       /// <summary>
+       /// Returns a new view of the Neighborhood matching input name. 
+       /// </summary>
+       /// <param name="name">Name of Neighborhood</param>
+       /// <returns></returns>
         public ViewResult GetNeighborhood(string name) 
         {
            return View(NeighborhoodService.GetNeighborhoodByName(name));
