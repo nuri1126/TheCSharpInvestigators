@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -21,8 +22,18 @@ namespace ContosoCrafts.WebSite.Services
         public IEnumerable<Neighborhood> GetNeighborhoods()
         {
             using var jsonFileReader = File.OpenText(NeighborhoodFileName);
-            return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
+
+            var list = JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+
+            return list; 
+        }
+
+        // remove later 
+        public Neighborhood GetNeighborhoodByName(string name)
+        {
+            return (Neighborhood)GetNeighborhoods().Where(x => x.Name == name); 
         }
     }
+
 }
