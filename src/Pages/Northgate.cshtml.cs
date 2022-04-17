@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LetsGoSEA.WebSite.Pages
 {
-    public class NeighborhoodModel : PageModel
+    public class NorthgateModel : PageModel
     {
         public void OnGet()
         {
