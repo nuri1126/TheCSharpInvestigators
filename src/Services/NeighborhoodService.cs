@@ -29,11 +29,7 @@ namespace ContosoCrafts.WebSite.Services
             return list; 
         }
 
-        // remove later 
-        public Neighborhood GetNeighborhoodByName(string name)
-        {
-            return (Neighborhood)GetNeighborhoods().Where(x => x.Name == name); 
-        }
+
 
         /// <summary>
         ///  Returns the specified Neighborhood.
