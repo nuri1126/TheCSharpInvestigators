@@ -1,9 +1,13 @@
 ﻿@page
-@using ContosoCrafts.WebSite.Components 
+@using ContosoCrafts.WebSite.Components
 @model NeighborhoodModel
 @{
-    ViewData["Title"] = "Neighborhood Page"; // TODO: Update to autofill selected Neighborhood                                         
+    ViewData["Title"] = "Neighborhood Page"; // TODO: Update to autofill selected Neighborhood
 }
 
 <h1>@ViewData["Title"]</h1>
 
+<!--Render Neighborhood component-->
+@(await Html.RenderComponentAsync<Neighborhood>(RenderMode.ServerPrerendered))
+
+<script src="_framework/blazor.server.js"></script>
