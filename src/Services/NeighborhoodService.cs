@@ -7,7 +7,7 @@ using System.Text.Json;
 using LetsGoSEA.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ContosoCrafts.WebSite.Services
+namespace LetsGoSEA.WebSite.Services
 {
     public class NeighborhoodService
     {
