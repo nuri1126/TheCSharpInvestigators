@@ -7,7 +7,14 @@
 
 <h1>The C Sharp Investigators</h1>
 
-@(await Html.RenderComponentAsync<NeighborhoodList>(RenderMode.ServerPrerendered))
+
+<div class="jumbotron">
+    <h1 class="display-4">Lets Go SEA</h1>
+    <p class="lead">Welcome to Lets Go SEA, once place to explore the beautiful neighborhoods of Seattle.</p>
+    <hr class="my-4"/>
+    <a class="btn btn-primary btn-lg" role="button" asp-controller="Neighborhoods" asp-action="Index">Explore the neighborhoods</a>
+    
+</div>
 
 
 <script src="_framework/blazor.server.js"></script>
