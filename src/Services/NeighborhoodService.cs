@@ -29,9 +29,9 @@ namespace LetsGoSEA.WebSite.Services
         
         public Neighborhood GetNeighborhoodByName(string name)
         {
-            var data = GetNeighborhoods().Where(x => x.Name == name) as Neighborhood;
-            Console.WriteLine(data);
-            return data;
+            var data = GetNeighborhoods().Where(x => x.Name == name);
+            Neighborhood singleNeighborhood = data.ElementAt(0);
+            return singleNeighborhood;
         }
     }
 }
