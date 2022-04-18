@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContosoCrafts.WebSite.Controllers
+namespace LetsGoSEA.WebSite.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -18,18 +19,29 @@ namespace ContosoCrafts.WebSite.Controllers
         
         public NeighborhoodService NeighborhoodService { get; }
 
-        [HttpGet]
-        public IEnumerable<Neighborhood> Get()
+        // [HttpGet]
+        // public IEnumerable<Neighborhood> Get()
+        // {
+        //     return NeighborhoodService.GetNeighborhoods();
+        // }
+
+        /// <summary>
+        /// Route: /neighborhoods
+        /// Shows all neighborhoods in card layout
+        /// </summary>
+        /// <returns>A View with all the neighborhoods</returns>
+        public IActionResult Index()
         {
-            return NeighborhoodService.GetNeighborhoods();
+            return View();
         }
 
-        [Route("Name")]
-        [HttpGet]
-        public Neighborhood Get([FromQuery] string name)
+        [HttpGet("{name}")]
+        public IActionResult GetNeighborhood(string name)
         {
-            return NeighborhoodService.GetNeighborhoodByName(name);
+            var viewModel = NeighborhoodService.GetNeighborhoodByName(name);
+            return View(viewModel);
         }
+
 
     }
 }
