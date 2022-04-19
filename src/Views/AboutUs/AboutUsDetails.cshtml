@@ -1,0 +1,25 @@
+﻿@using LetsGoSEA.WebSite.Services
+@inject AboutUsService _aboutUsService
+
+@{
+    ViewData["Title"] = "About Us";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="team-cards">
+    @foreach (var teamMember in _aboutUsService.GetAboutUs())
+    {
+        <div class="team-member">
+            <div class="member-name">
+                <h1>@teamMember.Name</h1>
+                <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg  width="20" /></a>
+            </div>
+            <img src=@teamMember.Image alt="image" height="300">
+            <h2>@teamMember.Bio</h2>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
