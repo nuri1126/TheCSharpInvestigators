@@ -7,11 +7,11 @@ namespace LetsGoSEA.WebSite.Models
     /// </summary>
     public class AboutUsModel
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string LinkedIn { get; set; }
-        public string Image { get; set; }
-        public string Bio { get; set; }
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = "Default";
+        public string LinkedIn { get; set; } = "Default";
+        public string Image { get; set; } = "Default";
+        public string Bio { get; set; } = "Default";
 
         public override string ToString() => JsonSerializer.Serialize<AboutUsModel>(this);
     }
