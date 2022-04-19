@@ -28,7 +28,10 @@ namespace LetsGoSEA.WebSite
             services.AddServerSideBlazor();
             services.AddHttpClient();
             services.AddControllers();
+            // Add Neighborhood service
             services.AddTransient<NeighborhoodService>();
+            // Add AboutUs service 
+            services.AddTransient<AboutUsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
