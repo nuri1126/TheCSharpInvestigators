@@ -24,18 +24,18 @@ namespace LetsGoSEA.WebSite.Services
         //Get the Neighborhood data's file name and create a path with combining it's root path.
         private string NeighborhoodFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "neighborhoods.json");
 
-        public IEnumerable<Neighborhood> GetNeighborhoods()
+        public IEnumerable<NeighborhoodModel> GetNeighborhoods()
         {
             using var jsonFileReader = File.OpenText(NeighborhoodFileName);
-            return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
+            return JsonSerializer.Deserialize<NeighborhoodModel[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
 
         //Query to get neighborhoods data by name and return each of them
-        public Neighborhood GetNeighborhoodByName(string name)
+        public NeighborhoodModel GetNeighborhoodByName(string name)
         {
             var data = GetNeighborhoods().Where(x => x.Name == name);
-            Neighborhood singleNeighborhood = data.ElementAt(0);
+            NeighborhoodModel singleNeighborhood = data.ElementAt(0);
             return singleNeighborhood;
         }
     }
