@@ -28,16 +28,15 @@ namespace LetsGoSEA.WebSite.Controllers
         //     return NeighborhoodService.GetNeighborhoods();
         // }
 
-        /// <summary>
         /// Route: /neighborhoods
         /// Shows all neighborhoods in card layout
-        /// </summary>
-        /// <returns>A View with all the neighborhoods</returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// Route: /neighborhoods/{name}
+        // Returns A View with all the neighborhoods
         [HttpGet("{name}")]
         public IActionResult GetNeighborhood(string name)
         {
