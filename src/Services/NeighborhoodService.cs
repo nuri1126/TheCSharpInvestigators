@@ -30,7 +30,8 @@ namespace LetsGoSEA.WebSite.Services
             return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
-        
+
+        //Query to get neighborhoods data by name and return each of them
         public Neighborhood GetNeighborhoodByName(string name)
         {
             var data = GetNeighborhoods().Where(x => x.Name == name);
