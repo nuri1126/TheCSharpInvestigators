@@ -21,6 +21,7 @@ namespace LetsGoSEA.WebSite.Services
 
         private IWebHostEnvironment WebHostEnvironment { get; }
 
+        //Get the Neighborhood data's file name and create a path with combining it's root path.
         private string NeighborhoodFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "neighborhoods.json");
 
         public IEnumerable<Neighborhood> GetNeighborhoods()
