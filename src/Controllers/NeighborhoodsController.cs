@@ -40,6 +40,7 @@ namespace LetsGoSEA.WebSite.Controllers
         [HttpGet("{name}")]
         public IActionResult GetNeighborhood(string name)
         {
+            // Get neighborhoods' data by name and return each of them to it's detail pages(view)
             var viewModel = NeighborhoodService.GetNeighborhoodByName(name);
             return View(viewModel);
         }
