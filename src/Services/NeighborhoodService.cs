@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace LetsGoSEA.WebSite.Services
 {
+    /// <summary>
+    /// Mediates communication between a NeighborhoodsController and Neighborhoods Data  
+    /// </summary>
     public class NeighborhoodService
     {
         public NeighborhoodService(IWebHostEnvironment webHostEnvironment)
