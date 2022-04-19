@@ -22,12 +22,6 @@ namespace LetsGoSEA.WebSite.Controllers
         
         public NeighborhoodService NeighborhoodService { get; }
 
-        // [HttpGet]
-        // public IEnumerable<Neighborhood> Get()
-        // {
-        //     return NeighborhoodService.GetNeighborhoods();
-        // }
-
         /// Route: /neighborhoods
         /// Shows all neighborhoods in card layout
         public IActionResult Index()
