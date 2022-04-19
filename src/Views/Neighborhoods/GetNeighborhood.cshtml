@@ -6,13 +6,15 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<!--Detail page of each neighborhoods!-->
+
 <div class="jumbotron">
     <h1 class="display-2">
         @Model.Name
         <h1 class="display-4">@Model.City, @Model.State</h1>
     </h1>
-    <img src="@Model.Image" class="img-fluid" alt="Responsive Image of @Model.Name"/>
-    <hr class="my-4"/>
+    <img src="@Model.Image" class="img-fluid" alt="Responsive Image of @Model.Name" />
+    <hr class="my-4" />
     <p>@Model.shortDesc</p>
 </div>
 
