@@ -24,11 +24,9 @@ namespace LetsGoSEA.WebSite.Controllers
 
         // Route: /AboutUs
         // Returns a View with all the team member info
-        [HttpGet]
-        public IActionResult ShowAboutUsDetails()
+        public IActionResult Index()
         {
-            var viewModel = aboutUsService.GetAboutUs();
-            return View(viewModel);
+            return View();
         }
 
 
