@@ -138,12 +138,14 @@ ul {
     background: -o-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
     background: -moz-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
     background: linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
+    z-index: 1;
 }
 .bg-footer {
     background: -webkit-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -o-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -moz-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
+    z-index: 1;
 }
 
 /* About Us Page
@@ -161,4 +163,16 @@ ul {
 .team-member .member-name h1 {
     font-size: 30px;
     display: inline-flex;
+}
+
+#myVideo {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    z-index: -1;
 }
