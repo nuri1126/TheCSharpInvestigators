@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LetsGoSEA.WebSite.Controllers
 {
+    /// <summary>
+    /// Neighborhoods Page Controller
+    /// </summary>
     [Route("[controller]")]
     [ApiController]
     public class NeighborhoodsController : Controller
