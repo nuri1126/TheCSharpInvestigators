@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Narissa Tsuboi",
+    "linkedin": "https://www.linkedin.com/in/tsuboin/",
+    "image": "https://media-exp1.licdn.com/dms/image/C5603AQGtYP9R9Fp31A/profile-displayphoto-shrink_800_800/0/1645239329773?e=1655942400&v=beta&t=aUAd9PHA44RJUIx22V713GAmGzjsh0NNhkqmDhI0I9I",
+    "bio": "Nar's bio'"
+  },
+  {
+    "id": "2",
+    "name": "Nirmalya Ghosh",
+    "linkedin": "https://www.linkedin.com/in/nirmalyagh/",
+    "image": "https://media-exp1.licdn.com/dms/image/C5603AQHwyhHTBGzTxg/profile-displayphoto-shrink_800_800/0/1592860870323?e=1655942400&v=beta&t=JHswktqQe2_rytVj201cYAcn23SclXbXYnreUaeDBt8",
+    "bio": "Nirm's bio'"
+  },
+  {
+    "id": "3",
+    "name": "Nuli Bang",
+    "linkedin": "https://www.linkedin.com/in/nuli-claire-bang/",
+    "image": "https://media-exp1.licdn.com/dms/image/C4D03AQFF-Dl8oGPNHQ/profile-displayphoto-shrink_800_800/0/1636692628680?e=1655942400&v=beta&t=6VxrdrYeZ7UaqHctb-ScR6NWTzuFACAQKGR8YUuzBiU",
+    "bio": "Nuli's bio'"
+  },
+  {
+    "id": "4",
+    "name": "Evan Marshall",
+    "linkedin": "https://www.linkedin.com/in/evan-marshall-87594a163/",
+    "image": "https://media-exp1.licdn.com/dms/image/C4D03AQG5Hj-COzfRaQ/profile-displayphoto-shrink_800_800/0/1525875905509?e=1655942400&v=beta&t=bAILg2Zi53FC-i1nTdMtaLteMDEGGeTrc2F5ZEmqQag",
+    "bio": "Evan's bio'"
+  },
+  {
+    "id": "5",
+    "name": "Zi Wang",
+    "linkedin": "https://www.linkedin.com/in/zw4-code/",
+    "image": "https://media-exp1.licdn.com/dms/image/D5603AQFNjuQXQFNu5Q/profile-displayphoto-shrink_800_800/0/1649434456216?e=1655942400&v=beta&t=qYbO8wKmvK8VvwoPzCclDwjXb9bbwpqWczPpaC-sm_I",
+    "bio": "Zi's bio'"
+  }
+]
+

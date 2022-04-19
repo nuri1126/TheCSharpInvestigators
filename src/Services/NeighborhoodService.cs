@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace LetsGoSEA.WebSite.Services
 {
+    /// <summary>
+    /// Mediates communication between a NeighborhoodsController and Neighborhoods Data  
+    /// </summary>
     public class NeighborhoodService
     {
         public NeighborhoodService(IWebHostEnvironment webHostEnvironment)
@@ -18,19 +21,21 @@ namespace LetsGoSEA.WebSite.Services
 
         private IWebHostEnvironment WebHostEnvironment { get; }
 
+        //Get the Neighborhood data's file name and create a path with combining it's root path.
         private string NeighborhoodFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "neighborhoods.json");
 
-        public IEnumerable<Neighborhood> GetNeighborhoods()
+        public IEnumerable<NeighborhoodModel> GetNeighborhoods()
         {
             using var jsonFileReader = File.OpenText(NeighborhoodFileName);
-            return JsonSerializer.Deserialize<Neighborhood[]>(jsonFileReader.ReadToEnd(),
+            return JsonSerializer.Deserialize<NeighborhoodModel[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
-        
-        public Neighborhood GetNeighborhoodByName(string name)
+
+        //Query to get neighborhoods data by name and return each of them
+        public NeighborhoodModel GetNeighborhoodByName(string name)
         {
             var data = GetNeighborhoods().Where(x => x.Name == name);
-            Neighborhood singleNeighborhood = data.ElementAt(0);
+            NeighborhoodModel singleNeighborhood = data.ElementAt(0);
             return singleNeighborhood;
         }
     }

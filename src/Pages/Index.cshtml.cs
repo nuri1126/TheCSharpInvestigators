@@ -25,7 +25,7 @@ namespace LetsGoSEA.WebSite.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly NeighborhoodService _neighborhoodService;
-        public IEnumerable<Neighborhood> Neighborhoods { get; private set; }
+        public IEnumerable<NeighborhoodModel> Neighborhoods { get; private set; }
 
         public IndexModel(ILogger<IndexModel> logger,
             NeighborhoodService neighborhoodService)

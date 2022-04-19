@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LetsGoSEA.WebSite.Controllers
 {
+    /// <summary>
+    /// Neighborhoods Page Controller
+    /// </summary>
     [Route("[controller]")]
     [ApiController]
     public class NeighborhoodsController : Controller
@@ -25,19 +28,19 @@ namespace LetsGoSEA.WebSite.Controllers
         //     return NeighborhoodService.GetNeighborhoods();
         // }
 
-        /// <summary>
         /// Route: /neighborhoods
         /// Shows all neighborhoods in card layout
-        /// </summary>
-        /// <returns>A View with all the neighborhoods</returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// Route: /neighborhoods/{name}
+        // Returns A View with all the neighborhoods
         [HttpGet("{name}")]
         public IActionResult GetNeighborhood(string name)
         {
+            // Get neighborhoods' data by name and return each of them to it's detail pages(view)
             var viewModel = NeighborhoodService.GetNeighborhoodByName(name);
             return View(viewModel);
         }

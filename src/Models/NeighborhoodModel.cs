@@ -2,7 +2,7 @@
 
 namespace LetsGoSEA.WebSite.Models
 {
-    public class Neighborhood
+    public class NeighborhoodModel
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -12,6 +12,6 @@ namespace LetsGoSEA.WebSite.Models
         public string shortDesc { get; set; }
         public string[] Comments { get; set; }
 
-        public override string ToString() => JsonSerializer.Serialize<Neighborhood>(this);
+        public override string ToString() => JsonSerializer.Serialize<NeighborhoodModel>(this);
     }
 }
