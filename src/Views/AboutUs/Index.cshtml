@@ -7,21 +7,6 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-
-<div class="team-cards">
-    @foreach (var teamMember in _aboutUsService.GetAboutUs())
-    {
-        <div class="team-member">
-            <div class="member-name">
-                <h1>@teamMember.Name</h1>
-                <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg width="20" /></a>
-            </div>
-            <img src=@teamMember.Image alt="image" height="300">
-            <h2>@teamMember.Bio</h2>
-        </div>
-    }
-</div>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!--Owl card slider-->
@@ -29,12 +14,11 @@
 <link rel="stylesheet" type="text/css" href="~/css/owl.carousel.min.css">
 <section id="slider" class="pt-5">
     <div class="container">
-        <h1>AboutUS Owl Carousel</h1>
         <div class="slider">
             <div class="owl-carousel">
                 @foreach (var teamMember in _aboutUsService.GetAboutUs())
                 {
-                    <div class="slider-card">
+                    <div class="slider-card team-cards">
                         <div class="team-member">
                             <div class="d-flex justify-content-center align-items-center mb-4">
                                 <img src=@teamMember.Image alt="image" height="300">
