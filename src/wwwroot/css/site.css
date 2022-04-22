@@ -157,7 +157,7 @@ ul {
 .team-member {
     height: 310px;
     display: inline-block;
-    margin-right: 20px;
+    margin-top: 30px;
 }
 
 .team-member .member-name h1 {
@@ -165,6 +165,18 @@ ul {
     display: inline-flex;
 }
 
+.team-member img{
+    object-fit: cover;
+    max-width: 80%;
+}
+
+.team-member p {
+    padding-b: 30px;
+}
+
+.member-name h1 img {
+    width: 20px !important;
+}
 #myVideo {
     display: block;
     position: absolute;
@@ -186,9 +198,9 @@ ul {
 .slider .owl-item.active.center .slider-card {
     transform: scale(1.15);
     opacity: 1;
-    background: #ff9966; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #ff5e62, #ff9966); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #ff5e62, #ff9966); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background: #84A98C;*/ /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #84A98C, #CAD2C5); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #84A98C, #CAD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
 }
 
@@ -201,10 +213,15 @@ ul {
     transform: scale(0.9);
     opacity: 0.5;
     transition: all 0.3s;
+    text-align: center;
 }
 
 .slider-card img {
     border-radius: 5px 5px 0px 0px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:80%;
 }
 
 .owl-nav .owl-prev {
