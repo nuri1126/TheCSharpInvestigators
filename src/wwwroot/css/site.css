@@ -124,6 +124,11 @@ h1 {
 ul {
     font-family: 'Nunito', sans-serif;
 }
+
+.btn-xl {
+    font-size: 30px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
