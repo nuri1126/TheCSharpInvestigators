@@ -36,12 +36,16 @@
                 {
                     <div class="slider-card">
                         <div class="team-member">
-                            <div class="member-name">
-                                <h1>@teamMember.Name</h1>
-                                <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg width="20" /></a>
+                            <div class="d-flex justify-content-center align-items-center mb-4">
+                                <img src=@teamMember.Image alt="image" height="300">
                             </div>
-                            <img src=@teamMember.Image alt="image" height="300">
-                            <h2>@teamMember.Bio</h2>
+                            <div class="member-name">
+                                <h1 class="mb-0 text-center member-name">
+                                    @teamMember.Name
+                                    <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg width="10" !important/></a>
+                                    </h1>
+                            </div>
+                            <p>@teamMember.Bio</p>
                         </div>
                     </div>
                 }
