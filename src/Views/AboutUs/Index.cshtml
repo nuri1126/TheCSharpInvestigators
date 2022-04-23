@@ -12,10 +12,10 @@
 
 <p style="font-size:20px; color: #84A98C; font-weight:bold; text-align:justify">
     We are the CSI &ndash;&ndash; C Sharp Investigators &ndash;&ndash; a group of computer science student from Seattle University! <br />
-    With the expanding city population, we decided to build this website to help Seattleites navigate, explore, and 
-    investigate our neighborhoods more easily.  
-    For the computer nerds out there, we built this website using C# and ASP.NET and used the Tableau software to 
-    generate our analytics and visuals. Feel free to connect with us on LinkedIn!  
+    With the expanding city population, we decided to build this website to help Seattleites navigate, explore, and
+    investigate our neighborhoods more easily.
+    For the computer nerds out there, we built this website using C# and ASP.NET and used the Tableau software to
+    generate our analytics and visuals. Feel free to connect with us on LinkedIn!
 </p>
 <!--Owl card slider-->
 
@@ -31,18 +31,20 @@
                             <div class="d-flex justify-content-center align-items-center mb-4">
                                 <img src=@teamMember.Image alt="image" height="300">
                             </div>
-                            <div class="member-name">
-                                <h1 class="mb-0 text-center member-name">
+                            <div class="mb-0 text-center member-name">
+                                <h1>
                                     @teamMember.Name
-                                    <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg width="10" !important/></a>
-                                    </h1>
+                                    <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg width="10" !important /></a>
+                                </h1>
+                                <p>@teamMember.Bio</p>
+                                <br>
                             </div>
-                            <p class="member-bio">@teamMember.Bio</p>
+
                         </div>
                     </div>
                 }
             </div>
-        </div>            
+        </div>
     </div>
 </section>
 <script src="~/js/owl.carousel.min.js"></script>

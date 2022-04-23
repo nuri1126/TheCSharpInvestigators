@@ -173,13 +173,16 @@ ul {
     max-width: 80%;
 }
 
-.team-member p {
-    padding-b: 30px;
+.member-name p {
+    text-align: justify;
+    margin: 20px 40px;
+    color: dimgray;
 }
 
 .member-name h1 img {
     width: 20px !important;
 }
+
 #myVideo {
     display: block;
     position: absolute;
@@ -205,6 +208,10 @@ ul {
     background: -webkit-linear-gradient(to bottom, #84A98C, #CAD2C5); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to bottom, #84A98C, #CAD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
+}
+
+.slider .owl-item.active.center .member-name p {
+    color: white;
 }
 
 .slider-card {
