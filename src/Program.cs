@@ -3,17 +3,24 @@ using Microsoft.Extensions.Hosting;
 
 namespace LetsGoSEA.WebSite
 {
+    /// <summary>
+    /// Program generates a .NET Generic Host. Host encapsulates resources: 
+    /// HTTP server, middleware, logging, DI, and configuration. 
+    /// </summary>
     public class Program
     {
         public static void Main(string[] args)
         {
+            // Configures host with set of default options
             CreateHostBuilder(args).Build().Run();
         }
 
+        // Initialize the website host webBuilder
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    // Specifies the Startup class when host is built
                     webBuilder.UseStartup<Startup>();
                 });
     }
