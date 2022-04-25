@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LetsGoSEA.WebSite.Controllers
 {
     /// <summary>
-    /// Neighborhoods Controller routes to Views to homepage and 
-    /// individual neighborhood pages 
+    /// Neighborhoods Controller 
     /// </summary>
     [Route("[controller]")]
     [ApiController]
