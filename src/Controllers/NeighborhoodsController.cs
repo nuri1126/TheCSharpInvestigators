@@ -1,42 +1,41 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using LetsGoSEA.WebSite.Models;
-using LetsGoSEA.WebSite.Services;
+﻿using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LetsGoSEA.WebSite.Controllers
 {
     /// <summary>
-    /// Neighborhoods Page Controller
+    /// Neighborhoods Controller routes to Views to homepage and 
+    /// individual neighborhood pages 
     /// </summary>
     [Route("[controller]")]
     [ApiController]
     public class NeighborhoodsController : Controller
     {
+        // Seed controller with service 
         public NeighborhoodsController(NeighborhoodService neighborhoodService)
         {
+            // Assign passed in service to controller prop 
             this.NeighborhoodService = neighborhoodService;
         }
-        
+
+        // Controller's retrievable service property used for dependency injection
         public NeighborhoodService NeighborhoodService { get; }
 
-        /// Route: /neighborhoods
-        /// Shows all neighborhoods in card layout
+        // Route: /neighborhoods
+        // Displays View of all neighborhoods in card layout
         public IActionResult Index()
         {
-            return View();
+            return View(); // "Views/Neighborhoods/Index.cshtml" 
         }
 
-        /// Route: /neighborhoods/{name}
-        // Returns A View with all the neighborhoods
+        // Route: /neighborhoods/{name}
+        // Displays a View of a selected neighborhood in its own tab
         [HttpGet("{name}")]
         public IActionResult GetNeighborhood(string name)
         {
-            // Get neighborhoods' data by name and return each of them to it's detail pages(view)
+            // Renders a ViewResult object of the specific neighborhood
             var viewModel = NeighborhoodService.GetNeighborhoodByName(name);
-            return View(viewModel);
+            return View(viewModel); // "Views/GetNeighborhoods.cshtml"
         }
 
 
