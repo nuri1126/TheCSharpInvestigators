@@ -13,17 +13,18 @@ namespace LetsGoSEA.WebSite.Controllers
         // Seed controller with service 
         public AboutUsController(AboutUsService aboutUsService)
         {
-            this.aboutUsService = aboutUsService; // Assign passed in service to controller prop 
+            // Assign passed in service to controller prop 
+            this.aboutUsService = aboutUsService; 
         }
 
         // Controller's retrievable service property used for dependency injection
         public AboutUsService aboutUsService { get; }
 
         // Route: /AboutUs
-        // Returns a View with developer bios
+        // Renders a ViewResult object with developer bios
         public IActionResult Index()
         {
-            return View(); // "AboutUs/Index.cshtml" 
+            return View(); // "View/AboutUs/Index.cshtml" 
         }
     }
 }
