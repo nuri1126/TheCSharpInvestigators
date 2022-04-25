@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.Json;
-using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace LetsGoSEA.WebSite
 {
+    /// <summary>
+    /// Startup configures services required by the app and defines the apps
+    /// request handling pipeline and middleware. 
+    /// </summary>
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -28,19 +27,24 @@ namespace LetsGoSEA.WebSite
             services.AddServerSideBlazor();
             services.AddHttpClient();
             services.AddControllers();
+
             // Add Neighborhood service
             services.AddTransient<NeighborhoodService>();
             // Add AboutUs service 
             services.AddTransient<AboutUsService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configure sets up the HTTP request pipeline and associated middleware. It is called during runtime. 
+        /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // When env is set to development, displays dev exception page 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            // When env is in prod, shows real error page 
             else
             {
                 app.UseExceptionHandler("/Error");
@@ -48,11 +52,10 @@ namespace LetsGoSEA.WebSite
                 app.UseHsts();
             }
 
+            // Adds middleware components to the request pipeline
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
