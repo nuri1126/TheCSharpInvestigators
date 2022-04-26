@@ -15,12 +15,30 @@
         font-family: 'Montserrat', sans-serif;
     }
 
+
+
     .home-title {
         position: absolute;
+        top: 100px;
+        right: 1050px;
         text-align: center;
         background: rgba(143, 201, 58, 0.4);
         background-size: 150px 400px;
-        border-radius: 25px
+        border-radius: 25px;
+    }
+
+    .home-tagline {
+        overflow-wrap: break-word;
+        position: absolute;
+        top: 450px;
+        bottom: 275px;
+        left: 1000px;
+        right: 150px;
+        text-align: justify;
+        background: rgba(143, 201, 58, 0.4);
+        background-size: 300px 500px;
+        border-radius: 25px;
+        padding: 25px 15px 25px 15px;
     }
 </style>
 
@@ -34,8 +52,8 @@
         <h1 style="font-size: 100px; padding: 50px 10px 50px 10px;">Lets Go SEA</h1>
     </div>
     <div>
-        <div style="text-align: justify; background: rgba(143, 201, 58, 0.4); background-size: 300px 150px; border-radius: 25px">
-            <p1>The one-stop site to explore the beautiful neighborhoods of Seattle!</p1>
+        <div class="home-tagline">
+            <p1 style="font-family: 'Montserrat', sans-serif; font-size:30px; font-weight:100">"The one-stop site to explore the beautiful neighborhoods of Seattle!"</p1>
         </div>
         <a class="btn btn-primary btn-xl" role="button" asp-controller="Neighborhoods" asp-action="Index">Lets Go Sea!</a>
     </div>

@@ -129,6 +129,10 @@ ul {
 }
 
 .btn-xl {
+    position: absolute;
+    top: 600px;
+    right: 600px;
+    bottom: 200px;
     font-size: 30px;
 }
 
