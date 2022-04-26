@@ -4,18 +4,38 @@
     ViewData["Title"] = "Home page";
 }
 
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    h1 {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .home-title {
+        position: absolute;
+        text-align: center;
+        background: rgba(143, 201, 58, 0.4);
+        background-size: 150px 400px;
+        border-radius: 25px
+    }
+</style>
+
 <!--Index page of 'Lets Go SEA' !-->
 <video autoplay muted loop preload="auto" id="myVideo">
     <source src="~/image/LetsGoSEA_Homepage.mov" type="video/mp4" />
 </video>
-<div class="jumbotron" style="background-color: transparent;">
-    <div class="lead" style="background-color: transparent;"></div>
-    <div style="text-align: justify; background:rgba(143, 201, 58, 0.4); background-size: 150px 400px; border-radius: 25px">
-        <h1 style="font: 600">Lets Go SEA</h1>
+<div class="jumbotron" style="background-color:transparent;">
+    <div class="lead" style="background-color:transparent;">
+    <div class="home-title">
+        <h1 style="font-size: 100px; padding: 50px 10px 50px 10px;">Lets Go SEA</h1>
     </div>
     <div>
         <div style="text-align: justify; background: rgba(143, 201, 58, 0.4); background-size: 300px 150px; border-radius: 25px">
-            <h1>The One Stop Site to explore the beautiful neighborhoods of Seattle</h1>
+            <p1>The one-stop site to explore the beautiful neighborhoods of Seattle!</p1>
         </div>
         <a class="btn btn-primary btn-xl" role="button" asp-controller="Neighborhoods" asp-action="Index">Lets Go Sea!</a>
     </div>
