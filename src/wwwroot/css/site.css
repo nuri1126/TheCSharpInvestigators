@@ -129,11 +129,10 @@ ul {
 }
 
 .btn-xl {
-    position: absolute;
-    top: 600px;
-    right: 600px;
-    bottom: 200px;
-    font-size: 30px;
+    position: fixed;
+    top:70%;
+    right:38%;
+    font-size: 150%;
 }
 
 .footer {
