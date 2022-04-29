@@ -28,11 +28,11 @@ namespace LetsGoSEA.WebSite.Controllers
         // Controller's retrievable service property used for dependency injection
         public NeighborhoodService NeighborhoodService { get; }
 
-        // Route: /neighborhoods
         // Displays View of all neighborhoods in card layout
-        public IActionResult Index()
+        [HttpGet("/Neighborhoods")]
+        public IActionResult Explore()
         {
-            return View(); // "Views/Neighborhoods/Index.cshtml" 
+            return View(); 
         }
 
         // Route: /neighborhoods/{name}
@@ -42,7 +42,7 @@ namespace LetsGoSEA.WebSite.Controllers
         {
             // Renders a ViewResult object of the specific neighborhood
             var viewModel = NeighborhoodService.GetNeighborhoodByName(name);
-            return View(viewModel); // "Views/GetNeighborhoods.cshtml"
+            return View(viewModel);
         }
 
         // Route: /neighborhoods/{create}
