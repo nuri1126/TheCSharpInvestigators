@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using LetsGoSEA.WebSite.Data;
 
 namespace LetsGoSEA.WebSite.Controllers
 {
@@ -17,12 +17,16 @@ namespace LetsGoSEA.WebSite.Controllers
     [ApiController]
     public class NeighborhoodsController : Controller
     {
+        // Holds DB context string connection
+        private readonly LetsGoSEAWebSiteContext _context;
 
-        // Seed controller with service 
-        public NeighborhoodsController(NeighborhoodService neighborhoodService)
+        // Seed controller with service and DB context
+        public NeighborhoodsController(NeighborhoodService neighborhoodService, LetsGoSEAWebSiteContext context)
         {
-            // Assign passed in service to controller prop 
+            //TODO: Add null context check here
+
             this.NeighborhoodService = neighborhoodService;
+            this._context = context;
         }
 
         // Controller's retrievable service property used for dependency injection
@@ -35,7 +39,6 @@ namespace LetsGoSEA.WebSite.Controllers
             return View(); 
         }
 
-        // Route: /neighborhoods/{name}
         // Displays a View of a selected neighborhood in its own tab
         [HttpGet("/Neighborhoods/{name}")]
         public IActionResult GetNeighborhood(string name)
@@ -45,14 +48,25 @@ namespace LetsGoSEA.WebSite.Controllers
             return View(viewModel);
         }
 
-        // Route: /neighborhoods/{create}
         // Displays a view of the Create page
-        [HttpGet("/Create")]
+        [HttpGet("/Neighborhoods/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("id,name,image,city,state,shortDesc")] NeighborhoodModel neighborhood)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(neighborhood);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(neighborhood));
+            }
+            return View(neighborhood);
+        }
 
     }
 }
