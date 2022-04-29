@@ -9,25 +9,30 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace LetsGoSEA.WebSite.Services
 {
+    /// <summary>
+    /// Mediates communication between a AboutUsController and About Us page details   
+    /// </summary>
     public class AboutUsService
     {
-        /// <summary>
-        /// Mediates communication between a AboutUsController and About Us page details   
-        /// </summary>
+        // Constructor
         public AboutUsService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
+        // Getter: Get JSON file from wwwroot
         private IWebHostEnvironment WebHostEnvironment { get; }
 
-        // Get the Team member data's file name and create a path with combining it's root path.
+        // Store the path of team member's JSON file (combine the root path, folder name, and file name)
         private string AboutUsFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "about_us.json");
 
-        // Query to get Team member data and return each of them
+        // Query to get all the team member objects from JSON file
         public IEnumerable<AboutUsModel> GetAboutUs()
         {
+            // Open AboutUs JSON file
             using var jsonFileReader = File.OpenText(AboutUsFileName);
+
+            // Read and Deserialize JSON file into an array of team member objects
             return JsonSerializer.Deserialize<AboutUsModel[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
