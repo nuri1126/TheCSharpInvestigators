@@ -9,6 +9,11 @@
 <!--Index page of neighborhoods to show the cards of them!-->
 <h1>Explore the beautiful neighborhoods of Seattle!</h1>
 
+<div>
+    <p>
+        <a asp-action="Create">Add a Neighborhood</a>
+    </p>
+</div>
 
 <div class="card-columns">
     @foreach (var neighborhood in _neighborhoodService.GetNeighborhoods())
