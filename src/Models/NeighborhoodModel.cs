@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace LetsGoSEA.WebSite.Models
 {
@@ -26,6 +27,7 @@ namespace LetsGoSEA.WebSite.Models
         public string ShortDesc { get; set; } = "Default";
 
         // Array of comments from registered users 
+        [NotMapped]
         public string[] Comments { get; set; } =  {"Default"};
 
         // Converts Model to JSON
