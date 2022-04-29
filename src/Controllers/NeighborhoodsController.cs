@@ -19,7 +19,7 @@ namespace LetsGoSEA.WebSite.Controllers
     {
 
         // Seed controller with service 
-        public NeighborhoodsController(NeighborhoodService neighborhoodService, IConfiguration configureation)
+        public NeighborhoodsController(NeighborhoodService neighborhoodService)
         {
             // Assign passed in service to controller prop 
             this.NeighborhoodService = neighborhoodService;
