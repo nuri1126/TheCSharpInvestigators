@@ -49,24 +49,24 @@ namespace LetsGoSEA.WebSite.Controllers
         }
 
         // Displays a view of the Create page
-        [HttpGet("/Neighborhoods/Create")]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //[HttpGet("/Neighborhoods/Create")]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name,image,city,state,shortDesc")] NeighborhoodModel neighborhood)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(neighborhood);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(neighborhood));
-            }
-            return View(neighborhood);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("id,name,image,city,state,shortDesc")] NeighborhoodModel neighborhood)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(neighborhood);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(neighborhood));
+        //    }
+        //    return View(neighborhood);
+        //}
 
     }
 }
