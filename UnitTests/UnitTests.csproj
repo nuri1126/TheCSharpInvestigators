@@ -17,4 +17,8 @@
 		<ProjectReference Include="..\src\LetsGoSEA.WebSite.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Pages\CRUDI\" />
+	</ItemGroup>
+
 </Project>
