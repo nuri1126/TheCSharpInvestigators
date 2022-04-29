@@ -14,20 +14,27 @@ namespace LetsGoSEA.WebSite.Services
     /// </summary>
     public class NeighborhoodService
     {
+        // Constructor
         public NeighborhoodService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
+        // Getter: Get JSON file from wwwroot
         private IWebHostEnvironment WebHostEnvironment { get; }
 
-        //Get the Neighborhood data's file name and create a path with combining it's root path.
+        // Store the path of Neighborhoods JSON file (combine the root path, folder name, and file name)
         private string NeighborhoodFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "neighborhoods.json");
 
+        // Generate/retrieve a list of NeighborhoodModel objects from JSON file
         public IEnumerable<NeighborhoodModel> GetNeighborhoods()
         {
+            // Open Neighborhoods JSON file
             using var jsonFileReader = File.OpenText(NeighborhoodFileName);
+
+            // Read and Deserialize JSON file into an array of NeighborhoodModel objects
             return JsonSerializer.Deserialize<NeighborhoodModel[]>(jsonFileReader.ReadToEnd(),
+                // Make case insensitive
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
 
