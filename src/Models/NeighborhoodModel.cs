@@ -30,6 +30,33 @@ namespace LetsGoSEA.WebSite.Models
         [NotMapped]
         public string[] Comments { get; set; } =  {"Default"};
 
+        // Address of neighborhood
+        public string Address { get; set; } = "Default";
+
+        // Latitude of neighborhood
+        public float Latitude { get; set; } = -1;
+
+        // Longitude of neighborhood
+        public float Longitude { get; set; } = -1;
+
+        // Walk score of the neighborhood
+        public int WalkScore { get; set; } = -1;
+
+        // Walk Score Description
+        public string WalkScoreDescription { get; set; } = "Default";
+
+        // Transit score of the neighborhood
+        public int TransitScore { get; set; } = -1;
+
+        // Transit score Description
+        public string TransitScoreDescription { get; set; } = "Default";
+
+        // Bike Score of the neighborhood
+        public int BikeScore { get; set; } = -1;
+
+        // Bike Score Description
+        public string BikeScoreDescription { get; set; } = "Default";
+
         // Converts Model to JSON
         public override string ToString() => JsonSerializer.Serialize<NeighborhoodModel>(this);
     }
