@@ -1,11 +1,14 @@
 [
   {
-    "id":  1,
+    "id": 1,
     "name": "Northgate",
     "image": "https://www.gglo.com/wp-content/uploads/2020/06/2018007_01_N64_cropped_2000x1100.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Home of the first covered mall in the United States"
+    "shortDesc": "Home of the first covered mall in the United States",
+    "address": "401 NE Northgate Way, Seattle, WA 98125",
+    "latitude": 47.7061263,
+    "longitude": -122.3280589
   },
   {
     "id": 2,
@@ -13,7 +16,10 @@
     "image": "https://api.trekaroo.com/system/photos/43112/original/20061120_GreenlakeAerial.jpg?1493789973",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Seattle's most beloved park!"
+    "shortDesc": "Seattle's most beloved park!",
+    "address": "7201 East Green Lake Dr N, Seattle, WA 98115",
+    "latitude": 47.6778049,
+    "longitude": -122.3422802
   },
   {
     "id": 3,
@@ -21,7 +27,10 @@
     "image": "https://i0.wp.com/news.theregistryps.com/wp-content/uploads/2018/10/DRProposal3032065AgendaID7009.jpg?fit=1200%2C673",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Famous for eclectic mix of urban shopping areas; historic homes and architecture; and great cafes, pubs, restaurants, and theaters"
+    "shortDesc": "Famous for eclectic mix of urban shopping areas; historic homes and architecture; and great cafes, pubs, restaurants, and theaters",
+    "address": "4301 University Way NE, Seattle, WA 98105",
+    "latitude": 47.6601101,
+    "longitude": -122.3146192
   },
   {
     "id": 4,
@@ -29,7 +38,10 @@
     "image": "https://www.traveloffpath.com/wp-content/uploads/2021/10/Ballard-Seattle.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Walkable, historic, and full of fun things to do, Ballard is a hot spot for young and old"
+    "shortDesc": "Walkable, historic, and full of fun things to do, Ballard is a hot spot for young and old",
+    "address": "2001 NW Canoe Pl, Seattle, WA 98117",
+    "latitude": 47.679520,
+    "longitude": -122.382140
   },
   {
     "id": 5,
@@ -37,7 +49,10 @@
     "image": "https://blondwayfarer.com/wp-content/uploads/2018/09/cloudy-waterfront-fremont-seattle.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Delicious food, quirky shops, public art, and stellar views of Seattle’s skyline"
+    "shortDesc": "Delicious food, quirky shops, public art, and stellar views of Seattle’s skyline",
+    "address": "206 N 36th St, Seattle, WA 98103",
+    "latitude": 47.652930,
+    "longitude": -122.356170
   },
   {
     "id": 6,
@@ -45,7 +60,10 @@
     "image": "https://www.isolahomes.com/sites/default/files/styles/page_header/public/gas-works-park.jpg?itok=a_rNX9iq",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "World-renowned Gas Works Park, and views of both the Olympic and Cascade mountains"
+    "shortDesc": "World-renowned Gas Works Park, and views of both the Olympic and Cascade mountains",
+    "address": "4219 Wallingford Ave N, Seattle, WA 98103",
+    "latitude": 47.658690,
+    "longitude": -122.337400
   },
   {
     "id": 7,
@@ -53,7 +71,10 @@
     "image": "https://voices.spu.edu/wp-content/uploads/2019/06/voices-queen-anne-kerry-park.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "These hills are abuzz with adventures for the whole family plus spectacular scenery and indie shops"
+    "shortDesc": "These hills are abuzz with adventures for the whole family plus spectacular scenery and indie shops",
+    "address": "150 W Blaine St, Seattle, WA 98119",
+    "latitude": 47.634825,
+    "longitude": -122.3589914
   },
   {
     "id": 8,
@@ -61,7 +82,10 @@
     "image": "https://cooperjacobs.com/wp-content/uploads/2020/03/eastlake-real-estate.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "A low-key, funky area of brightly colored homes and small businesses right by the water"
+    "shortDesc": "A low-key, funky area of brightly colored homes and small businesses right by the water",
+    "address": "2516 Eastlake Ave E, Seattle, WA 98102",
+    "latitude": 47.6423031,
+    "longitude": -122.3257668
   },
   {
     "id": 9,
@@ -69,7 +93,10 @@
     "image": "https://washingtonrowing.com/wp-content/uploads/2015/08/windermere-2015-34-2.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Montlake is a quiet, affluent neighborhood full of parks and well-maintained single-family homes"
+    "shortDesc": "Montlake is a quiet, affluent neighborhood full of parks and well-maintained single-family homes",
+    "address": "2305 24th Ave E, Seattle, WA 98112",
+    "latitude": 47.6396934,
+    "longitude": -122.302337
   },
   {
     "id": 10,
@@ -77,7 +104,10 @@
     "image": "https://lakeunionbeat.com/wp-content/uploads/2012/11/SouthLakeUnionAerial_big-1.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "The home base for Seattle’s thriving tech scene also holds a mélange of attractive sights, sips, and flavors"
+    "shortDesc": "The home base for Seattle’s thriving tech scene also holds a mélange of attractive sights, sips, and flavors",
+    "address": "404 Terry Ave N, Seattle, WA 98109",
+    "latitude": 47.6221919,
+    "longitude": -122.3369381
   },
   {
     "id": 11,
@@ -85,7 +115,10 @@
     "image": "https://downtownseattle.org/app/uploads/2019/02/Looking-south-e1550273498717.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "The central business district of Seattle, Washington"
+    "shortDesc": "The central business district of Seattle, Washington",
+    "address": "1000 4th Ave, Seattle, WA 98104",
+    "latitude": 47.6067142,
+    "longitude": -122.3326983
   },
   {
     "id": 12,
@@ -93,7 +126,10 @@
     "image": "https://apartmentlove.com/blogPhotos/1631555753/Capitol_Hill_Seattle_5_Things_to_Do_or_Visit.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Vibrating with life, Capitol Hill brims with eclectic venues and a community feel"
+    "shortDesc": "Vibrating with life, Capitol Hill brims with eclectic venues and a community feel",
+    "address": "1635 11th Ave, Seattle, WA 98122",
+    "latitude": 47.6156969,
+    "longitude": -122.3182882
   },
   {
     "id": 13,
@@ -101,7 +137,10 @@
     "image": "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/170000/170831-Seattle.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Walkable and cool, Belltown has an artsy, laid-back vibe"
+    "shortDesc": "Walkable and cool, Belltown has an artsy, laid-back vibe",
+    "address": "2604 1st Ave, Seattle, WA 98121",
+    "latitude": 47.6155028,
+    "longitude": -122.3497647
   },
   {
     "id": 14,
@@ -109,7 +148,10 @@
     "image": "https://www.gethappyathome.com/wp-content/uploads/2020/12/Seattle-Leschi-Neighborhood-Header-Image-scaled.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "A mellow neighborhood on coveted real estate overlooking Lake Washington"
+    "shortDesc": "A mellow neighborhood on coveted real estate overlooking Lake Washington",
+    "address": "398 Lake Washington Blvd S, Seattle, WA 98144",
+    "latitude": 47.5992691,
+    "longitude": -122.2887234
   },
   {
     "id": 15,
@@ -117,7 +159,10 @@
     "image": "https://static.toiimg.com/thumb/msid-44848558,width-550,height-433/44848558.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "The birthplace of Seattle, historic place known for its Renaissance Revival architecture, First Thursday art walks, night life, delicious lunch spots, and quirky boutiques"
+    "shortDesc": "The birthplace of Seattle, historic place known for its Renaissance Revival architecture, First Thursday art walks, night life, delicious lunch spots, and quirky boutiques",
+    "address": "506 2nd Ave, Seattle, WA 98104",
+    "latitude": 47.6019579,
+    "longitude": -122.3317383
   },
   {
     "id": 16,
@@ -125,7 +170,10 @@
     "image": "https://insightpestnorthwest.com/wp-content/uploads/yokohama-2223502_1280-1.jpg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "The cultural hub for Seattle’s Asian American communities"
+    "shortDesc": "The cultural hub for Seattle’s Asian American communities",
+    "address": "423 Maynard Ave S, Seattle, WA 98104",
+    "latitude": 47.5989349,
+    "longitude": -122.3251781
   },
   {
     "id": 17,
@@ -133,6 +181,9 @@
     "image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
     "city": "Seattle",
     "state": "WA",
-    "shortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city"
+    "shortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
+    "address": "4304 SW Dakota St, Seattle, WA 98116",
+    "latitude": 47.5666654,
+    "longitude": -122.3869917
   }
 ]
