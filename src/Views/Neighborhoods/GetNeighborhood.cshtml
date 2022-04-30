@@ -16,5 +16,32 @@
     <img src="@Model.Image" class="img-fluid" alt="Responsive Image of @Model.Name" />
     <hr class="my-4" />
     <p>@Model.ShortDesc</p>
+
+    
+    <!-- Show Walk Score, Transit Score, Bike Score if we have them.
+         Otherwise, we don't show it
+    -->
+    @{
+        if (Model.WalkScore> 0)
+        {
+            <p>Walk Score: @Model.WalkScore</p>
+            <p>@Model.WalkScoreDescription</p>
+        }
+
+        if (Model.TransitScore > 0)
+        {
+            <p>Transit Score: @Model.TransitScore</p>
+            <p>@Model.TransitScoreDescription</p>
+        }
+
+        if (Model.BikeScore > 0)
+        {
+            <p>Bike Score: @Model.BikeScore</p>
+            <p>@Model.BikeScoreDescription</p>
+
+        }
+    }
+
+   
 </div>
 
