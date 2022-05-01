@@ -1,0 +1,66 @@
+﻿@page
+@model LetsGoSEA.WebSite.Pages.AboutUs
+
+@{
+    ViewData["Title"] = "About us";
+    Layout = "Shared/_Layout";
+}
+
+<h1 style="text-align:center; font-weight:bold; font-size:30px">@ViewData["Title"]</h1>
+<br>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<p style="font-size:20px; color: #84A98C; font-weight:bold; text-align:justify">
+    We are the CSI &ndash;&ndash; C Sharp Investigators &ndash;&ndash; a group of computer science student from Seattle University! <br />
+    With the expanding city population, we decided to build this website to help Seattleites navigate, explore, and
+    investigate our neighborhoods more easily.
+    For the computer nerds out there, we built this website using C# and ASP.NET and used the Tableau software to
+    generate our analytics and visuals. Feel free to connect with us on LinkedIn!
+</p>
+<div>
+    <p style="font-size:20px; color: #84A98C; font-weight:bold; text-align:justify">
+        LetsGoSea serves to provide the current and future Seattleites with a digital platform to connect to the heart of their community,
+        to explore the surrounding neighborhoods, and to make better decisions about where and how they will live, work, and spread their leisure time in the Emerald City.
+
+        Simply click on a neighborhood card to lift its mysterious veil.
+        Inside each card, you will see more pictures of the neighborhood, an overall happiness rating, and a crime index.
+        You can zoom in and out of the map to locate the areas’ most popular eateries, parks, and tourist attractions.
+        To get a more balanced view, you can also check out the analytics and visualizations we have prepared for you about various local issues,
+        including cost of living, real estate metrics, crime statistics, and more.
+
+        Have something to say? Feel free to rate and comment on your experience about a particular neighborhood.
+        You may share your likes, dislikes, observations, discoveries, concerns...anything you want!
+        Are you ready to explore?
+    </p>
+</div>
+<!--Owl card slider-->
+<link rel="stylesheet" type="text/css" href="~/css/owl.carousel.min.css">
+<section id="slider" class="pt-5">
+    <div class="container">
+        <div class="slider">
+            <div class="owl-carousel">
+                @foreach (var teamMember in @Model.Members)
+                {
+                    <div class="slider-card team-cards">
+                        <div class="team-member">
+                            <div class="d-flex justify-content-center align-items-center mb-4">
+                                <img src=@teamMember.Image alt="Picture of @teamMember.Name" height="300">
+                            </div>
+                            <div class="mb-0 text-center member-name">
+                                <h1>
+                                    @teamMember.Name
+                                    <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg alt="LinkedIn Logo" width="10" !important /></a>
+                                </h1>
+                                <p>@teamMember.Bio</p>
+                                <br>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/js/owl.carousel.min.js"></script>
