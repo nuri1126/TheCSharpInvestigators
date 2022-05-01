@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using LetsGoSEA.WebSite.Data;
 
 namespace LetsGoSEA.WebSite
 {
@@ -35,8 +34,7 @@ namespace LetsGoSEA.WebSite
             // Add AboutUs service 
             services.AddTransient<AboutUsService>();
 
-            services.AddDbContext<LetsGoSEAWebSiteContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("LetsGoSEAWebSiteContext")));
+            
         }
 
         /// <summary>
