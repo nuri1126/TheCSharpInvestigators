@@ -27,8 +27,7 @@ namespace LetsGoSEA.WebSite.Models
         public string ShortDesc { get; set; } = "Default";
 
         // Array of comments from registered users 
-        [NotMapped]
-        public string[] Comments { get; set; } =  {"Default"};
+        [NotMapped] public string[] Comments { get; set; } = {"Default"};
 
         // Address of neighborhood
         public string Address { get; set; } = "Default";
