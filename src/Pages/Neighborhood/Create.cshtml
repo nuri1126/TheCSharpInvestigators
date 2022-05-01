@@ -2,6 +2,54 @@
 @model LetsGoSEA.WebSite.Pages.Neighborhood.Create
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Create";
+    Layout = "Shared/_Layout";
 }
 
+<h1>Create</h1>
+
+<h4>newNeighborhood</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="newNeighborhood.Name" class="control-label"></label>
+                <input asp-for="newNeighborhood.Name" class="form-control" />
+                <span asp-validation-for="newNeighborhood.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newNeighborhood.Image" class="control-label"></label>
+                <input asp-for="newNeighborhood.Image" class="form-control" />
+                <span asp-validation-for="newNeighborhood.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newNeighborhood.City" class="control-label"></label>
+                <input asp-for="newNeighborhood.City" class="form-control" />
+                <span asp-validation-for="newNeighborhood.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newNeighborhood.State" class="control-label"></label>
+                <input asp-for="newNeighborhood.State" class="form-control" />
+                <span asp-validation-for="newNeighborhood.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="newNeighborhood.ShortDesc" class="control-label"></label>
+                <input asp-for="newNeighborhood.ShortDesc" class="form-control" />
+                <span asp-validation-for="newNeighborhood.ShortDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
