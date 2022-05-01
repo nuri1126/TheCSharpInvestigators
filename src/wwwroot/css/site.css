@@ -119,7 +119,6 @@ body {
 }
 p {
     font-family: 'Nunito', sans-serif;
-    color: whitesmoke;
 }
 h1 {
     font-family: 'Nunito', sans-serif;
@@ -145,18 +144,22 @@ ul {
 }
 /*Backgrounds*/
 .bg-navbar {
-    background: -webkit-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
+    /*background: -webkit-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
     background: -o-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
-    background: -moz-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
-    background: linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
+    background: -moz-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);*/
+    background: linear-gradient(170deg, #59C3C3 60%, #52489C 80%);
     z-index: 1;
 }
 .bg-footer {
-    background: -webkit-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
+    /*background: -webkit-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -o-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
-    background: -moz-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
-    background: linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
+    background: -moz-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);*/
+    background: linear-gradient(170deg, #52489C 60%, #59C3C3 80%);
     z-index: 1;
+}
+
+.bg-footer p {
+    color: whitesmoke;
 }
 
 /* About Us Page
