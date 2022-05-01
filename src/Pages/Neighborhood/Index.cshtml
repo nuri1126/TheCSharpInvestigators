@@ -1,0 +1,35 @@
+﻿@page
+@model LetsGoSEA.WebSite.Pages.Neighborhood.Index
+
+@{
+    ViewData["Title"] = "Index Page";
+    Layout = "Shared/_Layout";
+}
+
+
+<div class="container">
+
+    <a asp-page="Create" class="btn btn-link">+ Create</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Neighborhood Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var neighborhood in Model.Neighborhoods)
+        {
+            <tr>
+                <td>@neighborhood.Name</td>
+                <td>
+                    <a asp-page="Read" asp-route-id="@neighborhood.Id">Read</a> |
+                    Update<!-- TODO: Add Update--> |
+                     Delete<!-- TODO: Add Delete-->
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
