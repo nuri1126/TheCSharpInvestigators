@@ -38,12 +38,26 @@ namespace LetsGoSEA.WebSite.Services
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
         }
 
-        //Query to get neighborhoods data by name and return each of them
-        public NeighborhoodModel GetNeighborhoodByName(string name)
+        /// <summary>
+        /// Returns null if passed invalid id.
+        /// Returns a single neighborhood corresponding to the id
+        /// </summary>
+        /// <param name="id">id of the requested neighborhood</param>
+        /// <returns>NeighborhoodModel of the requested neighborhood</returns>
+        public NeighborhoodModel GetNeighborhoodById(int? id)
         {
-            var data = GetNeighborhoods().Where(x => x.Name == name);
-            NeighborhoodModel singleNeighborhood = data.ElementAt(0);
-            return singleNeighborhood;
+            try
+            {
+                var data = GetNeighborhoods().Where(x => x.Id == id);
+                NeighborhoodModel singleNeighborhood = data.ElementAt(0);
+                return singleNeighborhood;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                // If the id passed is invalid, we return null
+                return null;
+            }
+            
         }
     }
 }
