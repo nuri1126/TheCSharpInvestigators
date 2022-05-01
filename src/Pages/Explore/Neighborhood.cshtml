@@ -1,0 +1,51 @@
+﻿@page "{id:int}"
+@model LetsGoSEA.WebSite.Pages.Explore.Neighborhood
+
+@{
+    ViewData["Title"] = "Explore " + @Model.CurrentNeighborhood.Name;
+    Layout = "Shared/_Layout";
+}
+
+<!--Detail page of each neighborhoods!-->
+
+<div class="jumbotron">
+    <h1 class="display-2">
+        @Model.CurrentNeighborhood.Name
+        <h1 class="display-4">@Model.CurrentNeighborhood.City, @Model.CurrentNeighborhood.State</h1>
+    </h1>
+    <img src="@Model.CurrentNeighborhood.Image" class="img-fluid" alt="Responsive Image of @Model.CurrentNeighborhood.Name"/>
+    <hr class="my-4"/>
+    <p>@Model.CurrentNeighborhood.ShortDesc</p>
+
+
+    <!-- Show Walk Score, Transit Score, Bike Score if we have them.
+    Otherwise, we don't show it
+    -->
+    @{
+        if (Model.CurrentNeighborhood.WalkScore > 0)
+        {
+            <p>
+                Walk Score: @Model.CurrentNeighborhood.WalkScore
+                <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.WalkScoreDescription</span>
+            </p>
+        }
+
+        if (Model.CurrentNeighborhood.TransitScore > 0)
+        {
+            <p>
+                Transit Score: @Model.CurrentNeighborhood.TransitScore
+                <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.TransitScoreDescription</span>
+            </p>
+        }
+
+        if (Model.CurrentNeighborhood.BikeScore > 0)
+        {
+            <p>
+                Bike Score: @Model.CurrentNeighborhood.BikeScore
+                <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.BikeScoreDescription</span>
+            </p>
+        }
+    }
+
+
+</div>
