@@ -5,25 +5,3 @@
     ViewData["Title"] = "Read Page";
     Layout = "Shared/_Layout";
 }
-
-<h1>Read</h1>
-
-<div class="content">
-    <h5 class="title" id="productTitle">@Model.Neighborhood.Name</h5>
-
-    <img class="card-img" src='@Model.Neighborhood.Image' alt='Image for @Model.Neighborhood.Name'>
-
-    <p class="card-text">@Model.Neighborhood.ShortDesc</p>
-
-</div>
-
-<br />
-<br />
-
-<div class="row">
-    <a asp-page="Update" asp-route-id="@Model.Neighborhood.Id" class="btn btn-primary">Update</a> &nbsp; &nbsp;
-    <a asp-page="Delete" asp-route-id="@Model.Neighborhood.Id" class="btn btn-danger">Delete</a>
-</div>
-
-<br />
-<br />
