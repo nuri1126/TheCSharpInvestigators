@@ -1,6 +1,7 @@
 ﻿@page
 @model LetsGoSEA.WebSite.Pages.Neighborhood.Read
 
+<!--CRUDI: Read page to show: contains data of the selected neighborhood-->
 @{
     ViewData["Title"] = "Read Page";
     Layout = "Shared/_Layout";
@@ -9,7 +10,7 @@
 <h1>Read</h1>
 
 <div class="content">
-    <h5 class="title" id="productTitle">@Model.Neighborhood.Name</h5>
+    <h5 class="title" id="neighborhoodTitle">@Model.Neighborhood.Name</h5>
 
     <img class="card-img" src='@Model.Neighborhood.Image' alt='Image for @Model.Neighborhood.Name'>
 
