@@ -7,7 +7,7 @@ using LetsGoSEA.WebSite.Services;
 namespace LetsGoSEA.WebSite.Pages
 {
     /// <summary>
-    /// Index Page Model for the homepage 
+    /// Index Page Model for the Homepage/Index Razor Page 
     /// </summary>
     public class IndexModel : PageModel
     {
@@ -20,7 +20,11 @@ namespace LetsGoSEA.WebSite.Pages
         // Holds IEnumerable list of Neighborhoods 
         public IEnumerable<NeighborhoodModel> Neighborhoods { get; private set; }
 
-        // Creates a logger which uses a log category equal to the name of the model.
+        /// <summary>
+        /// Creates an Index logger which uses a log category equal to the name of the model.
+        /// </summary>
+        /// <param name="logger">An instance of the built-in ILogger service to use</param>
+        /// <param name="neighborhoodService">An instance of the neighborhood service to use</param>
         public IndexModel(ILogger<IndexModel> logger,
             NeighborhoodService neighborhoodService)
         {
@@ -28,8 +32,9 @@ namespace LetsGoSEA.WebSite.Pages
             _neighborhoodService = neighborhoodService;
         }
 
-        // Returns a list of Neighborhoods to the Razor page Index.cshtml using 
-        // the Neighborhood Service
+        /// <summary>
+        /// Returns a list of Neighborhoods to the Index Razor page using the Neighborhood Service
+        /// </summary>
         public void OnGet()
         {
             Neighborhoods = _neighborhoodService.GetNeighborhoods();
