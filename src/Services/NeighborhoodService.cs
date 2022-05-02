@@ -81,6 +81,35 @@ namespace LetsGoSEA.WebSite.Services
         }
 
         /// <summary>
+        /// Create a new neighborhood using default values
+        /// After create the user can update to set values
+        /// </summary>
+        /// <returns>"NeighborhoodModel"</returns>
+        public NeighborhoodModel CreateData()
+        {
+            // New Neighborhood to be added
+            var data = new NeighborhoodModel()
+            {
+                // Generate the next valid Id number
+                Id = GetNeighborhoods().Count() + 1,
+
+                Name = "Enter Name",
+                Image = "",
+                City = "",
+                State = "",
+                ShortDesc = "Enter Description"
+            };
+
+            // Get the current set, and append the new record to it becuase IEnumerable does not have Add
+            var dataSet = GetNeighborhoods();
+            dataSet = dataSet.Append(data);
+
+            SaveData(dataSet);
+
+            return data;
+        }
+
+        /// <summary>
         /// Remove the neighborhood record from the system
         /// </summary>
         /// <param name="id">id of the neighborhood to NOT be saved</param>
