@@ -9,10 +9,18 @@ using Newtonsoft.Json;
 
 namespace LetsGoSEA.WebSite.Pages.Explore
 {
+    /// <summary>
+    /// Neighborhood Page Model for the Neighborhood Razor Page
+    /// </summary>
     public class Neighborhood : PageModel
     {
+        // Data middle tier service
         private NeighborhoodService NeighborhoodService { get; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="neighborhoodService">an instance of data service to use</param>
         public Neighborhood(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
