@@ -15,7 +15,10 @@ namespace LetsGoSEA.WebSite.Controllers
     [ApiController]
     public class NeighborhoodController : Controller
     {
-        // Seed controller with service and DB context
+        /// <summary>
+        /// Seed controller with neighborhood data service 
+        /// </summary>
+        /// <param name="neighborhoodService">an instance of data service to use</param>
         public NeighborhoodController(NeighborhoodService neighborhoodService)
         {
             this.NeighborhoodService = neighborhoodService;
