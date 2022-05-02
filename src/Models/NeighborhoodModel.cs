@@ -56,7 +56,10 @@ namespace LetsGoSEA.WebSite.Models
         // Bike Score Description
         public string BikeScoreDescription { get; set; } = "Default";
 
-        // Converts Model to JSON
+        /// <summary>
+        /// Converts Model to JSON
+        /// </summary>
+        /// <returns>A string of all the neighborhood data in JSON format</returns>
         public override string ToString() => JsonSerializer.Serialize<NeighborhoodModel>(this);
     }
 }
