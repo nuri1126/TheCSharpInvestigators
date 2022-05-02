@@ -59,5 +59,46 @@ namespace LetsGoSEA.WebSite.Services
             }
             
         }
+
+        /// <summary>
+        /// Save All neighborhood data to storage
+        /// </summary>
+        /// <param name="neighborhoods">all the neighborhood objects to be saved</param>
+        private void SaveData(IEnumerable<NeighborhoodModel> neighborhoods)
+        {
+            // Re-write all the neighborhood data to JSON file
+            using (var outputStream = File.Create(NeighborhoodFileName))
+            {
+                JsonSerializer.Serialize<IEnumerable<NeighborhoodModel>>(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                    {
+                        SkipValidation = true,
+                        Indented = true
+                    }),
+                    neighborhoods
+                );
+            }
+        }
+
+        /// <summary>
+        /// Remove the neighborhood record from the system
+        /// </summary>
+        /// <param name="id">id of the neighborhood to NOT be saved</param>
+        /// <returns>the neighborhood object to be deleted</returns>
+        public NeighborhoodModel DeleteData(int id)
+        {
+            // Get the current set
+            var dataSet = GetNeighborhoods();
+
+            // Get the record to be deleted
+            var data = dataSet.FirstOrDefault(m => m.Id == id);
+
+            // Only save the remaining records in the system
+            var newDataSet = GetNeighborhoods().Where(m => m.Id != id);
+            SaveData(newDataSet);
+
+            // Return the record to be deleted
+            return data;
+        }
     }
 }
