@@ -9,7 +9,7 @@ using LetsGoSEA.WebSite.Services;
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
     /// <summary>
-    /// Manage the Delete of the data for a single record
+    /// Delete Page Model for the Delete Razor Page: manages the Delete of the data for a single record
     /// </summary>
     public class Delete : PageModel
     {
@@ -19,8 +19,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <summary>
         /// Default Construtor
         /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="neighborhoodService"></param>
+        /// <param name="neighborhoodService">An instance of the data service to be used</param>
         public Delete(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
