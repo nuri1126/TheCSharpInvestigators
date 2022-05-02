@@ -9,13 +9,21 @@ namespace LetsGoSEA.WebSite
     /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point of this program
+        /// </summary>
+        /// <param name="args">command-line arguments</param>
         public static void Main(string[] args)
         {
             // Configures host with set of default options
             CreateHostBuilder(args).Build().Run();
         }
 
-        // Initialize the website host webBuilder
+        /// <summary>
+        /// Initialize the website host webBuilder
+        /// </summary>
+        /// <param name="args">command-line arguments passed from Main</param>
+        /// <returns>An IHostBuilder object</returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
