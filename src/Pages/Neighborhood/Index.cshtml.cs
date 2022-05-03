@@ -8,7 +8,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
     /// <summary>
     /// Index Page Model for the Neighborhood Razor Page: will return all the data to show
     /// </summary>
-    public class Index : PageModel
+    public class IndexModel : PageModel
     {
         // Data Service
         private NeighborhoodService NeighborhoodService { get;  }
@@ -17,7 +17,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Default Constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of data service to use</param>
-        public Index(NeighborhoodService neighborhoodService)
+        public IndexModel(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
         }
