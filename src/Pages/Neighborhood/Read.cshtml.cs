@@ -8,7 +8,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
     /// <summary>
     /// Read Page Model for the Read Razor Page: will return one neighborhood's data to show
     /// </summary>
-    public class Read : PageModel
+    public class ReadModel : PageModel
     {
         // Data middletier
         private NeighborhoodService NeighborhoodService { get; }
@@ -17,7 +17,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Defualt Construtor
         /// </summary>
         /// <param name="neighborhoodService">an instance of the data service to use</param>
-        public Read(NeighborhoodService neighborhoodService)
+        public ReadModel(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
         }
