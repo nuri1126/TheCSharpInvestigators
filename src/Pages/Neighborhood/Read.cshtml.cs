@@ -14,7 +14,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         private NeighborhoodService NeighborhoodService { get; }
 
         /// <summary>
-        /// Defualt Construtor
+        /// Default Constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of the data service to use</param>
         public ReadModel(NeighborhoodService neighborhoodService)
