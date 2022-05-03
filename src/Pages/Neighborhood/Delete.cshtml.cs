@@ -11,7 +11,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
     /// <summary>
     /// Delete Page Model for the Delete Razor Page: manages the Delete of the data for a single record
     /// </summary>
-    public class Delete : PageModel
+    public class DeleteModel : PageModel
     {
         // Data middletier
         public NeighborhoodService NeighborhoodService { get; }
@@ -20,7 +20,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Default Construtor
         /// </summary>
         /// <param name="neighborhoodService">An instance of the data service to be used</param>
-        public Delete(NeighborhoodService neighborhoodService)
+        public DeleteModel(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
         }
