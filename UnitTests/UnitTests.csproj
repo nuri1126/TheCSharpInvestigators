@@ -18,11 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\Explore" />
-	  <Folder Include="Pages\Neighborhood" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Remove="Pages\Neighborhood\Error\**" />
 	</ItemGroup>
 
