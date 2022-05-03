@@ -2,9 +2,10 @@
 using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
 
-namespace UnitTests.Pages.Neighborhood
+namespace UnitTests.Pages.Neighborhood.Index
+
 {
-    public class IndexModel
+    public class IndexTest
     {
         #region TestSetup
         public static IndexModel PageModel;
@@ -12,25 +13,25 @@ namespace UnitTests.Pages.Neighborhood
         [SetUp]
         public void TestInitialize()
         {
-            PageModel = new IndexModel();
+            PageModel = new IndexModel(TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
 
 
         #region OnGet
-
         [Test]
-        public void OnGet_Something()
+        public void OnGet_Valid_Should_Return_Neighborhoods()
         {
             // Arrange
-            
+
             // Act
-            
+            PageModel.OnGet();
+
             // Assert
+            Assert.AreEqual(true, PageModel.ModelState.IsValid);
+            Assert.AreEqual(true, PageModel.Neighborhoods.ToList().Any());
         }
-
-
         #endregion OnGet
     }
 }
