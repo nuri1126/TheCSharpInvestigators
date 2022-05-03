@@ -18,7 +18,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\CRUDI\" />
+	  <Folder Include="Pages\Explore" />
+	  <Folder Include="Pages\Neighborhood" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Pages\Neighborhood\Error\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Pages\Neighborhood\Error\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Pages\Neighborhood\Error\**" />
 	</ItemGroup>
 
 </Project>
