@@ -21,16 +21,22 @@ namespace UnitTests.Pages.Neighborhood
         #region OnGet
 
         [Test]
-        public void OnGet_Something()
+        public void OnGet_Valid_Should_Return_Neighborhoods()
         {
+
             // Arrange
-            
+
             // Act
-            
+            PageModel.OnGet(1);
+
             // Assert
+            Assert.AreEqual(true, PageModel.ModelState.IsValid);
+            Assert.AreEqual("Northgate", PageModel.Neighborhood.Name);
+
         }
 
 
         #endregion OnGet
+
     }
 }
