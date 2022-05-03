@@ -109,6 +109,32 @@ namespace LetsGoSEA.WebSite.Services
             return data;
         }
 
+        // <summary>
+        // Finds record
+        // Updates the neighborhood
+        // saves record
+        // </summary>
+        // <param name="data">neighborhood data to be saved</param>
+        public NeighborhoodModel UpdateData(NeighborhoodModel data) 
+        {
+            var neighborhood = GetNeighborhoods();
+            var neighborhoodData = neighborhood.FirstOrDefault(x => x.Id.Equals(data.Id));
+            if (neighborhoodData == null)
+            {
+                return null;
+            }
+
+            neighborhoodData.Name = data.Name;
+            neighborhoodData.Image = data.Image;
+            neighborhoodData.City = data.City;
+            neighborhoodData.State = data.State;
+            neighborhoodData.ShortDesc = data.ShortDesc;
+
+            SaveData(neighborhood);
+
+            return neighborhoodData;
+        }
+
         /// <summary>
         /// Remove the neighborhood record from the system
         /// </summary>
