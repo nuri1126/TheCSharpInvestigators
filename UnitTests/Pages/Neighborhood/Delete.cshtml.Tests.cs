@@ -4,7 +4,7 @@ using LetsGoSEA.WebSite.Pages.Neighborhood;
 
 namespace UnitTests.Pages.Neighborhood
 {
-    public class DeleteModel
+    public class DeleteTests
     {
         #region TestSetup
         public static DeleteModel PageModel;
@@ -12,7 +12,7 @@ namespace UnitTests.Pages.Neighborhood
         [SetUp]
         public void TestInitialize()
         {
-            PageModel = new DeleteModel();
+            PageModel = new DeleteModel(TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
