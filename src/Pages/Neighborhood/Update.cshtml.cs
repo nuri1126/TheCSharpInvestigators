@@ -2,7 +2,7 @@
 
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
-    public class Update : PageModel
+    public class UpdateModel : PageModel
     {
         public void OnGet()
         {
