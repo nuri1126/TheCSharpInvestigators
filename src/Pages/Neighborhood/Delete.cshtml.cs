@@ -36,7 +36,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <param name="id>id of the neighborhood to delete</param>
         public void OnGet(int id)
         {
-            Neighborhood = NeighborhoodService.GetNeighborhoods().FirstOrDefault(m => m.Id.Equals(id));
+            Neighborhood = NeighborhoodService.GetNeighborhoodById(id);
         }
 
         /// <summary>
