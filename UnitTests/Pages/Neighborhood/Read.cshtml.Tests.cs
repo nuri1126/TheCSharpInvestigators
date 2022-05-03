@@ -2,9 +2,9 @@
 using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
 
-namespace UnitTests.Pages.Neighborhood
+namespace UnitTests.Pages.Neighborhood.Read
 {
-    public class Read
+    public class ReadTest
     {
         #region TestSetup
         public static ReadModel PageModel;
