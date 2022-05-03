@@ -4,7 +4,7 @@ using LetsGoSEA.WebSite.Pages.Neighborhood;
 
 namespace UnitTests.Pages.Neighborhood
 {
-    public class Update
+    public class UpdateTests
     {
         #region TestSetup
         public static UpdateModel PageModel;
@@ -12,7 +12,7 @@ namespace UnitTests.Pages.Neighborhood
         [SetUp]
         public void TestInitialize()
         {
-            PageModel = new UpdateModel();
+            PageModel = new UpdateModel(TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
