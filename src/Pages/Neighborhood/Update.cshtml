@@ -1,9 +1,63 @@
-﻿@page
+﻿@page "{id}"
+@using LetsGoSEA.WebSite.Services
+@inject NeighborhoodService NeighborhoodService
 @model LetsGoSEA.WebSite.Pages.Neighborhood.UpdateModel
-
 <!--CRUDI: Update page to show: Form for updating neighborhood-->
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Update page";
 }
 
+<h1>Update</h1>
+
+<div class="container">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.HiddenFor(x => x.Neighborhood.Id)
+
+        <div class="form-group">
+            <label asp-for="Neighborhood.Id" class="control-label"></label>
+            <input asp-for="Neighborhood.Id" class="form-control" />
+            <span asp-validation-for="Neighborhood.Id" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Neighborhood.Name" class="control-label"></label>
+            <input asp-for="Neighborhood.Name" class="form-control" />
+            <span asp-validation-for="Neighborhood.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Neighborhood.Image" class="control-label"></label>
+            <input asp-for="Neighborhood.Image" class="form-control" />
+            <span asp-validation-for="Neighborhood.Image" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Neighborhood.City" class="control-label"></label>
+            <input asp-for="Neighborhood.City" class="form-control" />
+            <span asp-validation-for="Neighborhood.City" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Neighborhood.State" class="control-label"></label>
+            <input asp-for="Neighborhood.State" class="form-control" />
+            <span asp-validation-for="Neighborhood.State" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Neighborhood.ShortDesc" class="control-label"></label>
+            <input asp-for="Neighborhood.ShortDesc" class="form-control" />
+            <span asp-validation-for="Neighborhood.ShortDesc" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
