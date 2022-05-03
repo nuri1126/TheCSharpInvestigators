@@ -5,7 +5,7 @@ using LetsGoSEA.WebSite.Pages.Neighborhood;
 namespace UnitTests.Pages.Neighborhood.Index
 
 {
-    public class IndexTest
+    public class IndexTests
     {
         #region TestSetup
         public static IndexModel PageModel;
