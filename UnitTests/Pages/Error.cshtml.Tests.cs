@@ -1,26 +1,22 @@
 ﻿using System.Diagnostics;
-
+using LetsGoSEA.WebSite.Pages;
 using Microsoft.Extensions.Logging;
-
+using Moq;
 using NUnit.Framework;
 
-using Moq;
-
-using LetsGoSEA.WebSite.Pages;
-
-namespace UnitTests.Pages.Error
+namespace UnitTests.Pages
 {
     public class ErrorTests
     {
         #region TestSetup
-        public static ErrorModel pageModel;
+        public static ErrorModel PageModel;
 
         [SetUp]
         public void TestInitialize()
         {
-            var MockLoggerDirect = Mock.Of<ILogger<ErrorModel>>();
+            var mockLoggerDirect = Mock.Of<ILogger<ErrorModel>>();
 
-            pageModel = new ErrorModel(MockLoggerDirect)
+            PageModel = new ErrorModel(mockLoggerDirect)
             {
                 PageContext = TestHelper.PageContext,
                 TempData = TestHelper.TempData,
@@ -39,14 +35,14 @@ namespace UnitTests.Pages.Error
             activity.Start();
 
             // Act
-            pageModel.OnGet();
+            PageModel.OnGet();
 
             // Reset
             activity.Stop();
 
             // Assert
-            Assert.AreEqual(true, pageModel.ModelState.IsValid);
-            Assert.AreEqual(activity.Id, pageModel.RequestId);
+            Assert.AreEqual(true, PageModel.ModelState.IsValid);
+            Assert.AreEqual(activity.Id, PageModel.RequestId);
         }
 
         [Test]
@@ -55,14 +51,14 @@ namespace UnitTests.Pages.Error
             // Arrange
 
             // Act
-            pageModel.OnGet();
+            PageModel.OnGet();
 
             // Reset
 
             // Assert
-            Assert.AreEqual(true, pageModel.ModelState.IsValid);
-            Assert.AreEqual("trace", pageModel.RequestId);
-            Assert.AreEqual(true, pageModel.ShowRequestId);
+            Assert.AreEqual(true, PageModel.ModelState.IsValid);
+            Assert.AreEqual("trace", PageModel.RequestId);
+            Assert.AreEqual(true, PageModel.ShowRequestId);
         }
         #endregion OnGet
     }
