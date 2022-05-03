@@ -4,7 +4,7 @@ using LetsGoSEA.WebSite.Pages.Neighborhood;
 
 namespace UnitTests.Pages.Neighborhood.Read
 {
-    public class ReadTest
+    public class ReadTests
     {
         #region TestSetup
         public static ReadModel PageModel;
