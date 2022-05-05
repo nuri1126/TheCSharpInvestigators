@@ -9,6 +9,21 @@
 
 <h1>Explore the beautiful neighborhoods of Seattle!</h1>
 
+<!-- Search box div -->
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-text">
+            <i>
+                <!-- Search icon svg -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </i>
+        </span>
+        <input type="text" id="Search" placeholder="Search Neighborhoods" class="form-control"/>
+    </div>
+</div>
+
 <div class="card-columns">
     @foreach (var neighborhood in @Model.Neighborhoods)
     {
@@ -29,3 +44,43 @@
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<script>
+    // Setting up jQuery
+    $(document).ready(function ()
+    {
+        // Search box class
+        const searchBoxClass = ".form-control";
+        
+        // Reset the search box
+        $(searchBoxClass).val("");
+        
+        // Keyup action
+        // Gets the search string from the search box
+        // If the search string is found, all the other neighborhood cards are hidden.
+        // Only the card matching the search string is displayed
+        $(searchBoxClass).on("keyup", function ()
+        {
+            let searchString = $(this).val().toLowerCase(); // Get the search string from the input box
+            
+            // Iterate over each element to find the one matching the search string
+            $(".card").each(function ()
+            {
+                // Find the title of each card
+                let neighborhoodName = $(this).find("h5.card-title").text().toLowerCase();
+                // If the search string doesn't match, hide the card
+                if (neighborhoodName.indexOf(searchString) === -1) {
+                    $(this).hide();
+                }
+                else
+                {
+                    // Show the card matching the search string
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>
