@@ -44,12 +44,6 @@ namespace LetsGoSEA.WebSite.Models
         // Walk Score Description
         public string WalkScoreDescription { get; set; } = "Default";
 
-        // Transit score of the neighborhood
-        public int TransitScore { get; set; } = -1;
-
-        // Transit score Description
-        public string TransitScoreDescription { get; set; } = "Default";
-
         // Bike Score of the neighborhood
         public int BikeScore { get; set; } = -1;
 
