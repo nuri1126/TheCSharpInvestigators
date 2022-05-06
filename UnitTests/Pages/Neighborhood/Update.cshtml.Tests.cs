@@ -9,12 +9,13 @@ namespace UnitTests.Pages.Neighborhood
     public class UpdateTests
     {
         #region TestSetup
-        public static UpdateModel PageModel;
+
+        private static UpdateModel _pageModel;
 
         [SetUp]
         public void TestInitialize()
         {
-            PageModel = new UpdateModel(TestHelper.NeighborhoodServiceObj);
+            _pageModel = new UpdateModel(TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
@@ -28,11 +29,11 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
             
             // Act
-            PageModel.OnGet(2);
+            _pageModel.OnGet(2);
             
             // Assert
-            Assert.AreEqual(true, PageModel.ModelState.IsValid);
-            Assert.AreEqual("Greenlake", PageModel.Neighborhood.Name);
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual("Greenlake", _pageModel.Neighborhood.Name);
         }
         #endregion OnGet
         
@@ -42,7 +43,7 @@ namespace UnitTests.Pages.Neighborhood
         public void OnPostAsync_Valid_Should_Return_Products()
         {
             // Arrange
-            PageModel.Neighborhood = new NeighborhoodModel
+            _pageModel.Neighborhood = new NeighborhoodModel
             {
                 Id = 2,
                 Name = "Greenwood",
@@ -50,10 +51,10 @@ namespace UnitTests.Pages.Neighborhood
             };
             
             // Act
-            var result = PageModel.OnPost() as RedirectToPageResult;
+            var result = _pageModel.OnPost() as RedirectToPageResult;
             
             // Assert
-            Assert.AreEqual(true, PageModel.ModelState.IsValid);
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
@@ -62,7 +63,7 @@ namespace UnitTests.Pages.Neighborhood
         public void OnPostAsync_InValid_Model_NotValid_Return_Page()
         {
             // Arrange
-            PageModel.Neighborhood = new NeighborhoodModel
+            _pageModel.Neighborhood = new NeighborhoodModel
             {
                 Id = 666,
                 Name = "Invalid Name",
@@ -70,13 +71,12 @@ namespace UnitTests.Pages.Neighborhood
             };
             
             // Force an invalid error state
-            PageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
+            _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
             
             // Act
-            var result = PageModel.OnPost() as ActionResult;
             
             // Assert
-            Assert.AreEqual(false, PageModel.ModelState.IsValid);
+            Assert.AreEqual(false, _pageModel.ModelState.IsValid);
         }
         
         #endregion OnPostAsync
