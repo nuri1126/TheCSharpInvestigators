@@ -22,9 +22,7 @@ namespace UnitTests.Pages
         {
             var mockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
 
-            _pageModel = new IndexModel(mockLoggerDirect, TestHelper.NeighborhoodServiceObj)
-            {
-            };
+            _pageModel = new IndexModel(mockLoggerDirect, TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
