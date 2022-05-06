@@ -1,5 +1,5 @@
 ﻿@page "{id:int}"
-@model LetsGoSEA.WebSite.Pages.Explore.Neighborhood
+@model LetsGoSEA.WebSite.Pages.Explore.NeighborhoodModel
 
 @{
     ViewData["Title"] = "Explore " + @Model.CurrentNeighborhood.Name;
@@ -27,14 +27,6 @@
             <p>
                 Walk Score: @Model.CurrentNeighborhood.WalkScore
                 <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.WalkScoreDescription</span>
-            </p>
-        }
-
-        if (Model.CurrentNeighborhood.TransitScore > 0)
-        {
-            <p>
-                Transit Score: @Model.CurrentNeighborhood.TransitScore
-                <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.TransitScoreDescription</span>
             </p>
         }
 
