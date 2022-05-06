@@ -74,6 +74,7 @@ namespace UnitTests.Pages.Neighborhood
             _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
             
             // Act
+            var result = _pageModel.OnPost() as ActionResult;
             
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
