@@ -92,11 +92,11 @@ namespace LetsGoSEA.WebSite.Services
                 // Generate the next valid Id number
                 Id = GetNeighborhoods().Count() + 1,
 
-                Name = "Enter Name",
+                Name = "",
                 Image = "",
                 City = "",
                 State = "",
-                ShortDesc = "Enter Description"
+                ShortDesc = ""
             };
 
             // Get the current set, and append the new record to it becuase IEnumerable does not have Add
