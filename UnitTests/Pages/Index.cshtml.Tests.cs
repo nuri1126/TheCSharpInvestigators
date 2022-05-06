@@ -1,16 +1,11 @@
 ﻿using System.Linq;
-
 using Microsoft.Extensions.Logging;
-
 using Moq;
-
 using NUnit.Framework;
-
 using LetsGoSEA.WebSite.Pages;
-using LetsGoSEA.WebSite.Services;
 
 
-namespace UnitTests.Pages.Index
+namespace UnitTests.Pages
 {
     /// <summary>
     /// Unit test for Neighborhoods Index page 
@@ -20,14 +15,14 @@ namespace UnitTests.Pages.Index
         #region TestSetup
 
         // IndexModel from Index.cshtml.cs for testing
-        public static IndexModel pageModel;
+        private static IndexModel _pageModel;
 
         [SetUp] // Arrange 
         public void TestInitialize()
         {
-            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
+            var mockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
 
-            pageModel = new IndexModel(MockLoggerDirect, TestHelper.NeighborhoodServiceObj)
+            _pageModel = new IndexModel(mockLoggerDirect, TestHelper.NeighborhoodServiceObj)
             {
             };
         }
@@ -41,11 +36,11 @@ namespace UnitTests.Pages.Index
             // Arrange
 
             // Act
-            pageModel.OnGet();
+            _pageModel.OnGet();
 
             // Assert
-            Assert.AreEqual(true, pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, pageModel.Neighborhoods.ToList().Any());
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, _pageModel.Neighborhoods.ToList().Any());
         }
         #endregion OnGet
     }
