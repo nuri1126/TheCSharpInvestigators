@@ -1,19 +1,19 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
-using NUnit.Framework.Internal;
 
 namespace UnitTests.Pages.Neighborhood
 {
     public class CreateTests
     {
         #region TestSetup
-        public static CreateModel PageModel;
+
+        private static CreateModel _pageModel;
 
         [SetUp]
         public void TestInitialize()
         {
-            PageModel = new CreateModel(TestHelper.NeighborhoodServiceObj);
+            _pageModel = new CreateModel(TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
@@ -28,10 +28,10 @@ namespace UnitTests.Pages.Neighborhood
             var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
 
             // Act
-            PageModel.OnGet();
+            _pageModel.OnGet();
 
             // Assert
-            Assert.AreEqual(true, PageModel.ModelState.IsValid);
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Assert.AreEqual(oldCount + 1, TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count());
         }
 
