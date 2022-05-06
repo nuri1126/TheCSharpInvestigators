@@ -33,6 +33,7 @@ namespace LetsGoSEA.WebSite.Models
         public string State { get; set; } = "Default";
 
         // Short description of the neighborhood
+        [Required(ErrorMessage = "Please enter a short description.")]
         public string ShortDesc { get; set; } = "Default";
 
         // Array of comments from registered users 
