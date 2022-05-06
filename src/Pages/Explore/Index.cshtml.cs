@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,7 +7,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
     /// <summary>
     /// Index Page Model for the Explore Razor Page
     /// </summary>
-    public class Index : PageModel
+    public class IndexModel : PageModel
     {
         // Data middle tier service
         private NeighborhoodService NeighborhoodService { get; }
@@ -17,13 +16,13 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// Default constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of the data service to use</param>
-        public Index(NeighborhoodService neighborhoodService)
+        public IndexModel(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
         }
 
         // Collection of the Neighborhood Data
-        public IEnumerable<NeighborhoodModel> Neighborhoods { get; private set; }
+        public IEnumerable<Models.NeighborhoodModel> Neighborhoods { get; private set; }
 
         /// <summary>
         /// REST OnGet, return all neighborhood data
