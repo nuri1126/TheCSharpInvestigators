@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
 
 namespace UnitTests.Pages.Neighborhood
@@ -7,12 +6,13 @@ namespace UnitTests.Pages.Neighborhood
     public class ReadTests
     {
         #region TestSetup
-        public static ReadModel PageModel;
+
+        private static ReadModel _pageModel;
 
         [SetUp]
         public void TestInitialize()
         {
-            PageModel = new ReadModel(TestHelper.NeighborhoodServiceObj);
+            _pageModel = new ReadModel(TestHelper.NeighborhoodServiceObj);
         }
 
         #endregion TestSetup
@@ -27,11 +27,11 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
 
             // Act
-            PageModel.OnGet(1);
+            _pageModel.OnGet(1);
 
             // Assert
-            Assert.AreEqual(true, PageModel.ModelState.IsValid);
-            Assert.AreEqual("Northgate", PageModel.Neighborhood.Name);
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual("Northgate", _pageModel.Neighborhood.Name);
 
         }
 
