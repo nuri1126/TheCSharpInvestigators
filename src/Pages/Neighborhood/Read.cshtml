@@ -11,8 +11,12 @@
 
 <div class="content">
     <h5 class="title" id="neighborhoodTitle">@Model.Neighborhood.Name</h5>
-
-    <img class="card-img" src='@Model.Neighborhood.Image' alt='Image for @Model.Neighborhood.Name'>
+    @foreach (var neighborhoodImage in @Model.Neighborhood.Image.Split(','))
+    {
+        var neighborhoodImageURL = neighborhoodImage.Substring(0, neighborhoodImage.Length -1);
+        <p>@Model.Neighborhood.Image'</p>
+        <img class="card-img" src='@neighborhoodImage' alt='Image for @Model.Neighborhood.Name'>
+    }
 
     <p class="card-text">@Model.Neighborhood.ShortDesc</p>
 
