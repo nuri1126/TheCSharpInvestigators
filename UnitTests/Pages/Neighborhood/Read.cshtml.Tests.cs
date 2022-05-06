@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
 
-namespace UnitTests.Pages.Neighborhood.Read
+namespace UnitTests.Pages.Neighborhood
 {
     public class ReadTests
     {
