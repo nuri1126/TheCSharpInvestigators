@@ -12,7 +12,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
     /// <summary>
     /// Neighborhood Page Model for the Neighborhood Razor Page
     /// </summary>
-    public class Neighborhood : PageModel
+    public class NeighborhoodModel : PageModel
     {
         // Data middle tier service
         private NeighborhoodService NeighborhoodService { get; }
@@ -21,14 +21,14 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// Default constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of data service to use</param>
-        public Neighborhood(NeighborhoodService neighborhoodService)
+        public NeighborhoodModel(NeighborhoodService neighborhoodService)
         {
             NeighborhoodService = neighborhoodService;
         }
 
         [BindProperty]
         // Current Neighborhood to be displayed to the user
-        public NeighborhoodModel CurrentNeighborhood { get; private set; }
+        public Models.NeighborhoodModel CurrentNeighborhood { get; set; }
 
         /// <summary>
         /// Makes an API call to Redfin WalkScore API to get 
@@ -36,13 +36,13 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// </summary>
         /// <param name="neighborhood">A NeighborhoodModel of a single neighborhood</param>
         /// <returns>An object with the response from the API</returns>
-        public async Task<NeighborhoodCharacteristics> GetWalkScore(NeighborhoodModel neighborhood)
+        public async Task<NeighborhoodCharacteristics> GetWalkScore(Models.NeighborhoodModel neighborhood)
         {
             const string apiKey = "c6d78988747a933bd54771e51a75dd26";
 
             // API URL
             string url =
-                $"https://api.walkscore.com/score?format=json&address={neighborhood.Address}&lat={neighborhood.Latitude}&lon={neighborhood.Longitude}&transit=1&bike=1&wsapikey={apiKey}";
+                $"https://api.walkscore.com/score?format=json&address={neighborhood.Address}&lat={neighborhood.Latitude}&lon={neighborhood.Longitude}&bike=1&wsapikey={apiKey}";
 
 
             using HttpClient client = new HttpClient();
@@ -71,7 +71,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         {
             public int WalkScore { get; set; }
             public string Description { get; set; }
-            public Dictionary<string, string> Transit { get; set; }
             public Dictionary<string, string> Bike { get; set; }
         }
 
@@ -82,21 +81,20 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// </summary>
         /// <param name="id">id of the neighborhood</param>
         /// <returns>View of the requested neighborhood</returns>
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int id)
         {
-            // If no id is passed, NotFound status message is returned
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return RedirectToPage("./Index");
             }
 
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
 
             // If invalid id is passed, it results in CurrentNeighborhood to be null
-            // NotFound status message is returned to safe guard the website
+            // User is redirected to the Explore Page
             if (CurrentNeighborhood == null)
             {
-                return NotFound();
+                return RedirectToPage("./Index");
             }
 
             // Get the Walk Score, Transit Score, Bike score of the neighborhood if available
@@ -108,14 +106,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 // Setting the values to the Model
                 CurrentNeighborhood.WalkScore = walkScores.WalkScore;
                 CurrentNeighborhood.WalkScoreDescription = walkScores.Description;
-            }
-
-            // Validating we got a valid response for Transit Score
-            if (walkScores.Transit["score"] != null)
-            {
-                // Setting the values to the Model
-                CurrentNeighborhood.TransitScore = walkScores.Transit["score"][0];
-                CurrentNeighborhood.TransitScoreDescription = walkScores.Transit["description"];
             }
 
             // Validating we got a valid response for Bike Score
