@@ -24,25 +24,25 @@ namespace UnitTests
             // old
             // var DataWebPath = "../../../../src/bin/Debug/net5.0/wwwroot/data";
             var DataUTDirectory = "wwwroot";
-            var DataUTPath = DataUTDirectory + "/data";
+            var dataUtPath = DataUTDirectory + "/data";
 
-            // Delete the Detination folder
+            // Delete the Destination folder
             if (Directory.Exists(DataUTDirectory))
             {
                 Directory.Delete(DataUTDirectory, true);
             }
 
             // Make the directory
-            Directory.CreateDirectory(DataUTPath);
+            Directory.CreateDirectory(dataUtPath);
 
             // Copy over all data files
             var filePaths = Directory.GetFiles(DataWebPath);
             foreach (var filename in filePaths)
             {
-                string OriginalFilePathName = filename.ToString();
-                var newFilePathName = OriginalFilePathName.Replace(DataWebPath, DataUTPath);
+                
+                var newFilePathName = filename.Replace(DataWebPath, dataUtPath);
 
-                File.Copy(OriginalFilePathName, newFilePathName);
+                File.Copy(filename, newFilePathName);
             }
         }
 
