@@ -14,8 +14,6 @@
     "Longitude": -122.32806,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -34,8 +32,6 @@
     "Longitude": -122.34228,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -54,8 +50,6 @@
     "Longitude": -122.31462,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -74,8 +68,6 @@
     "Longitude": -122.38214,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -94,8 +86,6 @@
     "Longitude": -122.35617,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -114,8 +104,6 @@
     "Longitude": -122.3374,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -134,8 +122,6 @@
     "Longitude": -122.35899,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -154,8 +140,6 @@
     "Longitude": -122.32577,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -174,8 +158,6 @@
     "Longitude": -122.30234,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -194,8 +176,6 @@
     "Longitude": -122.33694,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -214,8 +194,6 @@
     "Longitude": -122.332695,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -234,8 +212,6 @@
     "Longitude": -122.31829,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -254,8 +230,6 @@
     "Longitude": -122.34976,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -274,8 +248,6 @@
     "Longitude": -122.28873,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -294,8 +266,6 @@
     "Longitude": -122.33174,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -314,8 +284,6 @@
     "Longitude": -122.32518,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
@@ -334,14 +302,12 @@
     "Longitude": -122.38699,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
   {
-    "Id": 1000,
-    "Name": "1000",
+    "Id": 18,
+    "Name": "Fake Card",
     "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
     "City": "Seattle",
     "State": "WA",
@@ -354,14 +320,12 @@
     "Longitude": -122.38699,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
   {
-    "Id": 2000,
-    "Name": "2000",
+    "Id": 19,
+    "Name": "Fake Card",
     "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
     "City": "Seattle",
     "State": "WA",
@@ -374,14 +338,12 @@
     "Longitude": -122.38699,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
   {
-    "Id": 3000,
-    "Name": "3000",
+    "Id": 20,
+    "Name": "Fake Card",
     "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
     "City": "Seattle",
     "State": "WA",
@@ -394,14 +356,12 @@
     "Longitude": -122.38699,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
   {
-    "Id": 4000,
-    "Name": "4000",
+    "Id": 21,
+    "Name": "Fake Card",
     "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
     "City": "Seattle",
     "State": "WA",
@@ -414,28 +374,24 @@
     "Longitude": -122.38699,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   },
   {
-    "Id": 5000,
-    "Name": "5000",
-    "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
-    "City": "Seattle",
-    "State": "WA",
-    "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
+    "Id": 22,
+    "Name": "Fake Card",
+    "Image": "https://12312123",
+    "City": "sa",
+    "State": "sadf",
+    "ShortDesc": "sdf",
     "Comments": [
       "Default"
     ],
-    "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "Latitude": 47.566666,
-    "Longitude": -122.38699,
+    "Address": "Default",
+    "Latitude": -1,
+    "Longitude": -1,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
-    "TransitScore": -1,
-    "TransitScoreDescription": "Default",
     "BikeScore": -1,
     "BikeScoreDescription": "Default"
   }
