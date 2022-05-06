@@ -38,6 +38,7 @@ namespace UnitTests
         public static TempDataDictionary TempData;
         public static PageContext PageContext;
         public static NeighborhoodService NeighborhoodServiceObj;
+        public static AboutUsService AboutUsServiceObj;
 
         /// <summary>
         /// Default Constructor
@@ -71,9 +72,15 @@ namespace UnitTests
 
             NeighborhoodServiceObj = new NeighborhoodService(MockWebHostEnvironment.Object);
 
-            NeighborhoodService neighborhoodServiceObj;
+            /*NeighborhoodService neighborhoodServiceObj;
 
-            neighborhoodServiceObj = new NeighborhoodService(TestHelper.MockWebHostEnvironment.Object);
+            neighborhoodServiceObj = new NeighborhoodService(TestHelper.MockWebHostEnvironment.Object);*/
+
+            AboutUsServiceObj = new AboutUsService(MockWebHostEnvironment.Object);
+
+            /*AboutUsService aboutUsServiceObj;
+
+            aboutUsServiceObj = new AboutUsService(TestHelper.MockWebHostEnvironment.Object);*/
         }
     }
 }
