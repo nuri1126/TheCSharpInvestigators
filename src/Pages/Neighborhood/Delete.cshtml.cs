@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 
 using LetsGoSEA.WebSite.Models;
@@ -13,11 +11,11 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
     /// </summary>
     public class DeleteModel : PageModel
     {
-        // Data middletier
+        // Data middle tier
         public NeighborhoodService NeighborhoodService { get; }
 
         /// <summary>
-        /// Default Construtor
+        /// Default Constructor
         /// </summary>
         /// <param name="neighborhoodService">An instance of the data service to be used</param>
         public DeleteModel(NeighborhoodService neighborhoodService)
@@ -33,7 +31,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// REST Get request
         /// Loads the Data
         /// </summary>
-        /// <param name="id>id of the neighborhood to delete</param>
+        /// <param name="id">id of the neighborhood to delete</param>
         public void OnGet(int id)
         {
             Neighborhood = NeighborhoodService.GetNeighborhoodById(id);
@@ -45,7 +43,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Call the data layer to Delete that data
         /// Then return to the index page
         /// </summary>
-        /// <returns>reditected to the Neighborhood/Index page</returns>
+        /// <returns>redirected to the Neighborhood/Index page</returns>
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
