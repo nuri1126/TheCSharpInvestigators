@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 using LetsGoSEA.WebSite.Pages;
 
-namespace UnitTests.Pages.Privacy
+namespace UnitTests.Pages
 {
     public class PrivacyTests
     {
