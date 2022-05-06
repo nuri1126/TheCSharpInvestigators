@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 
 namespace LetsGoSEA.WebSite.Models
@@ -11,16 +12,24 @@ namespace LetsGoSEA.WebSite.Models
         // Primary key Id
         public int Id { get; set; } = 0;
 
-        // Neighborhood name, eg "West Seattle" 
+        // Validating Neighborhood name to allow only alpha characters
+        [Required(ErrorMessage = "Please enter a neighborhood name.")]
+        [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid neighborhood name.")]
         public string Name { get; set; } = "Default";
 
-        // Image of the neighborhood 
+        // Validating Image URL has to start with https://
+        [Required(ErrorMessage = "Please enter an image link.")]
+        [RegularExpression(@"^https://.*$", ErrorMessage = "Please enter a link that starts with https://")]
         public string Image { get; set; } = "Default";
 
-        // City 
+        // Validating City name to allow only alpha characters
+        [Required(ErrorMessage = "Please enter a City name.")]
+        [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid City name.")]
         public string City { get; set; } = "Default";
 
-        // State
+        // Validating State name to allow only alpha characters
+        [Required(ErrorMessage = "Please enter a State name.")]
+        [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid State name.")]
         public string State { get; set; } = "Default";
 
         // Short description of the neighborhood
