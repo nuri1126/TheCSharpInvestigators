@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using LetsGoSEA.WebSite.Models;
 using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
@@ -78,7 +77,6 @@ namespace UnitTests.Pages.Neighborhood
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
             
             // Act
-            var result = _pageModel.OnPost() as ActionResult;
             
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
