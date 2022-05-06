@@ -35,7 +35,7 @@ namespace UnitTests.Pages.Explore
         }
 
         [Test]
-        public void OnGet_Invalid_Model_NotValid_ReturnExplore()
+        public void OnGet_Invalid_Model_NotValid_ReturnIndex()
         {
             // Arrange
             _pageModel.CurrentNeighborhood = new LetsGoSEA.WebSite.Models.NeighborhoodModel()
@@ -48,9 +48,11 @@ namespace UnitTests.Pages.Explore
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is Invalid");
             
             // Act
+            var result = _pageModel.OnGet(_pageModel.CurrentNeighborhood.Id) as RedirectToPageResult;
             
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
         [Test]
