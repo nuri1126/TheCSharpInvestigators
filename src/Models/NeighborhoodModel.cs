@@ -18,7 +18,7 @@ namespace LetsGoSEA.WebSite.Models
         public string Name { get; set; } = "Default";
 
         // Validating Image URL has to start with https://
-        [Required(ErrorMessage = "Please enter an image link.")]
+        [Required(ErrorMessage = "Please enter an image link. (Put ',' for multiple images)")]
         [RegularExpression(@"^https://.*$", ErrorMessage = "Please enter a link that starts with https://")]
         public string Image { get; set; } = "Default";
 
