@@ -21,7 +21,7 @@ namespace UnitTests.Pages
         #region OnGet
 
         [Test]
-        public void OnGet_Valid_Should_Return_Members()
+        public void OnGet_Valid_Members_Should_Return_True()
         {
             // Arrange
             
