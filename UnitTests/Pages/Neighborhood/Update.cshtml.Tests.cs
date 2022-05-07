@@ -60,7 +60,7 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         [Test]
-        public void OnPostAsync_InValid_Model_NotValid_Return_Page()
+        public void OnPostAsync_InValid_ModelState_Should_Return_False()
         {
             // Arrange
             _pageModel.Neighborhood = new NeighborhoodModel
