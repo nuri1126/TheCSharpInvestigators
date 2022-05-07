@@ -24,7 +24,7 @@ namespace UnitTests.Pages.Neighborhood
         #region OnGet
 
         [Test]
-        public void OnGet_Valid_Should_Return_Products()
+        public void OnGet_Valid_Should_Return_Neighborhood()
         {
             // Arrange
             
