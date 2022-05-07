@@ -22,7 +22,7 @@ namespace UnitTests.Pages.Neighborhood
         #region OnGet
 
         [Test]
-        public void OnGet_Something()
+        public void GetNeighborhoods_Valid_Count_Should_Return_True()
         {
             // Arrange
             var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
