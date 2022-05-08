@@ -1,26 +1,90 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-
-using NUnit.Framework;
-
-using LetsGoSEA.WebSite.Pages.Neighborhood;
+﻿using NUnit.Framework;
 using LetsGoSEA.WebSite.Models;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace UnitTests.Services
 {
+    /// <summary>
+    /// NeighborhoodServiceTests class contains unit tests for GetNeighborhoods, and
+    /// GetNeighborhoodsById. Tests for CRUD service methods are contained in their 
+    /// respective .cshtml.cs file. 
+    /// </summary>
     public class NeighborhoodServiceTests
     {
         #region TestSetup
-
+        /// <summary>
+        /// See TestHelper.cs 
+        /// </summary>
         [SetUp]
         public void TestInitialize()
-        {
+        { 
         }
-
         #endregion TestSetup
 
+        #region GetNeighborhoods
+
+        /// <summary>
+        /// Tests GetNeighborhoods() by retrieving IEnumberable and confirming not null. 
+        /// </summary>
+        [Test]
+        public void GetNeighborhoods()
+        {
+            // Arrange - TestHelper.cs
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.GetNeighborhoods();
+
+            //Assert
+            Assert.NotNull(result);
+
+            Assert.IsInstanceOf(typeof(IEnumerable<NeighborhoodModel>),result);
+        }
+
+        #endregion GetNeighborhoods
+
+
+        #region GetNeighborhoodById_Valid_Id_Should_Return_True
+        /// <summary>
+        /// Tests GetNeighborhoodById by retrieving the first neighborhood and confirming not null. 
+        /// </summary>
+        [Test]
+        public void GetNeighborhoodById_Valid_Id_Should_Return_True()
+        {
+            // Arrange
+            var validId = 1;
+
+            //Act
+            var validResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validId);
+
+            //Assert
+            Assert.NotNull(validResult);
+        }
+        #endregion GetNeighborhoodById_Invalid_Id_Should_Return_True
+
+
+        #region GetNeighborhoodById_Invalid_Id_Should_Return_True
+        /// <summary>
+        /// Tests GetNeighborhoodById catches out of bounds input and returns null. 
+        /// </summary>
+        [Test]
+        public void GetNeighborhoodById_Invalid_Id_Should_Return_True()
+        {
+            // Arrange
+            var invalidId = 1000;
+
+            //Act
+            var invalidResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(invalidId);
+
+            //Assert
+            Assert.Null(invalidResult);
+        }
+        #endregion GetNeighborhoodById_Invalid_Id_Should_Return_True
+
+  
+
+        // Implement after AddRating feature is implemented.
         #region AddRating
+        /*
         [Test]
         public void AddRating_InValid_Product_Null_Should_Return_False()
         {
@@ -66,7 +130,6 @@ namespace UnitTests.Services
             //Assert.AreEqual(5, dataNewList.Ratings.Last());
         }
 
-        // ....
 
         [Test]
         public void AddRating_InValid_Product_Should_Return_False()
@@ -102,5 +165,7 @@ namespace UnitTests.Services
 // Students will do any others that are required
 
         #endregion AddRating
+     */
+        #endregion TestRating
     }
 }
