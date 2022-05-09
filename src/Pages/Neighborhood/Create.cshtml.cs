@@ -1,9 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
 using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
+using System;
 
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
@@ -16,7 +15,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         public NeighborhoodService NeighborhoodService { get; }
 
         /// <summary>
-        /// Defualt Constructor
+        /// Default Constructor
         /// </summary>
         /// <param name="neighborhoodService">An instance of the data service to use</param>
         public CreateModel(NeighborhoodService neighborhoodService)
@@ -27,17 +26,12 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         // The data to show
         public NeighborhoodModel Neighborhood;
 
-        /// <summary>
-        /// REST Get request
-        /// </summary>
-        /// <returns>Redirected to the Update page with reference to a new NeighborhoodModel object</returns>
-        public IActionResult OnGet()
+        public void OnGet()
         {
-            // Create a new NeighborhoodModel object based on user input
-            Neighborhood = NeighborhoodService.CreateData();
-
-            // Redirect to Update page with reference to the new neighborhood
-            return RedirectToPage("./Update", new { Id = Neighborhood.Id });
+            // Create a new NeighborhoodModel object
+            // The sole purpose is to show the autopopulated ID, Seattle, and WA fields on the browser
+            Neighborhood = NeighborhoodService.CreateID();
         }
+       
     }
 }
