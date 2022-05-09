@@ -42,10 +42,6 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <returns>Redirect to index page</returns>
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
             // Request user input from the form
             var ID = Request.Form["Neighborhood.Id"];       // Request.Form returns String[]
