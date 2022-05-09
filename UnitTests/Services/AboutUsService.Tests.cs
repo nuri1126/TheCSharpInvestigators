@@ -5,10 +5,15 @@ using NUnit.Framework;
 
 namespace UnitTests.Services
 {
+    /// <summary>
+    /// Unit test for AboutUs service
+    /// </summary>
     public class AboutUsService_Tests
     {
         #region TestSetup
-
+        /// <summary>
+        /// SetUp is done in TestHelper.cs file
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -17,8 +22,11 @@ namespace UnitTests.Services
         #endregion TestSetup
 
         #region AddRating
+        /// <summary>
+        /// Valid data model should return true
+        /// </summary>
         [Test]
-        public void GetAboutUS_InValid_Data_Model_Should_Return_True()
+        public void GetAboutUS_Valid_Data_Model_Should_Return_True()
         {
             // Arrange
 
