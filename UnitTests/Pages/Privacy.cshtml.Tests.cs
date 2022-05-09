@@ -5,12 +5,18 @@ using LetsGoSEA.WebSite.Pages;
 
 namespace UnitTests.Pages
 {
+    /// <summary>
+    /// Unit test for Privacy Page
+    /// </summary>
     public class PrivacyTests
     {
         #region TestSetup
-
+        // PrivacyModel object
         private static PrivacyModel _pageModel;
 
+        /// <summary>
+        /// Set up ILogger mock for testing 
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -26,6 +32,9 @@ namespace UnitTests.Pages
         #endregion TestSetup
 
         #region OnGet
+        /// <summary>
+        /// Test GET method: valid model state returns valid page
+        /// </summary>
         [Test]
         public void OnGet_Valid_ModelState_Should_Return_True()
         {
