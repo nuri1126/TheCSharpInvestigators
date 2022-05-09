@@ -45,7 +45,7 @@ namespace UnitTests.Pages.Neighborhood
         public void OnPostAsync_Valid_Should_Return_Products()
         {
             // Creating product to delete
-            _pageModel.Neighborhood = TestHelper.NeighborhoodServiceObj.CreateData();
+            _pageModel.Neighborhood = TestHelper.NeighborhoodServiceObj.CreateID();
             _pageModel.Neighborhood.Name = "Neighborhood to Delete";
             _pageModel.Neighborhood.Id = 999;
             TestHelper.NeighborhoodServiceObj.UpdateData(_pageModel.Neighborhood);
