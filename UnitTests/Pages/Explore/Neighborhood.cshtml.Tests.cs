@@ -5,12 +5,18 @@ using NUnit.Framework;
 
 namespace UnitTests.Pages.Explore
 {
+    /// <summary>
+    /// Unit test for Explore Neighborhood Page
+    /// </summary>
     public class NeighborhoodTests
     {
         #region TestSetup
-
+        // Neighborhood Model object
         private static NeighborhoodModel _pageModel;
 
+        /// <summary>
+        /// Set Up Neighborhood Model for testing 
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -20,7 +26,9 @@ namespace UnitTests.Pages.Explore
         #endregion TestSetup
         
         #region Onget
-
+        /// <summary>
+        /// Test GET method: valid page should return neighborhood
+        /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhood()
         {
@@ -34,6 +42,9 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual("Greenlake", _pageModel.CurrentNeighborhood.Name);
         }
 
+        /// <summary>
+        /// Test GET method: invalid model should return index page 
+        /// </summary>
         [Test]
         public void OnGet_Invalid_Model_NotValid_ReturnIndex()
         {
@@ -55,6 +66,9 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
+        /// <summary>
+        /// Test GET method: invalid ID should lead to invalid model which should return index page
+        /// </summary>
         [Test]
         public void OnGet_Invalid_Id_NotValid_ReturnExplore()
         {
