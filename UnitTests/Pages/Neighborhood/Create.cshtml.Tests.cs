@@ -1,6 +1,12 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
+using LetsGoSEA.WebSite.Models;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace UnitTests.Pages.Neighborhood
 {
@@ -13,29 +19,15 @@ namespace UnitTests.Pages.Neighborhood
         [SetUp]
         public void TestInitialize()
         {
-            _pageModel = new CreateModel(TestHelper.NeighborhoodServiceObj);
+            _pageModel = new CreateModel(TestHelper.NeighborhoodServiceObj)
+            {
+                PageContext = TestHelper.PageContext
+            };
         }
 
         #endregion TestSetup
 
-
         #region OnGet
 
-        [Test]
-        public void GetNeighborhoods_Valid_Count_Should_Return_True()
-        {
-            // Arrange
-            var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
-
-            // Act
-            _pageModel.OnGet();
-
-            // Assert
-            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(oldCount + 1, TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count());
-        }
-
-
-        #endregion OnGet
     }
 }
