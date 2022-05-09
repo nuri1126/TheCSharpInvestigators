@@ -10,12 +10,18 @@ using System.Diagnostics;
 
 namespace UnitTests.Pages.Neighborhood
 {
+    /// <summary>
+    /// Unit test for Create Page 
+    /// </summary>
     public class CreateTests
     {
         #region TestSetup
-
+        // CreateModel object 
         private static CreateModel _pageModel;
 
+        /// <summary>
+        /// Set up Create Model object for testing
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -28,7 +34,9 @@ namespace UnitTests.Pages.Neighborhood
         #endregion TestSetup
 
         #region OnGet
-
+        /// <summary>
+        /// Test GET method: valid page should not increment neighborhood count in JSON
+        /// </summary>
         [Test]
         public void OnGet_Valid_Should_Not_Increment_Model_Count()
         {
@@ -43,6 +51,9 @@ namespace UnitTests.Pages.Neighborhood
             Assert.AreEqual(oldCount, TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count());
         }
 
+        /// <summary>
+        /// Test GET method: valid page should generate a new ID for the model
+        /// </summary>
         [Test]
         public void OnGet_Valid_Should_Create_New_ID()
         {
@@ -60,7 +71,9 @@ namespace UnitTests.Pages.Neighborhood
         #endregion OnGet
 
         #region OnPostAsync
-
+        /// <summary>
+        /// Test POST method: valid page should be able to gather Form input and return index page
+        /// </summary>
         [Test]
         public void OnPostAsync_Valid_Should_Get_From_Input_and_Return_Index_Page()
         {
