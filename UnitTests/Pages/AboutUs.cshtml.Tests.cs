@@ -4,12 +4,18 @@ using NUnit.Framework;
 
 namespace UnitTests.Pages
 {
+    /// <summary>
+    /// Unit test for About US page
+    /// </summary>
     public class AboutUsTests
     {
         #region TestSetup
-
+        // AboutUsModel object
         private static AboutUsModel _pageModel;
 
+        /// <summary>
+        /// Set up AboutUs Model for testing
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -19,7 +25,9 @@ namespace UnitTests.Pages
         #endregion TestSetup
 
         #region OnGet
-
+        /// <summary>
+        /// Test GET method: valid team member objects should return valid page
+        /// </summary>
         [Test]
         public void OnGet_Valid_Members_Should_Return_True()
         {
