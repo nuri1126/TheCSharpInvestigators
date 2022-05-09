@@ -17,7 +17,10 @@ namespace UnitTests.Pages
         // IndexModel from Index.cshtml.cs for testing
         private static IndexModel _pageModel;
 
-        [SetUp] // Arrange 
+        /// <summary>
+        /// Set up ILogger mock for testing 
+        /// </summary>
+        [SetUp] 
         public void TestInitialize()
         {
             var mockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
@@ -28,6 +31,9 @@ namespace UnitTests.Pages
         #endregion TestSetup
 
         #region OnGet
+        /// <summary>
+        /// Test GET method: valid page should return valid neighborhoods
+        /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_True()
         {
