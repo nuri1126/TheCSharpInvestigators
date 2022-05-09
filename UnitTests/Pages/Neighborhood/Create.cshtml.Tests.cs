@@ -29,5 +29,35 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
 
+        [Test]
+        public void OnGet_Valid_Should_Not_Increment_Model_Count()
+        {
+            // Arrange
+            var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(oldCount, TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count());
+        }
+
+        [Test]
+        public void OnGet_Valid_Should_Create_New_ID()
+        {
+            // Arrange
+            var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(oldCount + 1, _pageModel.Neighborhood.Id);
+        }
+
+        #endregion OnGet
+
     }
 }
