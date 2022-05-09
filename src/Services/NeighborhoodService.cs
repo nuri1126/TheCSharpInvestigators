@@ -101,6 +101,38 @@ namespace LetsGoSEA.WebSite.Services
             return data;
         }
 
+        /// <summary>
+        /// Create a new neighborhood object, add user input data to it, and save object in JSON file
+        /// </summary>
+        /// <param name="ID">ID generated in CreateID() method</param>
+        /// <param name="name">name data entered by user</param>
+        /// <param name="image">image data entered by user</param>
+        /// <param name="shortDesc">short description entered by user</param>
+        /// <returns>A new NeighborhoodModel object to be later saved in JSON</returns>
+        public NeighborhoodModel AddData(int ID, string name, string image, string shortDesc)
+        {
+            // Create a new neighborhood model
+            var data = new NeighborhoodModel()
+            {
+                // Add user input data to the corresponding field
+                Id = ID,
+                Name = name,
+                Image = image,
+                City = "Seattle",
+                State = "WA",
+                ShortDesc = shortDesc
+            };
+
+            // Get the current set, and append the new record to it 
+            var dataset = GetNeighborhoods();
+            dataset = dataset.Append(data);
+
+            // Save data set in JSON
+            SaveData(dataset);
+
+            return data;
+        }
+
         // <summary>
         // Finds record
         // Updates the neighborhood
