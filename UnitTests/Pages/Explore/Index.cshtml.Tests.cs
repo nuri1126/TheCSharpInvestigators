@@ -4,12 +4,19 @@ using NUnit.Framework;
 
 namespace UnitTests.Pages.Explore
 {
+    /// <summary>
+    /// Unit test for Explore Index page
+    /// </summary>
     public class IndexTests
     {
         #region TestSetup
 
+        // IndexModel object 
         private static IndexModel _pageModel;
 
+        /// <summary>
+        /// Set up IndexModel object for testing
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -19,7 +26,9 @@ namespace UnitTests.Pages.Explore
         #endregion TestSetup
         
         #region OnGet
-
+        /// <summary>
+        /// Test GET method: valid page should return neighborhood objects
+        /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhoods()
         {
