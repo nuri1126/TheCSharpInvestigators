@@ -3,12 +3,18 @@ using LetsGoSEA.WebSite.Pages.Neighborhood;
 
 namespace UnitTests.Pages.Neighborhood
 {
+    /// <summary>
+    /// Unit test for Read page
+    /// </summary>
     public class ReadTests
     {
         #region TestSetup
-
+        // ReadModel object
         private static ReadModel _pageModel;
 
+        /// <summary>
+        /// Set up Read Model object for testing 
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -19,7 +25,9 @@ namespace UnitTests.Pages.Neighborhood
 
 
         #region OnGet
-
+        /// <summary>
+        /// Test GET method: valid page should return neighborhoods 
+        /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhoods()
         {
