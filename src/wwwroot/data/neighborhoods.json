@@ -254,7 +254,7 @@
   {
     "Id": 15,
     "Name": "Pioneer Square",
-    "Image": "https://static.toiimg.com/thumb/msid-44848558,width-550,height-433/44848558.jpg",
+    "Image": "http://www.dvorak.org/blog/wp-content/uploads/2011/03/pioneer-square-l.jpg, https://quirkytravelguy.com/wp-content/uploads/2019/11/things-to-do-pioneer-square.jpg",
     "City": "Seattle",
     "State": "WA",
     "ShortDesc": "The birthplace of Seattle, historic place known for its Renaissance Revival architecture, First Thursday art walks, night life, delicious lunch spots, and quirky boutiques",
@@ -300,96 +300,6 @@
     "Address": "4304 SW Dakota St, Seattle, WA 98116",
     "Latitude": 47.566666,
     "Longitude": -122.38699,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
-  },
-  {
-    "Id": 18,
-    "Name": "Fake Card",
-    "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg,https://api.trekaroo.com/system/photos/43112/original/20061120_GreenlakeAerial.jpg?1493789973",
-    "City": "Seattle",
-    "State": "WA",
-    "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
-    "Comments": [
-      "Default"
-    ],
-    "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "Latitude": 47.566666,
-    "Longitude": -122.38699,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
-  },
-  {
-    "Id": 19,
-    "Name": "Fake Card",
-    "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
-    "City": "Seattle",
-    "State": "WA",
-    "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
-    "Comments": [
-      "Default"
-    ],
-    "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "Latitude": 47.566666,
-    "Longitude": -122.38699,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
-  },
-  {
-    "Id": 20,
-    "Name": "Fake Card",
-    "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
-    "City": "Seattle",
-    "State": "WA",
-    "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
-    "Comments": [
-      "Default"
-    ],
-    "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "Latitude": 47.566666,
-    "Longitude": -122.38699,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
-  },
-  {
-    "Id": 21,
-    "Name": "Fake Card",
-    "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg",
-    "City": "Seattle",
-    "State": "WA",
-    "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
-    "Comments": [
-      "Default"
-    ],
-    "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "Latitude": 47.566666,
-    "Longitude": -122.38699,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
-  },
-  {
-    "Id": 22,
-    "Name": "Fake Card",
-    "Image": "https://insightpestnorthwest.com/wp-content/uploads/yokohama-2223502_1280-1.jpg,https://insightpestnorthwest.com/wp-content/uploads/yokohama-2223502_1280-1.jpg, https://insightpestnorthwest.com/wp-content/uploads/yokohama-2223502_1280-1.jpg",
-    "City": "sa",
-    "State": "sadf",
-    "ShortDesc": "sdf",
-    "Comments": [
-      "Default"
-    ],
-    "Address": "Default",
-    "Latitude": -1,
-    "Longitude": -1,
     "WalkScore": -1,
     "WalkScoreDescription": "Default",
     "BikeScore": -1,
