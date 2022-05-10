@@ -36,6 +36,9 @@ namespace LetsGoSEA.WebSite.Models
         [Required(ErrorMessage = "Please enter a short description.")]
         public string ShortDesc { get; set; } = "Default";
 
+        // Ratings for neighborhood
+        public int[] Ratings { get; set; } = {0};
+
         // Array of comments from registered users 
         [NotMapped] public string[] Comments { get; set; } = {"Default"};
 
