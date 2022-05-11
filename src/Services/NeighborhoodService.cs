@@ -180,7 +180,7 @@ namespace LetsGoSEA.WebSite.Services
             return data;
         }
 
-        /// <summary>
+        /* /// <summary>
         /// Take in the neighborhood ID and the rating
         /// If the rating does not exist, add it
         /// Save the update
@@ -232,6 +232,7 @@ namespace LetsGoSEA.WebSite.Services
             SaveData(neighborhoods);
 
             return true;
-        }
+        } */
     }
+        
 }
