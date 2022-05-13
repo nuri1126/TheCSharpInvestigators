@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using LetsGoSEA.WebSite.Models;
@@ -18,7 +19,12 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         private NeighborhoodService NeighborhoodService { get; }
         // API Key for Google Maps 
         private string API_KEY = "AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs";
-        
+
+        public int avgRating = 0;          // initialize current average rating to be displayed to user 
+        public int voteCount = 0;          // initialize current vote count to be displayed to user
+        public string voteLabel;           // denote "votes" or "vote" to be displayed to user
+
+
         /// <summary>
         /// Getting function to retrieve the API key
         /// </summary>
@@ -85,6 +91,40 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             public Dictionary<string, string> Bike { get; set; }
         }
 
+
+        /// <summary>
+        /// Submit user rating for the current neighborhood to database.
+        /// After database is updated, show current rating.
+        /// </summary>
+        /// <param name="rating">user input rating</param>
+        public void SubmitRating(int rating)
+        {
+            System.Console.WriteLine($"Rating received for {CurrentNeighborhood.Id}: {rating}");
+            NeighborhoodService.AddRating(CurrentNeighborhood, rating);
+            GetCurrentRating();
+        }
+
+        /// <summary>
+        /// Get current average rating for the current neighborhood to display to user
+        /// </summary>
+        private void GetCurrentRating()
+        {
+            if (CurrentNeighborhood.Ratings == null)
+            {
+                avgRating = 0;
+                voteCount = 0;
+            }
+            else
+            {
+                voteCount = CurrentNeighborhood.Ratings.Count();
+                voteLabel = voteCount > 1 ? "Votes" : "Vote";
+                avgRating = CurrentNeighborhood.Ratings.Sum() / voteCount;
+            }
+
+            System.Console.WriteLine($"Current rating for {CurrentNeighborhood.Id}: {avgRating}");
+        }
+
+
         /// <summary>
         /// This method parses the id from the url and checks if the id is valid.
         /// If invalid id is provided, 404 Not found Page is returned
@@ -131,5 +171,22 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
             return Page();
         }
+
+        // TODO: The following code doesn't seem to work... 
+        //public class RatingRequest
+        //{
+        //    public Models.NeighborhoodModel CurrentNgbhd { get; set; }
+        //    public int Rating { get; set; }
+        //}
+
+        //public IActionResult OnPatch([FromBody] RatingRequest request)
+        //{
+        //    NeighborhoodService.AddRating(request.CurrentNgbhd, request.Rating);
+
+        //    return Page();
+        //}
+
+       
+
     }
 }
