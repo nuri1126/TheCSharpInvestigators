@@ -180,30 +180,20 @@ namespace LetsGoSEA.WebSite.Services
             return data;
         }
 
-        /* /// <summary>
+        /// <summary>
         /// Take in the neighborhood ID and the rating
         /// If the rating does not exist, add it
         /// Save the update
         /// </summary>
-        /// <param name="ID"></param>
-        /// <param name="rating"></param>
-        public bool AddRating(string ID, int rating)
+        /// <param name="neighborhood">Neighborhood Model to add rating to</param>
+        /// <param name="rating">user input rating</param>
+        public bool AddRating(NeighborhoodModel neighborhood, int rating)
         {
-            // If the ProductID is invalid, return
-            if (string.IsNullOrEmpty(ID))
+            // If neighborhood is null, return
+            if (neighborhood == null)
             {
                 return false;
             }
-
-            var neighborhoods = GetNeighborhoods();
-
-            // Look up the product, if it does not exist, return
-            var data = neighborhoods.FirstOrDefault(x => x.Id.Equals(ID));
-            if (data == null)
-            {
-                return false;
-            }
-
 
             // Check Rating for boundries, do not allow ratings below 0
             if (rating < 0)
@@ -218,21 +208,22 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             // Check to see if ratings exist, if there are not, then create the array
-            if (data.Ratings == null)
+            if (neighborhood.Ratings == null)
             {
-                data.Ratings = new int[] { };
+                neighborhood.Ratings = new int[] { };
             }
 
             // Add the Rating to the Array
-            var ratings = data.Ratings.ToList();
+            var ratings = neighborhood.Ratings.ToList();
             ratings.Add(rating);
-            data.Ratings = ratings.ToArray();
+            neighborhood.Ratings = ratings.ToArray();
 
             // Save the data back to the data store
+            var neighborhoods = GetNeighborhoods();
             SaveData(neighborhoods);
 
             return true;
-        } */
+        }
     }
         
 }
