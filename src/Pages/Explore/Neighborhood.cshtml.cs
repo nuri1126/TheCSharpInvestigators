@@ -16,6 +16,17 @@ namespace LetsGoSEA.WebSite.Pages.Explore
     {
         // Data middle tier service
         private NeighborhoodService NeighborhoodService { get; }
+        // API Key for Google Maps 
+        private string API_KEY = "AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs";
+        
+        /// <summary>
+        /// Getting function to retrieve the API key
+        /// </summary>
+        /// <returns>Google Maps API Key</returns>
+        public string GetKey()
+        {
+            return API_KEY;
+        }
 
         /// <summary>
         /// Default constructor
@@ -89,6 +100,8 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             }
 
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
+            string API_KEY = "AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs";
+            
 
             // If invalid id is passed, it results in CurrentNeighborhood to be null
             // User is redirected to the Explore Page
