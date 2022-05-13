@@ -95,5 +95,30 @@
         }
     }
 
+    <!--Show rating stars-->
+    @{
+        @if (Model.voteCount == 0)
+        {
+            <span>Be the first to vote!</span>
+        }
+        else
+        {
+            <span>@Model.voteCount @Model.voteLabel</span>
+        }
+        @for (int i = 1; i < 6; i++)
+        {
+            var currentStar = i;
+            if (i <= Model.avgRating)
+            {
+                <span class="fa fa-star checked" onclick="(e => SubmitRating(currentStar))"></span>
+            }
+            else
+            {
+                <span class="fa fa-star" onclick="(e => SubmitRating(currentStar))"></span>
+            }
+        }
 
-</div>
+    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</di>
