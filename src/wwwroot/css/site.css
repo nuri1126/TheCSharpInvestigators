@@ -1,11 +1,12 @@
 ﻿/* Default CSS Stylesheet */
 
+/* Rating star */
 .checked {
-  color: orange;
+    color: orange;
 }
 
 .fa-star {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
