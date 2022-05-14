@@ -22,27 +22,14 @@ for details on configuring this project to bundle and minify static web assets. 
     background: #CAD2C5;
 }
 
-.card-columns .card-img {
-  height: 330px;
-  vertical-align: bottom;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-  opacity: .8;
+.row {
+    margin-top: 2rem;
 }
 
-.modal .card-img {
-  height: 500px;
-  vertical-align: bottom;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+.row .card:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px, rgba(0, 0, 0, 0.12) 0 -12px 30px, rgba(0, 0, 0, 0.12) 0 4px 6px, rgba(0, 0, 0, 0.17) 0 12px 13px, rgba(0, 0, 0, 0.09) 0 -3px 5px;
 }
 
-.card-columns .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(37,33,82,.12), 0 4px 8px rgba(37,33,82,.06);
-}
 .card-footer {
     background: #84A98C;
 }
@@ -58,7 +45,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-   color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
@@ -66,6 +53,7 @@ a {
     background-color: #52489C;
     border-color: #252152;
 }
+
 .btn-primary:hover {
     color: #fff;
     background-color: #e9a8a6;
@@ -73,65 +61,70 @@ a {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Home Page
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
 
     background: #EBEBEB;
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 p {
     font-family: 'Nunito', sans-serif;
 }
+
 h1 {
     font-family: 'Nunito', sans-serif;
 }
+
 ul {
     font-family: 'Nunito', sans-serif;
 }
 
 .btn-xl {
     position: fixed;
-    top:70%;
-    right:38%;
+    top: 70%;
+    right: 38%;
     font-size: 150%;
 }
 
@@ -143,6 +136,7 @@ ul {
     line-height: 60px; /* Vertically center the text there */
     font-family: 'Nunito', sans-serif;
 }
+
 /*Backgrounds*/
 .bg-navbar {
     /*background: -webkit-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
@@ -151,6 +145,7 @@ ul {
     background: linear-gradient(170deg, #59C3C3 60%, #52489C 80%);
     z-index: 1;
 }
+
 .bg-footer {
     /*background: -webkit-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -o-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
@@ -177,7 +172,7 @@ ul {
     display: inline-flex;
 }
 
-.team-member img{
+.team-member img {
     object-fit: cover;
     max-width: 80%;
 }
@@ -237,10 +232,10 @@ ul {
 
 .slider-card img {
     border-radius: 5px 5px 0px 0px;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-    width:80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
 }
 
 .owl-nav .owl-prev {
