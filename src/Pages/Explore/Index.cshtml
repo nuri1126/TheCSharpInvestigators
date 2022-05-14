@@ -24,31 +24,21 @@
     </div>
 </div>
 
-<div class="card-columns">
+<div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var neighborhood in @Model.Neighborhoods)
     {
-        <div class="card">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                @{var neighborhoodImages = @neighborhood.Image.Split(',');}
-
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="@neighborhoodImages.First()" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                        </div>
-                    </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="@neighborhood.Image.Split(',').First()" class="card-img-top" alt="Picture of @neighborhood.Name" height="40%">
+                <div class="card-body">
+                    <h5 class="card-title">@neighborhood.Name</h5>
+                    <p class="card-text">@neighborhood.ShortDesc</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" asp-page="Neighborhood" asp-route-id="@neighborhood.Id" >Explore more</a>
                 </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">@neighborhood.Name</h5>
-            </div>
-            <div class="card-footer">
-                <small>@neighborhood.ShortDesc</small> <br/>
-                <small class="text-muted" style="display: block">
-                    <a class="btn btn-primary" role="button" asp-page="Neighborhood" asp-route-id="@neighborhood.Id">Explore More</a>
-                </small>
-            </div>
-        </div>
+        </div>    
     }
 </div>
 
