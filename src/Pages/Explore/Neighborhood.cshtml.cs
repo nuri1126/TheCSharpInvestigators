@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -140,8 +139,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             }
 
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
-            string API_KEY = "AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs";
-            
+
 
             // If invalid id is passed, it results in CurrentNeighborhood to be null
             // User is redirected to the Explore Page
