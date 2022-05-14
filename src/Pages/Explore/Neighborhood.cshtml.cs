@@ -25,15 +25,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
 
         /// <summary>
-        /// Getting function to retrieve the API key
-        /// </summary>
-        /// <returns>Google Maps API Key</returns>
-        public string GetKey()
-        {
-            return API_KEY;
-        }
-
-        /// <summary>
         /// Default constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of data service to use</param>
@@ -45,6 +36,19 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         [BindProperty]
         // Current Neighborhood to be displayed to the user
         public Models.NeighborhoodModel CurrentNeighborhood { get; set; }
+
+        [BindProperty]
+        // User input rating 
+        public int Rating { get; set; }
+
+        /// <summary>
+        /// Getting function to retrieve the API key
+        /// </summary>
+        /// <returns>Google Maps API Key</returns>
+        public string GetKey()
+        {
+            return API_KEY;
+        }
 
         /// <summary>
         /// Makes an API call to Redfin WalkScore API to get 
@@ -92,19 +96,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
 
         /// <summary>
-        /// Submit user rating for the current neighborhood to database.
-        /// After database is updated, show current rating.
-        /// </summary>
-        /// <param name="rating">user input rating</param>
-        public void SubmitRating(int rating)
-        {
-            System.Console.WriteLine($"Rating received for {CurrentNeighborhood.Id}: {rating}");
-            NeighborhoodService.AddRating(CurrentNeighborhood, rating);
-            GetCurrentRating();
-        }
-
-        /// <summary>
-        /// Get current average rating for the current neighborhood to display to user
+        /// Get current average rating and vote count for the current neighborhood to display to user
         /// </summary>
         private void GetCurrentRating()
         {
@@ -167,24 +159,20 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 CurrentNeighborhood.BikeScoreDescription = walkScores.Bike["description"];
             }
 
+            GetCurrentRating();
             return Page();
         }
 
-        // TODO: The following code doesn't seem to work... 
-        //public class RatingRequest
-        //{
-        //    public Models.NeighborhoodModel CurrentNgbhd { get; set; }
-        //    public int Rating { get; set; }
-        //}
-
-        //public IActionResult OnPatch([FromBody] RatingRequest request)
-        //{
-        //    NeighborhoodService.AddRating(request.CurrentNgbhd, request.Rating);
-
-        //    return Page();
-        //}
-
-       
-
+        /// <summary>
+        /// REST Post method: when user clicks on rating star, this method updates the rating for the current neighborhood and 
+        /// calls GetCurrentRating() to display the new average rating and vote count to user. 
+        /// </summary>
+        /// <param name="id">the id of the current neighborhood</param>
+        public void OnPost(int id)
+        {
+            CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
+            NeighborhoodService.AddRating(CurrentNeighborhood, Rating);
+            GetCurrentRating();
+        }
     }
 }
