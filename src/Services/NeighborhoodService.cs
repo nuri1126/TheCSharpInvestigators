@@ -141,8 +141,8 @@ namespace LetsGoSEA.WebSite.Services
         // <param name="data">neighborhood data to be saved</param>
         public NeighborhoodModel UpdateData(NeighborhoodModel data) 
         {
-            var neighborhood = GetNeighborhoods();
-            var neighborhoodData = neighborhood.FirstOrDefault(x => x.Id.Equals(data.Id));
+            var neighborhoods = GetNeighborhoods();
+            var neighborhoodData = neighborhoods.FirstOrDefault(x => x.Id.Equals(data.Id));
             if (neighborhoodData == null)
             {
                 return null;
@@ -153,8 +153,9 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.City = data.City;
             neighborhoodData.State = data.State;
             neighborhoodData.ShortDesc = data.ShortDesc;
+            neighborhoodData.Ratings = data.Ratings;
 
-            SaveData(neighborhood);
+            SaveData(neighborhoods);
 
             return neighborhoodData;
         }
@@ -218,9 +219,9 @@ namespace LetsGoSEA.WebSite.Services
             ratings.Add(rating);
             neighborhood.Ratings = ratings.ToArray();
 
+
             // Save the data back to the data store
-            var neighborhoods = GetNeighborhoods();
-            SaveData(neighborhoods);
+            UpdateData(neighborhood);
 
             return true;
         }
