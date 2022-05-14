@@ -50,7 +50,7 @@
                                 @foreach (var neighborhood in NeighborhoodService.GetNeighborhoods())
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-page="Neighborhood" asp-route-id="@neighborhood.Id">@neighborhood.Name</a>
+                                        <a class="dropdown-item" asp-page="/Explore/Neighborhood" asp-route-id="@neighborhood.Id">@neighborhood.Name</a>
                                     </li>
                                 }
 
