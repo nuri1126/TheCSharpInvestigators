@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using LetsGoSEA.WebSite.Pages;
+﻿using LetsGoSEA.WebSite.Pages;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System.Diagnostics;
 
 namespace UnitTests.Pages
 {
