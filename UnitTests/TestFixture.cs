@@ -1,6 +1,5 @@
-﻿using System.IO;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.IO;
 
 namespace UnitTests
 {
@@ -39,7 +38,7 @@ namespace UnitTests
             var filePaths = Directory.GetFiles(DataWebPath);
             foreach (var filename in filePaths)
             {
-                
+
                 var newFilePathName = filename.Replace(DataWebPath, dataUtPath);
 
                 File.Copy(filename, newFilePathName);
