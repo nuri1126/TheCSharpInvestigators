@@ -1,15 +1,10 @@
-﻿using System.Text.Json;
-
-namespace LetsGoSEA.WebSite.Models
+﻿namespace LetsGoSEA.WebSite.Models
 {
     /// <summary>
     /// AboutUsModel represents an individual developer profile
     /// </summary>
     public class AboutUsModel
     {
-        // Primary key Id
-        public int Id { get; set; } = 0;
-
         // Developer name
         public string Name { get; set; } = "Default";
 
