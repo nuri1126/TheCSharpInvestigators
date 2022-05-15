@@ -1,10 +1,5 @@
 ﻿using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
-using LetsGoSEA.WebSite.Models;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace LetsGoSEA.WebSite.Controllers
 {
