@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using LetsGoSEA.WebSite.Pages;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using LetsGoSEA.WebSite.Pages;
+using System.Linq;
 
 
 namespace UnitTests.Pages
@@ -20,7 +20,7 @@ namespace UnitTests.Pages
         /// <summary>
         /// Set up ILogger mock for testing 
         /// </summary>
-        [SetUp] 
+        [SetUp]
         public void TestInitialize()
         {
             var mockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
