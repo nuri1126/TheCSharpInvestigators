@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using NUnit.Framework;
-using LetsGoSEA.WebSite.Pages.Neighborhood;
-using LetsGoSEA.WebSite.Models;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
+﻿using LetsGoSEA.WebSite.Pages.Neighborhood;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 
 namespace UnitTests.Pages.Neighborhood
 {
@@ -108,7 +105,7 @@ namespace UnitTests.Pages.Neighborhood
             var result = _pageModel.OnPost() as RedirectToPageResult;
 
             // ASSERT
-            Assert.IsNotNull(formCol); 
+            Assert.IsNotNull(formCol);
             Assert.AreEqual(formCol["Neighborhood.Id"][0], newCount.ToString());
             Assert.AreEqual(formCol["Neighborhood.Name"][0], newName);
             Assert.AreEqual(formCol["Neighborhood.Image"][0], newImage);
