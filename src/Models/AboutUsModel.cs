@@ -21,11 +21,5 @@ namespace LetsGoSEA.WebSite.Models
 
         // Short bio 
         public string Bio { get; set; } = "Default";
-
-        /// <summary>
-        /// Converts Model to JSON
-        /// </summary>
-        /// <returns>A string of all the team member data in JSON format</returns>
-        public override string ToString() => JsonSerializer.Serialize<AboutUsModel>(this);
     }
 }
