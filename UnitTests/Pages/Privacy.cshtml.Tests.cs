@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using LetsGoSEA.WebSite.Pages;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using LetsGoSEA.WebSite.Pages;
 
 namespace UnitTests.Pages
 {
