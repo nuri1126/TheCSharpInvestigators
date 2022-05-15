@@ -1,10 +1,10 @@
-﻿using System;
+﻿using LetsGoSEA.WebSite.Models;
+using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using LetsGoSEA.WebSite.Models;
-using Microsoft.AspNetCore.Hosting;
 
 namespace LetsGoSEA.WebSite.Services
 {
@@ -34,7 +34,7 @@ namespace LetsGoSEA.WebSite.Services
             // Read and Deserialize JSON file into an array of NeighborhoodModel objects
             return JsonSerializer.Deserialize<NeighborhoodModel[]>(jsonFileReader.ReadToEnd(),
                 // Make case insensitive
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
         /// <summary>
@@ -56,7 +56,6 @@ namespace LetsGoSEA.WebSite.Services
                 // If the id passed is invalid, we return null
                 return null;
             }
-            
         }
 
         /// <summary>
@@ -139,7 +138,7 @@ namespace LetsGoSEA.WebSite.Services
         // saves record
         // </summary>
         // <param name="data">neighborhood data to be saved</param>
-        public NeighborhoodModel UpdateData(NeighborhoodModel data) 
+        public NeighborhoodModel UpdateData(NeighborhoodModel data)
         {
             var neighborhoods = GetNeighborhoods();
             var neighborhoodData = neighborhoods.FirstOrDefault(x => x.Id.Equals(data.Id));
@@ -226,5 +225,4 @@ namespace LetsGoSEA.WebSite.Services
             return true;
         }
     }
-        
 }
