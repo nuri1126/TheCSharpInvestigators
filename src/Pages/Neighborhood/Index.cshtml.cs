@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using LetsGoSEA.WebSite.Models;
+﻿using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
@@ -11,7 +11,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
     public class IndexModel : PageModel
     {
         // Data Service
-        private NeighborhoodService NeighborhoodService { get;  }
+        private NeighborhoodService NeighborhoodService { get; }
 
         /// <summary>
         /// Default Constructor
