@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using LetsGoSEA.WebSite.Pages.Neighborhood;
+﻿using LetsGoSEA.WebSite.Pages.Neighborhood;
+using NUnit.Framework;
 
 namespace UnitTests.Pages.Neighborhood
 {
