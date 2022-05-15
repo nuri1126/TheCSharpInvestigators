@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using LetsGoSEA.WebSite.Models;
+﻿using LetsGoSEA.WebSite.Models;
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace UnitTests.Services
@@ -17,7 +17,7 @@ namespace UnitTests.Services
         /// </summary>
         [SetUp]
         public void TestInitialize()
-        { 
+        {
         }
         #endregion TestSetup
 
@@ -37,7 +37,7 @@ namespace UnitTests.Services
             //Assert
             Assert.NotNull(result);
 
-            Assert.IsInstanceOf(typeof(IEnumerable<NeighborhoodModel>),result);
+            Assert.IsInstanceOf(typeof(IEnumerable<NeighborhoodModel>), result);
         }
 
         #endregion GetNeighborhoods
@@ -80,7 +80,7 @@ namespace UnitTests.Services
         }
         #endregion GetNeighborhoodById_Invalid_Id_Should_Return_True
 
-  
+
 
         // Implement after AddRating feature is implemented.
         #region AddRating
