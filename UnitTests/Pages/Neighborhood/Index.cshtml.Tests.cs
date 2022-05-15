@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using LetsGoSEA.WebSite.Pages.Neighborhood;
 using NUnit.Framework;
-using LetsGoSEA.WebSite.Pages.Neighborhood;
+using System.Linq;
 
 namespace UnitTests.Pages.Neighborhood
 
