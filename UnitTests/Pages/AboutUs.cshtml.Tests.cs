@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using LetsGoSEA.WebSite.Pages;
+﻿using LetsGoSEA.WebSite.Pages;
 using NUnit.Framework;
+using System.Linq;
 
 namespace UnitTests.Pages
 {
@@ -32,14 +32,14 @@ namespace UnitTests.Pages
         public void OnGet_Valid_Members_Should_Return_True()
         {
             // Arrange
-            
+
             // Act
             _pageModel.OnGet();
-            
+
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Assert.AreEqual(true, _pageModel.Members.ToList().Any());
-            
+
         }
 
         #endregion OnGet
