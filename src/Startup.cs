@@ -33,7 +33,7 @@ namespace LetsGoSEA.WebSite
             // Add AboutUs service 
             services.AddTransient<AboutUsService>();
 
-            
+
         }
 
         /// <summary>
