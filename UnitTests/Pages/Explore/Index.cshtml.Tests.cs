@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using LetsGoSEA.WebSite.Pages.Explore;
+﻿using LetsGoSEA.WebSite.Pages.Explore;
 using NUnit.Framework;
+using System.Linq;
 
 namespace UnitTests.Pages.Explore
 {
@@ -24,7 +24,7 @@ namespace UnitTests.Pages.Explore
         }
 
         #endregion TestSetup
-        
+
         #region OnGet
         /// <summary>
         /// Test GET method: valid page should return neighborhood objects
@@ -33,16 +33,16 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Valid_Should_Return_Neighborhoods()
         {
             // Arrange
-            
-            
+
+
             // Act
             _pageModel.OnGet();
-            
+
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Assert.AreEqual(true, _pageModel.Neighborhoods.ToList().Any());
         }
-        
+
         #endregion OnGet
     }
 }
