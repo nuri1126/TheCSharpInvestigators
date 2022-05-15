@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using LetsGoSEA.WebSite.Models;
+using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using LetsGoSEA.WebSite.Models;
-using LetsGoSEA.WebSite.Services;
+using System.Collections.Generic;
 
 namespace LetsGoSEA.WebSite.Pages
 {
