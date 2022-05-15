@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using LetsGoSEA.WebSite.Models;
+﻿using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
