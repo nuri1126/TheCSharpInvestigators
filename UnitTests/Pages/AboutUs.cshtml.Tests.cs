@@ -1,6 +1,8 @@
 ﻿using LetsGoSEA.WebSite.Pages;
+using LetsGoSEA.WebSite.Models;
 using NUnit.Framework;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace UnitTests.Pages
 {
@@ -11,7 +13,7 @@ namespace UnitTests.Pages
     {
         #region TestSetup
         // AboutUsModel object
-        private static AboutUsModel _pageModel;
+        private static LetsGoSEA.WebSite.Pages.AboutUsModel _pageModel;
 
         /// <summary>
         /// Set up AboutUs Model for testing
@@ -19,7 +21,7 @@ namespace UnitTests.Pages
         [SetUp]
         public void TestInitialize()
         {
-            _pageModel = new AboutUsModel(TestHelper.AboutUsServiceObj);
+            _pageModel = new LetsGoSEA.WebSite.Pages.AboutUsModel(TestHelper.AboutUsServiceObj);
         }
 
         #endregion TestSetup
@@ -43,5 +45,26 @@ namespace UnitTests.Pages
         }
 
         #endregion OnGet
+
+        #region Model_Properties_Should_Be_Not_Null() 
+        [Test]
+        public void Model_Properties_Should_Be_Not_Null()
+        {
+            // Arrange
+            _pageModel.OnGet();
+            IEnumerable<LetsGoSEA.WebSite.Models.AboutUsModel> members = _pageModel.Members;
+
+            // Act
+
+            foreach (var member in members)
+            {
+                Assert.NotNull(member.Name);
+                Assert.NotNull(member.Bio);
+                Assert.NotNull(member.LinkedIn);
+                Assert.NotNull(member.Image);
+                Assert.NotNull(member.Bio);
+            }
+        }
+        #endregion Model_Properties_Should_Be_Not_Null() 
     }
 }
