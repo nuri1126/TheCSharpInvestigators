@@ -40,7 +40,7 @@ namespace LetsGoSEA.WebSite.Models
         public int[] Ratings { get; set; } = null;
 
         // Array of comments from registered users 
-        [NotMapped] public string[] Comments { get; set; } = {"Default"};
+        [NotMapped] public string[] Comments { get; set; } = { "Default" };
 
         // Address of neighborhood
         public string Address { get; set; } = "Default";
@@ -62,11 +62,5 @@ namespace LetsGoSEA.WebSite.Models
 
         // Bike Score Description
         public string BikeScoreDescription { get; set; } = "Default";
-
-        /// <summary>
-        /// Converts Model to JSON
-        /// </summary>
-        /// <returns>A string of all the neighborhood data in JSON format</returns>
-        public override string ToString() => JsonSerializer.Serialize<NeighborhoodModel>(this);
     }
 }
