@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Hosting;
-
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
 namespace UnitTests.Pages.Startup
