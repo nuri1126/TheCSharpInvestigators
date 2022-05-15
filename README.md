@@ -28,6 +28,7 @@ Visit the deployed website here: [LetsGoSEA]
   - Evan Marshall
   - Nirmalya Ghosh
   - Narissa Tsuboi
+  - Zi Wang
 
 ## License
 MIT
