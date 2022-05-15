@@ -20,6 +20,6 @@ namespace LetsGoSEA.WebSite.Controllers
         }
 
         // Controller's retrievable service property used for dependency injection
-        private NeighborhoodService NeighborhoodService { get; }
+        public NeighborhoodService NeighborhoodService { get; }
     }
 }
