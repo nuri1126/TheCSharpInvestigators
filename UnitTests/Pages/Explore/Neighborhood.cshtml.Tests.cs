@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using LetsGoSEA.WebSite.Pages.Explore;
+﻿using LetsGoSEA.WebSite.Pages.Explore;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using System.Diagnostics;
 
 namespace UnitTests.Pages.Explore
 {
@@ -24,7 +24,7 @@ namespace UnitTests.Pages.Explore
         }
 
         #endregion TestSetup
-        
+
         #region Onget
         /// <summary>
         /// Test GET method: valid page should return neighborhood
@@ -33,7 +33,7 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Valid_Should_Return_Neighborhood()
         {
             // Arrange
-            
+
             // Act
             _pageModel.OnGet(2);
 
@@ -54,13 +54,13 @@ namespace UnitTests.Pages.Explore
                 Id = 666,
                 Name = "Invalid Name"
             };
-            
+
             // Force an invalid error state
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is Invalid");
-            
+
             // Act
             var result = _pageModel.OnGet(_pageModel.CurrentNeighborhood.Id) as RedirectToPageResult;
-            
+
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
             Assert.AreEqual(true, result.PageName.Contains("Index"));
@@ -81,7 +81,7 @@ namespace UnitTests.Pages.Explore
 
             // Act
             var result = _pageModel.OnGet(_pageModel.CurrentNeighborhood.Id) as RedirectToPageResult;
-            
+
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Debug.Assert(result != null, nameof(result) + " != null");
