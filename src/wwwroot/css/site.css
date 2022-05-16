@@ -201,6 +201,18 @@ ul {
 
 /* About Us Page
 -------------------------------------------------- */
+.aboutus-content-h1{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px
+}
+
+.aboutus-content-p {
+    font-size: 20px;
+    color: #84A98C;
+    font-weight: bold;
+    text-align: justify;
+}
 
 .team-member {
     height: 310px;
