@@ -20,7 +20,8 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var neighborhood in Model.Neighborhoods)
+
+        @foreach (var neighborhood in Model.Neighborhoods.OrderBy(neighborhood => neighborhood.Name))
         {
             <tr>
                 <td>@neighborhood.Name</td>
