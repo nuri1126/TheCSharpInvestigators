@@ -6,51 +6,16 @@
     ViewData["Title"] = "Home page";
 }
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&display=swap" rel="stylesheet">
-</head>
-
-<style>
-    h1 {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-
-
-    .home-title {
-        position: fixed;
-        top: 15%;
-        right: 60%;
-        text-align: center;
-        background: rgba(143, 201, 58, 0.4);
-        border-radius: 25px;
-    }
-
-    .home-tagline {
-        overflow-wrap: break-word;
-        position: fixed;
-        width:35%;
-        height:10%;
-        top:58%;
-        right:12%;
-        text-align: justify;
-        background: rgba(143, 201, 58, 0.4);
-        border-radius: 25px;
-        padding: .5% 1.7% .5% 1.7%;
-    }
-</style>
 
 <video autoplay muted loop preload="auto" id="myVideo">
     <source src="~/image/LetsGoSEA_Homepage.mov" type="video/mp4" />
 </video>
 
 <div class="home-title">
-        <h1 style="font-size: 600%; padding: 1% 1.5% 1% 1.5%;">Lets Go SEA</h1>
+        <h1 class="homepage-title-content">Lets Go SEA</h1>
 </div>
 <div class="home-tagline">
-    <p1 style="font-family: 'Montserrat', sans-serif; font-size:120%; font-weight:100">"The one-stop site to explore the beautiful neighborhoods of Seattle!"</p1>
+    <p1 class="homepage-tagline-content">"The one-stop site to explore the beautiful neighborhoods of Seattle!"</p1>
 </div>
 <div>
     <a class="btn btn-primary btn-xl" role="button" asp-page="/Explore/Index">Lets Go Sea!</a>
