@@ -50,51 +50,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             return API_KEY;
         }
 
-        /// <summary>
-        /// Makes an API call to Redfin WalkScore API to get 
-        /// Walk Score, Transit Score, Bike Score of a single neighborhood
-        /// </summary>
-        /// <param name="neighborhood">A NeighborhoodModel of a single neighborhood</param>
-        /// <returns>An object with the response from the API</returns>
-        public async Task<NeighborhoodCharacteristics> GetWalkScore(Models.NeighborhoodModel neighborhood)
-        {
-            const string apiKey = "c6d78988747a933bd54771e51a75dd26";
-
-            // API URL
-            string url =
-                $"https://api.walkscore.com/score?format=json&address={neighborhood.Address}&lat={neighborhood.Latitude}&lon={neighborhood.Longitude}&bike=1&wsapikey={apiKey}";
-
-
-            using HttpClient client = new HttpClient();
-            NeighborhoodCharacteristics characteristics = new NeighborhoodCharacteristics();
-
-            // API Call is made and we save the response
-            HttpResponseMessage response = await client.GetAsync(url);
-
-            // Check if the response has a success code
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadAsStringAsync();
-                // Deserialize the JSON response and map it to a data model
-                characteristics = JsonConvert.DeserializeObject<NeighborhoodCharacteristics>(res);
-            }
-
-
-            return characteristics;
-        }
-
-        /// <summary>
-        /// A class to store the response from the API with the
-        /// required fields
-        /// </summary>
-        public class NeighborhoodCharacteristics
-        {
-            public int WalkScore { get; set; }
-            public string Description { get; set; }
-            public Dictionary<string, string> Bike { get; set; }
-        }
-
-
+        
         /// <summary>
         /// Get current average rating and vote count for the current neighborhood to display to user
         /// </summary>
@@ -140,25 +96,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 return RedirectToPage("./Index");
             }
 
-            // Get the Walk Score, Transit Score, Bike score of the neighborhood if available
-            var walkScores = GetWalkScore(CurrentNeighborhood).Result;
-
-            // Validating the value of WalkScore
-            if (walkScores.WalkScore > 0)
-            {
-                // Setting the values to the Model
-                CurrentNeighborhood.WalkScore = walkScores.WalkScore;
-                CurrentNeighborhood.WalkScoreDescription = walkScores.Description;
-            }
-
-            // Validating we got a valid response for Bike Score
-            if (walkScores.Bike["score"] != null)
-            {
-                // Setting the values to the Model
-                CurrentNeighborhood.BikeScore = walkScores.Bike["score"][0];
-                CurrentNeighborhood.BikeScoreDescription = walkScores.Bike["description"];
-            }
-
+            
             GetCurrentRating();
             return Page();
         }
