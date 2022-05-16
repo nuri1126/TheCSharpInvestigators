@@ -97,9 +97,50 @@ button.accept-policy {
 
 /* Home Page
 -------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 html {
     position: relative;
     min-height: 100%;
+}
+
+/* homepage title background and orientation on page*/
+div.home-title {
+    position: fixed;
+    top: 15%;
+    right: 60%;
+    text-align: center;
+    background: rgba(143, 201, 58, 0.4);
+    border-radius: 25px;
+}
+
+/* homepage title font details*/
+h1.homepage-title-content {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 600%;
+    padding: 1% 1.5% 1% 1.5%;
+}
+
+/* homepage tagline background and orientation on page*/
+div.home-tagline {
+    overflow-wrap: break-word;
+    position: fixed;
+    width: 35%;
+    height: 10%;
+    top: 58%;
+    right: 12%;
+    text-align: justify;
+    background: rgba(143, 201, 58, 0.4);
+    border-radius: 25px;
+    padding: .5% 1.7% .5% 1.7%;
+}
+
+/* homapage tagline font details*/
+p1.homepage-tagline-content {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 120%;
+    font-weight: 100;
 }
 
 body {
