@@ -44,23 +44,5 @@ namespace LetsGoSEA.WebSite.Models
 
         // Address of neighborhood
         public string Address { get; set; } = "Default";
-
-        // Latitude of neighborhood
-        public float Latitude { get; set; } = -1;
-
-        // Longitude of neighborhood
-        public float Longitude { get; set; } = -1;
-
-        // Walk score of the neighborhood
-        public int WalkScore { get; set; } = -1;
-
-        // Walk Score Description
-        public string WalkScoreDescription { get; set; } = "Default";
-
-        // Bike Score of the neighborhood
-        public int BikeScore { get; set; } = -1;
-
-        // Bike Score Description
-        public string BikeScoreDescription { get; set; } = "Default";
     }
 }
