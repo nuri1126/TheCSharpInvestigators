@@ -14,7 +14,7 @@
         <h1 class="display-4">@Model.CurrentNeighborhood.City, @Model.CurrentNeighborhood.State</h1>
     </h1>
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-        @{var neighborhoodImages = @Model.CurrentNeighborhood.Image.Split(',');}
+        @{ var neighborhoodImages = @Model.CurrentNeighborhood.Image.Split(','); }
         @if (neighborhoodImages.Length != 1)
         {
             <ol class="carousel-indicators">
@@ -60,40 +60,29 @@
             </a>
         }
     </div>
-    <hr class="my-4" />
+    <hr class="my-4"/>
     <p>@Model.CurrentNeighborhood.ShortDesc</p>
 
     <!-- Google Maps for this neighborhood-->
     <iframe
-      width="100%"
-      height="500"
-      style="border:0"
-      referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.google.com/maps/embed/v1/place?key=@Model.GetKey()&q=@Model.CurrentNeighborhood.Name&zoom=15"
-      allowfullscreen>
+        width="100%"
+        height="500"
+        style="border:0"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=@Model.GetKey()&q=@Model.CurrentNeighborhood.Name&zoom=15"
+        allowfullscreen>
+    </iframe>
+
+    
+    @{
+        var addressQuery = Model.CurrentNeighborhood.Address.Replace(",", " ").Replace("  ", " ").Replace(" ", "-");
+    }
+    <iframe height="500px" title="Walk Score" 
+            id="walk-score-iframe" 
+            src="https://www.walkscore.com/serve-walkscore-tile.php?wsid=g00bb89dd158a4fb0bb5177c0bfcc3760&amp;s=@addressQuery&amp;o=v&amp;c=f&amp;h=500&amp;fh=0&amp;w=400">
+        
     </iframe>
     
-    
-    <!-- Show Walk Score, Transit Score, Bike Score if we have them.
-    Otherwise, we don't show it
-    -->
-    @{
-        if (Model.CurrentNeighborhood.WalkScore > 0)
-        {
-            <p>
-                Walk Score: @Model.CurrentNeighborhood.WalkScore
-                <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.WalkScoreDescription</span>
-            </p>
-        }
-
-        if (Model.CurrentNeighborhood.BikeScore > 0)
-        {
-            <p>
-                Bike Score: @Model.CurrentNeighborhood.BikeScore
-                <span class="badge rounded-pill bg-info text-dark">@Model.CurrentNeighborhood.BikeScoreDescription</span>
-            </p>
-        }
-    }
 
     <!--Show rating stars-->
     @if (Model.voteCount == 0)
