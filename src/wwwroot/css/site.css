@@ -273,3 +273,28 @@ ul {
 .owl-dots .owl-dot.active {
     background: #f44336 !important;
 }
+
+/*WalkScore Widget*/
+
+#walk-score-iframe {
+    margin: 0;
+    outline: none;
+    text-align: left;
+    text-decoration: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    vertical-align: baseline;
+    text-shadow: none;
+    white-space: normal;
+    background-image: none;
+    background-color: transparent;
+    text-indent: 0;
+    border: 0;
+    width: 400px;
+    height: 500px;
+
+}
