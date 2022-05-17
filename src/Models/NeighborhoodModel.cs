@@ -41,6 +41,7 @@ namespace LetsGoSEA.WebSite.Models
         public List<CommentModel> Comments { get; set; } = new List<CommentModel>();
 
         // Address of neighborhood
+        [Required(ErrorMessage = "Please enter a valid address")]
         public string Address { get; set; } = "Default";
     }
 }
