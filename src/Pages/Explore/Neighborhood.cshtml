@@ -120,25 +120,21 @@
         <a id="commentAnchor"></a>
         <br />
         <hr />
-        <span>Comments: </span>
+        <span class="comment-title">Comments: </span>
 
         // Show existing comments
         foreach (var comment in Model.CurrentNeighborhood.Comments)
-            {
-                <div class="row">
-                    <div class="col">
-                        @comment.Comment
-                    </div>
-                </div>
-            }
+        {
+            <div class="comment-row">
+                @comment.Comment
+            </div>
+        }
 
         // Allow user to enter new comment in the box and click save
         <form method="post">
-            <div class="row">
-                <div class="col">
+            <div class="comment-box">
                     <input type="text" value="" asp-for="NewCommentText" />
                     <button type="submit" class="btn btn-success">Save Comment</button>
-                </div>"
             </div>
         </form>
     }
