@@ -38,7 +38,7 @@ namespace LetsGoSEA.WebSite.Models
         public int[] Ratings { get; set; } = null;
 
         // List of comments  
-        public List<CommentModel> Comments { get; set; } = new List<CommentModel>();
+        public List<CommentModel> Comments { get; set; } = null;
 
         // Address of neighborhood
         [Required(ErrorMessage = "Please enter a valid address")]
