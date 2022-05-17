@@ -13,6 +13,37 @@
         @Model.CurrentNeighborhood.Name
         <h1 class="display-4">@Model.CurrentNeighborhood.City, @Model.CurrentNeighborhood.State</h1>
     </h1>
+
+    <!--Show rating stars-->
+    @if (Model.voteCount == 0)
+    {
+        <span>Be the first to vote!</span>
+    }
+    else
+    {
+        <span>@Model.voteCount @Model.voteLabel</span>
+    }
+    @for (int i = 1; i < 6; i++)
+    {
+        var currentStar = i;
+        if (i <= Model.avgRating)
+        {
+            <form method="post">
+                <input value=@currentStar asp-for="Rating" hidden/>
+                <button type="submit" class="fa fa-star checked"></button>
+            </form>
+        }
+        else
+        {
+
+            <form method="post">
+                <input value=@currentStar asp-for="Rating" hidden/>
+                <button type="submit" class="fa fa-star"></button>
+            </form>
+        }
+    }
+
+    <!--Show images-->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         @{ var neighborhoodImages = @Model.CurrentNeighborhood.Image.Split(','); }
         @if (neighborhoodImages.Length != 1)
@@ -80,35 +111,6 @@
             src="https://www.walkscore.com/serve-walkscore-tile.php?wsid=g00bb89dd158a4fb0bb5177c0bfcc3760&amp;s=@addressQuery&amp;o=v&amp;c=f&amp;h=500&amp;fh=0&amp;w=400">
     </iframe>
     
-
-    <!--Show rating stars-->
-    @if (Model.voteCount == 0)
-    {
-        <span>Be the first to vote!</span>
-    }
-    else
-    {
-        <span>@Model.voteCount @Model.voteLabel</span>
-    }
-    @for (int i = 1; i < 6; i++)
-    {
-        var currentStar = i;
-        if (i <= Model.avgRating)
-        {
-            <form method="post">
-                <input value=@currentStar asp-for="Rating" hidden/>
-                <button type="submit" class="fa fa-star checked"></button>
-            </form>
-        }
-        else
-        {
-            <form method="post">
-                <input value=@currentStar asp-for="Rating" hidden/>
-                <button type="submit" class="fa fa-star"></button>
-            </form>
-        }
-    }
-
     <!--Show comments-->
     @{ 
         <br />
