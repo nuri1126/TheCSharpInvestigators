@@ -234,14 +234,20 @@ namespace LetsGoSEA.WebSite.Services
         /// <returns></returns>
         public bool AddComment(NeighborhoodModel neighborhood, string comment)
         {
-            // If neighborhood is null, return
+            // If neighborhood is null, return false
             if (neighborhood == null)
             {
                 return false;
             }
 
-            // Check comment is empty, return
-            if (comment == null || comment == "")
+            // Check comment is null, return false
+            if (comment == null)
+            {
+                return false;
+            }
+
+            // Check comment is empty, return false
+            if (comment == "")
             {
                 return false;
             }
