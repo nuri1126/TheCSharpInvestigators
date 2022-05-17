@@ -26,11 +26,12 @@ namespace UnitTests.Pages.Explore
         #endregion TestSetup
 
         #region OnGet
+
         /// <summary>
         /// Test GET method: valid page should return neighborhood objects
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_Neighborhoods()
+        public void OnGet_Valid_Model_valid_Should_Return_True()
         {
             // Arrange
 
