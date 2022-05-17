@@ -14,30 +14,37 @@
 <div class="d-flex">
     <div class="p-2 flex-grow-1">
         <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i>
-                                <!-- Search icon svg -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                </svg>
-                            </i>
-                        </span>
-                        <input type="text" id="Search" placeholder="Search Neighborhoods" class="form-control"/>
-                    </div>
-                </div>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i>
+                        <!-- Search icon svg -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </i>
+                </span>
+                <input type="text" id="Search" placeholder="Search Neighborhoods" class="form-control"/>
+            </div>
+        </div>
     </div>
+    <!-- Filter buttons -->
+    <!-- To be implemented in future sprints
     <div class="p-2">
         <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary"><i class="bi bi-sort-alpha-down"></i></button>
-                    <button type="button" class="btn btn-outline-secondary"><i class="bi bi-sort-alpha-down-alt"></i></button>
-                </div>
+            <button type="button" class="btn btn-outline-secondary" id="asc">
+                <i class="bi bi-sort-alpha-down"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="desc">
+                <i class="bi bi-sort-alpha-down-alt"></i>
+            </button>
+        </div>
     </div>
+    -->
 </div>
 
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var neighborhood in @Model.Neighborhoods)
+    @foreach (var neighborhood in @Model.Neighborhoods.OrderBy(neighborhood => neighborhood.Name))
     {
         <div class="col">
             <div class="card h-100">
@@ -47,10 +54,10 @@
                     <p class="card-text">@neighborhood.ShortDesc</p>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary" asp-page="Neighborhood" asp-route-id="@neighborhood.Id" >Explore more</a>
+                    <a class="btn btn-primary" asp-page="Neighborhood" asp-route-id="@neighborhood.Id">Explore more</a>
                 </div>
             </div>
-        </div>    
+        </div>
     }
 </div>
 
