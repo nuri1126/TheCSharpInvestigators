@@ -15,33 +15,37 @@
     </h1>
 
     <!--Show rating stars-->
-    @if (Model.voteCount == 0)
-    {
-        <span>Be the first to vote!</span>
-    }
-    else
-    {
-        <span>@Model.voteCount @Model.voteLabel</span>
-    }
-    @for (int i = 1; i < 6; i++)
-    {
-        var currentStar = i;
-        if (i <= Model.avgRating)
+    <div class="stars">
+        @for (int i = 1; i < 6; i++)
         {
-            <form method="post">
-                <input value=@currentStar asp-for="Rating" hidden/>
-                <button type="submit" class="fa fa-star checked"></button>
-            </form>
+            var currentStar = i;
+            if (i <= Model.avgRating)
+            {
+                <form method="post">
+                    <input value=@currentStar asp-for="Rating" hidden />
+                    <button type="submit" class="fa fa-star checked"></button>
+                </form>
+            }
+            else
+            {
+
+                <form method="post">
+                    <input value=@currentStar asp-for="Rating" hidden />
+                    <button type="submit" class="fa fa-star"></button>
+                </form>
+            }
+        }
+    </div>
+    <div class="star-label">
+        @if (Model.voteCount == 0)
+        {
+            <span>Be the first to vote!</span>
         }
         else
         {
-
-            <form method="post">
-                <input value=@currentStar asp-for="Rating" hidden/>
-                <button type="submit" class="fa fa-star"></button>
-            </form>
+            <span>@Model.voteCount @Model.voteLabel</span>
         }
-    }
+    </div>
 
     <!--Show images-->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
