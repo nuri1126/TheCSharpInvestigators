@@ -110,8 +110,8 @@ namespace UnitTests.Pages.Explore
             _pageModel.OnGet(IdWithNullRating);
 
             // Assert 
-            Assert.AreEqual(_pageModel.avgRating, 0);
-            Assert.AreEqual(_pageModel.voteCount, 0);
+            Assert.AreEqual(0, _pageModel.avgRating);
+            Assert.AreEqual(0, _pageModel.voteCount);
 
         }
 
@@ -234,21 +234,18 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             var Id = 1;
-            _pageModel.CurrentNeighborhood= TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
+            _pageModel.CurrentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
             var oldRatingCount = _pageModel.CurrentNeighborhood.Ratings.Count();
-
-            // Set new rating
-            _pageModel.Rating = 3;
-
+            // Set New Rating
+            //_pageModel.Rating = 3;
+            TestHelper.NeighborhoodServiceObj.AddRating(_pageModel.CurrentNeighborhood, 3);
 
             // Act
-             _pageModel.OnPost(Id);
+            var result = _pageModel.OnPost(Id) as RedirectResult;
 
             // Assert 
-            //Assert.Equals("/Explore/Neighborhood/" + Id.ToString(), httpContext.Response.RegisterForDispose);
-            Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Last(), 3);
+            Assert.AreEqual(3, _pageModel.CurrentNeighborhood.Ratings.Last());
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Count(), oldRatingCount + 1);
-
         }
 
         /// <summary>
@@ -272,8 +269,6 @@ namespace UnitTests.Pages.Explore
             // Assert 
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Last().Comment, newComment);
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Count(), oldCommentCount + 1);
-
-
         }
     }
 }
