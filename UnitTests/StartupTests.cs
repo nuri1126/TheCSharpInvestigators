@@ -15,7 +15,9 @@ namespace UnitTests.Pages.Startup
 
         public class Startup : LetsGoSEA.WebSite.Startup
         {
-            public Startup(IConfiguration config) : base(config) { }
+            public Startup(IConfiguration config) : base(config)
+            {
+            }
         }
         #endregion TestSetup
 
