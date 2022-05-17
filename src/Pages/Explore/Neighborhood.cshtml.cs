@@ -35,7 +35,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
         [BindProperty]
         // User input rating 
-        public int Rating { get; set; }
+        public int Rating { get; set; } = 0;
 
         /// <summary>
         /// Getting function to retrieve the API key
@@ -87,7 +87,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
 
-
             // If invalid id is passed, it results in CurrentNeighborhood to be null
             // User is redirected to the Explore Page
             if (CurrentNeighborhood == null)
@@ -95,8 +94,9 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 return RedirectToPage("./Index");
             }
 
-
+            // Update current rating 
             GetCurrentRating();
+
             return Page();
         }
 
@@ -112,7 +112,12 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
 
             // Add Rating to neighborhood model 
-            NeighborhoodService.AddRating(CurrentNeighborhood, Rating);
+            if (Rating != 0)
+            {
+                NeighborhoodService.AddRating(CurrentNeighborhood, Rating);
+            }
+
+            //Update current rating
             GetCurrentRating();
 
             // Add Comment to neighborhood model
