@@ -132,12 +132,12 @@ namespace LetsGoSEA.WebSite.Services
             return data;
         }
 
-        // <summary>
-        // Finds record
-        // Updates the neighborhood
-        // saves record
-        // </summary>
-        // <param name="data">neighborhood data to be saved</param>
+        /// </summary>
+        ///<param name="data">neighborhood data to be saved</param>
+        ///<summary>
+        /// Finds neighborhood in NeighborhoodModel, updates the neighborhood, and saves the Neighborhood
+        /// </summary>
+        ///<param name="data">neighborhood data to be saved</param>
         public NeighborhoodModel UpdateData(NeighborhoodModel data)
         {
             var neighborhoods = GetNeighborhoods();
@@ -220,6 +220,35 @@ namespace LetsGoSEA.WebSite.Services
 
 
             // Save the data back to the data store
+            UpdateData(neighborhood);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Adds a comment to the NeighborhoodModel.
+        /// </summary>
+        /// <param name="neighborhood">Current neighborhood</param>
+        /// <param name="comment">User input</param>
+        /// <returns></returns>
+        public bool AddComment(NeighborhoodModel neighborhood, string comment)
+        {
+            // If neighborhood is null, return
+            if (neighborhood == null)
+            {
+                return false;
+            }
+
+            // Check comment is empty, return
+            if (comment == null || comment == "")
+            {
+                return false;
+            }
+
+            // Add comment to the comment list
+            neighborhood.Comments.Add(new CommentModel() { Comment = comment });
+
+            // Save the neighborhood
             UpdateData(neighborhood);
 
             return true;
