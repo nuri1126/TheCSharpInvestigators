@@ -9,11 +9,12 @@ namespace UnitTests.Controllers
     class NeighborhoodControllerTests
     {
         #region Constructor
+
         /// <summary>
         /// Tests that a NeighborhoodController is created upon instantiation
         /// </summary>
         [Test]
-        public void New_Controller_Not_Null()
+        public void NeighborhoodController_Valid_New_Controller_Not_Null_Should_Return_True()
         {
             //Arrange
 
@@ -23,14 +24,16 @@ namespace UnitTests.Controllers
             //Assert
             Assert.NotNull(controller);
         }
+
         #endregion Constructor
 
         #region PrivateNeighborhoodService
+
         /// <summary>
         /// Tests the NeighborhoodController's property is not null upon instantiation 
         /// </summary>
         [Test]
-        public void NeighborhoodService_Not_Null()
+        public void NeighborhoodController_Valid_New_Controller_Property_Not_Null_Should_Return_True()
         {
             //Arrange
             var controller = new NeighborhoodController(TestHelper.NeighborhoodServiceObj);
@@ -41,6 +44,7 @@ namespace UnitTests.Controllers
             //Assert 
             Assert.NotNull(service);
         }
+
         #endregion PrivateNeighborhoodService
     }
 }
