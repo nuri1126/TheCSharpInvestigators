@@ -237,15 +237,14 @@ namespace UnitTests.Pages.Explore
             _pageModel.CurrentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
             var oldRatingCount = _pageModel.CurrentNeighborhood.Ratings.Count();
             // Set New Rating
-            //_pageModel.Rating = 3;
-            TestHelper.NeighborhoodServiceObj.AddRating(_pageModel.CurrentNeighborhood, 3);
+            _pageModel.Rating = 3;
 
             // Act
             var result = _pageModel.OnPost(Id) as RedirectResult;
 
             // Assert 
             Assert.AreEqual(3, _pageModel.CurrentNeighborhood.Ratings.Last());
-            Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Count(), oldRatingCount + 1);
+            Assert.AreEqual(oldRatingCount + 1, _pageModel.CurrentNeighborhood.Ratings.Count());
         }
 
         /// <summary>
