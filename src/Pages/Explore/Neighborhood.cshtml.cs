@@ -99,17 +99,27 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             // Assign the user's selected neighborhood to the CurrentNeighborhood var
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
 
-            // Add Rating to neighborhood model 
+
             if (Rating != 0)
             {
+                // Add Rating to neighborhood model 
                 NeighborhoodService.AddRating(CurrentNeighborhood, Rating);
+
+                //Update current rating
+                GetCurrentRating();
+
+                Response.Redirect("/Explore/Neighborhood/" + id.ToString());
             }
 
-            //Update current rating
-            GetCurrentRating();
+            if (NewCommentText != "")
+            {
+                // Add Comment to neighborhood model
+                NeighborhoodService.AddComment(CurrentNeighborhood, NewCommentText);
 
-            // Add Comment to neighborhood model
-            NeighborhoodService.AddComment(CurrentNeighborhood, NewCommentText);
+                // Redirect to comment section of the page
+                Response.Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor", false);
+            }
+            
         }
     }
 }
