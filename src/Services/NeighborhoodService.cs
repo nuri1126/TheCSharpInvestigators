@@ -153,6 +153,7 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.State = data.State;
             neighborhoodData.ShortDesc = data.ShortDesc;
             neighborhoodData.Ratings = data.Ratings;
+            neighborhoodData.Comments = data.Comments;
 
             SaveData(neighborhoods);
 
