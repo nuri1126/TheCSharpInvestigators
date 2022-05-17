@@ -81,15 +81,18 @@
         // Only the card matching the search string is displayed
         $(searchBoxClass).on("keyup", function ()
         {
-            let searchString = $(this).val().toLowerCase(); // Get the search string from the input box
-            
+            // Get the search string from the input box
+            let searchString = $(this).val().toLowerCase();
+
             // Iterate over each element to find the one matching the search string
             $(".card").each(function ()
             {
                 // Find the title of each card
                 let neighborhoodName = $(this).find("h5.card-title").text().toLowerCase();
+
                 // If the search string doesn't match, hide the card
-                if (neighborhoodName.indexOf(searchString) === -1) {
+                if (neighborhoodName.indexOf(searchString) === -1)
+                {
                     $(this).hide();
                 }
                 else
