@@ -198,8 +198,93 @@ namespace UnitTests.Services
             var result = TestHelper.NeighborhoodServiceObj.AddRating(neighborhoodWithNoRating, validRating);
             // Assert
             Assert.AreEqual(true, result);
+            Assert.NotNull(neighborhoodWithNoRating.Ratings);
         }
 
         #endregion AddRating
+
+        #region AddComments
+
+        /// <summary>
+        /// Test AddComment: invalid neighborhood should return false
+        /// </summary>
+        [Test]
+        public void AddComment_InValid_Neighborhood_Should_Return_False()
+        {
+            // Arrange
+            var invalidId = 95;
+            var invalidNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(invalidId);
+            var validComment = "Good job";
+
+            // Act
+            var result1 = TestHelper.NeighborhoodServiceObj.AddComment(null, validComment);
+            var result2 = TestHelper.NeighborhoodServiceObj.AddComment(invalidNeighborhood, validComment);
+
+            // Assert
+            Assert.AreEqual(false, result1);
+            Assert.AreEqual(false, result2);
+        }
+
+        /// <summary>
+        /// Test AddComment: null or empty comment should return false
+        /// </summary>
+        [Test]
+        public void AddComment_Null_Or_Empty_Comment_Return_False()
+        {
+            // Arrange
+            var validID = 1;
+            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var emptyComment = "";
+
+            // Act
+            var result1 = TestHelper.NeighborhoodServiceObj.AddComment(validNeighborhood, null);
+            var result2 = TestHelper.NeighborhoodServiceObj.AddComment(validNeighborhood, emptyComment);
+
+            // Assert
+            Assert.AreEqual(false, result1);
+            Assert.AreEqual(false, result2);
+        }
+
+        /// <summary>
+        /// Test AddComment: valid neighborhood and valid comment return true and update data successfully
+        /// </summary>
+        [Test]
+        public void AddComment_Valid_Neighborhood_Valid_Comment_Return_True()
+        {
+            // Arrange
+            var validID = 1;
+            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var validComment = "CSI Rocks";
+            var oldCommentCount = validNeighborhood.Comments.Count();
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.AddComment(validNeighborhood, validComment);
+
+            // Assert
+            Assert.AreEqual(true, result);
+            Assert.AreEqual(oldCommentCount + 1, validNeighborhood.Comments.Count());
+            Assert.AreEqual(validComment, validNeighborhood.Comments.Last().Comment);
+        }
+
+        /// <summary>
+        /// Test AddComment: empty comments return true
+        /// </summary>
+        [Test]
+        public void AddComment_Empty_Comments_Return_True()
+        {
+            // Arrange
+            // Pick a neighborhood with no comment
+            var idWithNoComment = 15;
+            var neighborhoodWithNoComment = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(idWithNoComment);
+            var newComment = "Unit testing is fun";
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.AddComment(neighborhoodWithNoComment, newComment);
+
+            // Assert
+            Assert.AreEqual(true, result);
+            Assert.IsNotEmpty(neighborhoodWithNoComment.Comments);
+        }
+        #endregion AddComments
     }
 }
