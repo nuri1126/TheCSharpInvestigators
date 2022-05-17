@@ -41,7 +41,7 @@ namespace UnitTests.Pages.Neighborhood
             var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
 
             // Act
-            _pageModel.OnGet();
+            // _pageModel.OnGet();
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
@@ -58,7 +58,7 @@ namespace UnitTests.Pages.Neighborhood
             var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
 
             // Act
-            _pageModel.OnGet();
+            // _pageModel.OnGet();
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
