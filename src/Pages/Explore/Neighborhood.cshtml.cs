@@ -94,7 +94,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// this method updates the neighborhood's Comment list. 
         /// </summary>
         /// <param name="id">the id of the current neighborhood</param>
-        public void OnPost(int id)
+        public IActionResult OnPost(int id)
         {
             // Assign the user's selected neighborhood to the CurrentNeighborhood var
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
@@ -108,7 +108,8 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 //Update current rating
                 GetCurrentRating();
 
-                Response.Redirect("/Explore/Neighborhood/" + id.ToString());
+                return Page();
+                //Response.Redirect("/Explore/Neighborhood/" + id.ToString());
             }
 
             if (NewCommentText != "")
@@ -116,9 +117,11 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 // Add Comment to neighborhood model
                 NeighborhoodService.AddComment(CurrentNeighborhood, NewCommentText);
 
+                return Page();
                 // Redirect to comment section of the page
-                Response.Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor", false);
+                //Response.Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor", false);
             }
+            return Page();
             
         }
     }
