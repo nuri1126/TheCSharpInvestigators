@@ -1,7 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json;
-
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace LetsGoSEA.WebSite.Models
 {
     /// <summary>
@@ -39,8 +37,8 @@ namespace LetsGoSEA.WebSite.Models
         // Ratings for neighborhood
         public int[] Ratings { get; set; } = null;
 
-        // Array of comments from registered users 
-        [NotMapped] public string[] Comments { get; set; } = { "Default" };
+        // List of comments  
+        public List<CommentModel> Comments { get; set; } = new List<CommentModel>();
 
         // Address of neighborhood
         public string Address { get; set; } = "Default";
