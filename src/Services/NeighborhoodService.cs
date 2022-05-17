@@ -108,13 +108,13 @@ namespace LetsGoSEA.WebSite.Services
         /// <param name="image">image data entered by user</param>
         /// <param name="shortDesc">short description entered by user</param>
         /// <returns>A new NeighborhoodModel object to be later saved in JSON</returns>
-        public NeighborhoodModel AddData(int ID, string name, string image, string shortDesc)
+        public NeighborhoodModel AddData(string name, string image, string shortDesc)
         {
             // Create a new neighborhood model
             var data = new NeighborhoodModel()
             {
                 // Add user input data to the corresponding field
-                Id = ID,
+                Id = GetNeighborhoods().Count() + 1,
                 Name = name,
                 Image = image,
                 City = "Seattle",
