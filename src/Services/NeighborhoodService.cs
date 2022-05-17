@@ -259,7 +259,12 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             // Add comment to the comment list
-            neighborhood.Comments.Add(new CommentModel() { Comment = comment });
+            neighborhood.Comments.Add(
+                new CommentModel()
+                {
+                    Comment = comment
+                }
+            );
 
             // Save the neighborhood
             UpdateData(neighborhood);
