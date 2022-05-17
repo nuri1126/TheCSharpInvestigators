@@ -108,8 +108,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 //Update current rating
                 GetCurrentRating();
 
-                return Page();
-                //Response.Redirect("/Explore/Neighborhood/" + id.ToString());
+                return Redirect("/Explore/Neighborhood/" + id.ToString());
             }
 
             if (NewCommentText != "")
@@ -117,12 +116,12 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 // Add Comment to neighborhood model
                 NeighborhoodService.AddComment(CurrentNeighborhood, NewCommentText);
 
-                return Page();
                 // Redirect to comment section of the page
-                //Response.Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor", false);
+                return Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor");
             }
-            return Page();
-            
+            return Redirect("/Explore/Neighborhood/" + id.ToString());
+
+
         }
     }
 }
