@@ -245,6 +245,12 @@ namespace LetsGoSEA.WebSite.Services
                 return false;
             }
 
+            // Check to see if comments exist, if there are not, then create the list
+            if (neighborhood.Comments.Count == 0)
+            {
+                neighborhood.Comments = new List<CommentModel>();
+            }
+
             // Add comment to the comment list
             neighborhood.Comments.Add(new CommentModel() { Comment = comment });
 
