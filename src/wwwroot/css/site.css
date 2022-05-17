@@ -1,12 +1,28 @@
 ﻿/* Default CSS Stylesheet */
 
 /* Rating star */
+.stars {
+    display: inline-flex;
+}
+
+.fa {
+    font-size: 40px !important;
+    border: none;
+    background-color: inherit;
+}
+
 .checked {
     color: orange;
 }
 
 .fa-star {
     cursor: pointer;
+}
+
+.star-label {
+    font-size: 20px;
+    display: inline-flex;
+    margin-left: 15px;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
