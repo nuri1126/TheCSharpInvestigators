@@ -240,17 +240,14 @@ namespace UnitTests.Pages.Explore
             // Set new rating
             _pageModel.Rating = 3;
 
-            try
-            {
-                // Act
-                _pageModel.OnPost(Id);
-            }
-            catch (System.NullReferenceException e)
-            {
-                System.Console.WriteLine("Catching exception thrown by a null HTTP Response. With our current architecture, " +
-                    "we have yet to find a way to mock HTTP Response for testing purpose");
-            }
 
+            // Act
+             _pageModel.OnPost(Id);
+
+            // Assert 
+            //Assert.Equals("/Explore/Neighborhood/" + Id.ToString(), httpContext.Response.RegisterForDispose);
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Last(), 3);
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Count(), oldRatingCount + 1);
 
         }
 
@@ -269,16 +266,13 @@ namespace UnitTests.Pages.Explore
             // Set New Comment
             _pageModel.NewCommentText = newComment;
 
-            try
-            {
-                // Act
-                _pageModel.OnPost(Id);
-            }
-            catch (System.NullReferenceException e)
-            {
-                System.Console.WriteLine("Catching exception thrown by a null HTTP Response. With our current architecture, " +
-                    "we have yet to find a way to mock HTTP Response for testing purpose");
-            }
+            // Act
+            _pageModel.OnPost(Id);
+
+            // Assert 
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Last().Comment, newComment);
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Count(), oldCommentCount + 1);
+
 
         }
     }
