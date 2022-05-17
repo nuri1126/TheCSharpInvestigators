@@ -93,7 +93,9 @@ namespace UnitTests.Pages.Explore
             Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
+        #endregion OnGet
 
+        #region Onget_GetCurrentRating
         /// <summary>
         /// TEST GetCurrentRating method in OnGet: null ratings should return zero average rating and count
         /// </summary>
@@ -102,9 +104,9 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Pick a neighborhood from database that has a null rating 
-            int Id_with_Null_Rating = 16;
+            int IdWithNullRating = 16;
             // Act
-            _pageModel.OnGet(Id_with_Null_Rating);
+            _pageModel.OnGet(IdWithNullRating);
 
             // Assert 
             Assert.AreEqual(_pageModel.avgRating, 0);
@@ -120,11 +122,10 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Pick a neighborhood from database that has only one rating 
-            int Id_with_One_Rating = 2;
-
+            int IdWithOneRating = 2;
 
             // Act
-            _pageModel.OnGet(Id_with_One_Rating);
+            _pageModel.OnGet(IdWithOneRating);
 
             // Assert 
             Assert.AreEqual(_pageModel.voteCount, 1);
@@ -140,18 +141,17 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Pick a neigborhood from database that has multiple ratings
-            int Id_with_Multiple_Ratings = 1;
+            int IdWithMultipleRatings = 1;
 
             // Act
-            _pageModel.OnGet(Id_with_Multiple_Ratings);
+            _pageModel.OnGet(IdWithMultipleRatings);
 
             // Assert 
             Assert.Greater(_pageModel.voteCount, 1);
             Assert.AreEqual(_pageModel.voteLabel, "Votes");
 
         }
-
-        #endregion OnGet
+        #endregion  Onget_GetCurrentRating
 
         #region OnPostAsync
         /// <summary>
