@@ -81,7 +81,6 @@ namespace UnitTests.Services
         }
         #endregion GetNeighborhoodById_Invalid_Id_Should_Return_True
 
-
         #region AddRating
         /// <summary>
         /// Test AddRating: invalid neighborhood should return false
@@ -90,13 +89,14 @@ namespace UnitTests.Services
         public void AddRating_InValid_Neighborhood_Should_Return_False()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var invalidId = 95;
-            var invalidNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(invalidId);
+            var invalidNeighborhood = neighborhoodService.GetNeighborhoodById(invalidId);
             var validRating = 1;
 
             // Act
-            var result1 = TestHelper.NeighborhoodServiceObj.AddRating(null, validRating);
-            var result2 = TestHelper.NeighborhoodServiceObj.AddRating(invalidNeighborhood, validRating);
+            var result1 = neighborhoodService.AddRating(null, validRating);
+            var result2 = neighborhoodService.AddRating(invalidNeighborhood, validRating);
 
             // Assert
             Assert.AreEqual(false, result1);
@@ -111,13 +111,14 @@ namespace UnitTests.Services
         {
             // Arrange
             // Get the First neighborhood
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var Id = 1;
-            var neighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
+            var neighborhood = neighborhoodService.GetNeighborhoodById(Id);
             var oldRatingCount = neighborhood.Ratings.Length;
             var newRating = 5;
 
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.AddRating(neighborhood, newRating);
+            var result = neighborhoodService.AddRating(neighborhood, newRating);
 
             // Assert
             Assert.AreEqual(true, result);
@@ -132,12 +133,13 @@ namespace UnitTests.Services
         public void AddRating_Invalid_Rating_High_Return_False()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var validID = 1;
-            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
             var invalidHighRating = 6;
 
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.AddRating(validNeighborhood, invalidHighRating);
+            var result = neighborhoodService.AddRating(validNeighborhood, invalidHighRating);
             
             // Assert
             Assert.AreEqual(false, result);
@@ -150,12 +152,13 @@ namespace UnitTests.Services
         public void AddRating_Invalid_Rating_Low_Return_False()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var validID = 1;
-            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
             var invalidLowRating = -1;
 
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.AddRating(validNeighborhood, invalidLowRating);
+            var result = neighborhoodService.AddRating(validNeighborhood, invalidLowRating);
             
             // Assert
             Assert.AreEqual(false, result);
@@ -168,15 +171,16 @@ namespace UnitTests.Services
         public void AddRating_Valid_Rating_Return_True()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var validID = 1;
-            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
             var validRatingLowerBound = 0;
             var validRatingMiddle = 2;
             var validRatingUpperBound = 5;
             // Act
-            var result1 = TestHelper.NeighborhoodServiceObj.AddRating(validNeighborhood, validRatingLowerBound);
-            var result2 = TestHelper.NeighborhoodServiceObj.AddRating(validNeighborhood, validRatingMiddle);
-            var result3 = TestHelper.NeighborhoodServiceObj.AddRating(validNeighborhood, validRatingUpperBound);
+            var result1 = neighborhoodService.AddRating(validNeighborhood, validRatingLowerBound);
+            var result2 = neighborhoodService.AddRating(validNeighborhood, validRatingMiddle);
+            var result3 = neighborhoodService.AddRating(validNeighborhood, validRatingUpperBound);
             // Assert
             Assert.AreEqual(true, result1);
             Assert.AreEqual(true, result2);
@@ -191,11 +195,12 @@ namespace UnitTests.Services
         {
             // Arrange
             // Pick a neighborhood with no rating 
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var idWithNoRating = 15;
-            var neighborhoodWithNoRating = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(idWithNoRating);
+            var neighborhoodWithNoRating = neighborhoodService.GetNeighborhoodById(idWithNoRating);
             var validRating = 1;
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.AddRating(neighborhoodWithNoRating, validRating);
+            var result = neighborhoodService.AddRating(neighborhoodWithNoRating, validRating);
             // Assert
             Assert.AreEqual(true, result);
             Assert.NotNull(neighborhoodWithNoRating.Ratings);
@@ -212,13 +217,14 @@ namespace UnitTests.Services
         public void AddComment_InValid_Neighborhood_Should_Return_False()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var invalidId = 95;
-            var invalidNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(invalidId);
+            var invalidNeighborhood = neighborhoodService.GetNeighborhoodById(invalidId);
             var validComment = "Good job";
 
             // Act
-            var result1 = TestHelper.NeighborhoodServiceObj.AddComment(null, validComment);
-            var result2 = TestHelper.NeighborhoodServiceObj.AddComment(invalidNeighborhood, validComment);
+            var result1 = neighborhoodService.AddComment(null, validComment);
+            var result2 = neighborhoodService.AddComment(invalidNeighborhood, validComment);
 
             // Assert
             Assert.AreEqual(false, result1);
@@ -232,13 +238,14 @@ namespace UnitTests.Services
         public void AddComment_Null_Or_Empty_Comment_Return_False()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var validID = 1;
-            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
             var emptyComment = "";
 
             // Act
-            var result1 = TestHelper.NeighborhoodServiceObj.AddComment(validNeighborhood, null);
-            var result2 = TestHelper.NeighborhoodServiceObj.AddComment(validNeighborhood, emptyComment);
+            var result1 = neighborhoodService.AddComment(validNeighborhood, null);
+            var result2 = neighborhoodService.AddComment(validNeighborhood, emptyComment);
 
             // Assert
             Assert.AreEqual(false, result1);
@@ -252,13 +259,14 @@ namespace UnitTests.Services
         public void AddComment_Valid_Neighborhood_Valid_Comment_Return_True()
         {
             // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var validID = 1;
-            var validNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validID);
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
             var validComment = "CSI Rocks";
             var oldCommentCount = validNeighborhood.Comments.Count();
 
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.AddComment(validNeighborhood, validComment);
+            var result = neighborhoodService.AddComment(validNeighborhood, validComment);
 
             // Assert
             Assert.AreEqual(true, result);
@@ -274,12 +282,13 @@ namespace UnitTests.Services
         {
             // Arrange
             // Pick a neighborhood with no comment
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var idWithNoComment = 15;
-            var neighborhoodWithNoComment = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(idWithNoComment);
+            var neighborhoodWithNoComment = neighborhoodService.GetNeighborhoodById(idWithNoComment);
             var newComment = "Unit testing is fun";
 
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.AddComment(neighborhoodWithNoComment, newComment);
+            var result = neighborhoodService.AddComment(neighborhoodWithNoComment, newComment);
 
             // Assert
             Assert.AreEqual(true, result);
