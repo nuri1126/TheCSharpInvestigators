@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace UnitTests.Pages.Explore
 {
@@ -224,5 +225,49 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(bogusInput, res);
         }
         #endregion Comment_Is_Gettable_Returns_True
+
+        /// <summary>
+        /// Test that BindProperty Rating is settable 
+        /// </summary>
+        [Test]
+        public void Rating_Is_Settable()
+        {
+            // Arrange
+            var Id = 1;
+            _pageModel.CurrentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
+            var oldRatingCount = _pageModel.CurrentNeighborhood.Ratings.Count();
+            // Set New Rating
+            _pageModel.Rating = 3;
+
+            // Act
+            _pageModel.OnPost(Id);
+
+            // Assert 
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Last(), 3);
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Ratings.Count(), oldRatingCount + 1);
+        }
+
+        /// <summary>
+        /// Test that BindProperty NewCommentText is settable 
+        /// </summary>
+        [Test]
+        public void NewCommentText_Is_Settable()
+        {
+            // Arrange
+            var Id = 1;
+            _pageModel.CurrentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
+            var newComment = "Nice work!";
+            var oldCommentCount = _pageModel.CurrentNeighborhood.Comments.Count();
+
+            // Set New Comment
+            _pageModel.NewCommentText = newComment;
+
+            // Act
+            _pageModel.OnPost(Id);
+
+            // Assert 
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Last().Comment, newComment);
+            Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Count(), oldCommentCount + 1);
+        }
     }
 }
