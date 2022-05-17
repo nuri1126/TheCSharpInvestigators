@@ -1,11 +1,7 @@
 ﻿using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace LetsGoSEA.WebSite.Pages.Explore
 {
@@ -50,7 +46,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             return API_KEY;
         }
 
-        
+
         /// <summary>
         /// Get current average rating and vote count for the current neighborhood to display to user
         /// </summary>
@@ -71,6 +67,9 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             System.Console.WriteLine($"Current rating for {CurrentNeighborhood.Id}: {avgRating}");
         }
 
+        // Holds the users input from the comment form
+        [BindProperty]
+        public string NewCommentText { get; set; } = "";
 
         /// <summary>
         /// This method parses the id from the url and checks if the id is valid.
@@ -96,21 +95,28 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 return RedirectToPage("./Index");
             }
 
-            
+
             GetCurrentRating();
             return Page();
         }
 
         /// <summary>
         /// REST Post method: when user clicks on rating star, this method updates the rating for the current neighborhood and 
-        /// calls GetCurrentRating() to display the new average rating and vote count to user. 
+        /// calls GetCurrentRating() to display the new average rating and vote count to user. When user submits comment, 
+        /// this method updates the neighborhood's Comment list. 
         /// </summary>
         /// <param name="id">the id of the current neighborhood</param>
         public void OnPost(int id)
         {
+            // Assign the user's selected neighborhood to the CurrentNeighborhood var
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
+
+            // Add Rating to neighborhood model 
             NeighborhoodService.AddRating(CurrentNeighborhood, Rating);
             GetCurrentRating();
+
+            // Add Comment to neighborhood model
+            NeighborhoodService.AddComment(CurrentNeighborhood, NewCommentText);
         }
     }
 }
