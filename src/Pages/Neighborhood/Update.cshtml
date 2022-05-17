@@ -35,14 +35,20 @@
 
         <div class="form-group">
             <label asp-for="Neighborhood.City" class="control-label"></label>
-            <input asp-for="Neighborhood.City" class="form-control" />
+            <input asp-for="Neighborhood.City" class="form-control" readonly disabled/>
             <span asp-validation-for="Neighborhood.City" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Neighborhood.State" class="control-label"></label>
-            <input asp-for="Neighborhood.State" class="form-control" />
+            <input asp-for="Neighborhood.State" class="form-control" readonly disabled/>
             <span asp-validation-for="Neighborhood.State" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Neighborhood.Address" class="control-label"></label>
+            <input asp-for="Neighborhood.Address" class="form-control" />
+            <span asp-validation-for="Neighborhood.Address" class="text-danger"></span>
         </div>
 
         <div class="form-group">
