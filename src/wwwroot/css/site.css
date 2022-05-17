@@ -327,6 +327,13 @@ ul {
     background: #f44336 !important;
 }
 
+/*Google Map Widget*/
+#google-maps-iframe {
+    width: 100%;
+    height: 500px;
+    border: 0;
+}
+
 /*WalkScore Widget*/
 
 #walk-score-iframe {
