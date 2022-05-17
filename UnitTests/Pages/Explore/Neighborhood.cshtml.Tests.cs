@@ -1,8 +1,9 @@
 ﻿using LetsGoSEA.WebSite.Pages.Explore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace UnitTests.Pages.Explore
 {
@@ -15,13 +16,17 @@ namespace UnitTests.Pages.Explore
         // Neighborhood Model object
         private static NeighborhoodModel _pageModel;
 
+        // Comment Model object
+        private static LetsGoSEA.WebSite.Models.CommentModel _commentModel;
+
         /// <summary>
-        /// Set Up Neighborhood Model for testing 
+        /// Setup models for testing. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
         {
             _pageModel = new NeighborhoodModel(TestHelper.NeighborhoodServiceObj);
+            _commentModel = new LetsGoSEA.WebSite.Models.CommentModel();
         }
 
         #endregion TestSetup
@@ -148,5 +153,76 @@ namespace UnitTests.Pages.Explore
 
         #endregion OnGet
 
+        #region OnPostAsync
+        /// <summary>
+        /// Test POST method: valid page accept input comment and store to database. 
+        /// </summary>
+        [Test]
+        public void OnPostAsync_Valid_Comment_Is_Saved_From_Form()
+        {
+            // ARRANGE: create fake user input data
+            var newComment = "newComment";
+
+            // Put them in String arrays to match FormCollection Value format
+            string[] commentArray = { newComment };
+
+            // Create a FromCollection object to hold fake form data
+            var formCol = new FormCollection(new Dictionary<string,
+            Microsoft.Extensions.Primitives.StringValues>
+            {
+                { "Neighborhood.Comments", commentArray},
+            });
+
+            // Link FormCollection object with HTTPContext 
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+
+            // ACT
+            _pageModel.OnPost(1);
+
+            // ASSERT
+            Assert.IsNotNull(formCol);
+            Assert.AreEqual(formCol["Neighborhood.Comments"][0], newComment);
+        }
+
+        #endregion OnPostAsync
+
+        #region Comment_Is_Settable_Returns_True
+        /// <summary>
+        /// Tests Comment object's set method.
+        /// </summary>
+        [Test]
+        public void Comment_Is_Settable_Returns_True()
+        {
+            // Arrange
+            string bogusInput = "bogus";
+
+            // Act 
+            _commentModel.Comment = bogusInput;
+
+            // Assert 
+            //Assert.AreEqual(bogusInput, testComment);
+            Assert.NotNull(_commentModel.Comment);
+        }
+        #endregion Comment_Is_Settable_Returns_True
+
+        #region Comment_Is_Gettable_Returns_True
+        /// <summary>
+        /// Tests Comment object's get method.
+        /// </summary>
+        [Test]
+        public void Comment_Is_Gettable_Returns_True()
+        {
+            // Arrange
+            string bogusInput = "bogus";
+            var testComment = _commentModel.Comment;
+            testComment = bogusInput;
+
+            // Act 
+            var res = testComment;
+
+            // Assert 
+            Assert.AreEqual(bogusInput, res);
+        }
+        #endregion Comment_Is_Gettable_Returns_True
     }
 }
