@@ -12,8 +12,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
     {
         // Data middle tier service
         private NeighborhoodService NeighborhoodService { get; }
-        // API Key for Google Maps 
-        private string API_KEY = "AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs";
 
         public int avgRating = 0;          // initialize current average rating to be displayed to user 
         public int voteCount = 0;          // initialize current vote count to be displayed to user
@@ -36,16 +34,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         [BindProperty]
         // User input rating 
         public int Rating { get; set; } = 0;
-
-        /// <summary>
-        /// Getting function to retrieve the API key
-        /// </summary>
-        /// <returns>Google Maps API Key</returns>
-        public string GetKey()
-        {
-            return API_KEY;
-        }
-
 
         /// <summary>
         /// Get current average rating and vote count for the current neighborhood to display to user
