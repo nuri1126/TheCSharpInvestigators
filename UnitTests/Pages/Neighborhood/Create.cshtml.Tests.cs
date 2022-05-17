@@ -30,43 +30,6 @@ namespace UnitTests.Pages.Neighborhood
 
         #endregion TestSetup
 
-        #region OnGet
-        /// <summary>
-        /// Test GET method: valid page should not increment neighborhood count in JSON
-        /// </summary>
-        [Test]
-        public void OnGet_Valid_Should_Not_Increment_Model_Count()
-        {
-            // Arrange
-            var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
-
-            // Act
-            // _pageModel.OnGet();
-
-            // Assert
-            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(oldCount, TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count());
-        }
-
-        /// <summary>
-        /// Test GET method: valid page should generate a new ID for the model
-        /// </summary>
-        [Test]
-        public void OnGet_Valid_Should_Create_New_ID()
-        {
-            // Arrange
-            var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
-
-            // Act
-            // _pageModel.OnGet();
-
-            // Assert
-            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(oldCount + 1, _pageModel.Neighborhood.Id);
-        }
-
-        #endregion OnGet
-
         #region OnPostAsync
         /// <summary>
         /// Test POST method: valid page should be able to gather Form input and return index page
