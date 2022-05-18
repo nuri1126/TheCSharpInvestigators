@@ -70,6 +70,7 @@ namespace UnitTests.Pages.Explore
 
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
+            Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
@@ -104,11 +105,13 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Null_Ratings_Return_Zero_AvgAndCount()
         {
             // Arrange
-            // TODO: Create a new neighborhood with no ratings and then test it
-            // Pick a neighborhood from database that has a null rating 
-            int IdWithNullRating = 16;
+            // Creating a new neighborhood
+            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
+            // Get the newly created neighborhood's Id 
+            var idWithNullRating = newNeighborhood.Id;
+            
             // Act
-            _pageModel.OnGet(IdWithNullRating);
+            _pageModel.OnGet(idWithNullRating);
 
             // Assert 
             Assert.AreEqual(0, _pageModel.avgRating);
@@ -123,12 +126,15 @@ namespace UnitTests.Pages.Explore
         public void OnGet_OneRating_Return_Vote_VoteLabel()
         {
             // Arrange
-            // TODO: Create a new neighborhood with 1 ratings and then test it
-            // Pick a neighborhood from database that has only one rating 
-            int IdWithOneRating = 2;
+            // Creating a new neighborhood
+            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
+            // Adding one rating to the newly created neighborhood
+            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 5);
+            // Get the newly created neighborhood's Id 
+            var idWithOneRating = newNeighborhood.Id;
 
             // Act
-            _pageModel.OnGet(IdWithOneRating);
+            _pageModel.OnGet(idWithOneRating);
 
             // Assert 
             Assert.AreEqual(_pageModel.voteCount, 1);
@@ -143,12 +149,17 @@ namespace UnitTests.Pages.Explore
         public void OnGet_MultipleRatings_Return_Votes_VoteLabel()
         {
             // Arrange
-            // TODO: Create a new neighborhood with multiple ratings and then test it
-            // Pick a neigborhood from database that has multiple ratings
-            int IdWithMultipleRatings = 1;
+            // Creating a new neighborhood
+            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
+            // Adding multiple ratings to the newly created neighborhood
+            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 5);
+            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 4);
+            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 3);
+            // Get the newly created neighborhood's Id 
+            int idWithMultipleRatings = newNeighborhood.Id;
 
             // Act
-            _pageModel.OnGet(IdWithMultipleRatings);
+            _pageModel.OnGet(idWithMultipleRatings);
 
             // Assert 
             Assert.Greater(_pageModel.voteCount, 1);
