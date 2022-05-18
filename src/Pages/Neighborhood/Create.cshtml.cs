@@ -2,7 +2,6 @@
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
 
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
@@ -46,6 +45,5 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
             // Redirect to Update page with reference to the new neighborhood
             return RedirectToPage("./Index");
         }
-
     }
 }
