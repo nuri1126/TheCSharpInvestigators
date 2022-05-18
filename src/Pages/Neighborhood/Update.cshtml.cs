@@ -1,5 +1,4 @@
-﻿
-using LetsGoSEA.WebSite.Models;
+﻿using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,7 +14,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         public NeighborhoodService NeighborhoodService { get; }
 
         /// <summary>
-        /// Defualt Construtor
+        /// Default constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of data service to use</param>
         public UpdateModel(NeighborhoodService neighborhoodService)
