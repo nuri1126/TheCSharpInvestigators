@@ -140,7 +140,7 @@ namespace UnitTests.Services
 
             // Act
             var result = neighborhoodService.AddRating(validNeighborhood, invalidHighRating);
-            
+
             // Assert
             Assert.AreEqual(false, result);
         }
@@ -159,7 +159,7 @@ namespace UnitTests.Services
 
             // Act
             var result = neighborhoodService.AddRating(validNeighborhood, invalidLowRating);
-            
+
             // Assert
             Assert.AreEqual(false, result);
         }
