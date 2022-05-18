@@ -32,8 +32,6 @@ namespace LetsGoSEA.WebSite
             services.AddTransient<NeighborhoodService>();
             // Add AboutUs service 
             services.AddTransient<AboutUsService>();
-
-
         }
 
         /// <summary>
