@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace LetsGoSEA.WebSite.Pages
 {
     /// <summary>
-    /// AboutUs Page Model for the AboutUs Razor Page
+    /// AboutUs Page Model for the AboutUs.cshtml Page
     /// </summary>
     public class AboutUsModel : PageModel
     {
