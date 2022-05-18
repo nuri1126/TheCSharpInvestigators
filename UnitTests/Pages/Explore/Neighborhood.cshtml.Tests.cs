@@ -104,6 +104,7 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Null_Ratings_Return_Zero_AvgAndCount()
         {
             // Arrange
+            // TODO: Create a new neighborhood with no ratings and then test it
             // Pick a neighborhood from database that has a null rating 
             int IdWithNullRating = 16;
             // Act
@@ -122,6 +123,7 @@ namespace UnitTests.Pages.Explore
         public void OnGet_OneRating_Return_Vote_VoteLabel()
         {
             // Arrange
+            // TODO: Create a new neighborhood with 1 ratings and then test it
             // Pick a neighborhood from database that has only one rating 
             int IdWithOneRating = 2;
 
@@ -141,6 +143,7 @@ namespace UnitTests.Pages.Explore
         public void OnGet_MultipleRatings_Return_Votes_VoteLabel()
         {
             // Arrange
+            // TODO: Create a new neighborhood with multiple ratings and then test it
             // Pick a neigborhood from database that has multiple ratings
             int IdWithMultipleRatings = 1;
 
@@ -226,6 +229,8 @@ namespace UnitTests.Pages.Explore
         }
         #endregion Comment_Is_Gettable_Returns_True
 
+        
+        
         /// <summary>
         /// Test that BindProperty Rating is settable 
         /// </summary>
@@ -247,6 +252,7 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(oldRatingCount + 1, _pageModel.CurrentNeighborhood.Ratings.Count());
         }
 
+        
         /// <summary>
         /// Test that BindProperty NewCommentText is settable 
         /// </summary>
