@@ -1,8 +1,6 @@
-﻿using LetsGoSEA.WebSite.Pages;
-using LetsGoSEA.WebSite.Models;
-using NUnit.Framework;
-using System.Linq;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests.Pages
 {
