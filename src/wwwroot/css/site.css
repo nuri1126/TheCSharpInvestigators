@@ -35,7 +35,7 @@ for details on configuring this project to bundle and minify static web assets. 
 .card-columns .card-body {
     height: 100px;
     font-family: 'Nunito', sans-serif;
-    background: #CAD2C5;
+    background: #cad2c5;
 }
 
 .row {
@@ -47,7 +47,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .card-footer {
-    background: #84A98C;
+    background: #84a98c;
 }
 
 
@@ -66,7 +66,7 @@ a {
 
 .btn-primary {
     color: #fff;
-    background-color: #52489C;
+    background-color: #52489c;
     border-color: #252152;
 }
 
@@ -161,7 +161,7 @@ p1.homepage-tagline-content {
 
 body {
 
-    background: #EBEBEB;
+    background: #ebebeb;
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
@@ -203,7 +203,7 @@ ul {
     /*background: -webkit-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
     background: -o-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
     background: -moz-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);*/
-    background: linear-gradient(170deg, #59C3C3 60%, #52489C 80%);
+    background: linear-gradient(170deg, #59c3c3 60%, #52489c 80%);
     z-index: 1;
 }
 
@@ -211,7 +211,7 @@ ul {
     /*background: -webkit-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -o-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -moz-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);*/
-    background: #EBEBEB;
+    background: #ebebeb;
     opacity: 90%;
     z-index: 1;
 }
@@ -230,7 +230,7 @@ ul {
 
 .aboutus-content-p {
     font-size: 20px;
-    color: #84A98C;
+    color: #84a98c;
     font-weight: bold;
     text-align: justify;
 }
@@ -283,8 +283,8 @@ ul {
     transform: scale(1.15);
     opacity: 1;
     /*background: #84A98C;*/ /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #84A98C, #CAD2C5); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #84A98C, #CAD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to bottom, #84a98c, #cadD2c5); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #84a98c, #cad2c5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
 }
 
