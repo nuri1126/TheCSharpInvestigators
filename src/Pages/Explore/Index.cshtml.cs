@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using LetsGoSEA.WebSite.Services;
+﻿using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace LetsGoSEA.WebSite.Pages.Explore
 {
