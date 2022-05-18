@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
     /// <summary>
-    /// Delete Page Model for the Delete Razor Page: manages the Delete of the data for a single record
+    /// Delete Page Model for the Delete.cshtml Page: manages the Delete of the data for a single record
     /// </summary>
     public class DeleteModel : PageModel
     {
