@@ -37,7 +37,7 @@ namespace UnitTests.Pages.Explore
         /// Test GET method: valid page should return neighborhood
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_Neighborhood()
+        public void OnGet_Valid_CurrentNeighborhood_Name_Should_Return_True()
         {
             // Arrange
 
@@ -53,7 +53,7 @@ namespace UnitTests.Pages.Explore
         /// Test GET method: invalid model should return index page 
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Model_NotValid_ReturnIndex()
+        public void OnGet_Invalid_Model_tValid_Should_Return_False()
         {
             // Arrange
             _pageModel.CurrentNeighborhood = new LetsGoSEA.WebSite.Models.NeighborhoodModel()
@@ -78,7 +78,7 @@ namespace UnitTests.Pages.Explore
         /// Test GET method: invalid ID should lead to invalid model which should return index page
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Id_NotValid_ReturnExplore()
+        public void OnGet_Invalid_Id_InValid_Should_ReturnExplore()
         {
             // Arrange
             _pageModel.CurrentNeighborhood = new LetsGoSEA.WebSite.Models.NeighborhoodModel()
@@ -102,7 +102,7 @@ namespace UnitTests.Pages.Explore
         /// TEST GetCurrentRating method in OnGet: null ratings should return zero average rating and count
         /// </summary>
         [Test]
-        public void OnGet_Null_Ratings_Return_Zero_AvgAndCount()
+        public void OnGet_Null_Ratings_Null_Should_Return_avgRating_0()
         {
             // Arrange
             // Creating a new neighborhood
@@ -123,7 +123,7 @@ namespace UnitTests.Pages.Explore
         /// Test GetCurrentRating method in OnGet: one rating should return "Vote" votelebl
         /// </summary>
         [Test]
-        public void OnGet_OneRating_Return_Vote_VoteLabel()
+        public void OnGet_Valid_OneRating_Valid_Should_Return_VoteLabel()
         {
             // Arrange
             // Creating a new neighborhood
@@ -146,7 +146,7 @@ namespace UnitTests.Pages.Explore
         /// Test GetCurrentRating method in OnGet: multiple ratings should return "Votes" votelebl
         /// </summary>
         [Test]
-        public void OnGet_MultipleRatings_Return_Votes_VoteLabel()
+        public void OnGet_Valid_MultipleRatings_Valid_Should_Return_Votes_VoteLabel()
         {
             // Arrange
             // Creating a new neighborhood
@@ -173,7 +173,7 @@ namespace UnitTests.Pages.Explore
         /// Test POST method: valid page accept input comment and store to database. 
         /// </summary>
         [Test]
-        public void OnPostAsync_Valid_Comment_Is_Saved_From_Form()
+        public void OnPostAsync_Valid_Comment_Valid_Should_Return_Not_null()
         {
             // ARRANGE: create fake user input data
             var newComment = "newComment";
@@ -201,12 +201,12 @@ namespace UnitTests.Pages.Explore
 
         #endregion OnPostAsync
 
-        #region Comment_Is_Settable_Returns_True
+        #region Comment_Model_valid_should_return_Not_Null
         /// <summary>
         /// Tests Comment object's set method.
         /// </summary>
         [Test]
-        public void Comment_Is_Settable_Returns_True()
+        public void Comment_Model_valid_should_return_Not_Null()
         {
             // Arrange
             string bogusInput = "bogus";
@@ -218,14 +218,14 @@ namespace UnitTests.Pages.Explore
             //Assert.AreEqual(bogusInput, testComment);
             Assert.NotNull(_commentModel.Comment);
         }
-        #endregion Comment_Is_Settable_Returns_True
+        #endregion Comment_Model_valid_should_return_Not_Null
 
-        #region Comment_Is_Gettable_Returns_True
+        #region Comment_Model_Valid_Should_Returns_True
         /// <summary>
         /// Tests Comment object's get method.
         /// </summary>
         [Test]
-        public void Comment_Is_Gettable_Returns_True()
+        public void Comment_Model_Valid_Should_Returns_True()
         {
             // Arrange
             string bogusInput = "bogus";
@@ -238,15 +238,15 @@ namespace UnitTests.Pages.Explore
             // Assert 
             Assert.AreEqual(bogusInput, res);
         }
-        #endregion Comment_Is_Gettable_Returns_True
+        #endregion Comment_Model_Valid_Should_Returns_True
 
-        
-        
+
+        #region OnPost_Valid_Rating_Valid_Should_Return_Equal_True
         /// <summary>
         /// Test that BindProperty Rating is settable 
         /// </summary>
         [Test]
-        public void Rating_Is_Settable()
+        public void OnPost_Valid_Rating_Valid_Should_Return_Equal_True()
         {
             // Arrange
             var Id = 1;
@@ -262,13 +262,14 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(3, _pageModel.CurrentNeighborhood.Ratings.Last());
             Assert.AreEqual(oldRatingCount + 1, _pageModel.CurrentNeighborhood.Ratings.Count());
         }
+        #endregion
 
-        
+        #region OnPost_Valid_NewCommentText_Valid_Should_Return_Equal_True
         /// <summary>
         /// Test that BindProperty NewCommentText is settable 
         /// </summary>
         [Test]
-        public void NewCommentText_Is_Settable()
+        public void OnPost_Valid_NewCommentText_Valid_Should_Return_Equal_True()
         {
             // Arrange
             var Id = 1;
@@ -286,5 +287,6 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Last().Comment, newComment);
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Count(), oldCommentCount + 1);
         }
+        #endregion
     }
 }
