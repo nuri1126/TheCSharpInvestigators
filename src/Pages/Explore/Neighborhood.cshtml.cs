@@ -6,7 +6,7 @@ using System.Linq;
 namespace LetsGoSEA.WebSite.Pages.Explore
 {
     /// <summary>
-    /// Neighborhood Page Model for the Neighborhood Razor Page
+    /// Neighborhood Page Model for the Neighborhood.cshtml Page
     /// </summary>
     public class NeighborhoodModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
 
         /// <summary>
-        /// Default constructor
+        /// Neighborhood default constructor
         /// </summary>
         /// <param name="neighborhoodService">an instance of data service to use</param>
         public NeighborhoodModel(NeighborhoodService neighborhoodService)
@@ -122,8 +122,6 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
             return Page();
             //return Redirect("/Explore/Neighborhood/" + id.ToString());
-
-
         }
     }
 }
