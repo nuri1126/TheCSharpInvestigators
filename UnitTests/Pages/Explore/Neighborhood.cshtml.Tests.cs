@@ -53,7 +53,7 @@ namespace UnitTests.Pages.Explore
         /// Test GET method: invalid model should return index page 
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Model_tValid_Should_Return_False()
+        public void OnGet_Invalid_Model_Valid_Should_Return_False()
         {
             // Arrange
             _pageModel.CurrentNeighborhood = new LetsGoSEA.WebSite.Models.NeighborhoodModel()
@@ -109,7 +109,7 @@ namespace UnitTests.Pages.Explore
             var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
             // Get the newly created neighborhood's Id 
             var idWithNullRating = newNeighborhood.Id;
-            
+
             // Act
             _pageModel.OnGet(idWithNullRating);
 
