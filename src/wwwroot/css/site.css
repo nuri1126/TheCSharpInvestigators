@@ -194,6 +194,10 @@ ul {
     font-family: 'Nunito', sans-serif;
 }
 
+.info-footer  {
+    color: black !important;
+}
+
 /*Backgrounds*/
 .bg-navbar {
     /*background: -webkit-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
@@ -207,7 +211,8 @@ ul {
     /*background: -webkit-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -o-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);
     background: -moz-linear-gradient(110deg, #52489C 60%, #59C3C3 60%);*/
-    background: linear-gradient(170deg, #52489C 60%, #59C3C3 80%);
+    background: #EBEBEB;
+    opacity: 90%;
     z-index: 1;
 }
 
