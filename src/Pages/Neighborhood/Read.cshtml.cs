@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
     /// <summary>
-    /// Read Page Model for the Read Razor Page: will return one neighborhood's data to show
+    /// Read Page Model for the Read.cshtml Page: will return one neighborhood's data to show
     /// </summary>
     public class ReadModel : PageModel
     {
