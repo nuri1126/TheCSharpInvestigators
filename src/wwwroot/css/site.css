@@ -377,7 +377,15 @@ ul {
     border: 0;
     width: 400px;
     height: 500px;
+}
 
+#walk-overlay {
+    width: 400px;
+    height: 3rem;
+    background-color: #ebebeb;
+    z-index: 2;
+    position: absolute;
+    margin-top: -4em;
 }
 
 /*Comments*/
