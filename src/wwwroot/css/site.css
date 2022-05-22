@@ -198,6 +198,10 @@ ul {
     color: black !important;
 }
 
+.info-footer-link {
+    text-decoration: none;
+}
+
 /*Backgrounds*/
 .bg-navbar {
     /*background: -webkit-linear-gradient(110deg, #59C3C3 60%, #52489C 60%);
