@@ -412,6 +412,14 @@ div.comment {
     overflow-wrap: break-word;
 }
 
+.comment-id {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+
 .comment-box {
     margin-bottom: 5px;
     width:400px;
