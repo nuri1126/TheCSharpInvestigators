@@ -390,6 +390,10 @@ ul {
 
 /*Comments*/
 
+div.comment {
+    display: inline-grid;
+}
+
 .comment-row {
     display: flex;
     flex-direction: column;
@@ -398,5 +402,6 @@ ul {
 }
 
 .comment-box {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    width:400px;
 }
