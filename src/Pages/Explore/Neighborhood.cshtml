@@ -138,14 +138,13 @@
         }
 
         // Allow user to enter new comment in the box and click save
-        <form method="post">
-            <div class="comment-box">
-                    <input type="text" value="" asp-for="NewCommentText" />
-                    <button type="submit" class="btn btn-success">Save Comment</button>
-            </div>
+<form method="post">
+    <div class="comment">
+        <textarea class="comment-box" name="NewCommentText" rows="5"></textarea>
+        <button type="submit" class="btn btn-primary">Save Comment</button>
+    </div>
         </form>
     }
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
