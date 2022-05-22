@@ -55,7 +55,7 @@
         {
             <span class="badge bg-warning text-dark">
                 <!--Show rating average rounded to 2 decimal places-->
-            <span>@Model.CurrentNeighborhood.Ratings.Average().ToString("0.00") out of 5</span>
+                <span>@Model.CurrentNeighborhood.Ratings.Average().ToString("0.00") out of 5</span>
                 <span class="visually-hidden">average rating</span>
             </span>
         }
@@ -108,29 +108,28 @@
             </a>
         }
     </div>
-    <hr class="my-4"/>
+    <hr class="my-4" />
     <p>@Model.CurrentNeighborhood.ShortDesc</p>
 
     <!-- Google Maps for this neighborhood-->
-    <iframe
-        id="google-maps-iframe"
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs&q=@Model.CurrentNeighborhood.Name&zoom=15"
-        allowfullscreen>
+    <iframe id="google-maps-iframe"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs&q=@Model.CurrentNeighborhood.Name&zoom=15"
+            allowfullscreen>
     </iframe>
 
-    
+
     @{
         var addressQuery = Model.CurrentNeighborhood.Address.Replace(",", " ").Replace("  ", " ").Replace(" ", "-");
     }
-    <iframe title="Walk Score" 
-            id="walk-score-iframe" 
+    <iframe title="Walk Score"
+            id="walk-score-iframe"
             src="https://www.walkscore.com/serve-walkscore-tile.php?wsid=g00bb89dd158a4fb0bb5177c0bfcc3760&amp;s=@addressQuery&amp;o=v&amp;c=f&amp;h=500&amp;fh=0&amp;w=400">
     </iframe>
     <div id="walk-overlay"></div>
-    
+
     <!--Show comments-->
-    @{ 
+    @{
         <a id="commentAnchor"></a>
         <br />
         <hr />
@@ -139,27 +138,48 @@
             <span class="badge rounded-pill bg-dark">
                 @Model.CurrentNeighborhood.Comments.Count
                 <span class="visually-hidden">new comments</span>
-              </span>
+            </span>
         </h3>
 
-        // Show existing comments
+        <!--Display existing comments-->
         foreach (var comment in Model.CurrentNeighborhood.Comments)
         {
             <div class="comment-row">
                 @comment.Comment
+                <div class="comment-id">
+                    comment ID: @comment.CommentId
+                </div>
             </div>
         }
 
-        // Allow user to enter new comment in the box and click save
-        <form method="post">
-            <div class="comment">
-                <textarea class="comment-box" name="NewCommentText" rows="5" maxlength=@Model.commentMaxChar></textarea>
-                <span class="comment-max-char">Max characters allowed: @Model.commentMaxChar</span>
-                <button type="submit" class="btn btn-primary">Save Comment</button>
-            </div>
-        </form>
+        <br />
+
+        <!--Allow user to enter new comment in the box and click save-->
+        <div>
+            <form method="post">
+                <div class="comment">
+                    <textarea class="comment-box" name="NewCommentText" rows="5"></textarea>
+                    <button type="submit" class="btn btn-primary">Save Comment</button>
+                </div>
+            </form>
+        </div>
+
+        <br />
+
+
+        <h6>
+            Remove a Comment:
+        </h6>
+        <!--Allow user to remove comment by CommentId-->
+        <div>
+            <form method="post">
+                <div class="comment">
+                    <input value="" class="comment-box" name="CommentId">
+                    <button type="submit" class="btn btn-primary">Remove Comment</button>
+                </div>
+            </form>
+        </div>
+
     }
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-</div>
