@@ -151,11 +151,12 @@
         }
 
         // Allow user to enter new comment in the box and click save
-<form method="post">
-    <div class="comment">
-        <textarea class="comment-box" name="NewCommentText" rows="5"></textarea>
-        <button type="submit" class="btn btn-primary">Save Comment</button>
-    </div>
+        <form method="post">
+            <div class="comment">
+                <textarea class="comment-box" name="NewCommentText" rows="5" maxlength=@Model.commentMaxChar></textarea>
+                <span class="comment-max-char">Max characters allowed: @Model.commentMaxChar</span>
+                <button type="submit" class="btn btn-primary">Save Comment</button>
+            </div>
         </form>
     }
 
