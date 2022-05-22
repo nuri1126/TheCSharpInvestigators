@@ -94,7 +94,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// this method updates the neighborhood's Comment list. 
         /// </summary>
         /// <param name="id">the id of the current neighborhood</param>
-        public IActionResult OnPost(int id)
+        public IActionResult OnPost(int id, string CommentId)
         {
             // Assign the user's selected neighborhood to the CurrentNeighborhood var
             CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
@@ -115,6 +115,11 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
                 // Redirect to comment section of the page
                 //return Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor");
+            }
+
+            if (CommentId !="")
+            {
+                NeighborhoodService.DeleteComment(CurrentNeighborhood, CommentId);
             }
 
             //Update current rating
