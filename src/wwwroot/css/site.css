@@ -415,3 +415,8 @@ div.comment {
     margin-bottom: 5px;
     width:400px;
 }
+
+.comment-max-char {
+    margin-top: -10px;
+    text-align: right;
+}
