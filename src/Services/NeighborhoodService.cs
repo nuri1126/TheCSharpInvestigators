@@ -1,5 +1,7 @@
 ﻿using LetsGoSEA.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
+using shortid;
+using shortid.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -227,6 +229,17 @@ namespace LetsGoSEA.WebSite.Services
         }
 
         /// <summary>
+        /// Generates a new unique identifier
+        /// </summary>
+        /// <returns>String version of GUID</returns>
+        public string CreateNewCommentId()
+        {
+            var options = new GenerationOptions(useNumbers: true, length:8);
+            return ShortId.Generate(options).ToString();
+        }
+
+
+        /// <summary>
         /// Adds a comment to the NeighborhoodModel.
         /// </summary>
         /// <param name="neighborhood">Current neighborhood</param>
@@ -262,9 +275,55 @@ namespace LetsGoSEA.WebSite.Services
             neighborhood.Comments.Add(
                 new CommentModel()
                 {
+                    // Assign new Id to the CommentModel object
+                    CommentId = CreateNewCommentId(),
+
+                    // Assign the comment to the CommentModel object
                     Comment = comment
                 }
-            );
+            ); ;
+
+            // Save the neighborhood
+            UpdateData(neighborhood);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Deletes a comment from the NeighborhoodModel.
+        /// </summary>
+        /// <param name="neighborhood">Current neighborhood</param>
+        /// <param name="commentId">Comment's unique identifier</param>
+        /// <returns></returns>
+        public bool DeleteComment(NeighborhoodModel neighborhood, string commentId)
+        {
+
+            // If neighborhood is null, return false
+            if (neighborhood == null)
+            {
+                return false;
+            }
+
+            var currentCommentList = neighborhood.Comments;
+            int commentIdx = -1;
+
+            // Search for comment to remove, store index 
+            for (var i = 0; i < currentCommentList.Count; i++)
+            {
+                var comment = currentCommentList.ElementAt(i);
+                if (comment.CommentId == commentId)
+                {
+                    commentIdx = i;
+                    break;
+                }
+            }
+
+            // Invalid ID
+            if (commentIdx == -1)
+                return false;
+
+            // Remove the comment
+            neighborhood.Comments.RemoveAt(commentIdx);
 
             // Save the neighborhood
             UpdateData(neighborhood);
