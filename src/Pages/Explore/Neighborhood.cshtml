@@ -39,14 +39,27 @@
     <div class="star-label">
         @if (Model.voteCount == 0)
         {
-            <span>Be the first to vote!</span>
+            <span class="badge bg-warning text-dark">
+                Be the first to vote!
+            </span>
         }
         else
         {
-            <span>@Model.voteCount @Model.voteLabel</span>
+            <span class="badge text-dark">
+                @Model.voteCount @Model.voteLabel
+            </span>
+
+        }
+        &nbsp;
+        @if (Model.voteCount > 0)
+        {
+            <span class="badge bg-warning text-dark">
+                <!--Show rating average rounded to 2 decimal places-->
+            <span>@Model.CurrentNeighborhood.Ratings.Average().ToString("0.00") out of 5</span>
+                <span class="visually-hidden">average rating</span>
+            </span>
         }
     </div>
-
     <!--Show images-->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         @{ var neighborhoodImages = @Model.CurrentNeighborhood.Image.Split(','); }
@@ -121,7 +134,7 @@
         <a id="commentAnchor"></a>
         <br />
         <hr />
-        <h3 class="comment-title">
+        <h3>
             Comments:
             <span class="badge rounded-pill bg-dark">
                 @Model.CurrentNeighborhood.Comments.Count
