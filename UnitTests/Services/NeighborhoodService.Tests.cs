@@ -295,5 +295,81 @@ namespace UnitTests.Services
             Assert.IsNotEmpty(neighborhoodWithNoComment.Comments);
         }
         #endregion AddComments
+
+        #region DeleteComment_InvalidId_Should_Return_False
+        /// <summary>
+        /// An invalid CommentId should return false. 
+        /// </summary>
+        [Test]
+        public void DeleteComment_InvalidId_Should_Return_False()
+        {
+            // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(1);
+            string invalidId0 = "-1";
+            string invalidId1 = "0";
+            string invalidId2 = "bogus";
+
+
+
+            // Act
+            var result1 = neighborhoodService.DeleteComment(validNeighborhood, invalidId0);
+            var result2 = neighborhoodService.DeleteComment(validNeighborhood, invalidId1);
+            var result3 = neighborhoodService.DeleteComment(validNeighborhood, invalidId2);
+
+            // Assert
+            Assert.AreEqual(false, result1);
+            Assert.AreEqual(false, result2);
+            Assert.AreEqual(false, result3);
+        }
+
+        #endregion DeleteComment_InvalidId_Should_Return_False
+
+        #region DeleteComment_Invalid_Neighborhood_Should_Return_False
+        /// <summary>
+        /// An invalid CommentId should return false. 
+        /// </summary>
+        [Test]
+        public void DeleteComment_Invalid_Neighborhood_Should_Return_False()
+        {
+            // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var invalidId = 95;
+            var invalidNeighborhood = neighborhoodService.GetNeighborhoodById(invalidId);
+            var validCommentId = "1";
+
+            // Act
+            var result1 = neighborhoodService.DeleteComment(null, validCommentId);
+            var result2 = neighborhoodService.AddComment(invalidNeighborhood, validCommentId);
+
+            // Assert
+            Assert.AreEqual(false, result1);
+            Assert.AreEqual(false, result2);
+        }
+        #endregion DeleteComment_Invalid_Neighborhood_Should_Return_False
+
+        #region DeleteComment_ValidNeighborhood_ValidId_Should_Return_True
+        /// <summary>
+        /// 
+        /// </summary>
+        [Test]
+        public void DeleteComment_ValidNeighborhood_ValidId_Should_Return_True()
+        {
+            // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var validNeighborhood = neighborhoodService.GetNeighborhoodById(1);
+            var validComment = "bogus";
+            neighborhoodService.AddComment(validNeighborhood, validComment);
+            var commentId = validNeighborhood.Comments.Last().CommentId;
+            var commentCount = validNeighborhood.Comments.Count();
+
+            // Act
+            var result = neighborhoodService.DeleteComment(validNeighborhood, commentId);
+
+            // Assert
+            Assert.AreEqual(true, result);
+            Assert.AreEqual(commentCount - 1, validNeighborhood.Comments.Count());
+        }
+        #endregion DeleteComment_ValidNeighborhood_ValidId_Should_Return_True
     }
 }
