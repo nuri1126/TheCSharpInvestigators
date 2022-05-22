@@ -20,9 +20,15 @@
 }
 
 .star-label {
-    font-size: 20px;
     display: inline-flex;
     margin-left: 15px;
+    position: relative;
+    bottom: 6px;
+    padding-bottom: 5px;
+}
+
+.badge {
+    background-color: #59c3c3;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
