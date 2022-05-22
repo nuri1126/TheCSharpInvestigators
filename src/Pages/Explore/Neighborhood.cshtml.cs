@@ -16,7 +16,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         public int avgRating = 0;          // initialize current average rating to be displayed to user 
         public int voteCount = 0;          // initialize current vote count to be displayed to user
         public string voteLabel;           // denote "votes" or "vote" to be displayed to user
-
+        public int commentMaxChar = 300;
 
         /// <summary>
         /// Neighborhood default constructor
