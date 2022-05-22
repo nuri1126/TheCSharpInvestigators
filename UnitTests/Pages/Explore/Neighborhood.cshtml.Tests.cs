@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -192,7 +193,7 @@ namespace UnitTests.Pages.Explore
             TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
 
             // ACT
-            _pageModel.OnPost(1);
+            _pageModel.OnPost(1, "0");
 
             // ASSERT
             Assert.IsNotNull(formCol);
@@ -210,12 +211,14 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             string bogusInput = "bogus";
+            string id = Guid.NewGuid().ToString();
 
             // Act 
+            _commentModel.CommentId = id;
             _commentModel.Comment = bogusInput;
 
             // Assert 
-            //Assert.AreEqual(bogusInput, testComment);
+            Assert.NotNull(_commentModel.CommentId);
             Assert.NotNull(_commentModel.Comment);
         }
         #endregion Comment_Model_valid_should_return_Not_Null
@@ -240,7 +243,6 @@ namespace UnitTests.Pages.Explore
         }
         #endregion Comment_Model_Valid_Should_Returns_True
 
-
         #region OnPost_Valid_Rating_Valid_Should_Return_Equal_True
         /// <summary>
         /// Test that BindProperty Rating is settable 
@@ -256,7 +258,7 @@ namespace UnitTests.Pages.Explore
             _pageModel.Rating = 3;
 
             // Act
-            var result = _pageModel.OnPost(Id) as RedirectResult;
+            var result = _pageModel.OnPost(Id, "0") as RedirectResult;
 
             // Assert 
             Assert.AreEqual(3, _pageModel.CurrentNeighborhood.Ratings.Last());
@@ -281,12 +283,34 @@ namespace UnitTests.Pages.Explore
             _pageModel.NewCommentText = newComment;
 
             // Act
-            _pageModel.OnPost(Id);
+            _pageModel.OnPost(Id, "0");
 
             // Assert 
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Last().Comment, newComment);
             Assert.AreEqual(_pageModel.CurrentNeighborhood.Comments.Count(), oldCommentCount + 1);
         }
         #endregion
+
+        #region OnPost_Valid_CommentId_Should_Return_Equal_True
+        /// <summary>
+        /// Test that DeleteComment is working inside of OnPost
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_CommentId_Should_Return_Equal_True()
+        {
+            // Arrange
+            var Id = 1;
+            _pageModel.CurrentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(Id);
+            TestHelper.NeighborhoodServiceObj.AddComment(_pageModel.CurrentNeighborhood, "bogus!");
+            var oldCommentCount = _pageModel.CurrentNeighborhood.Comments.Count();
+            var commentId = _pageModel.CurrentNeighborhood.Comments.Last().CommentId;
+            
+            // Act
+            _pageModel.OnPost(Id, commentId);
+
+            // Assert 
+            Assert.AreEqual(oldCommentCount-1, _pageModel.CurrentNeighborhood.Comments.Count());
+        }
+        #endregion OnPost_Valid_CommentId_Should_Return_Equal_True
     }
 }
