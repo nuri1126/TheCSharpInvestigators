@@ -5,6 +5,9 @@
     /// </summary>
     public class CommentModel
     {
+        // Unique identifier
+        public string CommentId { get; set; }
+
         // Holds the comment string 
         public string Comment { get; set; }
     }
