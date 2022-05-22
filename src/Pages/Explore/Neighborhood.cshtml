@@ -121,7 +121,13 @@
         <a id="commentAnchor"></a>
         <br />
         <hr />
-        <span class="comment-title">Comments: </span>
+        <h3 class="comment-title">
+            Comments:
+            <span class="badge rounded-pill bg-dark">
+                @Model.CurrentNeighborhood.Comments.Count
+                <span class="visually-hidden">new comments</span>
+              </span>
+        </h3>
 
         // Show existing comments
         foreach (var comment in Model.CurrentNeighborhood.Comments)
