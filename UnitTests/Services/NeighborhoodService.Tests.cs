@@ -1,6 +1,10 @@
 ﻿using LetsGoSEA.WebSite.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace UnitTests.Services
@@ -295,6 +299,49 @@ namespace UnitTests.Services
             Assert.IsNotEmpty(neighborhoodWithNoComment.Comments);
         }
         #endregion AddComments
+
+        #region AddData_UploadImage
+        /// <summary>
+        /// Use AddData() function to test that an image file can be successfully uploaded
+        /// </summary>
+        [Test]
+        public void AddData_UploadImage_Valid_Successful()
+        {
+            // Arrange
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var oldNeighborhoodCount = neighborhoodService.GetNeighborhoods().Count();
+            var validName = "validName";
+            var validDesc = "validDesc";
+
+            //Setup mock file using a memory stream
+            var content = "Random content";
+            var imageFileName = "test.jpg";
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(content);
+            writer.Flush();
+            stream.Position = 0;
+
+            //create FormFile with desired data
+            var imageFiles = new FormFileCollection();
+            IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", imageFileName);
+            imageFiles.Add(file);
+
+            // Act
+            neighborhoodService.AddData(validName, "", validDesc, imageFiles);
+
+            // Assert that a new neighborhood has been successfully created 
+            Assert.AreEqual(oldNeighborhoodCount + 1, neighborhoodService.GetNeighborhoods().Count());
+
+            // Assert the fields of this new neighborhood are correct 
+            var newNeighborhood = neighborhoodService.GetNeighborhoodById(oldNeighborhoodCount + 1);
+            Assert.AreEqual(validName, newNeighborhood.Name);
+            Assert.AreEqual(0, newNeighborhood.Image.Count());
+            Assert.AreEqual(validDesc, newNeighborhood.ShortDesc);
+            Assert.AreEqual(1, newNeighborhood.ImagePath.Count());
+            
+        }
+        #endregion AddData_UploadImage
 
         #region DeleteComment_InvalidId_Should_Return_False
         /// <summary>
