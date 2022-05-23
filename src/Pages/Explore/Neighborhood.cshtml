@@ -60,14 +60,17 @@
             </span>
         }
     </div>
+
     <!--Show images-->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-        @{ var neighborhoodImages = @Model.CurrentNeighborhood.Image.Split(','); }
-        @if (neighborhoodImages.Length != 1)
+        @{
+            var neighborhoodImages = @Model.allImages; 
+        }
+        @if (neighborhoodImages.Count() != 1)
         {
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                @for (var i = 1; i < neighborhoodImages.Length; i++)
+                @for (var i = 1; i < neighborhoodImages.Count(); i++)
                 {
                     <li data-target="#carouselExampleCaptions" data-slide-to="@i"></li>
                 }
@@ -81,7 +84,7 @@
                     <p>@Model.CurrentNeighborhood.ShortDesc</p>
                 </div>
             </div>
-            @if (neighborhoodImages.Length != 1)
+            @if (neighborhoodImages.Count() != 1)
             {
                 @foreach (var neighborhoodImage in @neighborhoodImages.Skip(1).ToArray())
                 {
@@ -96,7 +99,7 @@
             }
 
         </div>
-        @if (neighborhoodImages.Length != 1)
+        @if (neighborhoodImages.Count() != 1)
         {
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
