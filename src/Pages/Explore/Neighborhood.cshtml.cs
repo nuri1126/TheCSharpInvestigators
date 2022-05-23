@@ -1,6 +1,7 @@
 ﻿using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LetsGoSEA.WebSite.Pages.Explore
@@ -16,7 +17,8 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         public int avgRating = 0;          // initialize current average rating to be displayed to user 
         public int voteCount = 0;          // initialize current vote count to be displayed to user
         public string voteLabel;           // denote "votes" or "vote" to be displayed to user
-        public int commentMaxChar = 300;
+        public int commentMaxChar = 300;   // set comment section max character length
+        public List<string> allImages;     // to hold the list of all neighborhood images 
 
         /// <summary>
         /// Neighborhood default constructor
@@ -84,6 +86,9 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
             // Update current rating 
             GetCurrentRating();
+
+            // Set neighborhoodImage list
+            allImages = NeighborhoodService.GetAllImages(CurrentNeighborhood);
 
             return Page();
         }
