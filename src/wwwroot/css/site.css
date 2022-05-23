@@ -436,7 +436,7 @@ div.comment {
 }
 
 /*Index page image*/
-#index-image-height {
+.index-image-height {
     max-height: 200px;
     object-fit: cover;
 }
