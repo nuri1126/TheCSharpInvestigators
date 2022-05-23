@@ -13,12 +13,7 @@
     ],
     "Comments": [],
     "Address": "401 NE Northgate Way, Seattle, WA 98125",
-    "Latitude": 47.706127,
-    "Longitude": -122.32806,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 2,
@@ -32,12 +27,7 @@
     ],
     "Comments": [],
     "Address": "7201 East Green Lake Dr N, Seattle, WA 98115",
-    "Latitude": 47.677803,
-    "Longitude": -122.34228,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 3,
@@ -51,12 +41,7 @@
     ],
     "Comments": [],
     "Address": "4301 University Way NE, Seattle, WA 98105",
-    "Latitude": 47.66011,
-    "Longitude": -122.31462,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 4,
@@ -68,12 +53,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2001 NW Canoe Pl, Seattle, WA 98117",
-    "Latitude": 47.67952,
-    "Longitude": -122.38214,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 5,
@@ -85,12 +65,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "206 N 36th St, Seattle, WA 98103",
-    "Latitude": 47.65293,
-    "Longitude": -122.35617,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 6,
@@ -102,12 +77,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "4219 Wallingford Ave N, Seattle, WA 98103",
-    "Latitude": 47.65869,
-    "Longitude": -122.3374,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 7,
@@ -119,12 +89,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "150 W Blaine St, Seattle, WA 98119",
-    "Latitude": 47.634827,
-    "Longitude": -122.35899,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 8,
@@ -136,12 +101,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2516 Eastlake Ave E, Seattle, WA 98102",
-    "Latitude": 47.642303,
-    "Longitude": -122.32577,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 9,
@@ -153,12 +113,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2305 24th Ave E, Seattle, WA 98112",
-    "Latitude": 47.639694,
-    "Longitude": -122.30234,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 10,
@@ -170,12 +125,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "404 Terry Ave N, Seattle, WA 98109",
-    "Latitude": 47.622192,
-    "Longitude": -122.33694,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 11,
@@ -187,12 +137,9 @@
     "Ratings": null,
     "Comments": [],
     "Address": "1000 4th Ave, Seattle, WA 98104",
-    "Latitude": 47.606712,
-    "Longitude": -122.332695,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": [
+      "image/Neighborhood/pike_market_place.jpg"
+    ]
   },
   {
     "Id": 12,
@@ -201,15 +148,14 @@
     "City": "Seattle",
     "State": "WA",
     "ShortDesc": "Vibrating with life, Capitol Hill brims with eclectic venues and a community feel",
-    "Ratings": null,
+    "Ratings": [
+      4,
+      5,
+      3
+    ],
     "Comments": [],
     "Address": "1635 11th Ave, Seattle, WA 98122",
-    "Latitude": 47.615696,
-    "Longitude": -122.31829,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 13,
@@ -221,12 +167,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2604 1st Ave, Seattle, WA 98121",
-    "Latitude": 47.6155,
-    "Longitude": -122.34976,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 14,
@@ -238,12 +179,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "398 Lake Washington Blvd S, Seattle, WA 98144",
-    "Latitude": 47.59927,
-    "Longitude": -122.28873,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 15,
@@ -255,12 +191,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "506 2nd Ave, Seattle, WA 98104",
-    "Latitude": 47.60196,
-    "Longitude": -122.33174,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 16,
@@ -272,28 +203,21 @@
     "Ratings": null,
     "Comments": [],
     "Address": "423 Maynard Ave S, Seattle, WA 98104",
-    "Latitude": 47.598934,
-    "Longitude": -122.32518,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": null
   },
   {
     "Id": 17,
     "Name": "West Seattle",
-    "Image": "https://kessiworld.com/wp-content/uploads/2020/05/Kessiworld-WestSeattle-LincolnPark.jpeg,https://onthegomoving.com/wp-content/w3-webp/uploads/2020/07/living-in-west-seattle-like.jpgw3.webp",
+    "Image": "",
     "City": "Seattle",
     "State": "WA",
     "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
     "Ratings": null,
     "Comments": [],
     "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "Latitude": 47.566666,
-    "Longitude": -122.38699,
-    "WalkScore": -1,
-    "WalkScoreDescription": "Default",
-    "BikeScore": -1,
-    "BikeScoreDescription": "Default"
+    "ImagePath": [
+      "image/Neighborhood/kessiworl_west_seattle_lincoln_park.jpeg",
+      "image/Neighborhood/west_seattle_shutters_stock.jpg"
+    ]
   }
 ]
