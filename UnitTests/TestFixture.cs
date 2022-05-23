@@ -12,6 +12,9 @@ namespace UnitTests
         // Path to the data folder for the content
         public static string DataContentRootPath = "./data/";
 
+        // Path to image folder for the content
+        public static string ImageContentRootPath = "./image/Neighborhood";
+
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
@@ -20,10 +23,12 @@ namespace UnitTests
             // This will copy over the latest version of the database files
 
             var DataWebPath = "../../../../src/wwwroot/data";
+            var ImageWebPath = "../../../../src/wwwroot/image/Neighborhood";
             // old
             // var DataWebPath = "../../../../src/bin/Debug/net5.0/wwwroot/data";
             var DataUTDirectory = "wwwroot";
             var dataUtPath = DataUTDirectory + "/data";
+            var imageUtPath = DataUTDirectory + "/image/Neighborhood";
 
             // Delete the Destination folder
             if (Directory.Exists(DataUTDirectory))
@@ -31,7 +36,7 @@ namespace UnitTests
                 Directory.Delete(DataUTDirectory, true);
             }
 
-            // Make the directory
+            // Make the data directory
             Directory.CreateDirectory(dataUtPath);
 
             // Copy over all data files
@@ -43,6 +48,20 @@ namespace UnitTests
 
                 File.Copy(filename, newFilePathName);
             }
+
+            // Make the image directory
+            Directory.CreateDirectory(imageUtPath);
+
+            // Copy over all image files
+            var imagePaths = Directory.GetFiles(ImageWebPath);
+            foreach (var imageFileName in imagePaths)
+            {
+
+                var newFilePathName = imageFileName.Replace(ImageWebPath, dataUtPath);
+
+                File.Copy(imageFileName, newFilePathName);
+            }
+
         }
 
         [OneTimeTearDown]
