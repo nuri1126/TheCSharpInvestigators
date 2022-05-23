@@ -125,8 +125,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             //Update current rating
             GetCurrentRating();
 
-            return Page();
-            //return Redirect("/Explore/Neighborhood/" + id.ToString());
+            return Redirect("/Explore/Neighborhood/" + id.ToString());
         }
     }
 }
