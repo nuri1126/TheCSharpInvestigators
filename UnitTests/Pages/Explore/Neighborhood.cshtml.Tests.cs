@@ -107,7 +107,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Creating a new neighborhood
-            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
+            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description", null);
             // Get the newly created neighborhood's Id 
             var idWithNullRating = newNeighborhood.Id;
 
@@ -128,7 +128,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Creating a new neighborhood
-            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
+            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description", null);
             // Adding one rating to the newly created neighborhood
             TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 5);
             // Get the newly created neighborhood's Id 
@@ -151,7 +151,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Creating a new neighborhood
-            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description");
+            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData("Test Neighborhood", "https://via.placeholder.com/150", "Short neighborhood description", null);
             // Adding multiple ratings to the newly created neighborhood
             TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 5);
             TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 4);
