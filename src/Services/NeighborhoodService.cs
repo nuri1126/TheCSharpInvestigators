@@ -1,11 +1,13 @@
 ﻿using LetsGoSEA.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using shortid;
 using shortid.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.Json;
 
 namespace LetsGoSEA.WebSite.Services
@@ -107,22 +109,30 @@ namespace LetsGoSEA.WebSite.Services
         /// </summary>
         /// <param name="ID">ID generated in CreateID() method</param>
         /// <param name="name">name data entered by user</param>
-        /// <param name="image">image data entered by user</param>
+        /// <param name="imageURLs">image URLs entered by user</param>
         /// <param name="shortDesc">short description entered by user</param>
+        /// <param name="imageFiles">image files added by user</param>
         /// <returns>A new NeighborhoodModel object to be later saved in JSON</returns>
-        public NeighborhoodModel AddData(string name, string image, string shortDesc)
+        public NeighborhoodModel AddData(string name, string imageURLs, string shortDesc, IFormFileCollection imageFiles)
         {
+
             // Create a new neighborhood model
             var data = new NeighborhoodModel()
             {
                 // Add user input data to the corresponding field
                 Id = GetNeighborhoods().Count() + 1,
                 Name = name,
-                Image = image,
+                Image = imageURLs,
                 City = "Seattle",
                 State = "WA",
                 ShortDesc = shortDesc
             };
+
+            // If user uploaded a file, upload the file to database
+            if (imageFiles != null && imageFiles.Count != 0)
+            {
+                UploadImageIfAvailable(data, imageFiles);
+            }
 
             // Get the current set, and append the new record to it 
             var dataset = GetNeighborhoods();
@@ -132,6 +142,35 @@ namespace LetsGoSEA.WebSite.Services
             SaveData(dataset);
 
             return data;
+        }
+
+        /// <summary>
+        /// Upload user-uploaded file images to database for selected neighborhood
+        /// </summary>
+        /// <param name="neighborhood">the neighborhood user uploaded photo for</param>
+        /// <param name="imageFiles">the image file user uploaded</param>
+        private void UploadImageIfAvailable(NeighborhoodModel neighborhood, IFormFileCollection imageFiles)
+        {
+            // Get contentRootPath to save the file on server
+            var wwwrootPath = WebHostEnvironment.WebRootPath;
+
+            // Extract the file name of submitted file
+            var fileName = Path.GetFileName(imageFiles[0].FileName);
+
+            // Create the relative image path to be saved in database to help with image retrieval  
+            var relativeImagePath = @"image/Neighborhood/" + fileName;
+
+            // Create absolute image path to upload the file on server
+            var absImagePath = Path.Combine(wwwrootPath, relativeImagePath);
+
+            // Physically upload/copy the file onto server using Absolute Path
+            using (var filestream = new FileStream(absImagePath, FileMode.Create))
+            {
+                imageFiles[0].CopyTo(filestream);
+            }
+
+            //Add image path to database
+            neighborhood.ImagePath.Add(relativeImagePath);
         }
 
         /// </summary>
@@ -156,6 +195,7 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.ShortDesc = data.ShortDesc;
             neighborhoodData.Ratings = data.Ratings;
             neighborhoodData.Comments = data.Comments;
+            neighborhoodData.ImagePath = data.ImagePath;
 
             SaveData(neighborhoods);
 
