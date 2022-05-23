@@ -48,7 +48,24 @@
     {
         <div class="col">
             <div class="card h-100">
-                <img src="@neighborhood.Image.Split(',').First()" class="card-img-top" alt="Picture of @neighborhood.Name" height="40%">
+                <!-- Neighborhood Image section on Index Page -->
+                <div class="index-image-height">
+                    <!-- If has URLImage, show the first one -->
+                    @if (@neighborhood.Image != "" && @neighborhood.Image != null)
+                    {
+                        <img src="@neighborhood.Image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">
+                    }
+                    <!-- Else: if has FileImage, show the first one -->
+                    else if (@neighborhood.ImagePath!= null && @neighborhood.ImagePath.Count() > 0)
+                    {
+                        <img src="@neighborhood.ImagePath.First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">
+                    }
+                    <!-- If no image provided, show placeholder image -->
+                    else
+                    {
+                        <img src=/image/no_image.jpg class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">
+                    }
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">@neighborhood.Name</h5>
                     <p class="card-text">@neighborhood.ShortDesc</p>
