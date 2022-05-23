@@ -88,6 +88,13 @@ a {
     border-color: #1861ac;
 }
 
+/*Style for nav bar logo*/
+.navbar-logo {
+    height: 5em;
+    width: 5em;
+    margin-left: 2em;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
