@@ -15,9 +15,7 @@ namespace LetsGoSEA.WebSite.Models
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid neighborhood name.")]
         public string Name { get; set; } = "Default";
 
-        // Image URL 
-        //[Required(ErrorMessage = "Please enter an image link. (Put ',' for multiple images)")]
-        //[RegularExpression(@"^https://.*$", ErrorMessage = "Please enter a link that starts with https://")]
+        // Image URL
         public string Image { get; set; } = "Default";
 
         // Validating City name to allow only alpha characters
