@@ -89,16 +89,16 @@
             {
                 // Find the title of each card
                 let neighborhoodName = $(this).find("h5.card-title").text().toLowerCase();
-
+                
                 // If the search string doesn't match, hide the card
                 if (neighborhoodName.indexOf(searchString) === -1)
                 {
-                    $(this).hide();
+                    $(this).parent().fadeOut("fast");
                 }
                 else
                 {
                     // Show the card matching the search string
-                    $(this).show();
+                    $(this).parent().fadeIn("fast");
                 }
             });
         });
