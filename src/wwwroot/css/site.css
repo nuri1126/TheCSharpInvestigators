@@ -434,3 +434,9 @@ div.comment {
 .input-error {
     outline: darkred solid;
 }
+
+/*Index page image*/
+#index-image-height {
+    max-height: 200px;
+    object-fit: cover;
+}
