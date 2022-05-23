@@ -429,3 +429,8 @@ div.comment {
     margin-top: -10px;
     text-align: right;
 }
+
+/* Input Error boundary box */
+.input-error {
+    outline: darkred solid;
+}
