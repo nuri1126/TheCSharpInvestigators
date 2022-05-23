@@ -15,9 +15,9 @@ namespace LetsGoSEA.WebSite.Models
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid neighborhood name.")]
         public string Name { get; set; } = "Default";
 
-        // Validating Image URL has to start with https://
-        [Required(ErrorMessage = "Please enter an image link. (Put ',' for multiple images)")]
-        [RegularExpression(@"^https://.*$", ErrorMessage = "Please enter a link that starts with https://")]
+        // Image URL 
+        //[Required(ErrorMessage = "Please enter an image link. (Put ',' for multiple images)")]
+        //[RegularExpression(@"^https://.*$", ErrorMessage = "Please enter a link that starts with https://")]
         public string Image { get; set; } = "Default";
 
         // Validating City name to allow only alpha characters
@@ -43,5 +43,10 @@ namespace LetsGoSEA.WebSite.Models
         // Address of neighborhood
         [Required(ErrorMessage = "Please enter a valid address")]
         public string Address { get; set; } = "Default";
+
+        // Image files of neighborhood
+        [Display(Name = "Image File")]
+        [StringLength(100)]
+        public List<string> ImagePath { get; set; } = new List<string> {};
     }
 }
