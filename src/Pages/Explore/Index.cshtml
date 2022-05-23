@@ -49,19 +49,22 @@
         <div class="col">
             <div class="card h-100">
                 <!-- Neighborhood Image section on Index Page -->
-                <div class="index-image-height">
+                <div class="card-header" id="index-image-height">
+                    @{bool hasURLImage = (@neighborhood.Image != "" && @neighborhood.Image != null);}
+                    @{bool hasFileImage = (@neighborhood.ImagePath != null && @neighborhood.ImagePath.Count() > 0);}
+
                     <!-- If has URLImage, show the first one -->
-                    @if (@neighborhood.Image != "" && @neighborhood.Image != null)
+                    @if (hasURLImage)
                     {
-                        <img src="@neighborhood.Image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">
+                        <img src="@neighborhood.Image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">          
                     }
                     <!-- Else: if has FileImage, show the first one -->
-                    else if (@neighborhood.ImagePath!= null && @neighborhood.ImagePath.Count() > 0)
+                    @if (!hasURLImage && hasFileImage)
                     {
                         <img src="@neighborhood.ImagePath.First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">
                     }
                     <!-- If no image provided, show placeholder image -->
-                    else
+                    @if (!hasURLImage && !hasFileImage)
                     {
                         <img src=/image/no_image.jpg class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.Name">
                     }
