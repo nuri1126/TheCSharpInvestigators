@@ -370,5 +370,44 @@ namespace LetsGoSEA.WebSite.Services
 
             return true;
         }
+
+        /// <summary>
+        /// Get all images from the database, including the URL images and Uploaded file images, if applicable
+        /// </summary>
+        /// <param name="neighborhood">the neighborhood to get all images from</param>
+        /// <returns></returns>
+        public List<string> GetAllImages(NeighborhoodModel neighborhood)
+        {
+            // Temporary image list 
+            var allImages = new List<string>();
+
+            // Placeholder image if no URL image or file image is available
+            var noImagePath = "/image/no_image.jpg";
+
+            // Add all URL images to the image list if present 
+            if (neighborhood.Image != "" && neighborhood.Image != null)
+            {
+                var urlImages = neighborhood.Image.Split(',');
+                foreach (var urlImage in urlImages) { allImages.Add(urlImage); }
+            }
+
+            // Add all file images to the image list if present
+            if (neighborhood.ImagePath != null && neighborhood.ImagePath.Count() > 0)
+            {
+                foreach (var localImage in neighborhood.ImagePath)
+                {
+                    var addPathSlash = "/" + localImage;
+                    allImages.Add(addPathSlash);
+                }
+            }
+
+            // Add placeholder image if no image is present in the database
+            else
+            {
+                allImages.Add(noImagePath);
+            }
+
+            return allImages;
+        }
     }
 }
