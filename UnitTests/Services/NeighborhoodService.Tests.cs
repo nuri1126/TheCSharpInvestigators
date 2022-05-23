@@ -343,6 +343,72 @@ namespace UnitTests.Services
         }
         #endregion AddData_UploadImage
 
+        #region GetAllImages
+        /// <summary>
+        /// Test GetAllImages() function: simulate creation of a new neighborhood with no user input image, should return no_image.jpg
+        /// </summary>
+        [Test]
+        public void GetAllImages_No_URLImage_No_FileImage_Return_No_Image_Path()
+        {
+            // Arrange: Generate a new neighborhood object with NO IMAGE URL and NO IMAGE FILE
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var oldNeighborhoodCount = neighborhoodService.GetNeighborhoods().Count();
+            neighborhoodService.AddData("validName", null, "validDesc", null);
+            var newNeighborhood = neighborhoodService.GetNeighborhoodById(oldNeighborhoodCount + 1);
+
+            // Act
+            var result = neighborhoodService.GetAllImages(newNeighborhood);
+
+            // Assert
+            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual("/image/no_image.jpg", result.First());
+        }
+        
+        /// <summary>
+        /// Test GetAllImages() function: pick a neighborhood from database that has both URL image and File image, 
+        /// should return all images 
+        /// </summary>
+        [Test]
+        public void GetAllImages_Has_URLImage_Has_FileImage_Return_AllImages()
+        {
+            // Arrange: Pick Downtown (ID = 11) that has both URL image and file image
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var pickedID = 11;
+            var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
+            var numOfURLImage = neighborhood.Image.Split(",").Length;
+            var numOfFileImage = neighborhood.ImagePath.Count();
+
+            // Act
+            var result = neighborhoodService.GetAllImages(neighborhood);
+
+            // Assert 
+            Assert.True(numOfURLImage > 0);
+            Assert.True(numOfFileImage > 0);
+            Assert.AreEqual(numOfURLImage + numOfFileImage, result.Count());
+        }
+
+        /// <summary>
+        /// Test GetAllImages() function: pick a neighborhood that has no URL images and only file images,
+        /// should return only file images
+        /// </summary>
+        [Test]
+        public void GetAllImages_No_URLImage_Return_Only_FileImages()
+        {
+            // Arrange: Pick West Seattle (ID = 17) that has no URL image but has File images
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var pickedID = 17;
+            var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
+            var numOfFileImage = neighborhood.ImagePath.Count();
+
+            // Act
+            var result = neighborhoodService.GetAllImages(neighborhood);
+
+            // Assert
+            Assert.True(numOfFileImage > 0);
+            Assert.AreEqual(numOfFileImage, result.Count());
+        }
+        #endregion GetAllImages
+
         #region DeleteComment_InvalidId_Should_Return_False
         /// <summary>
         /// An invalid CommentId should return false. 
