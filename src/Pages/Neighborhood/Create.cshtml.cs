@@ -34,15 +34,11 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <returns>Redirect to index page</returns>
         public IActionResult OnPost()
         {
-            // Hold valid image URLs only 
-            List<string> validImageURLs = new List<string>();
-
             // Get user input from the form: name, image link, short description, uploaded files 
             var name = Request.Form["Neighborhood.Name"];
             var imageURLs = Request.Form["Neighborhood.Image"];
             var shortDesc = Request.Form["Neighborhood.ShortDesc"];
             var imageFiles = Request.Form.Files;
-
             
             // Create a new Neighborhood Model object WITH user input
             // This Neighborhood object is different from the object created in OnGet()
