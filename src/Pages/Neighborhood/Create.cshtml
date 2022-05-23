@@ -24,8 +24,9 @@
 
         <div class="form-group">
             <label asp-for="Neighborhood.Image" class="control-label"></label>
-            <input asp-for="Neighborhood.Image" class="form-control" />
+            <input asp-for="Neighborhood.Image" class="form-control" onblur="doesImageExist(this.value)" id="image-input"/>
             <span asp-validation-for="Neighborhood.Image" class="text-danger"></span>
+            <span class="text-danger visually-hidden" id="image-error-text">Please provide a valid image URL</span>
         </div>
 
         <div class="form-group">
@@ -53,7 +54,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-primary" id="save"/>
         </div>
     </form>
 
@@ -62,3 +63,45 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+// Check if the supplied URL contains an image
+const doesImageExist = (url) => {
+
+   // Check if there are multiple images
+    let imageUrls = url.split(',');
+
+    // Check each url
+    imageUrls.forEach(url => {
+        new Promise((resolve) => {
+            let saveBtn = document.getElementById("save");
+            let imageInput = document.getElementById("image-input");
+            let errorText = document.getElementById("image-error-text");
+            const img = new Image();
+            img.src = url;
+            
+            // URL Contains Image - Valid URL
+            img.onload = () => {
+                resolve(true);
+                saveBtn.disabled = false;
+                saveBtn.ariaInvalid = false;
+                imageInput.classList.remove('input-error');
+                if (!errorText.classList.contains("visually-hidden")) {
+                    errorText.classList.add('visually-hidden');
+                }
+            };
+            
+            // URL does not contain image - invalid URL
+            img.onerror = () => {
+                resolve(false);
+                saveBtn.disabled = true;
+                saveBtn.ariaInvalid = true;
+                imageInput.classList.add('input-error');
+                if (errorText.classList.contains("visually-hidden")) {
+                    errorText.classList.remove('visually-hidden');
+                }
+            };
+          });
+    });
+ };
+</script>
