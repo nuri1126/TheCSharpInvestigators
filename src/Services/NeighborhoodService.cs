@@ -129,7 +129,7 @@ namespace LetsGoSEA.WebSite.Services
             };
 
             // If user uploaded a file, upload the file to database
-            if (imageFiles != null && imageFiles.Count != 0)
+            if (imageFiles != null && imageFiles.Count() > 0)
             {
                 UploadImageIfAvailable(data, imageFiles);
             }
@@ -170,7 +170,7 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             //Add image path to database
-            neighborhood.ImagePath.Add(relativeImagePath);
+            neighborhood.ImagePath = relativeImagePath;
         }
 
         /// </summary>
@@ -392,11 +392,12 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             // Add all file images to the image list if present
-            if (neighborhood.ImagePath != null && neighborhood.ImagePath.Count() > 0)
+            if (neighborhood.ImagePath != null)
             {
-                foreach (var localImage in neighborhood.ImagePath)
+                var fileImages = neighborhood.ImagePath.Split(',');
+                foreach (var fileImage in fileImages) 
                 {
-                    var addPathSlash = "/" + localImage;
+                    var addPathSlash = "/" + fileImage;
                     allImages.Add(addPathSlash);
                 }
             }
