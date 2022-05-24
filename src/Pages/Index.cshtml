@@ -1,6 +1,5 @@
 ﻿@page
 @model IndexModel
-
 <!--Index page (homepage) of 'Lets Go SEA' !-->
 @{
     ViewData["Title"] = "Home page";
@@ -11,14 +10,18 @@
     <source src="~/image/LetsGoSEA_Homepage.mov" type="video/mp4" />
 </video>
 
-<div class="home-title">
-        <h1 class="homepage-title-content">Lets Go SEA</h1>
+<!-- Start Header Section -->
+<div class="banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="intro-text">
+                <h1 class="homepage-title-content">Lets Go SEA</h1>
+                <p class="homepage-tagline-content">The one-stop site to explore the beautiful neighborhoods of Seattle!</p>
+                <a class="btn btn-primary btn-xl" role="button" asp-page="/Explore/Index">Lets Go Sea!</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="home-tagline">
-    <p1 class="homepage-tagline-content">"The one-stop site to explore the beautiful neighborhoods of Seattle!"</p1>
-</div>
-<div>
-    <a class="btn btn-primary btn-xl" role="button" asp-page="/Explore/Index">Lets Go Sea!</a>
-</div>
+<!-- End Header Section -->
 
 <script src="_framework/blazor.server.js"></script>
