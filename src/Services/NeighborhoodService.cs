@@ -384,15 +384,18 @@ namespace LetsGoSEA.WebSite.Services
             // Placeholder image if no URL image or file image is available
             var noImagePath = "/image/no_image.jpg";
 
+            var hasURLImage = neighborhood.Image != "" && neighborhood.Image != null;
+            var hasFileImage = neighborhood.ImagePath != null && neighborhood.ImagePath != "" && neighborhood.ImagePath != "Default";
+
             // Add all URL images to the image list if present 
-            if (neighborhood.Image != "" && neighborhood.Image != null)
+            if (hasURLImage)
             {
                 var urlImages = neighborhood.Image.Split(',');
                 foreach (var urlImage in urlImages) { allImages.Add(urlImage); }
             }
 
             // Add all file images to the image list if present
-            if (neighborhood.ImagePath != null && neighborhood.ImagePath != "Default")
+            if (hasFileImage)
             {
                 var fileImages = neighborhood.ImagePath.Split(',');
                 foreach (var fileImage in fileImages) 
@@ -403,7 +406,7 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             // Add placeholder image if no image is present in the database
-            else
+            else if (!hasURLImage && !hasFileImage)
             {
                 allImages.Add(noImagePath);
             }
