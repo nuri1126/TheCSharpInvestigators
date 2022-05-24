@@ -392,7 +392,7 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             // Add all file images to the image list if present
-            if (neighborhood.ImagePath != null)
+            if (neighborhood.ImagePath != null && neighborhood.ImagePath != "Default")
             {
                 var fileImages = neighborhood.ImagePath.Split(',');
                 foreach (var fileImage in fileImages) 
