@@ -16,10 +16,10 @@ namespace LetsGoSEA.WebSite.Controllers
         /// <param name="neighborhoodService">an instance of data service to use</param>
         public NeighborhoodController(NeighborhoodService neighborhoodService)
         {
-            this.NeighborhoodService = neighborhoodService;
+            this.neighborhoodService = neighborhoodService;
         }
 
         // Controller's retrievable service property used for dependency injection
-        public NeighborhoodService NeighborhoodService { get; }
+        public NeighborhoodService neighborhoodService { get; }
     }
 }
