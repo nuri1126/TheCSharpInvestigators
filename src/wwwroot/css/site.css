@@ -398,10 +398,11 @@ ul {
     text-align: center;
 }
 
-.carousel-img {
+.carousel .carousel-img{
     width: 1000px;
     height: 500px;
     object-fit: cover;
+    margin: auto;
 }
 
 .slider-card img {
