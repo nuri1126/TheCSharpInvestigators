@@ -39,7 +39,7 @@ namespace UnitTests.Controllers
             var controller = new NeighborhoodController(TestHelper.NeighborhoodServiceObj);
 
             //Act
-            var service = controller.NeighborhoodService;
+            var service = controller.neighborhoodService;
 
             //Assert 
             Assert.NotNull(service);
