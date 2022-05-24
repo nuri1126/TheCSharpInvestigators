@@ -493,6 +493,7 @@ ul {
 
 div.comment {
     display: inline-grid;
+    width: 100%;
 }
 
 .comment-row {
@@ -513,7 +514,6 @@ div.comment {
 
 .comment-box {
     margin-bottom: 5px;
-    width:400px;
 }
 
 .comment-max-char {
