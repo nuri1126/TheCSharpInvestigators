@@ -338,7 +338,7 @@ namespace UnitTests.Services
             Assert.AreEqual(validName, newNeighborhood.Name);
             Assert.AreEqual(0, newNeighborhood.Image.Count());
             Assert.AreEqual(validDesc, newNeighborhood.ShortDesc);
-            Assert.AreEqual(1, newNeighborhood.ImagePath.Count());
+            Assert.AreEqual("image/Neighborhood/test.jpg", newNeighborhood.ImagePath);
             
         }
         #endregion AddData_UploadImage
@@ -376,7 +376,7 @@ namespace UnitTests.Services
             var pickedID = 11;
             var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
             var numOfURLImage = neighborhood.Image.Split(",").Length;
-            var numOfFileImage = neighborhood.ImagePath.Count();
+            var numOfFileImage = neighborhood.ImagePath.Split(",").Length;
 
             // Act
             var result = neighborhoodService.GetAllImages(neighborhood);
@@ -398,7 +398,7 @@ namespace UnitTests.Services
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var pickedID = 17;
             var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
-            var numOfFileImage = neighborhood.ImagePath.Count();
+            var numOfFileImage = neighborhood.ImagePath.Split(",").Length;
 
             // Act
             var result = neighborhoodService.GetAllImages(neighborhood);
