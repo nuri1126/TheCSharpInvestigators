@@ -321,6 +321,12 @@ ul {
     text-align: center;
 }
 
+.carousel-img {
+    width: 1000px;
+    height: 500px;
+    object-fit: cover;
+}
+
 .slider-card img {
     border-radius: 5px 5px 0px 0px;
     display: block;
