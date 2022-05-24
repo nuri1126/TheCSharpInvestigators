@@ -78,7 +78,7 @@
         }
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="@neighborhoodImages.First()" class="d-block w-100" alt="...">
+                <img src="@neighborhoodImages.First()" class="d-block carousel-img" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>@Model.CurrentNeighborhood.Name</h5>
                     <p>@Model.CurrentNeighborhood.ShortDesc</p>
@@ -89,7 +89,7 @@
                 @foreach (var neighborhoodImage in @neighborhoodImages.Skip(1).ToArray())
                 {
                     <div class="carousel-item">
-                        <img src="@neighborhoodImage" class="d-block w-100" alt="...">
+                        <img src="@neighborhoodImage" class="d-block carousel-img" alt="...">
                         <div class="carousel-caption">
                             <h5>@Model.CurrentNeighborhood.Name</h5>
                             <p>@Model.CurrentNeighborhood.ShortDesc</p>
