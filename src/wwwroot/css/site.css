@@ -154,25 +154,106 @@ h1.homepage-title-content {
     padding: 1% 1.5% 1% 1.5%;
 }
 
-/* homepage tagline background and orientation on page*/
-div.home-tagline {
-    overflow-wrap: break-word;
-    position: fixed;
-    width: 35%;
-    height: 10%;
-    top: 58%;
-    right: 12%;
-    text-align: justify;
-    background: rgba(143, 201, 58, 0.4);
-    border-radius: 25px;
-    padding: .5% 1.7% .5% 1.7%;
+@media {
+    /* homepage title font details*/
+    h1.homepage-title-content {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 600% !important;
+    }
+
+    /* homapage tagline font details*/
+    p.homepage-tagline-content {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 120% !important;
+        font-weight: 100 !important;
+    }
 }
 
-/* homapage tagline font details*/
-p1.homepage-tagline-content {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 120%;
-    font-weight: 100;
+@media (max-width: 1023px ) {
+    /* homepage title font details*/
+    h1.homepage-title-content {
+        font-size: 300% !important;
+    }
+
+    /* homapage tagline font details*/
+    p.homepage-tagline-content {
+        font-size: 100% !important;
+        font-weight: 100 !important;
+    }
+}
+
+@media ( max-width: 767px ) {
+    /* homepage title font details*/
+    h1.homepage-title-content {
+        font-size: 200% !important;
+    }
+
+    /* homapage tagline font details*/
+    p.homepage-tagline-content {
+        font-size: 80% !important;
+        font-weight: 100 !important;
+    }
+}
+
+.banner {
+    text-align: center;
+    color: #fff;
+}
+
+.banner .overlay {
+    width: 100%;
+    height: 100%;
+}
+
+.intro-text {
+    position: relative;
+    padding: 20% 0 15% 0;
+}
+
+.banner .intro-text h1 {
+    line-height: 50px;
+    letter-spacing: 5px;
+    margin-bottom: 55px;
+    -webkit-animation: bounceIn;
+    -moz-animation: rubberBand;
+    -o-animation: bounceIn;
+    animation: bounceIn;
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    -o-animation-duration: 2s;
+    animation-duration: 2s;
+}
+
+    .banner .intro-text h1 span {
+        color: #ff432e;
+    }
+
+.banner .intro-text p {
+    color: #fff;
+    line-height: 35px;
+    letter-spacing: 3px;
+    margin-bottom: 55px;
+    -webkit-animation: bounceInLeft;
+    -moz-animation: fadeInLeft;
+    -o-animation: fadeInLeft;
+    animation: bounceLeft;
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    -o-animation-duration: 2s;
+    animation-duration: 2s;
+}
+
+.banner .intro-text .btn-primary {
+    border-color: #fff;
+    color: #fff;
+    border-radius: 0;
+    width: 130px;
+}
+
+.banner .btn-primary:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #111;
 }
 
 body {
@@ -192,13 +273,6 @@ h1 {
 
 ul {
     font-family: 'Nunito', sans-serif;
-}
-
-.btn-xl {
-    position: fixed;
-    top: 70%;
-    right: 38%;
-    font-size: 150%;
 }
 
 .footer {
