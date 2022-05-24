@@ -407,6 +407,27 @@ namespace UnitTests.Services
             Assert.True(numOfFileImage > 0);
             Assert.AreEqual(numOfFileImage, result.Count());
         }
+
+        /// <summary>
+        /// Test GetAllImages() function: pick a neighborhood that has no file images and only URL images,
+        /// should return only URL images
+        /// </summary>
+        [Test]
+        public void GetAllImages_No_FileImage_Return_Only_URLImages()
+        {
+            // Arrange: Pick Green Lake (ID = 2) that has no File image but has URL images
+            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
+            var pickedID = 2;
+            var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
+            var numOfURLImage = neighborhood.Image.Split(",").Length;
+
+            // Act
+            var result = neighborhoodService.GetAllImages(neighborhood);
+
+            // Assert
+            Assert.True(numOfURLImage > 0);
+            Assert.AreEqual(numOfURLImage, result.Count());
+        }
         #endregion GetAllImages
 
         #region DeleteComment_InvalidId_Should_Return_False
