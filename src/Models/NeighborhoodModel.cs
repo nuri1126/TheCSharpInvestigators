@@ -45,6 +45,6 @@ namespace LetsGoSEA.WebSite.Models
         // Image files of neighborhood
         [Display(Name = "Image File")]
         [StringLength(100)]
-        public List<string> ImagePath { get; set; } = new List<string> {};
+        public string ImagePath { get; set; } = "Default";
     }
 }
