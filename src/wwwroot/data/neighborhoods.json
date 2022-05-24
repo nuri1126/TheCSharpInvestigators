@@ -13,7 +13,7 @@
     ],
     "Comments": [],
     "Address": "401 NE Northgate Way, Seattle, WA 98125",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 2,
@@ -27,7 +27,7 @@
     ],
     "Comments": [],
     "Address": "7201 East Green Lake Dr N, Seattle, WA 98115",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 3,
@@ -41,7 +41,7 @@
     ],
     "Comments": [],
     "Address": "4301 University Way NE, Seattle, WA 98105",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 4,
@@ -50,10 +50,24 @@
     "City": "Seattle",
     "State": "WA",
     "ShortDesc": "Walkable, historic, and full of fun things to do, Ballard is a hot spot for young and old",
-    "Ratings": null,
-    "Comments": [],
+    "Ratings": [
+      5,
+      3,
+      4,
+      5
+    ],
+    "Comments": [
+      {
+        "CommentId": "_v046tCH",
+        "Comment": "s"
+      },
+      {
+        "CommentId": "rGc4DHm2",
+        "Comment": "a"
+      }
+    ],
     "Address": "2001 NW Canoe Pl, Seattle, WA 98117",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 5,
@@ -65,7 +79,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "206 N 36th St, Seattle, WA 98103",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 6,
@@ -77,7 +91,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "4219 Wallingford Ave N, Seattle, WA 98103",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 7,
@@ -89,7 +103,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "150 W Blaine St, Seattle, WA 98119",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 8,
@@ -101,7 +115,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2516 Eastlake Ave E, Seattle, WA 98102",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 9,
@@ -113,7 +127,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2305 24th Ave E, Seattle, WA 98112",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 10,
@@ -125,7 +139,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "404 Terry Ave N, Seattle, WA 98109",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 11,
@@ -137,9 +151,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "1000 4th Ave, Seattle, WA 98104",
-    "ImagePath": [
-      "image/Neighborhood/pike_market_place.jpg"
-    ]
+    "ImagePath": "image/Neighborhood/pike_market_place.jpg"
   },
   {
     "Id": 12,
@@ -155,7 +167,7 @@
     ],
     "Comments": [],
     "Address": "1635 11th Ave, Seattle, WA 98122",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 13,
@@ -167,7 +179,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "2604 1st Ave, Seattle, WA 98121",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 14,
@@ -179,7 +191,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "398 Lake Washington Blvd S, Seattle, WA 98144",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 15,
@@ -191,7 +203,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "506 2nd Ave, Seattle, WA 98104",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 16,
@@ -203,7 +215,7 @@
     "Ratings": null,
     "Comments": [],
     "Address": "423 Maynard Ave S, Seattle, WA 98104",
-    "ImagePath": null
+    "ImagePath": ""
   },
   {
     "Id": 17,
@@ -212,12 +224,11 @@
     "City": "Seattle",
     "State": "WA",
     "ShortDesc": "Hop on the water taxi from downtown to this lovely, low-key corner of the city",
-    "Ratings": null,
+    "Ratings": [
+      4
+    ],
     "Comments": [],
     "Address": "4304 SW Dakota St, Seattle, WA 98116",
-    "ImagePath": [
-      "image/Neighborhood/kessiworl_west_seattle_lincoln_park.jpeg",
-      "image/Neighborhood/west_seattle_shutters_stock.jpg"
-    ]
+    "ImagePath": "image/Neighborhood/kessiworl_west_seattle_lincoln_park.jpeg,image/Neighborhood/west_seattle_shutters_stock.jpg"
   }
 ]
