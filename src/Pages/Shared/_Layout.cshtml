@@ -1,5 +1,6 @@
 ﻿@using LetsGoSEA.WebSite.Services
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+
 <!-- _Layout.cshtml, site layout Page-->
 @inject NeighborhoodService NeighborhoodService
 
@@ -47,7 +48,7 @@
                                 @foreach (var neighborhood in NeighborhoodService.GetNeighborhoods())
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-page="/Explore/Neighborhood" asp-route-id="@neighborhood.Id">@neighborhood.Name</a>
+                                        <a class="dropdown-item" asp-page="/Explore/Neighborhood" asp-route-id="@neighborhood.id">@neighborhood.name</a>
                                     </li>
                                 }
 
