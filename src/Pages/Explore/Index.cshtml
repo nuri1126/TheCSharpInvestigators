@@ -28,7 +28,6 @@
         </div>
     </div>
     <!-- Filter buttons -->
-    <!-- To be implemented in future sprints
     <div class="p-2">
         <div class="btn-group">
             <button type="button" class="btn btn-outline-secondary" id="asc">
@@ -39,7 +38,6 @@
             </button>
         </div>
     </div>
-    -->
 </div>
 
 
@@ -72,6 +70,19 @@
                 <div class="card-body">
                     <h5 class="card-title">@neighborhood.Name</h5>
                     <p class="card-text">@neighborhood.ShortDesc</p>
+                    @{
+                        if (neighborhood.Ratings != null)
+                        {
+                            <span class="avg-rating" avg-rating="@neighborhood.Ratings.Average()">
+                                @neighborhood.Ratings.Average()<i class="fa fa-star"></i>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="avg-rating visually hidden" avg-rating="-1"></span>
+
+                        }
+                    }
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-primary" asp-page="Neighborhood" asp-route-id="@neighborhood.Id">Explore more</a>
@@ -122,6 +133,50 @@
                 }
             });
         });
+
+        
+
+        // Filter button
+        let filterButtonDesc = "#desc";
+        $(filterButtonDesc).click(() => {
+            // function to sort cards by rating in descending order
+            function cardSort(x, y) {
+                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating"));
+                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating"));
+                //returns the larger of the two avg ratings
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            }
+            // sets cards that are already sorted
+            let sorted = $(".col").sort(cardSort);
+            let cards = $(".row");
+            cards.empty();
+            // appends cards that have already been evaluated
+            cards.append(sorted);
+
+        });
+
+        let filterButtonAsc = "#asc";
+        // function to sort cards by ratings in ascending order
+        $(filterButtonAsc).click(() => {
+
+            function cardSort(x, y) {
+                // finds average ratings of cards 
+                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating"));
+                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating"));
+
+                // compares both and returns the smaller value
+                return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+            }
+            // order of cards already evaluated
+            let sorted = $(".col").sort(cardSort);
+            let cards = $(".row");
+            cards.empty();
+            // returns the sorted order of cards
+            cards.append(sorted);
+
+        });
     });
+
+
 
 </script>
