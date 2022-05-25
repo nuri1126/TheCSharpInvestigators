@@ -6,25 +6,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
     /// <summary>
-    /// Delete Page Model for the Delete.cshtml Page: manages the Delete of the data for a single record
+    /// Delete PageModel for the Delete.cshtml Page which manages the Delete of the data for a single record.
     /// </summary>
     public class DeleteModel : PageModel
     {
-        // Data middle tier
-        public NeighborhoodService NeighborhoodService { get; }
+        // Data middle tier.
+        public NeighborhoodService neighborhoodService { get; }
 
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor.
         /// </summary>
-        /// <param name="neighborhoodService">An instance of the data service to be used</param>
+        /// <param name="neighborhoodService">An instance of the data service to be used.</param>
         public DeleteModel(NeighborhoodService neighborhoodService)
         {
-            NeighborhoodService = neighborhoodService;
+            this.neighborhoodService = neighborhoodService;
         }
 
-        // The data to show, bind to it for the post
+        // The data to show, bind to it for the post.
         [BindProperty]
-        public NeighborhoodModel Neighborhood { get; set; }
+        public NeighborhoodModel neighborhood { get; set; }
 
         /// <summary>
         /// REST Get request
@@ -33,7 +33,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <param name="id">id of the neighborhood to delete</param>
         public void OnGet(int id)
         {
-            Neighborhood = NeighborhoodService.GetNeighborhoodById(id);
+            neighborhood = neighborhoodService.GetNeighborhoodById(id);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
                 return Page();
             }
 
-            NeighborhoodService.DeleteData(Neighborhood.Id);
+            neighborhoodService.DeleteData(neighborhood.id);
 
             return RedirectToPage("./Index");
         }
