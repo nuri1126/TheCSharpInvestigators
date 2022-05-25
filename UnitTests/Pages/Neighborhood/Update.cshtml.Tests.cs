@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace UnitTests.Pages.Neighborhood
 {
     /// <summary>
-    /// Unit test for Update page
+    /// Unit tests for the Update page.
     /// </summary>
     public class UpdateTests
     {
@@ -16,7 +16,7 @@ namespace UnitTests.Pages.Neighborhood
         private static UpdateModel _pageModel;
 
         /// <summary>
-        /// Set up Update Model for testing
+        /// //Initialize UpdateModel with a NeighborhoodService object. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -29,7 +29,8 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
         /// <summary>
-        /// Test GET method: valid page should return neighborhoods
+        /// Test that when OnGet is called, all neighborhoods in the database
+        /// are returned.
         /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhoods()
@@ -41,23 +42,24 @@ namespace UnitTests.Pages.Neighborhood
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual("Greenlake", _pageModel.Neighborhood.Name);
+            Assert.AreEqual("Greenlake", _pageModel.neighborhood.name);
         }
         #endregion OnGet
 
-        #region OnPostAsync
+        #region OnPost
         /// <summary>
-        /// Test POST method: valid page should return neighborhoods
+        /// Test that when a neighborhood is updated and OnPost is called, the
+        /// neighborhood is returned with the updates in affect.
         /// </summary>
         [Test]
-        public void OnPostAsync_Valid_Should_Return_Neighborhoods()
+        public void OnPost_Valid_Should_Return_Neighborhoods()
         {
             // Arrange
-            _pageModel.Neighborhood = new NeighborhoodModel
+            _pageModel.neighborhood = new NeighborhoodModel
             {
-                Id = 2,
-                Name = "Greenwood",
-                ShortDesc = "Welcome to the green neighborhood of Greenwood"
+                id = 2,
+                name = "Greenwood",
+                shortDesc = "Welcome to the green neighborhood of Greenwood"
             };
 
             // Act
@@ -70,17 +72,18 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Test POST method: invalid data should make ModelState invalid
+        /// Tests that when a neighborhood is trying to be updated with invalid data should
+        /// the ModelState becomes invalid.
         /// </summary>
         [Test]
-        public void OnPostAsync_InValid_ModelState_Should_Return_False()
+        public void OnPost_InValid_ModelState_Should_Return_False()
         {
             // Arrange
-            _pageModel.Neighborhood = new NeighborhoodModel
+            _pageModel.neighborhood = new NeighborhoodModel
             {
-                Id = 666,
-                Name = "Invalid Name",
-                ShortDesc = "Invalid Desc"
+                id = 666,
+                name = "Invalid Name",
+                shortDesc = "Invalid Desc"
             };
 
             // Force an invalid error state
