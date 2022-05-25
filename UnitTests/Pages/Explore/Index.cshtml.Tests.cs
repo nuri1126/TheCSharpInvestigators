@@ -5,7 +5,7 @@ using System.Linq;
 namespace UnitTests.Pages.Explore
 {
     /// <summary>
-    /// Unit test for Explore Index page
+    /// Unit test for Explore Index page.
     /// </summary>
     public class IndexTests
     {
@@ -15,11 +15,13 @@ namespace UnitTests.Pages.Explore
         private static IndexModel _pageModel;
 
         /// <summary>
-        /// Set up IndexModel object for testing
+        /// Initialize IndexModel private field by passing the TestHelper's Neighborhood 
+        /// Service as a parameter. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
         {
+            // Initialize IndexModel with a NeighborhoodService object. 
             _pageModel = new IndexModel(TestHelper.NeighborhoodServiceObj);
         }
 
@@ -28,7 +30,8 @@ namespace UnitTests.Pages.Explore
         #region OnGet
 
         /// <summary>
-        /// Test GET method: valid page should return neighborhood objects
+        /// Tests Index.cshtml OnGet method. A valid call to OnGet should return 
+        /// the current list of Neighborhood objects. 
         /// </summary>
         [Test]
         public void OnGet_Valid_Model_valid_Should_Return_True()
@@ -41,7 +44,7 @@ namespace UnitTests.Pages.Explore
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, _pageModel.Neighborhoods.ToList().Any());
+            Assert.AreEqual(true, _pageModel.neighborhoods.ToList().Any());
         }
 
         #endregion OnGet
