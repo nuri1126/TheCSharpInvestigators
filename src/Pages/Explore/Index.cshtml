@@ -73,8 +73,8 @@
                     @{
                         if (neighborhood.ratings != null)
                         {
-                            <span class="avg-rating" avg-rating="@neighborhood.ratings.Average().ToString("0.00")">
-                                @neighborhood.ratings.Average()<i class="fa fa-star"></i>
+                            <span class="avg-rating" avg-rating="@neighborhood.ratings.Average()">
+                                @neighborhood.ratings.Average().ToString("0.00")<i class="fa fa-star" id="expore-page-star"></i>
                             </span>
                         }
                         else
