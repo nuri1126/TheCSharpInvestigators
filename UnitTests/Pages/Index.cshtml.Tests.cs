@@ -8,17 +8,17 @@ using System.Linq;
 namespace UnitTests.Pages
 {
     /// <summary>
-    /// Unit test for Neighborhoods Index page 
+    /// Unit tests for the Neighborhoods Index Page.
     /// </summary>
     public class IndexTests
     {
         #region TestSetup
 
-        // IndexModel from Index.cshtml.cs for testing
+        // IndexModel object
         private static IndexModel _pageModel;
 
         /// <summary>
-        /// Set up ILogger mock for testing 
+        /// Initialize mock Logger. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -32,7 +32,7 @@ namespace UnitTests.Pages
 
         #region OnGet
         /// <summary>
-        /// Test GET method: valid page should return valid neighborhoods
+        /// Tests that when OnGet is called, all neighborhoods are returned. 
         /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_True()
@@ -44,7 +44,7 @@ namespace UnitTests.Pages
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, _pageModel.Neighborhoods.ToList().Any());
+            Assert.AreEqual(true, _pageModel.neighborhoods.ToList().Any());
         }
         #endregion OnGet
     }
