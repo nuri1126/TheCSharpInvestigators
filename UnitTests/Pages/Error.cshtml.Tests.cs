@@ -7,23 +7,24 @@ using System.Diagnostics;
 namespace UnitTests.Pages
 {
     /// <summary>
-    /// Unit test for Error page
+    /// Unit tests for the Error Page.
     /// </summary>
     public class ErrorTests
     {
         #region TestSetup
+
         // ErrorModel object
-        public static ErrorModel PageModel;
+        public static ErrorModel _pageModel;
 
         /// <summary>
-        /// Set up ILogger mock for testing  
+        /// Initialize mock Logger. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
         {
             var mockLoggerDirect = Mock.Of<ILogger<ErrorModel>>();
 
-            PageModel = new ErrorModel(mockLoggerDirect)
+            _pageModel = new ErrorModel(mockLoggerDirect)
             {
                 PageContext = TestHelper.PageContext,
                 TempData = TestHelper.TempData,
@@ -34,29 +35,28 @@ namespace UnitTests.Pages
 
         #region OnGet
         /// <summary>
-        /// Test GET method: valid activity should return valid state and ID
+        /// Tests that when OnGet is called, a valid state and id is returned. 
         /// </summary>
         [Test]
         public void OnGet_Valid_Activity_Set_Should_Return_RequestId()
         {
             // Arrange
-
             Activity activity = new Activity("activity");
             activity.Start();
 
             // Act
-            PageModel.OnGet();
+            _pageModel.OnGet();
 
             // Reset
             activity.Stop();
 
             // Assert
-            Assert.AreEqual(true, PageModel.ModelState.IsValid);
-            Assert.AreEqual(activity.Id, PageModel.RequestId);
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(activity.Id, _pageModel.requestedId);
         }
 
         /// <summary>
-        /// Test GET method: invalid activity should return invalid state and trace identifier
+        /// Tests that when OnGet is called, invalid activity should return invalid state and trace identifier.
         /// </summary>
         [Test]
         public void OnGet_InValid_Activity_Null_Should_Return_TraceIdentifier()
@@ -64,14 +64,14 @@ namespace UnitTests.Pages
             // Arrange
 
             // Act
-            PageModel.OnGet();
+            _pageModel.OnGet();
 
             // Reset
 
             // Assert
-            Assert.AreEqual(true, PageModel.ModelState.IsValid);
-            Assert.AreEqual("trace", PageModel.RequestId);
-            Assert.AreEqual(true, PageModel.ShowRequestId);
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual("trace", _pageModel.requestedId);
+            Assert.AreEqual(true, _pageModel.ShowRequestId);
         }
         #endregion OnGet
     }
