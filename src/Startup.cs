@@ -28,9 +28,10 @@ namespace LetsGoSEA.WebSite
             services.AddHttpClient();
             services.AddControllers();
 
-            // Add Neighborhood service
+            // Add Neighborhood service.
             services.AddTransient<NeighborhoodService>();
-            // Add AboutUs service 
+
+            // Add AboutUs service.
             services.AddTransient<AboutUsService>();
         }
 
@@ -39,7 +40,7 @@ namespace LetsGoSEA.WebSite
         /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // When env is set to development, displays dev exception page 
+            // When env is set to development, displays dev exception page.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -52,7 +53,7 @@ namespace LetsGoSEA.WebSite
                 app.UseHsts();
             }
 
-            // Adds middleware components to the request pipeline
+            // Adds middleware components to the request pipeline.
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
