@@ -157,12 +157,14 @@ h1.homepage-title-content {
 @media {
     /* homepage title font details*/
     h1.homepage-title-content {
+        text-shadow: 6px 6px 0px rgba(0,0,0,0.3);
         font-family: 'Montserrat', sans-serif !important;
         font-size: 600% !important;
     }
 
     /* homapage tagline font details*/
     p.homepage-tagline-content {
+        text-shadow: 6px 6px 0px rgba(0,0,0,0.3);
         font-family: 'Montserrat', sans-serif !important;
         font-size: 120% !important;
         font-weight: 100 !important;
