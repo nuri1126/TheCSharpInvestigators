@@ -7,16 +7,17 @@ using System.Diagnostics;
 namespace UnitTests.Pages.Neighborhood
 {
     /// <summary>
-    /// Unit test for Delete page
+    /// Unit test for Delete functionality.
     /// </summary>
     public class DeleteTests
     {
         #region TestSetup
+
         // DeleteModel object
         private static DeleteModel _pageModel;
 
         /// <summary>
-        /// Set up Delete Model object for testing
+        /// Initialize DeleteModel a NeighborhoodService object. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -29,7 +30,7 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
         /// <summary>
-        /// Test GET method: valid page should return neighborhood
+        /// Tests that when OnGet is called on a valid neighborhood, that neighborhood is returned.
         /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhood()
@@ -41,24 +42,23 @@ namespace UnitTests.Pages.Neighborhood
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual("Greenlake", _pageModel.Neighborhood.Name);
+            Assert.AreEqual("Greenlake", _pageModel.neighborhood.name);
         }
-
 
         #endregion OnGet
 
-        #region OnPostAsync
+        #region OnPost
         /// <summary>
-        /// Test POST method: valid page should be able to delete a record and return neighborhoods 
+        /// Tests that when OnPost is called on a valid neighborhood, the record is deleted from the database.
         /// </summary>
         [Test]
-        public void OnPostAsync_Valid_Should_Return_Products()
+        public void OnPost_Delete_Valid_Neighborhood_Should_Return_Neighborhoods()
         {
-            // Creating product to delete
-            _pageModel.Neighborhood = TestHelper.NeighborhoodServiceObj.CreateID();
-            _pageModel.Neighborhood.Name = "Neighborhood to Delete";
-            _pageModel.Neighborhood.Id = 999;
-            TestHelper.NeighborhoodServiceObj.UpdateData(_pageModel.Neighborhood);
+            // Create neighborhood object to delete. 
+            _pageModel.neighborhood = TestHelper.NeighborhoodServiceObj.CreateID();
+            _pageModel.neighborhood.name = "Neighborhood to Delete";
+            _pageModel.neighborhood.id = 999;
+            TestHelper.NeighborhoodServiceObj.UpdateData(_pageModel.neighborhood);
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
@@ -68,25 +68,26 @@ namespace UnitTests.Pages.Neighborhood
             Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
 
-            // Confirm the item is deleted
-            Assert.AreEqual(null, TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(_pageModel.Neighborhood.Id));
+            // Confirm the item is deleted.
+            Assert.AreEqual(null, TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(_pageModel.neighborhood.id));
         }
 
         /// <summary>
-        /// Test POST method: invalid data will make ModelState invalid
+        /// Test that when OnPost is called on an invalid neighborhood, the ModelState 
+        /// becomes invalid. 
         /// </summary>
         [Test]
-        public void OnPostAsync_Invalid_Model_NotValid_ReturnPage()
+        public void OnPost_Invalid_Model_NotValid_ReturnPage()
         {
             // Arrange
-            _pageModel.Neighborhood = new NeighborhoodModel
+            _pageModel.neighborhood = new NeighborhoodModel
             {
-                Id = 999,
-                Name = "Invalid",
-                ShortDesc = "Invalid"
+                id = 999,
+                name = "Invalid",
+                shortDesc = "Invalid"
             };
 
-            // Force an invalid error state
+            // Force an invalid error state.
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
 
             // Act
