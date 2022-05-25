@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 namespace LetsGoSEA.WebSite.Pages
 {
     /// <summary>
-    /// Privacy Page Model for the Privacy Razor Page
+    /// Privacy Page Model for the Privacy Page.
     /// </summary>
     public class PrivacyModel : PageModel
     {
-        // Logger property 
+        // Logger property.
         private readonly ILogger<PrivacyModel> _logger;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace LetsGoSEA.WebSite.Pages
         }
 
         /// <summary>
-        /// TODO ...
+        /// Default OnGet.
         /// </summary>
         public void OnGet()
         {
