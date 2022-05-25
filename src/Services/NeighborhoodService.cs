@@ -283,7 +283,7 @@ namespace LetsGoSEA.WebSite.Services
         /// </summary>
         /// <param name="neighborhood">Current neighborhood</param>
         /// <param name="comment">User input</param>
-        /// <returns></returns>
+        /// <returns>true if comment Neighborhood data was updated successfully</returns>
         public bool AddComment(NeighborhoodModel neighborhood, string comment)
         {
             // If neighborhood is null, return false.
@@ -333,7 +333,7 @@ namespace LetsGoSEA.WebSite.Services
         /// </summary>
         /// <param name="neighborhood">Current neighborhood</param>
         /// <param name="commentId">Comment's unique identifier</param>
-        /// <returns></returns>
+        /// <returns>true if comment Neighborhood data was deleted successfully</returns>
         public bool DeleteComment(NeighborhoodModel neighborhood, string commentId)
         {
 
@@ -374,7 +374,7 @@ namespace LetsGoSEA.WebSite.Services
         /// Get all images from the database, including the URL images and Uploaded file images, if applicable.
         /// </summary>
         /// <param name="neighborhood">the neighborhood to get all images from</param>
-        /// <returns></returns>
+        /// <returns>A List of paths to images</returns>
         public List<string> GetAllImages(NeighborhoodModel neighborhood)
         {
             // Temporary image list.
