@@ -1,46 +1,47 @@
 ﻿@page "{id}"
 @model LetsGoSEA.WebSite.Pages.Neighborhood.DeleteModel
 
-<!--CRUDI: Delete page to show: contains some data of the selected neighborhood and a button to confirm Delete-->
 @{
     ViewData["Title"] = "Delete page";
 }
+
+<!--CRUDI: Delete page to show: contains some data of the selected neighborhood and a button to confirm Delete-->
 
 <h1>Delete</h1>
 
 <div class="container">
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @Html.HiddenFor(x => x.Neighborhood.Id)
+        @Html.HiddenFor(x => x.neighborhood.id)
 
         <div class="form-group">
-            <label asp-for="Neighborhood.Name" class="control-label"></label>
-            <input asp-for="Neighborhood.Name" class="form-control" readonly/>
-            <span asp-validation-for="Neighborhood.Name" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Neighborhood.Image" class="control-label"></label>
-            <input asp-for="Neighborhood.Image" class="form-control" readonly/>
-            <span asp-validation-for="Neighborhood.Image" class="text-danger"></span>
+            <label asp-for="neighborhood.name" class="control-label"></label>
+            <input asp-for="neighborhood.name" class="form-control" readonly />
+            <span asp-validation-for="neighborhood.name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Neighborhood.City" class="control-label"></label>
-            <input asp-for="Neighborhood.City" class="form-control" readonly/>
-            <span asp-validation-for="Neighborhood.City" class="text-danger"></span>
+            <label asp-for="neighborhood.image" class="control-label"></label>
+            <input asp-for="neighborhood.image" class="form-control" readonly />
+            <span asp-validation-for="neighborhood.image" class="text-danger"></span>
         </div>
 
-         <div class="form-group">
-            <label asp-for="Neighborhood.State" class="control-label"></label>
-            <input asp-for="Neighborhood.State" class="form-control" readonly/>
-            <span asp-validation-for="Neighborhood.State" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="neighborhood.city" class="control-label"></label>
+            <input asp-for="neighborhood.city" class="form-control" readonly />
+            <span asp-validation-for="neighborhood.city" class="text-danger"></span>
         </div>
 
-         <div class="form-group">
-            <label asp-for="Neighborhood.ShortDesc" class="control-label"></label>
-            <input asp-for="Neighborhood.ShortDesc" class="form-control" readonly/>
-            <span asp-validation-for="Neighborhood.ShortDesc" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="neighborhood.state" class="control-label"></label>
+            <input asp-for="neighborhood.state" class="form-control" readonly />
+            <span asp-validation-for="neighborhood.state" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="neighborhood.shortDesc" class="control-label"></label>
+            <input asp-for="neighborhood.shortDesc" class="form-control" readonly />
+            <span asp-validation-for="neighborhood.shortDesc" class="text-danger"></span>
         </div>
 
         <h1>Confirm Delete of this item</h1>
