@@ -3,6 +3,9 @@ using System.IO;
 
 namespace UnitTests
 {
+    /// <summary>
+    /// Test fixture set up class to compliment TestHelper.
+    /// </summary>
     [SetUpFixture]
     public class TestFixture
     {
