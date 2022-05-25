@@ -36,7 +36,7 @@
     "City": "Seattle",
     "State": "WA",
     "ShortDesc": "Famous for eclectic mix of urban shopping areas; historic homes and architecture; and great cafes, pubs, restaurants, and theaters",
-    "Ratings": [],
+    "Ratings": null,
     "Comments": [],
     "Address": "4301 University Way NE, Seattle, WA 98105",
     "ImagePath": ""
