@@ -10,7 +10,7 @@ namespace LetsGoSEA.WebSite
     public class Program
     {
         /// <summary>
-        /// Entry point of this program
+        /// Entry point of this program.
         /// </summary>
         /// <param name="args">command-line arguments</param>
         public static void Main(string[] args)
@@ -20,7 +20,7 @@ namespace LetsGoSEA.WebSite
         }
 
         /// <summary>
-        /// Initialize the website host webBuilder
+        /// Initialize the website host webBuilder.
         /// </summary>
         /// <param name="args">command-line arguments passed from Main</param>
         /// <returns>An IHostBuilder object</returns>
@@ -28,7 +28,7 @@ namespace LetsGoSEA.WebSite
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    // Specifies the Startup class when host is built
+                    // Specifies the Startup class when host is built.
                     webBuilder.UseStartup<Startup>();
                 });
     }
