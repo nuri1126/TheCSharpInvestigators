@@ -6,31 +6,31 @@ using System.Collections.Generic;
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
     /// <summary>
-    /// Index Page Model for the Neighborhood Razor Page: will return all the data to show
+    /// Index Page Model for the Neighborhood Razor Page: will return all the data to show.
     /// </summary>
     public class IndexModel : PageModel
     {
         // Data Service
-        private NeighborhoodService NeighborhoodService { get; }
+        private NeighborhoodService neighborhoodService { get; }
 
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor.
         /// </summary>
         /// <param name="neighborhoodService">an instance of data service to use</param>
         public IndexModel(NeighborhoodService neighborhoodService)
         {
-            NeighborhoodService = neighborhoodService;
+            this.neighborhoodService = neighborhoodService;
         }
 
-        // Collection of the Neighborhood Data
-        public IEnumerable<NeighborhoodModel> Neighborhoods { get; private set; }
+        // Collection of the Neighborhood Data.
+        public IEnumerable<NeighborhoodModel> neighborhoods { get; private set; }
 
         /// <summary>
-        /// REST OnGet, return all data
+        /// REST OnGet, return all data.
         /// </summary>
         public void OnGet()
         {
-            Neighborhoods = NeighborhoodService.GetNeighborhoods();
+            neighborhoods = neighborhoodService.GetNeighborhoods();
         }
     }
 }
