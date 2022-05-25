@@ -7,59 +7,68 @@ using System.Linq;
 namespace LetsGoSEA.WebSite.Pages.Explore
 {
     /// <summary>
-    /// Neighborhood Page Model for the Neighborhood.cshtml Page
+    /// Neighborhood Page Model.
     /// </summary>
     public class NeighborhoodModel : PageModel
     {
-        // Data middle tier service
-        private NeighborhoodService NeighborhoodService { get; }
+        // Data middle tier service.
+        private NeighborhoodService neighborhoodService { get; }
 
-        public int avgRating = 0;          // initialize current average rating to be displayed to user 
-        public int voteCount = 0;          // initialize current vote count to be displayed to user
-        public string voteLabel;           // denote "votes" or "vote" to be displayed to user
-        public int commentMaxChar = 300;   // set comment section max character length
-        public List<string> allImages;     // to hold the list of all neighborhood images 
+        // Iitialize current average rating to be displayed to user.
+        public int avgRating = 0;
+
+        // Initialize current vote count to be displayed to user.
+        public int voteCount = 0;
+
+        // Denote "votes" or "vote" to be displayed to user.
+        public string voteLabel;
+
+        // Set comment section max character length.
+        public int commentMaxChar = 300;
+
+        // Store the list of all neighborhood images.
+        public List<string> allImages;
+
+        // Holds the users input from the comment form.
+        [BindProperty]
+        public string newCommentText { get; set; } = "";
 
         /// <summary>
-        /// Neighborhood default constructor
+        /// Neighborhood default constructor.
         /// </summary>
-        /// <param name="neighborhoodService">an instance of data service to use</param>
+        /// <param name="neighborhoodService">An instance of data service to use.</param>
         public NeighborhoodModel(NeighborhoodService neighborhoodService)
         {
-            NeighborhoodService = neighborhoodService;
+            this.neighborhoodService = neighborhoodService;
         }
 
         [BindProperty]
-        // Current Neighborhood to be displayed to the user
-        public Models.NeighborhoodModel CurrentNeighborhood { get; set; }
+        // Current Neighborhood to be displayed to the user.
+        public Models.NeighborhoodModel currentNeighborhood { get; set; }
 
         [BindProperty]
-        // User input rating 
-        public int Rating { get; set; } = 0;
+        // User input rating.
+        public int rating { get; set; } = 0;
 
         /// <summary>
-        /// Get current average rating and vote count for the current neighborhood to display to user
+        /// Get current average rating and vote count for the current neighborhood to display to user.
         /// </summary>
         private void GetCurrentRating()
         {
-            if (CurrentNeighborhood.Ratings == null)
+            if (currentNeighborhood.ratings == null)
             {
                 avgRating = 0;
                 voteCount = 0;
             }
             else
             {
-                voteCount = CurrentNeighborhood.Ratings.Count();
+                voteCount = currentNeighborhood.ratings.Count();
                 voteLabel = voteCount > 1 ? "Votes" : "Vote";
-                avgRating = CurrentNeighborhood.Ratings.Sum() / voteCount;
+                avgRating = currentNeighborhood.ratings.Sum() / voteCount;
             }
 
-            System.Console.WriteLine($"Current rating for {CurrentNeighborhood.Id}: {avgRating}");
+            System.Console.WriteLine($"Current rating for {currentNeighborhood.id}: {avgRating}");
         }
-
-        // Holds the users input from the comment form
-        [BindProperty]
-        public string NewCommentText { get; set; } = "";
 
         /// <summary>
         /// This method parses the id from the url and checks if the id is valid.
@@ -75,11 +84,11 @@ namespace LetsGoSEA.WebSite.Pages.Explore
                 return RedirectToPage("./Index");
             }
 
-            CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
+            currentNeighborhood = neighborhoodService.GetNeighborhoodById(id);
 
             // If invalid id is passed, it results in CurrentNeighborhood to be null
             // User is redirected to the Explore Page
-            if (CurrentNeighborhood == null)
+            if (currentNeighborhood == null)
             {
                 return RedirectToPage("./Index");
             }
@@ -88,7 +97,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             GetCurrentRating();
 
             // Set neighborhoodImage list
-            allImages = NeighborhoodService.GetAllImages(CurrentNeighborhood);
+            allImages = neighborhoodService.GetAllImages(currentNeighborhood);
 
             return Page();
         }
@@ -102,29 +111,29 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         public IActionResult OnPost(int id, string CommentId)
         {
             // Assign the user's selected neighborhood to the CurrentNeighborhood var
-            CurrentNeighborhood = NeighborhoodService.GetNeighborhoodById(id);
+            currentNeighborhood = neighborhoodService.GetNeighborhoodById(id);
 
 
-            if (Rating != 0)
+            if (rating != 0)
             {
                 // Add Rating to neighborhood model 
-                NeighborhoodService.AddRating(CurrentNeighborhood, Rating);
+                neighborhoodService.AddRating(currentNeighborhood, rating);
 
                 //return Redirect("/Explore/Neighborhood/" + id.ToString());
             }
 
-            if (NewCommentText != "")
+            if (newCommentText != "")
             {
                 // Add Comment to neighborhood model
-                NeighborhoodService.AddComment(CurrentNeighborhood, NewCommentText);
+                neighborhoodService.AddComment(currentNeighborhood, newCommentText);
 
                 // Redirect to comment section of the page
                 //return Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor");
             }
 
-            if (CommentId !="")
+            if (CommentId != "")
             {
-                NeighborhoodService.DeleteComment(CurrentNeighborhood, CommentId);
+                neighborhoodService.DeleteComment(currentNeighborhood, CommentId);
             }
 
             //Update current rating
