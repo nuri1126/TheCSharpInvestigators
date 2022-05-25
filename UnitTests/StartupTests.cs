@@ -22,6 +22,10 @@ namespace UnitTests.Pages.Startup
         #endregion TestSetup
 
         #region ConfigureServices
+
+        /// <summary>
+        /// Tests that ASP WebHost service is created and not null after ConfigureServices.
+        /// </summary>
         [Test]
         public void Startup_ConfigureServices_Valid_Defaut_Should_Pass()
         {
@@ -31,6 +35,9 @@ namespace UnitTests.Pages.Startup
         #endregion ConfigureServices
 
         #region Configure
+        /// <summary>
+        /// Tests that ASP WebHost service is created and not null.
+        /// </summary>
         [Test]
         public void Startup_Configure_Valid_Defaut_Should_Pass()
         {
