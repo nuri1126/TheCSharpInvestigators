@@ -5,32 +5,32 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
 {
     /// <summary>
-    /// Read Page Model for the Read.cshtml Page: will return one neighborhood's data to show
+    /// Read Page Model for the Read.cshtml Page: will return one neighborhood's data to show.
     /// </summary>
     public class ReadModel : PageModel
     {
-        // Data middletier
-        private NeighborhoodService NeighborhoodService { get; }
+        // Data middletier.
+        private NeighborhoodService neighborhoodService { get; }
+
+        // The data to show.
+        public NeighborhoodModel neighborhood;
 
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor.
         /// </summary>
         /// <param name="neighborhoodService">an instance of the data service to use</param>
         public ReadModel(NeighborhoodService neighborhoodService)
         {
-            NeighborhoodService = neighborhoodService;
+            this.neighborhoodService = neighborhoodService;
         }
 
-        // The data to show
-        public NeighborhoodModel Neighborhood;
-
         /// <summary>
-        /// REST Get request
+        /// REST Get request.
         /// </summary>
         /// <param name="id">id of the neighborhood to show</param>
         public void OnGet(int id)
         {
-            Neighborhood = NeighborhoodService.GetNeighborhoodById(id);
+            neighborhood = neighborhoodService.GetNeighborhoodById(id);
         }
     }
 }
