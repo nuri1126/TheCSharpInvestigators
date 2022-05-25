@@ -4,12 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace LetsGoSEA.WebSite.Controllers
 {
     /// <summary>
-    /// Neighborhoods Controller 
+    /// Neighborhoods Controller for Neighborhoods Pages and Model.
     /// </summary>
     [Route("[controller]")]
     [ApiController]
     public class NeighborhoodController : Controller
     {
+
+        // Controller's retrievable service property used for dependency injection
+        public NeighborhoodService neighborhoodService { get; }
+
         /// <summary>
         /// Seed controller with neighborhood data service 
         /// </summary>
@@ -18,8 +22,5 @@ namespace LetsGoSEA.WebSite.Controllers
         {
             this.neighborhoodService = neighborhoodService;
         }
-
-        // Controller's retrievable service property used for dependency injection
-        public NeighborhoodService neighborhoodService { get; }
     }
 }
