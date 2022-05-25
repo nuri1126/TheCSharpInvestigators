@@ -135,8 +135,8 @@
         $(filterButtonDesc).click(() => {
             // function to sort cards by rating in descending order
             function cardSort(x, y) {
-                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating"));
-                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating"));
+                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating")).toFixed(2);
+                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating")).toFixed(2);
                 //returns the larger of the two avg ratings
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             }
@@ -155,8 +155,8 @@
 
             function cardSort(x, y) {
                 // finds average ratings of cards 
-                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating"));
-                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating"));
+                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating")).toFixed(2);
+                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating")).toFixed(2);
 
                 // compares both and returns the smaller value
                 return ((x > y) ? -1 : ((x < y) ? 1 : 0));
