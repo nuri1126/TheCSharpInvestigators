@@ -6,16 +6,17 @@ namespace UnitTests.Pages.Neighborhood
 
 {
     /// <summary>
-    /// Unit test for Index page
+    /// Unit test for the Index Page.
     /// </summary>
     public class IndexTests
     {
         #region TestSetup
+
         // IndexModel object
         private static IndexModel _pageModel;
 
         /// <summary>
-        /// Set up Index Model object for testing
+        /// Initialize IndexModel with a NeighborhoodService object. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -25,10 +26,10 @@ namespace UnitTests.Pages.Neighborhood
 
         #endregion TestSetup
 
-
         #region OnGet
         /// <summary>
-        /// Test GET method: valid page should return neighborhoods
+        /// Test that when OnGet is called, all neighborhoods in the database
+        /// are returned.
         /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhoods()
@@ -40,7 +41,7 @@ namespace UnitTests.Pages.Neighborhood
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, _pageModel.Neighborhoods.ToList().Any());
+            Assert.AreEqual(true, _pageModel.neighborhoods.ToList().Any());
         }
         #endregion OnGet
     }
