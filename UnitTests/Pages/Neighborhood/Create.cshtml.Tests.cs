@@ -8,16 +8,17 @@ using System.Linq;
 namespace UnitTests.Pages.Neighborhood
 {
     /// <summary>
-    /// Unit test for Create Page 
+    /// Unit test for the Create Page. 
     /// </summary>
     public class CreateTests
     {
         #region TestSetup
+
         // CreateModel object 
         private static CreateModel _pageModel;
 
         /// <summary>
-        /// Set up Create Model object for testing
+        /// Initialize CreateModel private field. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -30,30 +31,31 @@ namespace UnitTests.Pages.Neighborhood
 
         #endregion TestSetup
 
-        #region OnPostAsync
+        #region OnPost
         /// <summary>
-        /// Test POST method: valid page should be able to gather Form input and return index page
+        /// Tests that when OnPost is called, the Create page gathers Form input and 
+        /// returns the Index Page.
         /// </summary>
         [Test]
-        public void OnPostAsync_Valid_Should_Get_From_Input_and_Return_Index_Page()
+        public void OnPost_Valid_Should_Get_Form_Input_and_Return_Index_Page()
         {
 
-            // ARRANGE: create fake user input data
-            var oldCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
-            var newCount = oldCount + 1;
-            var newName = "newName";
-            var newImage = "https://newURL";
-            var newShortDesc = "newDesc";
+            // Arrange
+            // Create mock user input data. 
+            var oldNeighborhoodCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
+            var newNeighborhoodCount = oldNeighborhoodCount + 1;
+            var newNeighborhoodName = "bogusName";
+            var newNeighborhoodImg = "https://via.placeholder.com/150";
+            var newShortDesc = "bogusDesc";
 
-            // Put them in String arrays to match FormCollection Value format
-            string[] idArray = { newCount.ToString() };
-            string[] nameArray = { newName };
-            string[] imageArray = { newImage };
+            // Store mock user input in String arrays to match FormCollection Value format.
+            string[] idArray = { newNeighborhoodCount.ToString() };
+            string[] nameArray = { newNeighborhoodName };
+            string[] imageArray = { newNeighborhoodImg };
             string[] shortDescArray = { newShortDesc };
 
-            // Create a FromCollection object to hold fake form data
-            var formCol = new FormCollection(new Dictionary<string,
-            Microsoft.Extensions.Primitives.StringValues>
+            // Create a FormCollection object to hold mock form data.
+            var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
             {
                 { "Neighborhood.Id", idArray},
                 { "Neighborhood.Name", nameArray },
@@ -61,20 +63,20 @@ namespace UnitTests.Pages.Neighborhood
                 { "Neighborhood.ShortDesc", shortDescArray}
             });
 
-            // Link FormCollection object with HTTPContext 
+            // Link FormCollection object with HTTPContext.
             TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
 
-            // ACT
+            // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
 
-            // ASSERT
+            // Assert
             Assert.IsNotNull(formCol);
-            Assert.AreEqual(formCol["Neighborhood.Id"][0], newCount.ToString());
-            Assert.AreEqual(formCol["Neighborhood.Name"][0], newName);
-            Assert.AreEqual(formCol["Neighborhood.Image"][0], newImage);
+            Assert.AreEqual(formCol["Neighborhood.Id"][0], newNeighborhoodCount.ToString());
+            Assert.AreEqual(formCol["Neighborhood.Name"][0], newNeighborhoodName);
+            Assert.AreEqual(formCol["Neighborhood.Image"][0], newNeighborhoodImg);
             Assert.AreEqual(formCol["Neighborhood.ShortDesc"][0], newShortDesc);
 
-            // If success, return Index page
+            // If success, return Index page. 
             Assert.NotNull(result);
             Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
