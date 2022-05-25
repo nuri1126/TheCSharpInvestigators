@@ -12,7 +12,7 @@
 <h1>Create</h1>
 
 <div class="container">
-    <form method="post" enctype="multipart/form-data" asp-action="Create">
+    <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.HiddenFor(x => x.neighborhood.id)
 
