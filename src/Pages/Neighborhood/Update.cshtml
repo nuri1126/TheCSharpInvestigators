@@ -16,46 +16,60 @@
         @Html.HiddenFor(x => x.neighborhood.id)
 
         <div class="form-group">
-            <label asp-for="neighborhood.id" class="control-label"></label>
+            <label asp-for="neighborhood.id" class="control-label">Neighborhood Id</label>
             <input asp-for="neighborhood.id" class="form-control" readonly />
             <span asp-validation-for="neighborhood.id" class="text-danger"></span>
         </div>
 
+        <br />
+
         <div class="form-group">
-            <label asp-for="neighborhood.name" class="control-label"></label>
+            <label asp-for="neighborhood.name" class="control-label">Neighborhood Name</label>
             <input asp-for="neighborhood.name" class="form-control" />
             <span asp-validation-for="neighborhood.name" class="text-danger"></span>
         </div>
 
+        <br />
+
         <div class="form-group">
-            <label asp-for="neighborhood.image" class="control-label"></label>
+            <label asp-for="neighborhood.image" class="control-label">Link to Neighborhood Image</label>
             <input asp-for="neighborhood.image" class="form-control" />
             <span asp-validation-for="neighborhood.image" class="text-danger"></span>
         </div>
 
+        <br />
+
         <div class="form-group">
-            <label asp-for="neighborhood.city" class="control-label"></label>
+            <label asp-for="neighborhood.city" class="control-label">City</label>
             <input asp-for="neighborhood.city" class="form-control" readonly disabled />
             <span asp-validation-for="neighborhood.city" class="text-danger"></span>
         </div>
 
+        <br />
+
         <div class="form-group">
-            <label asp-for="neighborhood.city" class="control-label"></label>
+            <label asp-for="neighborhood.state" class="control-label">State</label>
             <input asp-for="neighborhood.state" class="form-control" readonly disabled />
             <span asp-validation-for="neighborhood.state" class="text-danger"></span>
         </div>
 
+        <br />
+
         <div class="form-group">
-            <label asp-for="neighborhood.state" class="control-label"></label>
+            <label asp-for="neighborhood.address" class="control-label">Address eg. "401 NE Northgate Way, Seattle, WA 98125"</label>
             <input asp-for="neighborhood.address" class="form-control" />
             <span asp-validation-for="neighborhood.address" class="text-danger"></span>
         </div>
 
+        <br />
+
         <div class="form-group">
-            <label asp-for="neighborhood.address" class="control-label"></label>
+            <label asp-for="neighborhood.shortDesc" class="control-label">Short Descripton</label>
             <input asp-for="neighborhood.shortDesc" class="form-control" />
             <span asp-validation-for="neighborhood.shortDesc" class="text-danger"></span>
         </div>
+
+        <br />
 
         <div class="form-group">
             <input type="submit" value="Save" class="btn btn-primary" />
