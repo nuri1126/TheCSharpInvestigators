@@ -6,16 +6,17 @@ using NUnit.Framework;
 namespace UnitTests.Pages
 {
     /// <summary>
-    /// Unit test for Privacy Page
+    /// Unit tests for the Privacy Page.
     /// </summary>
     public class PrivacyTests
     {
         #region TestSetup
+
         // PrivacyModel object
         private static PrivacyModel _pageModel;
 
         /// <summary>
-        /// Set up ILogger mock for testing 
+        /// Initialize mock Logger. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -33,7 +34,7 @@ namespace UnitTests.Pages
 
         #region OnGet
         /// <summary>
-        /// Test GET method: valid model state returns valid page
+        /// Test that when OnGet is called, the model state is valid and returns a valid Page. 
         /// </summary>
         [Test]
         public void OnGet_Valid_ModelState_Should_Return_True()
