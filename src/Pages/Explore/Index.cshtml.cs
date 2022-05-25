@@ -5,31 +5,31 @@ using System.Collections.Generic;
 namespace LetsGoSEA.WebSite.Pages.Explore
 {
     /// <summary>
-    /// Index Page Model for the Explore Razor Page
+    /// Index Page Model for the Explore Page.
     /// </summary>
     public class IndexModel : PageModel
     {
-        // Data middle tier service
-        private NeighborhoodService NeighborhoodService { get; }
+        // Data middle tier service.
+        private NeighborhoodService neighborhoodService { get; }
 
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         /// <param name="neighborhoodService">an instance of the data service to use</param>
         public IndexModel(NeighborhoodService neighborhoodService)
         {
-            NeighborhoodService = neighborhoodService;
+            this.neighborhoodService = neighborhoodService;
         }
 
-        // Collection of the Neighborhood Data
-        public IEnumerable<Models.NeighborhoodModel> Neighborhoods { get; private set; }
+        // Collection of the Neighborhood data.
+        public IEnumerable<Models.NeighborhoodModel> neighborhoods { get; private set; }
 
         /// <summary>
-        /// REST OnGet, return all neighborhood data
+        /// REST OnGet, return all neighborhood data.
         /// </summary>
         public void OnGet()
         {
-            Neighborhoods = NeighborhoodService.GetNeighborhoods();
+            neighborhoods = neighborhoodService.GetNeighborhoods();
         }
     }
 }
