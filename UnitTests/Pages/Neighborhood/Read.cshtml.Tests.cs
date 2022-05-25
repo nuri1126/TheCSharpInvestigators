@@ -4,16 +4,17 @@ using NUnit.Framework;
 namespace UnitTests.Pages.Neighborhood
 {
     /// <summary>
-    /// Unit test for Read page
+    /// Unit test for the Read Page.
     /// </summary>
     public class ReadTests
     {
         #region TestSetup
+
         // ReadModel object
         private static ReadModel _pageModel;
 
         /// <summary>
-        /// Set up Read Model object for testing 
+        /// Initialize ReadModel with a NeighborhoodService object. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -26,7 +27,7 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
         /// <summary>
-        /// Test GET method: valid page should return neighborhoods 
+        /// Tests that when OnGet is called, the selected neighborhood is returned.
         /// </summary>
         [Test]
         public void OnGet_Valid_Should_Return_Neighborhoods()
@@ -39,8 +40,7 @@ namespace UnitTests.Pages.Neighborhood
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual("Northgate", _pageModel.Neighborhood.Name);
-
+            Assert.AreEqual("Northgate", _pageModel.neighborhood.name);
         }
 
         #endregion OnGet
