@@ -6,18 +6,18 @@ using System.Diagnostics;
 namespace LetsGoSEA.WebSite.Pages
 {
     /// <summary>
-    /// Error Page Model for the Error Razor Page
+    /// Error PageModel for the Error Razor Page.
     /// </summary>
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
     {
-        // A property that holds the RequestID 
-        public string RequestId { get; set; }
+        // A property that holds the RequestID.
+        public string requestedId { get; set; }
 
         /// <summary>
-        /// Holds True if RequestID is "not null or empty" or false otherwise
+        /// Holds True if RequestID is "not null or empty" or false otherwise.
         /// </summary>
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(requestedId);
 
         // Logger property 
         private readonly ILogger<ErrorModel> _logger;
@@ -32,11 +32,11 @@ namespace LetsGoSEA.WebSite.Pages
         }
 
         /// <summary>
-        /// Returns a RequstID to the Error Razor Page 
+        /// Returns a RequstID.
         /// </summary>
         public void OnGet()
         {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            requestedId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
     }
 }
