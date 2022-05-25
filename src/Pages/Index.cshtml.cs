@@ -7,18 +7,18 @@ using System.Collections.Generic;
 namespace LetsGoSEA.WebSite.Pages
 {
     /// <summary>
-    /// Index Page Model for the Homepage/Index Razor Page 
+    /// Index Page Model for the Homepage/Index Page. 
     /// </summary>
     public class IndexModel : PageModel
     {
-        // Logger property 
+        // Logger property.
         private readonly ILogger<IndexModel> _logger;
 
-        // Instance of Neighborhood Service for dependency injection
+        // Instance of Neighborhood Service for dependency injection.
         private readonly NeighborhoodService _neighborhoodService;
 
-        // Holds IEnumerable list of Neighborhoods 
-        public IEnumerable<NeighborhoodModel> Neighborhoods { get; private set; }
+        // Holds IEnumerable list of Neighborhoods.
+        public IEnumerable<NeighborhoodModel> neighborhoods { get; private set; }
 
         /// <summary>
         /// Creates an Index logger which uses a log category equal to the name of the model.
@@ -33,11 +33,11 @@ namespace LetsGoSEA.WebSite.Pages
         }
 
         /// <summary>
-        /// Returns a list of Neighborhoods to the Index Razor page using the Neighborhood Service
+        /// Returns a list of Neighborhoods to the Index Razor page using the Neighborhood Service.
         /// </summary>
         public void OnGet()
         {
-            Neighborhoods = _neighborhoodService.GetNeighborhoods();
+            neighborhoods = _neighborhoodService.GetNeighborhoods();
         }
     }
 }
