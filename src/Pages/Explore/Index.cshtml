@@ -110,31 +110,25 @@
         // Gets the search string from the search box
         // If the search string is found, all the other neighborhood cards are hidden.
         // Only the card matching the search string is displayed
-        $(searchBoxClass).on("keyup", function ()
-        {
+        $(searchBoxClass).on("keyup", function () {
             // Get the search string from the input box
             let searchString = $(this).val().toLowerCase();
 
             // Iterate over each element to find the one matching the search string
-            $(".card").each(function ()
-            {
+            $(".card").each(function () {
                 // Find the title of each card
                 let neighborhoodName = $(this).find("h5.card-title").text().toLowerCase();
-                
+
                 // If the search string doesn't match, hide the card
-                if (neighborhoodName.indexOf(searchString) === -1)
-                {
+                if (neighborhoodName.indexOf(searchString) === -1) {
                     $(this).parent().fadeOut("fast");
                 }
-                else
-                {
+                else {
                     // Show the card matching the search string
                     $(this).parent().fadeIn("fast");
                 }
             });
         });
-
-        
 
         // Filter button
         let filterButtonDesc = "#desc";
@@ -173,10 +167,6 @@
             cards.empty();
             // returns the sorted order of cards
             cards.append(sorted);
-
         });
     });
-
-
-
 </script>
