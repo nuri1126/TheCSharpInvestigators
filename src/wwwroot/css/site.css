@@ -11,6 +11,10 @@
     background-color: inherit;
 }
 
+#expore-page-star {
+    font-size: 25px !important;
+}
+
 .checked {
     color: orange;
 }
