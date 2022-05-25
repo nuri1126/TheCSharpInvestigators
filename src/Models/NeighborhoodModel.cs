@@ -8,43 +8,43 @@ namespace LetsGoSEA.WebSite.Models
     public class NeighborhoodModel
     {
         // Primary key Id
-        public int Id { get; set; } = 0;
+        public int id { get; set; } = 0;
 
         // Validating Neighborhood name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a neighborhood name.")]
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid neighborhood name.")]
-        public string Name { get; set; } = "Default";
+        public string name { get; set; } = "Default";
 
         // Image URL
-        public string Image { get; set; } = "Default";
+        public string image { get; set; } = "Default";
 
         // Validating City name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a City name.")]
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid City name.")]
-        public string City { get; set; } = "Default";
+        public string city { get; set; } = "Default";
 
         // Validating State name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a State name.")]
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid State name.")]
-        public string State { get; set; } = "Default";
+        public string state { get; set; } = "Default";
 
         // Short description of the neighborhood
         [Required(ErrorMessage = "Please enter a short description.")]
-        public string ShortDesc { get; set; } = "Default";
+        public string shortDesc { get; set; } = "Default";
 
         // Ratings for neighborhood
-        public int[] Ratings { get; set; } = null;
+        public int[] ratings { get; set; } = null;
 
         // List of comments  
-        public List<CommentModel> Comments { get; set; } = new List<CommentModel> {};
+        public List<CommentModel> comments { get; set; } = new List<CommentModel> {};
 
         // Address of neighborhood
         [Required(ErrorMessage = "Please enter a valid address")]
-        public string Address { get; set; } = "Default";
+        public string address { get; set; } = "Default";
 
         // Image files of neighborhood
         [Display(Name = "Image File")]
         [StringLength(100)]
-        public string ImagePath { get; set; } = "Default";
+        public string imagePath { get; set; } = "Default";
     }
 }
