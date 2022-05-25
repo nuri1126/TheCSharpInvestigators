@@ -1,66 +1,67 @@
 ﻿@page
 @using LetsGoSEA.WebSite.Services
-@inject NeighborhoodService NeighborhoodService
+@inject NeighborhoodService neighborhoodService
 @model LetsGoSEA.WebSite.Pages.Neighborhood.CreateModel
 
-<!--CRUDI: Create page to show: will redirect to Update Page-->
 @{
     ViewData["Title"] = "Create page";
 }
+
+<!--CRUDI: Create page to show: will redirect to Update Page-->
 
 <h1>Create</h1>
 
 <div class="container">
     <form method="post" enctype="multipart/form-data" asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @Html.HiddenFor(x => x.Neighborhood.Id)
-        
+        @Html.HiddenFor(x => x.neighborhood.id)
+
 
         <div class="form-group">
-            <label asp-for="Neighborhood.Name" class="control-label"></label>
-            <input asp-for="Neighborhood.Name" class="form-control" />
-            <span asp-validation-for="Neighborhood.Name" class="text-danger"></span>
+            <label asp-for="neighborhood.name" class="control-label"></label>
+            <input asp-for="neighborhood.name" class="form-control" />
+            <span asp-validation-for="neighborhood.name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Neighborhood.Image" class="control-label"></label>
-            <input asp-for="Neighborhood.Image" class="form-control" onblur="doesImageExist(this.value)" id="image-input"/>
-            <span asp-validation-for="Neighborhood.Image" class="text-danger"></span>
+            <label asp-for="neighborhood.image" class="control-label"></label>
+            <input asp-for="neighborhood.image" class="form-control" onblur="doesimageExist(this.value)" id="image-input" />
+            <span asp-validation-for="neighborhood.image" class="text-danger"></span>
             <span class="text-danger visually-hidden" id="image-error-text">Please provide a valid image URL</span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Neighborhood.City" class="control-label"></label>
-            <input asp-for="Neighborhood.City" class="form-control" readonly value="Seattle"/>
-            @* <span asp-validation-for="Neighborhood.City" class="text-danger"></span> *@
+            <label asp-for="neighborhood.city" class="control-label"></label>
+            <input asp-for="neighborhood.city" class="form-control" readonly value="Seattle" />
+            @* <span asp-validation-for="neighborhood.City" class="text-danger"></span> *@
         </div>
 
         <div class="form-group">
-            <label asp-for="Neighborhood.State" class="control-label"></label>
-            <input asp-for="Neighborhood.State" class="form-control" readonly value="WA"/>
-            @* <span asp-validation-for="Neighborhood.State" class="text-danger"></span> *@
-        </div>
-        
-        <div class="form-group">
-            <label asp-for="Neighborhood.Address" class="control-label"></label>
-            <input asp-for="Neighborhood.Address" class="form-control" />
-            <span asp-validation-for="Neighborhood.Address" class="text-danger"></span>
+            <label asp-for="neighborhood.state" class="control-label"></label>
+            <input asp-for="neighborhood.state" class="form-control" readonly value="WA" />
+            @* <span asp-validation-for="neighborhood.State" class="text-danger"></span> *@
         </div>
 
         <div class="form-group">
-            <label asp-for="Neighborhood.ShortDesc" class="control-label"></label>
-            <input asp-for="Neighborhood.ShortDesc" class="form-control" />
-            <span asp-validation-for="Neighborhood.ShortDesc" class="text-danger"></span>
+            <label asp-for="neighborhood.address" class="control-label"></label>
+            <input asp-for="neighborhood.address" class="form-control" />
+            <span asp-validation-for="neighborhood.address" class="text-danger"></span>
         </div>
 
-       <!--Allow user to upload a photo-->
+        <div class="form-group">
+            <label asp-for="neighborhood.shortDesc" class="control-label"></label>
+            <input asp-for="neighborhood.shortDesc" class="form-control" />
+            <span asp-validation-for="neighborhood.shortDesc" class="text-danger"></span>
+        </div>
+
+        <!--Allow user to upload a photo-->
         <div>
-            <label asp-for="Neighborhood.ImagePath"></label>
+            <label asp-for="neighborhood.image"></label>
             <input type="file" name="files" class="form-control">
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" id="save"/>
+            <input type="submit" value="Save" class="btn btn-primary" id="save" />
         </div>
     </form>
 
@@ -71,43 +72,43 @@
 }
 
 <script>
-// Check if the supplied URL contains an image
-const doesImageExist = (url) => {
+    // Check if the supplied URL contains an image
+    const doesimageExist = (url) => {
 
-   // Check if there are multiple images
-    let imageUrls = url.split(',');
+        // Check if there are multiple images
+        let imageUrls = url.split(',');
 
-    // Check each url
-    imageUrls.forEach(url => {
-        new Promise((resolve) => {
-            let saveBtn = document.getElementById("save");
-            let imageInput = document.getElementById("image-input");
-            let errorText = document.getElementById("image-error-text");
-            const img = new Image();
-            img.src = url;
-            
-            // URL Contains Image - Valid URL
-            img.onload = () => {
-                resolve(true);
-                saveBtn.disabled = false;
-                saveBtn.ariaInvalid = false;
-                imageInput.classList.remove('input-error');
-                if (!errorText.classList.contains("visually-hidden")) {
-                    errorText.classList.add('visually-hidden');
-                }
-            };
-            
-            // URL does not contain image - invalid URL
-            img.onerror = () => {
-                resolve(false);
-                saveBtn.disabled = true;
-                saveBtn.ariaInvalid = true;
-                imageInput.classList.add('input-error');
-                if (errorText.classList.contains("visually-hidden")) {
-                    errorText.classList.remove('visually-hidden');
-                }
-            };
-          });
-    });
- };
+        // Check each url
+        imageUrls.forEach(url => {
+            new Promise((resolve) => {
+                let saveBtn = document.getElementById("save");
+                let imageInput = document.getElementById("image-input");
+                let errorText = document.getElementById("image-error-text");
+                const img = new image();
+                img.src = url;
+
+                // URL Contains image - Valid URL
+                img.onload = () => {
+                    resolve(true);
+                    saveBtn.disabled = false;
+                    saveBtn.ariaInvalid = false;
+                    imageInput.classList.remove('input-error');
+                    if (!errorText.classList.contains("visually-hidden")) {
+                        errorText.classList.add('visually-hidden');
+                    }
+                };
+
+                // URL does not contain image - invalid URL
+                img.onerror = () => {
+                    resolve(false);
+                    saveBtn.disabled = true;
+                    saveBtn.ariaInvalid = true;
+                    imageInput.classList.add('input-error');
+                    if (errorText.classList.contains("visually-hidden")) {
+                        errorText.classList.remove('visually-hidden');
+                    }
+                };
+            });
+        });
+    };
 </script>
