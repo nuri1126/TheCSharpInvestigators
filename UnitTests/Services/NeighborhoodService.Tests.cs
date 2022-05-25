@@ -1,7 +1,5 @@
 ﻿using LetsGoSEA.WebSite.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
@@ -16,15 +14,6 @@ namespace UnitTests.Services
     /// </summary>
     public class NeighborhoodServiceTests
     {
-        #region TestSetup
-        /// <summary>
-        /// See TestHelper.cs 
-        /// </summary>
-        [SetUp]
-        public void TestInitialize()
-        {
-        }
-        #endregion TestSetup
 
         #region GetNeighborhoods
 
@@ -34,14 +23,13 @@ namespace UnitTests.Services
         [Test]
         public void GetNeighborhoods()
         {
-            // Arrange - TestHelper.cs
+            // Arrange
 
             // Act
             var result = TestHelper.NeighborhoodServiceObj.GetNeighborhoods();
 
             //Assert
             Assert.NotNull(result);
-
             Assert.IsInstanceOf(typeof(IEnumerable<NeighborhoodModel>), result);
         }
 
@@ -87,7 +75,7 @@ namespace UnitTests.Services
 
         #region AddRating
         /// <summary>
-        /// Test AddRating: invalid neighborhood should return false
+        /// Tests AddRating, invalid neighborhood should return false.
         /// </summary>
         [Test]
         public void AddRating_InValid_Neighborhood_Should_Return_False()
@@ -108,7 +96,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddRating: valid neighborhood and valid rating should return true and correct rating count
+        /// Test AddRating, valid neighborhood and valid rating should return true and correct rating count.
         /// </summary>
         [Test]
         public void AddRating_Valid_Neighborhood_Valid_Rating_Should_Return_True()
@@ -118,7 +106,7 @@ namespace UnitTests.Services
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var Id = 1;
             var neighborhood = neighborhoodService.GetNeighborhoodById(Id);
-            var oldRatingCount = neighborhood.Ratings.Length;
+            var oldRatingCount = neighborhood.ratings.Length;
             var newRating = 5;
 
             // Act
@@ -126,12 +114,12 @@ namespace UnitTests.Services
 
             // Assert
             Assert.AreEqual(true, result);
-            Assert.AreEqual(oldRatingCount + 1, neighborhood.Ratings.Length);
-            Assert.AreEqual(5, neighborhood.Ratings.Last());
+            Assert.AreEqual(oldRatingCount + 1, neighborhood.ratings.Length);
+            Assert.AreEqual(5, neighborhood.ratings.Last());
         }
 
         /// <summary>
-        /// Test AddRating: too high of a rating return false
+        /// Test AddRating, where a rating entered out of the high bound returns false.
         /// </summary>
         [Test]
         public void AddRating_Invalid_Rating_High_Return_False()
@@ -150,7 +138,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddRating: too low of a rating return false
+        /// Test AddRating, where a rating entered out of the low bound returns false.
         /// </summary>
         [Test]
         public void AddRating_Invalid_Rating_Low_Return_False()
@@ -169,7 +157,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddRating: valid ratings return true 
+        /// Tests AddRating where valid ratings return true.
         /// </summary>
         [Test]
         public void AddRating_Valid_Rating_Return_True()
@@ -181,10 +169,12 @@ namespace UnitTests.Services
             var validRatingLowerBound = 0;
             var validRatingMiddle = 2;
             var validRatingUpperBound = 5;
+
             // Act
             var result1 = neighborhoodService.AddRating(validNeighborhood, validRatingLowerBound);
             var result2 = neighborhoodService.AddRating(validNeighborhood, validRatingMiddle);
             var result3 = neighborhoodService.AddRating(validNeighborhood, validRatingUpperBound);
+
             // Assert
             Assert.AreEqual(true, result1);
             Assert.AreEqual(true, result2);
@@ -192,22 +182,24 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddRating: empty rating return true
+        /// Test AddRating where an empty rating returns true.
         /// </summary>
         [Test]
         public void AddRating_Empty_Rating_Return_True()
         {
             // Arrange
-            // Pick a neighborhood with no rating 
+            // Pick a neighborhood with no rating.
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var idWithNoRating = 15;
             var neighborhoodWithNoRating = neighborhoodService.GetNeighborhoodById(idWithNoRating);
             var validRating = 1;
+
             // Act
             var result = neighborhoodService.AddRating(neighborhoodWithNoRating, validRating);
+
             // Assert
             Assert.AreEqual(true, result);
-            Assert.NotNull(neighborhoodWithNoRating.Ratings);
+            Assert.NotNull(neighborhoodWithNoRating.ratings);
         }
 
         #endregion AddRating
@@ -215,7 +207,7 @@ namespace UnitTests.Services
         #region AddComments
 
         /// <summary>
-        /// Test AddComment: invalid neighborhood should return false
+        /// Tests AddComments where an invalid neighborhood should return false.
         /// </summary>
         [Test]
         public void AddComment_InValid_Neighborhood_Should_Return_False()
@@ -236,7 +228,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddComment: null or empty comment should return false
+        /// Tests AddComment where a null or empty comment should return false.
         /// </summary>
         [Test]
         public void AddComment_Null_Or_Empty_Comment_Return_False()
@@ -257,7 +249,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddComment: valid neighborhood and valid comment return true and update data successfully
+        /// Tests AddComment where a valid neighborhood and valid comment return true and update data successfully.
         /// </summary>
         [Test]
         public void AddComment_Valid_Neighborhood_Valid_Comment_Return_True()
@@ -267,25 +259,25 @@ namespace UnitTests.Services
             var validID = 1;
             var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
             var validComment = "CSI Rocks";
-            var oldCommentCount = validNeighborhood.Comments.Count();
+            var oldCommentCount = validNeighborhood.comments.Count();
 
             // Act
             var result = neighborhoodService.AddComment(validNeighborhood, validComment);
 
             // Assert
             Assert.AreEqual(true, result);
-            Assert.AreEqual(oldCommentCount + 1, validNeighborhood.Comments.Count());
-            Assert.AreEqual(validComment, validNeighborhood.Comments.Last().Comment);
+            Assert.AreEqual(oldCommentCount + 1, validNeighborhood.comments.Count());
+            Assert.AreEqual(validComment, validNeighborhood.comments.Last().Comment);
         }
 
         /// <summary>
-        /// Test AddComment: empty comments return true
+        /// Tests AddComment where empty comments return true.
         /// </summary>
         [Test]
         public void AddComment_Empty_Comments_Return_True()
         {
             // Arrange
-            // Pick a neighborhood with no comment
+            // Pick a neighborhood with no comment.
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var idWithNoComment = 15;
             var neighborhoodWithNoComment = neighborhoodService.GetNeighborhoodById(idWithNoComment);
@@ -296,13 +288,13 @@ namespace UnitTests.Services
 
             // Assert
             Assert.AreEqual(true, result);
-            Assert.IsNotEmpty(neighborhoodWithNoComment.Comments);
+            Assert.IsNotEmpty(neighborhoodWithNoComment.comments);
         }
         #endregion AddComments
 
         #region AddData_UploadImage
         /// <summary>
-        /// Use AddData() function to test that an image file can be successfully uploaded
+        /// Use AddData() function to test that an image file can be successfully uploaded.
         /// </summary>
         [Test]
         public void AddData_UploadImage_Valid_Successful()
@@ -335,17 +327,17 @@ namespace UnitTests.Services
 
             // Assert the fields of this new neighborhood are correct 
             var newNeighborhood = neighborhoodService.GetNeighborhoodById(oldNeighborhoodCount + 1);
-            Assert.AreEqual(validName, newNeighborhood.Name);
-            Assert.AreEqual(0, newNeighborhood.Image.Count());
-            Assert.AreEqual(validDesc, newNeighborhood.ShortDesc);
-            Assert.AreEqual("image/Neighborhood/test.jpg", newNeighborhood.ImagePath);
-            
+            Assert.AreEqual(validName, newNeighborhood.name);
+            Assert.AreEqual(0, newNeighborhood.image.Count());
+            Assert.AreEqual(validDesc, newNeighborhood.shortDesc);
+            Assert.AreEqual("image/Neighborhood/test.jpg", newNeighborhood.imagePath);
+
         }
         #endregion AddData_UploadImage
 
         #region GetAllImages
         /// <summary>
-        /// Test GetAllImages() function: simulate creation of a new neighborhood with no user input image, should return no_image.jpg
+        /// Test GetAllImages() function: simulate creation of a new neighborhood with no user input image, should return no_image.jpg.
         /// </summary>
         [Test]
         public void GetAllImages_No_URLImage_No_FileImage_Return_No_Image_Path()
@@ -363,10 +355,10 @@ namespace UnitTests.Services
             Assert.AreEqual(1, result.Count());
             Assert.AreEqual("/image/no_image.jpg", result.First());
         }
-        
+
         /// <summary>
         /// Test GetAllImages() function: pick a neighborhood from database that has both URL image and File image, 
-        /// should return all images 
+        /// should return all images.
         /// </summary>
         [Test]
         public void GetAllImages_Has_URLImage_Has_FileImage_Return_AllImages()
@@ -375,8 +367,8 @@ namespace UnitTests.Services
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var pickedID = 11;
             var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
-            var numOfURLImage = neighborhood.Image.Split(",").Length;
-            var numOfFileImage = neighborhood.ImagePath.Split(",").Length;
+            var numOfURLImage = neighborhood.image.Split(",").Length;
+            var numOfFileImage = neighborhood.imagePath.Split(",").Length;
 
             // Act
             var result = neighborhoodService.GetAllImages(neighborhood);
@@ -389,7 +381,7 @@ namespace UnitTests.Services
 
         /// <summary>
         /// Test GetAllImages() function: pick a neighborhood that has no URL images and only file images,
-        /// should return only file images
+        /// should return only file images.
         /// </summary>
         [Test]
         public void GetAllImages_No_URLImage_Return_Only_FileImages()
@@ -398,7 +390,7 @@ namespace UnitTests.Services
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var pickedID = 17;
             var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
-            var numOfFileImage = neighborhood.ImagePath.Split(",").Length;
+            var numOfFileImage = neighborhood.imagePath.Split(",").Length;
 
             // Act
             var result = neighborhoodService.GetAllImages(neighborhood);
@@ -419,7 +411,7 @@ namespace UnitTests.Services
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var pickedID = 2;
             var neighborhood = neighborhoodService.GetNeighborhoodById(pickedID);
-            var numOfURLImage = neighborhood.Image.Split(",").Length;
+            var numOfURLImage = neighborhood.image.Split(",").Length;
 
             // Act
             var result = neighborhoodService.GetAllImages(neighborhood);
@@ -430,7 +422,7 @@ namespace UnitTests.Services
         }
         #endregion GetAllImages
 
-        #region DeleteComment_InvalidId_Should_Return_False
+        #region DeleteComment
         /// <summary>
         /// An invalid CommentId should return false. 
         /// </summary>
@@ -444,8 +436,6 @@ namespace UnitTests.Services
             string invalidId1 = "0";
             string invalidId2 = "bogus";
 
-
-
             // Act
             var result1 = neighborhoodService.DeleteComment(validNeighborhood, invalidId0);
             var result2 = neighborhoodService.DeleteComment(validNeighborhood, invalidId1);
@@ -457,9 +447,6 @@ namespace UnitTests.Services
             Assert.AreEqual(false, result3);
         }
 
-        #endregion DeleteComment_InvalidId_Should_Return_False
-
-        #region DeleteComment_Invalid_Neighborhood_Should_Return_False
         /// <summary>
         /// An invalid CommentId should return false. 
         /// </summary>
@@ -480,11 +467,9 @@ namespace UnitTests.Services
             Assert.AreEqual(false, result1);
             Assert.AreEqual(false, result2);
         }
-        #endregion DeleteComment_Invalid_Neighborhood_Should_Return_False
 
-        #region DeleteComment_ValidNeighborhood_ValidId_Should_Return_True
         /// <summary>
-        /// 
+        /// Tests DeleteComment returns a true after successful call. 
         /// </summary>
         [Test]
         public void DeleteComment_ValidNeighborhood_ValidId_Should_Return_True()
@@ -494,16 +479,17 @@ namespace UnitTests.Services
             var validNeighborhood = neighborhoodService.GetNeighborhoodById(1);
             var validComment = "bogus";
             neighborhoodService.AddComment(validNeighborhood, validComment);
-            var commentId = validNeighborhood.Comments.Last().CommentId;
-            var commentCount = validNeighborhood.Comments.Count();
+            var commentId = validNeighborhood.comments.Last().CommentId;
+            var commentCount = validNeighborhood.comments.Count();
 
             // Act
             var result = neighborhoodService.DeleteComment(validNeighborhood, commentId);
 
             // Assert
             Assert.AreEqual(true, result);
-            Assert.AreEqual(commentCount - 1, validNeighborhood.Comments.Count());
+            Assert.AreEqual(commentCount - 1, validNeighborhood.comments.Count());
         }
-        #endregion DeleteComment_ValidNeighborhood_ValidId_Should_Return_True
+
+        #endregion DeleteComment
     }
 }
