@@ -1,37 +1,36 @@
 ﻿@page
 @model LetsGoSEA.WebSite.Pages.Neighborhood.IndexModel
 
-<!--CRUDI: Index page to show: contains a list of neighborhoods and links to Create, Read, Update, and Delete-->
 @{
     ViewData["Title"] = "Index Page";
     Layout = "Shared/_Layout";
 }
 
-
+<!--CRUDI: Index page to show: contains a list of neighborhoods and links to Create, Read, Update, and Delete-->
 <div class="container">
 
     <a asp-page="Create" class="btn btn-link">+ Create</a>
 
     <table class="table table-bordered table-striped">
         <thead>
-        <tr>
-            <th>Neighborhood Name</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Neighborhood Name</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
 
-        @foreach (var neighborhood in Model.Neighborhoods.OrderBy(neighborhood => neighborhood.Name))
-        {
-            <tr>
-                <td>@neighborhood.Name</td>
-                <td>
-                    <a asp-page="Read" asp-route-id="@neighborhood.Id">Read</a> |
-                    <a asp-page="Update" asp-route-id="@neighborhood.Id">Update</a> |
-                    <a asp-page="Delete" asp-route-id="@neighborhood.Id">Delete</a>
-                </td>
-            </tr>
-        }
+            @foreach (var neighborhood in Model.neighborhoods.OrderBy(neighborhood => neighborhood.name))
+            {
+                <tr>
+                    <td>@neighborhood.name</td>
+                    <td>
+                        <a asp-page="Read" asp-route-id="@neighborhood.id">Read</a> |
+                        <a asp-page="Update" asp-route-id="@neighborhood.id">Update</a> |
+                        <a asp-page="Delete" asp-route-id="@neighborhood.id">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
