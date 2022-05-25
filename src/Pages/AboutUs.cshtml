@@ -41,19 +41,19 @@
     <div class="container">
         <div class="slider">
             <div class="owl-carousel">
-                @foreach (var teamMember in @Model.Members)
+                @foreach (var teamMember in @Model.members)
                 {
                     <div class="slider-card team-cards">
                         <div class="team-member">
                             <div class="d-flex justify-content-center align-items-center mb-4">
-                                <img src=@teamMember.Image alt="Picture of @teamMember.Name" height="300">
+                                <img src=@teamMember.image alt="Picture of @teamMember.name" height="300">
                             </div>
                             <div class="mb-0 text-center member-name">
                                 <h1>
-                                    @teamMember.Name
-                                    <a href=@teamMember.LinkedIn target="blank"><img src=~/image/linkin_logo.jpg alt="LinkedIn Logo" width="10" !important /></a>
+                                    @teamMember.name
+                                    <a href=@teamMember.linkedIn target="blank"><img src=~/image/linkin_logo.jpg alt="LinkedIn Logo" width="10" !important /></a>
                                 </h1>
-                                <p>@teamMember.Bio</p>
+                                <p>@teamMember.bio</p>
                                 <br>
                             </div>
 
