@@ -2,16 +2,15 @@
 @model LetsGoSEA.WebSite.Pages.Explore.NeighborhoodModel
 
 @{
-    ViewData["Title"] = "Explore " + @Model.CurrentNeighborhood.Name;
+    ViewData["Title"] = "Explore " + @Model.currentNeighborhood.name;
     Layout = "Shared/_Layout";
 }
 
 <!--Detail page of each neighborhoods!-->
-
 <div class="jumbotron">
     <h1 class="display-2">
-        @Model.CurrentNeighborhood.Name
-        <h1 class="display-4">@Model.CurrentNeighborhood.City, @Model.CurrentNeighborhood.State</h1>
+        @Model.currentNeighborhood.name
+        <h1 class="display-4">@Model.currentNeighborhood.city, @Model.currentNeighborhood.state</h1>
     </h1>
 
     <!--Show rating stars-->
@@ -22,7 +21,7 @@
             if (i <= Model.avgRating)
             {
                 <form method="post">
-                    <input value=@currentStar asp-for="Rating" hidden />
+                    <input value=@currentStar asp-for="rating" hidden />
                     <button type="submit" class="fa fa-star checked"></button>
                 </form>
             }
@@ -30,7 +29,7 @@
             {
 
                 <form method="post">
-                    <input value=@currentStar asp-for="Rating" hidden />
+                    <input value=@currentStar asp-for="rating" hidden />
                     <button type="submit" class="fa fa-star"></button>
                 </form>
             }
@@ -55,7 +54,7 @@
         {
             <span class="badge bg-warning text-dark">
                 <!--Show rating average rounded to 2 decimal places-->
-                <span>@Model.CurrentNeighborhood.Ratings.Average().ToString("0.00") out of 5</span>
+                <span>@Model.currentNeighborhood.ratings.Average().ToString("0.00") out of 5</span>
                 <span class="visually-hidden">average rating</span>
             </span>
         }
@@ -80,8 +79,8 @@
             <div class="carousel-item active">
                 <img src="@neighborhoodImages.First()" class="d-block carousel-img" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>@Model.CurrentNeighborhood.Name</h5>
-                    <p>@Model.CurrentNeighborhood.ShortDesc</p>
+                    <h5>@Model.currentNeighborhood.name</h5>
+                    <p>@Model.currentNeighborhood.shortDesc</p>
                 </div>
             </div>
             @if (neighborhoodImages.Count() != 1)
@@ -91,8 +90,8 @@
                     <div class="carousel-item">
                         <img src="@neighborhoodImage" class="d-block carousel-img" alt="...">
                         <div class="carousel-caption">
-                            <h5>@Model.CurrentNeighborhood.Name</h5>
-                            <p>@Model.CurrentNeighborhood.ShortDesc</p>
+                            <h5>@Model.currentNeighborhood.name</h5>
+                            <p>@Model.currentNeighborhood.shortDesc</p>
                         </div>
                     </div>
                 }
@@ -112,18 +111,18 @@
         }
     </div>
     <hr class="my-4" />
-    <p>@Model.CurrentNeighborhood.ShortDesc</p>
+    <p>@Model.currentNeighborhood.shortDesc</p>
 
     <!-- Google Maps for this neighborhood-->
     <iframe id="google-maps-iframe"
             referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs&q=@Model.CurrentNeighborhood.Name&zoom=15"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCREdLVae8DOZP70uabA9l-VRSe83QwcYs&q=@Model.currentNeighborhood.name&zoom=15"
             allowfullscreen>
     </iframe>
 
 
     @{
-        var addressQuery = Model.CurrentNeighborhood.Address.Replace(",", " ").Replace("  ", " ").Replace(" ", "-");
+        var addressQuery = Model.currentNeighborhood.address.Replace(",", " ").Replace("  ", " ").Replace(" ", "-");
     }
     <iframe title="Walk Score"
             id="walk-score-iframe"
@@ -139,13 +138,13 @@
         <h3>
             Comments:
             <span class="badge rounded-pill bg-dark">
-                @Model.CurrentNeighborhood.Comments.Count
+                @Model.currentNeighborhood.comments.Count
                 <span class="visually-hidden">new comments</span>
             </span>
         </h3>
 
         <!--Display existing comments-->
-        foreach (var comment in Model.CurrentNeighborhood.Comments)
+        foreach (var comment in Model.currentNeighborhood.comments)
         {
             <div class="comment-row">
                 @comment.Comment
