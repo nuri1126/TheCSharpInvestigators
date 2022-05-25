@@ -31,10 +31,10 @@
     <div class="p-2">
         <div class="btn-group">
             <button type="button" class="btn btn-outline-secondary" id="asc">
-                <i class="bi bi-sort-alpha-down"></i>
+                <i class="bi bi-sort-down"></i>
             </button>
             <button type="button" class="btn btn-outline-secondary" id="desc">
-                <i class="bi bi-sort-alpha-down-alt"></i>
+                <i class="bi bi-sort-down-alt"></i>
             </button>
         </div>
     </div>
@@ -73,7 +73,7 @@
                     @{
                         if (neighborhood.ratings != null)
                         {
-                            <span class="avg-rating" avg-rating="@neighborhood.ratings.Average()">
+                            <span class="avg-rating" avg-rating="@neighborhood.ratings.Average().ToString("0.00")">
                                 @neighborhood.ratings.Average()<i class="fa fa-star"></i>
                             </span>
                         }
