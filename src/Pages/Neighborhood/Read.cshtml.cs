@@ -1,5 +1,6 @@
 ﻿using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LetsGoSEA.WebSite.Pages.Neighborhood
@@ -28,9 +29,24 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// REST Get request.
         /// </summary>
         /// <param name="id">id of the neighborhood to show</param>
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+            
             neighborhood = neighborhoodService.GetNeighborhoodById(id);
+
+            // Redirect user to Index page when an ID out of bounds is requested
+            if (neighborhood == null)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+
+            return Page();
+
+
         }
     }
 }
