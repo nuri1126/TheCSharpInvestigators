@@ -9,19 +9,22 @@ namespace UnitTests
     [SetUpFixture]
     public class TestFixture
     {
-        // Path to the Web Root
+        // Holds the path to the Web Root.
         public static string DataWebRootPath = "./wwwroot";
 
-        // Path to the data folder for the content
+        // Holds the path to the data folder for the content.
         public static string DataContentRootPath = "./data/";
 
-        // Path to image folder for the content
+        // Holds the path to image folder for the content.
         public static string ImageContentRootPath = "./image/Neighborhood";
 
+        /// <summary>
+        /// Pre-test setup function that makes copies of the current state 
+        /// of the database for use by the TestHelper. 
+        /// </summary>
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
-            // Run this code once when the test harness starts up.
 
             // This will copy over the latest version of the database files
 
@@ -33,33 +36,31 @@ namespace UnitTests
             var dataUtPath = DataUTDirectory + "/data";
             var imageUtPath = DataUTDirectory + "/image/Neighborhood";
 
-            // Delete the Destination folder
+            // Delete the destination folder.
             if (Directory.Exists(DataUTDirectory))
             {
                 Directory.Delete(DataUTDirectory, true);
             }
 
-            // Make the data directory
+            // Make the data directory.
             Directory.CreateDirectory(dataUtPath);
 
-            // Copy over all data files
+            // Copy over all data files.
             var filePaths = Directory.GetFiles(DataWebPath);
             foreach (var filename in filePaths)
             {
-
                 var newFilePathName = filename.Replace(DataWebPath, dataUtPath);
 
                 File.Copy(filename, newFilePathName);
             }
 
-            // Make the image directory
+            // Make the image directory.
             Directory.CreateDirectory(imageUtPath);
 
-            // Copy over all image files
+            // Copy over all image files.
             var imagePaths = Directory.GetFiles(ImageWebPath);
             foreach (var imageFileName in imagePaths)
             {
-
                 var newFilePathName = imageFileName.Replace(ImageWebPath, dataUtPath);
 
                 File.Copy(imageFileName, newFilePathName);
