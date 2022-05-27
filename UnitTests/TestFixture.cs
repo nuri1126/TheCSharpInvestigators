@@ -26,12 +26,9 @@ namespace UnitTests
         public void RunBeforeAnyTests()
         {
 
-            // This will copy over the latest version of the database files
-
+            // Copy over the latest version of the database files.
             var DataWebPath = "../../../../src/wwwroot/data";
             var ImageWebPath = "../../../../src/wwwroot/image/Neighborhood";
-            // old
-            // var DataWebPath = "../../../../src/bin/Debug/net5.0/wwwroot/data";
             var DataUTDirectory = "wwwroot";
             var dataUtPath = DataUTDirectory + "/data";
             var imageUtPath = DataUTDirectory + "/image/Neighborhood";
