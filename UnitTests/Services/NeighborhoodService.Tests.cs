@@ -8,13 +8,10 @@ using System.Linq;
 namespace UnitTests.Services
 {
     /// <summary>
-    /// NeighborhoodServiceTests class contains unit tests for GetNeighborhoods, and
-    /// GetNeighborhoodsById. Tests for CRUD service methods are contained in their 
-    /// respective .cshtml.cs file. 
+    /// NeighborhoodServiceTests Tests.
     /// </summary>
     public class NeighborhoodServiceTests
     {
-
         // Global invalid id property for use in tests. 
         private static int InvalidId = -1;
 
@@ -40,7 +37,7 @@ namespace UnitTests.Services
         #region GetNeighborhoodData
 
         /// <summary>
-        /// Tests GetNeighborhoods returns not null. 
+        /// Tests GetNeighborhoods returns not null when called. 
         [Test]
         public void GetNeighborhoods_Not_Null_Returns_True()
         {
@@ -75,17 +72,15 @@ namespace UnitTests.Services
         public void GetNeighborhoodById_Valid_Id_Should_Return_True()
         {
             // Arrange
-            // Get next valid Id in the test database. 
-            var id = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count() + 1;
 
             // Add the test Neighborhood to the database. 
             var testNeighborhood = TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
 
             //Act
-            var validResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(id);
+            var result = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(testNeighborhood.id);
 
             //Assert
-            Assert.NotNull(validResult);
+            Assert.NotNull(result);
 
             // TearDown
             TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
@@ -116,17 +111,12 @@ namespace UnitTests.Services
         public void AddRating_Null_Neighborhood_Should_Return_False()
         {
             // Arrange
-            // Initialize a valid rating. 
-            NeighborhoodModel nullNeighborhood = null;
-
-            // Initialize NeighborhoodService. 
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
 
             // Act
-            var result1 = neighborhoodService.AddRating(nullNeighborhood, ValidRating);
+            var result = TestHelper.NeighborhoodServiceObj.AddRating(null, ValidRating);
 
             // Assert
-            Assert.AreEqual(false, result1);
+            Assert.AreEqual(false, result);
         }
 
         /// <summary>
@@ -392,7 +382,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Tests AddComment where a null comment should return false.
+        /// Tests AddComment returns false given a null comment.
         /// </summary>
         [Test]
         public void AddComment_Null_Comment_Return_False()
@@ -415,7 +405,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Tests AddComment where an empty "" comment should return false.
+        /// Tests AddComment returns false given an empty "" comment. 
         /// </summary>
         [Test]
         public void AddComment_Empty_Comment_Return_False()
@@ -453,7 +443,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// An invalid CommentId should return false. 
+        /// Test DeleteComment returns false given an invalid commentId. 
         /// </summary>
         [Test]
         public void DeleteComment_Null_Neighborhood_Should_Return_False()
@@ -468,30 +458,61 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Tests DeleteComment returns a true after successful call. 
+        /// Tests DeleteComment returns a true given valid input parameters. 
         /// </summary>
         [Test]
-        public void DeleteComment_ValidNeighborhood_ValidId_Should_Return_True()
+        public void DeleteComment_ValidNeighborhood_ValidCommentId_Should_Return_True()
         {
             // Arrange
 
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var validNeighborhood = neighborhoodService.GetNeighborhoodById(1);
-            var validComment = "bogus";
-            neighborhoodService.AddComment(validNeighborhood, validComment);
-            var commentId = validNeighborhood.comments.Last().CommentId;
-            var commentCount = validNeighborhood.comments.Count();
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Add valid commment. 
+            TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, ValidComment);
+
+            // Store the commentId of the newly stored comment. 
+            var commentId = testNeighborhood.comments.Last().CommentId;
 
             // Act
-            var result = neighborhoodService.DeleteComment(validNeighborhood, commentId);
+            var result = TestHelper.NeighborhoodServiceObj.DeleteComment(testNeighborhood, commentId);
 
             // Assert
             Assert.AreEqual(true, result);
-            Assert.AreEqual(commentCount - 1, validNeighborhood.comments.Count());
         }
 
         /// <summary>
-        /// An invalid CommentId should return false. 
+        /// Tests that upon DeleteComment, count of comments stored in the neighborhood
+        /// has decreased by 1. 
+        /// </summary>
+        [Test]
+        public void DeleteComment_Comments_Count_Decrease_By_1_Returns_True()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Add valid commment, store count of comments, store the comment's id. 
+            TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, ValidComment);
+            var commentCount = testNeighborhood.comments.Count();
+            var commentId = testNeighborhood.comments.Last().CommentId;
+
+            // Act
+            TestHelper.NeighborhoodServiceObj.DeleteComment(testNeighborhood, commentId);
+
+            // Assert
+            Assert.AreEqual(commentCount - 1, testNeighborhood.comments.Count());
+        }
+
+        /// <summary>
+        /// Tests that DeleteComment returns false when given an invalid commendId. 
         /// </summary>
         [Test]
         public void DeleteComment_InvalidId_Should_Return_False()
@@ -587,6 +608,10 @@ namespace UnitTests.Services
         [Test]
         public void GetAllImages_Has_URLImage_Has_FileImage_Return_AllImages()
         {
+
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
             // Arrange: Pick Downtown (ID = 11) that has both URL image and file image
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
             var pickedID = 11;
