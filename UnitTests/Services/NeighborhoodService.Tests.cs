@@ -33,6 +33,9 @@ namespace UnitTests.Services
         // Global valid Rating for use in AddRatings region.
         private static int ValidRating = 5;
 
+        // Global valid comment input for use in Comments region;
+        private static string ValidComment = "Bogus";
+
 
         #region GetNeighborhoodData
 
@@ -205,7 +208,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddRating on Neighborhood with existing ratings returns a count of the Ratings
+        /// Test AddRating on Neighborhood with existing ratings returns a count of the previous Ratings
         /// property + 1.         
         /// /// </summary>
         [Test]
@@ -309,88 +312,123 @@ namespace UnitTests.Services
         #region AddComments
 
         /// <summary>
-        /// Tests AddComments where an invalid neighborhood should return false.
-        /// </summary>
-        [Test]
-        public void AddComment_InValid_Neighborhood_Should_Return_False()
-        {
-            // Arrange
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var invalidId = 95;
-            var invalidNeighborhood = neighborhoodService.GetNeighborhoodById(invalidId);
-            var validComment = "Good job";
-
-            // Act
-            var result1 = neighborhoodService.AddComment(null, validComment);
-            var result2 = neighborhoodService.AddComment(invalidNeighborhood, validComment);
-
-            // Assert
-            Assert.AreEqual(false, result1);
-            Assert.AreEqual(false, result2);
-        }
-
-        /// <summary>
-        /// Tests AddComment where a null or empty comment should return false.
-        /// </summary>
-        [Test]
-        public void AddComment_Null_Or_Empty_Comment_Return_False()
-        {
-            // Arrange
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var validID = 1;
-            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
-            var emptyComment = "";
-
-            // Act
-            var result1 = neighborhoodService.AddComment(validNeighborhood, null);
-            var result2 = neighborhoodService.AddComment(validNeighborhood, emptyComment);
-
-            // Assert
-            Assert.AreEqual(false, result1);
-            Assert.AreEqual(false, result2);
-        }
-
-        /// <summary>
         /// Tests AddComment where a valid neighborhood and valid comment return true and update data successfully.
         /// </summary>
         [Test]
         public void AddComment_Valid_Neighborhood_Valid_Comment_Return_True()
         {
             // Arrange
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var validID = 1;
-            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
-            var validComment = "CSI Rocks";
-            var oldCommentCount = validNeighborhood.comments.Count();
+
+            // Add test neighborhood to database. 
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
 
             // Act
-            var result = neighborhoodService.AddComment(validNeighborhood, validComment);
+            var result = TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, ValidComment);
 
             // Assert
             Assert.AreEqual(true, result);
-            Assert.AreEqual(oldCommentCount + 1, validNeighborhood.comments.Count());
-            Assert.AreEqual(validComment, validNeighborhood.comments.Last().Comment);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
-        /// Tests AddComment where empty comments return true.
+        /// Test AddComment on Neighborhood with no existing ratings comments a count of the comments
+        /// property equal to 1. 
         /// </summary>
         [Test]
-        public void AddComment_Empty_Comments_Return_True()
+        public void AddComment_Valid_Neighborhood_No_Comments_Count_Equals_1_Returns_True()
         {
             // Arrange
-            // Pick a neighborhood with no comment.
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var idWithNoComment = 15;
-            var neighborhoodWithNoComment = neighborhoodService.GetNeighborhoodById(idWithNoComment);
-            var newComment = "Unit testing is fun";
+
+            // Add test neighborhood to database. 
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
 
             // Act
-            var result = neighborhoodService.AddComment(neighborhoodWithNoComment, newComment);
+            TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, ValidComment);
+            var result = testNeighborhood.comments.Count();
 
             // Assert
-            Assert.AreEqual(true, result);
-            Assert.IsNotEmpty(neighborhoodWithNoComment.comments);
+            Assert.AreEqual(1, result);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+        }
+
+
+        /// <summary>
+        /// Test AddComments on Neighborhood with existing comments returns a count of the previous
+        /// comments property + 1.         
+        /// /// </summary>
+        [Test]
+        public void AddComment_Valid_Neighborhood_Existing_Ratings_Count_Returns_True()
+        {
+            // Arrange
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Add comment and store existing comment count. 
+            TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, ValidComment);
+            var existingCommentCount = testNeighborhood.comments.Count();
+
+            // Act
+            TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, ValidComment);
+            var result = testNeighborhood.comments.Count();
+
+            // Assert
+            Assert.AreEqual(existingCommentCount + 1, result);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Tests AddComment where a null comment should return false.
+        /// </summary>
+        [Test]
+        public void AddComment_Null_Comment_Return_False()
+        {
+            // Arrange
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, null);
+
+            // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Tests AddComment where an empty "" comment should return false.
+        /// </summary>
+        [Test]
+        public void AddComment_Empty_Comment_Return_False()
+        {
+            // Arrange
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.AddComment(testNeighborhood, "");
+
+            // Assert
+            Assert.AreEqual(false, result);
         }
         #endregion AddComments
 
