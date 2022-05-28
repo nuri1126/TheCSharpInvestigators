@@ -15,13 +15,31 @@ namespace UnitTests.Services
     public class NeighborhoodServiceTests
     {
 
-        #region GetNeighborhoods
+        // Global invalid id property for use in tests. 
+        private static int InvalidId = -1;
+
+        // Global valid name property for use in tests. 
+        private static string Name = "Bogusland";
+
+        // Global valid image property for use in tests. 
+        private static string Image = "http://via.placeholder.com/150";
+
+        // Global valid shortDesc property for use in tests.
+        private static string ShortDesc = "Test neighborhood description";
+
+        // Global imgFiles property for use in tests. 
+        private static IFormFileCollection ImgFilesNull = null;
+
+        // Global valid Rating for use in AddRatings region.
+        private static int ValidRating = 5;
+
+
+        #region GetNeighborhoodData
 
         /// <summary>
-        /// Tests GetNeighborhoods() by retrieving IEnumberable and confirming not null. 
-        /// </summary>
+        /// Tests GetNeighborhoods returns not null. 
         [Test]
-        public void GetNeighborhoods()
+        public void GetNeighborhoods_Not_Null_Returns_True()
         {
             // Arrange
 
@@ -30,13 +48,23 @@ namespace UnitTests.Services
 
             //Assert
             Assert.NotNull(result);
+        }
+
+        /// <summary>
+        /// Tests GetNeighborhoods returns an IEnumerable. 
+        /// </summary>
+        [Test]
+        public void GetNeighborhoods_Returns_IEnumerable_Returns_True()
+        {
+            // Arrange
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.GetNeighborhoods();
+
+            //Assert
             Assert.IsInstanceOf(typeof(IEnumerable<NeighborhoodModel>), result);
         }
 
-        #endregion GetNeighborhoods
-
-
-        #region GetNeighborhoodById_Valid_Id_Should_Return_True
         /// <summary>
         /// Tests GetNeighborhoodById by retrieving the first neighborhood and confirming not null. 
         /// </summary>
@@ -44,18 +72,22 @@ namespace UnitTests.Services
         public void GetNeighborhoodById_Valid_Id_Should_Return_True()
         {
             // Arrange
-            var validId = 1;
+            // Get next valid Id in the test database. 
+            var id = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count() + 1;
+
+            // Add the test Neighborhood to the database. 
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
 
             //Act
-            var validResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(validId);
+            var validResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(id);
 
             //Assert
             Assert.NotNull(validResult);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
-        #endregion GetNeighborhoodById_Invalid_Id_Should_Return_True
 
-
-        #region GetNeighborhoodById_Invalid_Id_Should_Return_True
         /// <summary>
         /// Tests GetNeighborhoodById catches out of bounds input and returns null. 
         /// </summary>
@@ -63,143 +95,213 @@ namespace UnitTests.Services
         public void GetNeighborhoodById_Invalid_Id_Should_Return_True()
         {
             // Arrange
-            var invalidId = 1000;
 
             //Act
-            var invalidResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(invalidId);
+            var invalidResult = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(InvalidId);
 
             //Assert
             Assert.Null(invalidResult);
         }
-        #endregion GetNeighborhoodById_Invalid_Id_Should_Return_True
+
+        #endregion GetNeighborhoodData
 
         #region AddRating
         /// <summary>
-        /// Tests AddRating, invalid neighborhood should return false.
+        /// Tests AddRating, null neighborhood should return false.
         /// </summary>
         [Test]
-        public void AddRating_InValid_Neighborhood_Should_Return_False()
+        public void AddRating_Null_Neighborhood_Should_Return_False()
         {
             // Arrange
+            // Initialize a valid rating. 
+            NeighborhoodModel nullNeighborhood = null;
+
+            // Initialize NeighborhoodService. 
             var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var invalidId = 95;
-            var invalidNeighborhood = neighborhoodService.GetNeighborhoodById(invalidId);
-            var validRating = 1;
 
             // Act
-            var result1 = neighborhoodService.AddRating(null, validRating);
-            var result2 = neighborhoodService.AddRating(invalidNeighborhood, validRating);
+            var result1 = neighborhoodService.AddRating(nullNeighborhood, ValidRating);
+
+            // Assert
+            Assert.AreEqual(false, result1);
+        }
+
+        /// <summary>
+        /// Test AddRating on Neighborhood with no existing ratings returns true. 
+        /// </summary>
+        [Test]
+        public void AddRating_Valid_Neighborhood_No_Ratings_Returns_True()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, ValidRating);
+
+            // Assert
+            Assert.AreEqual(true, result);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Test AddRating on Neighborhood with existing ratings returns true. 
+        /// </summary>
+        [Test]
+        public void AddRating_Valid_Neighborhood_Existing_Ratings_Returns_True()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Add rating. 
+            TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, ValidRating);
+
+            // Act
+            var result = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, ValidRating);
+
+            // Assert
+            Assert.AreEqual(true, result);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Test AddRating on Neighborhood with no existing ratings returns a count of the Ratings
+        /// property equal to 1. 
+        /// </summary>
+        [Test]
+        public void AddRating_Valid_Neighborhood_No_Ratings_Count_Equals_1_Returns_True()
+        {
+            // Arrange
+
+            // Initialize valid test NeighborhoodModel object. 
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Act
+            TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, ValidRating);
+            var result = testNeighborhood.ratings.Count();
+
+            // Assert
+            Assert.AreEqual(1, result);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Test AddRating on Neighborhood with existing ratings returns a count of the Ratings
+        /// property + 1.         
+        /// /// </summary>
+        [Test]
+        public void AddRating_Valid_Neighborhood_Existing_Ratings_Count_Returns_True()
+        {
+            // Arrange
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Add rating and store existing rating count. 
+            TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, ValidRating);
+            var existingRatingCount = testNeighborhood.ratings.Count();
+
+            // Act
+            TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, ValidRating);
+            var result = testNeighborhood.ratings.Count();
+
+            // Assert
+            Assert.AreEqual(existingRatingCount + 1, result);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Test lower and upperbounds of AddRating input. Out of bounds input (low and high)
+        /// should return false. 
+        /// </summary>
+        [Test]
+        public void AddRating_Out_of_Bounds_Input_Return_False()
+        {
+            // Arrange
+
+            // Invalid ratings outside of 0 - 5. 
+            int[] outOfBoundsRatings = new int[4] { -2, -1, 6, 7 };
+
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+
+            // Act
+            var result1 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[0]);
+            var result2 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[1]);
+            var result3 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[2]);
+            var result4 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[3]);
 
             // Assert
             Assert.AreEqual(false, result1);
             Assert.AreEqual(false, result2);
+            Assert.AreEqual(false, result3);
+            Assert.AreEqual(false, result4);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
-        /// Test AddRating, valid neighborhood and valid rating should return true and correct rating count.
+        /// Test AddRating input within valid bounds returns true. 
         /// </summary>
         [Test]
-        public void AddRating_Valid_Neighborhood_Valid_Rating_Should_Return_True()
+        public void AddRating_In_Bounds_Input_Return_True()
         {
             // Arrange
-            // Get the First neighborhood
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var Id = 1;
-            var neighborhood = neighborhoodService.GetNeighborhoodById(Id);
-            var oldRatingCount = neighborhood.ratings.Length;
-            var newRating = 5;
+
+            // Valid ratings from 0-5. 
+            int[] validRatings = new int[6] { 0, 1, 2, 3, 4, 5 };
+
+            // Add test neighborhood to database. 
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
 
             // Act
-            var result = neighborhoodService.AddRating(neighborhood, newRating);
-
-            // Assert
-            Assert.AreEqual(true, result);
-            Assert.AreEqual(oldRatingCount + 1, neighborhood.ratings.Length);
-            Assert.AreEqual(5, neighborhood.ratings.Last());
-        }
-
-        /// <summary>
-        /// Test AddRating, where a rating entered out of the high bound returns false.
-        /// </summary>
-        [Test]
-        public void AddRating_Invalid_Rating_High_Return_False()
-        {
-            // Arrange
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var validID = 1;
-            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
-            var invalidHighRating = 6;
-
-            // Act
-            var result = neighborhoodService.AddRating(validNeighborhood, invalidHighRating);
-
-            // Assert
-            Assert.AreEqual(false, result);
-        }
-
-        /// <summary>
-        /// Test AddRating, where a rating entered out of the low bound returns false.
-        /// </summary>
-        [Test]
-        public void AddRating_Invalid_Rating_Low_Return_False()
-        {
-            // Arrange
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var validID = 1;
-            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
-            var invalidLowRating = -1;
-
-            // Act
-            var result = neighborhoodService.AddRating(validNeighborhood, invalidLowRating);
-
-            // Assert
-            Assert.AreEqual(false, result);
-        }
-
-        /// <summary>
-        /// Tests AddRating where valid ratings return true.
-        /// </summary>
-        [Test]
-        public void AddRating_Valid_Rating_Return_True()
-        {
-            // Arrange
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var validID = 1;
-            var validNeighborhood = neighborhoodService.GetNeighborhoodById(validID);
-            var validRatingLowerBound = 0;
-            var validRatingMiddle = 2;
-            var validRatingUpperBound = 5;
-
-            // Act
-            var result1 = neighborhoodService.AddRating(validNeighborhood, validRatingLowerBound);
-            var result2 = neighborhoodService.AddRating(validNeighborhood, validRatingMiddle);
-            var result3 = neighborhoodService.AddRating(validNeighborhood, validRatingUpperBound);
+            var result1 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[0]);
+            var result2 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[1]);
+            var result3 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[2]);
+            var result4 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[3]);
+            var result5 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[4]);
+            var result6 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[5]);
 
             // Assert
             Assert.AreEqual(true, result1);
             Assert.AreEqual(true, result2);
             Assert.AreEqual(true, result3);
-        }
+            Assert.AreEqual(true, result4);
+            Assert.AreEqual(true, result5);
+            Assert.AreEqual(true, result6);
 
-        /// <summary>
-        /// Test AddRating where an empty rating returns true.
-        /// </summary>
-        [Test]
-        public void AddRating_Empty_Rating_Return_True()
-        {
-            // Arrange
-            // Pick a neighborhood with no rating.
-            var neighborhoodService = TestHelper.NeighborhoodServiceObj;
-            var idWithNoRating = 15;
-            var neighborhoodWithNoRating = neighborhoodService.GetNeighborhoodById(idWithNoRating);
-            var validRating = 1;
-
-            // Act
-            var result = neighborhoodService.AddRating(neighborhoodWithNoRating, validRating);
-
-            // Assert
-            Assert.AreEqual(true, result);
-            Assert.NotNull(neighborhoodWithNoRating.ratings);
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
 
         #endregion AddRating
