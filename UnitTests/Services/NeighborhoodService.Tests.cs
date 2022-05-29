@@ -341,7 +341,7 @@ namespace UnitTests.Services
         /// Tests AddComment where a valid neighborhood and valid comment return true and update data successfully.
         /// </summary>
         [Test]
-        public void AddComment_Valid_Neighborhood_Valid_Comment_Return_True()
+        public void AddComment_Valid_Neighborhood_Valid_Comment_Should_Return_True()
         {
             // Arrange
 
@@ -366,7 +366,7 @@ namespace UnitTests.Services
         /// property equal to 1. 
         /// </summary>
         [Test]
-        public void AddComment_Valid_Neighborhood_No_Comments_Count_Equals_1_Returns_True()
+        public void AddComment_Valid_Neighborhood_No_Comments_Count_Equals_1_Should_Return_True()
         {
             // Arrange
 
@@ -393,7 +393,7 @@ namespace UnitTests.Services
         /// comments property + 1.         
         /// /// </summary>
         [Test]
-        public void AddComment_Valid_Neighborhood_Existing_Ratings_Count_Returns_True()
+        public void AddComment_Valid_Neighborhood_Existing_Ratings_Count_Should_Return_True()
         {
             // Arrange
             // Add test neighborhood to database.
@@ -421,7 +421,7 @@ namespace UnitTests.Services
         /// Tests AddComment returns false given a null comment.
         /// </summary>
         [Test]
-        public void AddComment_Null_Comment_Return_False()
+        public void AddComment_Null_Comment_Should_Return_False()
         {
             // Arrange
             // Add test neighborhood to database.
@@ -444,7 +444,7 @@ namespace UnitTests.Services
         /// Tests AddComment returns false given an empty "" comment. 
         /// </summary>
         [Test]
-        public void AddComment_Empty_Comment_Return_False()
+        public void AddComment_Empty_Comment_Should_Return_False()
         {
             // Arrange
             // Add test neighborhood to database.
@@ -525,7 +525,7 @@ namespace UnitTests.Services
         /// has decreased by 1. 
         /// </summary>
         [Test]
-        public void DeleteComment_Comments_Count_Decrease_By_1_Returns_True()
+        public void DeleteComment_Comments_Count_Decrease_By_1_Should_Return_True()
         {
             // Arrange
 
@@ -587,7 +587,7 @@ namespace UnitTests.Services
         /// adds the IFormFile to a FormFileCollection. 
         /// </summary>
         [Test]
-        public void AddData_UploadImage_Valid_Successful()
+        public void AddData_UploadImage_Valid_Should_Return_True()
         {
             // Arrange
 
@@ -616,7 +616,7 @@ namespace UnitTests.Services
         /// ImagePath properties. 
         /// </summary>
         [Test]
-        public void GetAllImages_No_URLImage_No_FileImage_CorrectImagePath_Return_True()
+        public void GetAllImages_No_URLImage_No_FileImage_CorrectImagePath_Should_Return_True()
         {
             // Arrange
 
@@ -641,7 +641,7 @@ namespace UnitTests.Services
         /// on a neighborhood with null Image and ImagePath properties. 
         /// </summary>
         [Test]
-        public void GetAllImages_No_URLImage_No_FileImage_Count_Return_True()
+        public void GetAllImages_No_URLImage_No_FileImage_Count_Should_Return_True()
         {
             // Arrange
 
@@ -666,7 +666,7 @@ namespace UnitTests.Services
         /// and only URL images.
         /// </summary>
         [Test]
-        public void GetAllImages_No_FileImage_Count_Return_True()
+        public void GetAllImages_No_FileImage_Count_Should_Return_True()
         {
             // Add test neighborhood to database with only Image property (no ImagePath property). 
             _neighborhoodService.AddData(Name, Image, ShortDesc, null);
@@ -691,7 +691,7 @@ namespace UnitTests.Services
         /// ImagePath properties.
         /// </summary>
         [Test]
-        public void GetAllImages_Has_URLImage_Has_FileImage_Return_AllImages()
+        public void GetAllImages_Has_URLImage_Has_FileImage_Should_Return_AllImages()
         {
             // Arrange
 
