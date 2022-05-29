@@ -1,8 +1,11 @@
 ﻿using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Pages.Neighborhood;
+using LetsGoSEA.WebSite.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using System.Diagnostics;
+using System.Linq;
 
 namespace UnitTests.Pages.Neighborhood
 {
@@ -11,8 +14,25 @@ namespace UnitTests.Pages.Neighborhood
     /// </summary>
     public class UpdateTests
     {
+
         #region TestSetup
-        // UpdateModel object
+
+        // Global valid name property for use in tests. 
+        private static readonly string Name = "Bogusland";
+
+        // Global valid image property for use in tests. 
+        private static readonly string Image = "http://via.placeholder.com/150";
+
+        // Global valid shortDesc property for use in tests.
+        private static readonly string ShortDesc = "Test neighborhood description";
+
+        // Global imgFiles property for use in tests. 
+        private static IFormFileCollection ImgFilesNull = null;
+
+        // Global NeighborhodService to use for all test cases. 
+        private NeighborhoodService _neighborhoodService;
+
+        // UpdateModel object.
         private static UpdateModel _pageModel;
 
         /// <summary>
@@ -21,6 +41,11 @@ namespace UnitTests.Pages.Neighborhood
         [SetUp]
         public void TestInitialize()
         {
+
+            // Abstract NeighborhoodService object from TestHelper.
+            _neighborhoodService = TestHelper.NeighborhoodServiceObj;
+
+            // Initialize pageModel.
             _pageModel = new UpdateModel(TestHelper.NeighborhoodServiceObj);
         }
 
@@ -37,29 +62,40 @@ namespace UnitTests.Pages.Neighborhood
         {
             // Arrange
 
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
             // Act
-            _pageModel.OnGet(2);
+            _pageModel.OnGet(testNeighborhood.id);
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual("Greenlake", _pageModel.neighborhood.name);
+            Assert.AreEqual(testNeighborhood.name, _pageModel.neighborhood.name);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
+
         #endregion OnGet
 
         #region OnPost
+
         /// <summary>
         /// Test that when a neighborhood is updated and OnPost is called, the
         /// neighborhood is returned with the updates in affect.
         /// </summary>
         [Test]
-        public void OnPost_Valid_Should_Return_Neighborhoods()
+        public void OnPost_Valid_Should_Return_True()
         {
             // Arrange
             _pageModel.neighborhood = new NeighborhoodModel
             {
-                id = 2,
-                name = "Greenwood",
-                shortDesc = "Welcome to the green neighborhood of Greenwood"
+                id = 999,
+                name = Name,
+                shortDesc = ShortDesc
             };
 
             // Act
