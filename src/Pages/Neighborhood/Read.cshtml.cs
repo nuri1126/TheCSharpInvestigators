@@ -1,4 +1,5 @@
-﻿using LetsGoSEA.WebSite.Models;
+﻿using System.Collections.Generic;
+using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,6 +17,9 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         // The data to show.
         public NeighborhoodModel neighborhood;
 
+        // Store the list of all neighborhood images.
+        public List<string> allImages;
+
         /// <summary>
         /// Default Constructor.
         /// </summary>
@@ -24,6 +28,11 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             this.neighborhoodService = neighborhoodService;
         }
+
+
+        [BindProperty]
+        // Current Neighborhood to be displayed to the user.
+        public Models.NeighborhoodModel currentNeighborhood { get; set; }
 
         /// <summary>
         /// REST Get request.
@@ -43,6 +52,9 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
             {
                 return RedirectToPage("/Neighborhood/Index");
             }
+
+            // Set neighborhoodImage list
+            allImages = neighborhoodService.GetAllImages(neighborhood);
 
             return Page();
 
