@@ -14,7 +14,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         // Data middle tier service.
         private NeighborhoodService neighborhoodService { get; }
 
-        // Iitialize current average rating to be displayed to user.
+        // Initialize current average rating to be displayed to user.
         public int avgRating = 0;
 
         // Initialize current vote count to be displayed to user.
