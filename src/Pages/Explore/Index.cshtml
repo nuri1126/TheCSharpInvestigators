@@ -48,8 +48,8 @@
             <div class="card h-100">
                 <!-- Neighborhood image section on Index Page -->
                 <div class="card-header" id="index-image-height">
-                    @{bool hasURLimage = (@neighborhood.image != "" && @neighborhood.image != null);}
-                    @{bool hasFileimage = (@neighborhood.imagePath != "Default" && @neighborhood.imagePath != "" && @neighborhood.imagePath != null);}
+                    @{bool hasURLimage = (@neighborhood.image != "Default");}
+                    @{bool hasFileimage = (@neighborhood.imagePath != "Default");}
 
                     <!-- If has URLimage, show the first one -->
                     @if (hasURLimage)
