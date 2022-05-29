@@ -77,7 +77,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
