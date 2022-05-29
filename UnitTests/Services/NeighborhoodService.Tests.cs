@@ -14,28 +14,28 @@ namespace UnitTests.Services
     public class NeighborhoodServiceTests
     {
         // Global invalid id property for use in tests. 
-        private static int InvalidId = -1;
+        private static readonly int InvalidId = -1;
 
         // Global valid name property for use in tests. 
-        private static string Name = "Bogusland";
+        private static readonly string Name = "Bogusland";
 
         // Global valid image property for use in tests. 
-        private static string Image = "http://via.placeholder.com/150";
+        private static readonly string Image = "http://via.placeholder.com/150";
 
         // Global valid shortDesc property for use in tests.
-        private static string ShortDesc = "Test neighborhood description";
+        private static readonly string ShortDesc = "Test neighborhood description";
 
         // Global imgFiles property for use in tests. 
-        private static IFormFileCollection ImgFilesNull = null;
+        private static readonly IFormFileCollection ImgFilesNull = null;
 
         // Global valid Rating for use in AddRatings region.
-        private static int ValidRating = 5;
+        private static readonly int ValidRating = 5;
 
         // Global valid comment input for use in Comments region.
-        private static string ValidComment = "Bogus";
+        private static readonly string ValidComment = "Bogus";
 
         // Global NeighborhodService to use for all test cases. 
-        NeighborhoodService _neighborhoodService;
+        private NeighborhoodService _neighborhoodService;
 
         /// <summary>
         /// Stores the TestHelper's Neighborhood service. 
@@ -43,6 +43,7 @@ namespace UnitTests.Services
         [SetUp]
         public void TestInitialize()
         {
+            // Abstract NeighborhoodService object from TestHelper.
             _neighborhoodService = TestHelper.NeighborhoodServiceObj;
         }
 
@@ -175,7 +176,7 @@ namespace UnitTests.Services
             Assert.AreEqual(true, result);
 
             // TearDown
-            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
