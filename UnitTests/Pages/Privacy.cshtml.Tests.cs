@@ -12,7 +12,7 @@ namespace UnitTests.Pages
     {
         #region TestSetup
 
-        // PrivacyModel object
+        // PrivacyModel object.
         private static PrivacyModel _pageModel;
 
         /// <summary>
