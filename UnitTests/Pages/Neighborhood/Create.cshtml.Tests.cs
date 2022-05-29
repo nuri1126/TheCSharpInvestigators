@@ -37,10 +37,11 @@ namespace UnitTests.Pages.Neighborhood
         /// returns the Index Page.
         /// </summary>
         [Test]
-        public void OnPost_Valid_Should_Get_Form_Input_and_Return_Index_Page()
+        public void OnPost_Valid_Should_Get_Form_Input_Should_Return_True()
         {
 
             // Arrange
+
             // Create mock user input data. 
             var oldNeighborhoodCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
             var newNeighborhoodCount = oldNeighborhoodCount + 1;
