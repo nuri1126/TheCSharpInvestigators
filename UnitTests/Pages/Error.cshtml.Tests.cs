@@ -38,7 +38,7 @@ namespace UnitTests.Pages
         /// Tests that when OnGet is called, a valid state and id is returned. 
         /// </summary>
         [Test]
-        public void OnGet_Valid_Activity_Set_Should_Return_RequestId()
+        public void OnGet_Valid_Activity_Set_Should_Return_True()
         {
             // Arrange
             Activity activity = new Activity("activity");
@@ -59,7 +59,7 @@ namespace UnitTests.Pages
         /// Tests that when OnGet is called, invalid activity should return invalid state and trace identifier.
         /// </summary>
         [Test]
-        public void OnGet_InValid_Activity_Null_Should_Return_TraceIdentifier()
+        public void OnGet_InValid_Activity_Null_Should_Return_True()
         {
             // Arrange
 
