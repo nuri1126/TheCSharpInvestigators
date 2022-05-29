@@ -1,4 +1,5 @@
 ﻿using LetsGoSEA.WebSite.Pages.Explore;
+using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
@@ -10,18 +11,42 @@ using System.Linq;
 namespace UnitTests.Pages.Explore
 {
     /// <summary>
-    /// Unit test for an individual Neighborhood Page.
+    /// Unit tests for an individual Neighborhood Pages.
     /// </summary>
     public class NeighborhoodTests
     {
 
         #region TestSetup
 
-        // NeighborhoodModel object
+        // Global invalid id property for use in tests. 
+        private static readonly int InvalidId = -1;
+
+        // Global valid name property for use in tests. 
+        private static readonly string Name = "Bogusland";
+
+        // Global valid image property for use in tests. 
+        private static readonly string Image = "http://via.placeholder.com/150";
+
+        // Global valid shortDesc property for use in tests.
+        private static readonly string ShortDesc = "Test neighborhood description";
+
+        // Global imgFiles property for use in tests. 
+        private static IFormFileCollection ImgFilesNull = null;
+
+        // Global valid Rating for use in AddRatings region.
+        private static readonly int ValidRating = 5;
+
+        // Global valid comment input for use in Comments region.
+        private static readonly string ValidComment = "Bogus";
+
+        // NeighborhoodModel object.
         private static NeighborhoodModel _pageModel;
 
-        // CommentModel object
+        // CommentModel object.
         private static LetsGoSEA.WebSite.Models.CommentModel _commentModel;
+
+        // Global NeighborhodService to use for all test cases. 
+        private NeighborhoodService _neighborhoodService;
 
         /// <summary>
         /// Initialize NeighborhoodModel and CommentModel private fields. 
@@ -29,10 +54,14 @@ namespace UnitTests.Pages.Explore
         [SetUp]
         public void TestInitialize()
         {
-            //Initialize NeighborhoodModel with a NeighborhoodService object. 
-            _pageModel = new NeighborhoodModel(TestHelper.NeighborhoodServiceObj);
 
-            //Initialize CommentModel.
+            // Abstract NeighborhoodService object from TestHelper.
+            _neighborhoodService = TestHelper.NeighborhoodServiceObj;
+
+            // Initialize NeighborhoodModel with a NeighborhoodService object. 
+            _pageModel = new NeighborhoodModel(_neighborhoodService);
+
+            // Initialize CommentModel.
             _commentModel = new LetsGoSEA.WebSite.Models.CommentModel();
         }
 
@@ -44,16 +73,24 @@ namespace UnitTests.Pages.Explore
         /// OnGet should return that neighborhood's page to the browser. 
         /// </summary>
         [Test]
-        public void OnGet_Valid_CurrentNeighborhood_Name_Should_Return_True()
+        public void OnGet_Valid_CurrentNeighborhood_Should_Return_True()
         {
             // Arrange
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
-            _pageModel.OnGet(2);
+            _pageModel.OnGet(testNeighborhood.id);
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual("Greenlake", _pageModel.currentNeighborhood.name);
+            Assert.AreEqual(testNeighborhood.name, _pageModel.currentNeighborhood.name);
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
@@ -64,15 +101,21 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Invalid_Model_Valid_Should_Return_False()
         {
             // Arrange
-            // Initialize an invalid Neighborhood to attempt to retrieve. 
-            _pageModel.currentNeighborhood = new LetsGoSEA.WebSite.Models.NeighborhoodModel()
-            {
-                id = 666,
-                name = "Invalid Name"
-            };
 
+            // Add test neighborhood to database.
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Assign invalid id to test neighborhood. 
+            testNeighborhood.id = InvalidId;
+
+            // Initialize an invalid Neighborhood to attempt to retrieve. 
+            _pageModel.currentNeighborhood = testNeighborhood;
 
             // Act
+
             // Force an invalid error state.
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is Invalid");
 
@@ -82,6 +125,9 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
             Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
@@ -89,14 +135,18 @@ namespace UnitTests.Pages.Explore
         /// the browser is redirected to the Index. 
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Id_InValid_Should_ReturnExplore()
+        public void OnGet_Invalid_Id_InValid_Should_Return_Explore()
         {
             // Arrange
-            _pageModel.currentNeighborhood = new LetsGoSEA.WebSite.Models.NeighborhoodModel()
-            {
-                id = 666,
-                name = "Invalid Name"
-            };
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Assign invalid id to test neighborhood. 
+            testNeighborhood.id = InvalidId;
+
+            // Initialize an invalid Neighborhood to attempt to retrieve. 
+            _pageModel.currentNeighborhood = testNeighborhood;
 
             // Act
             var result = _pageModel.OnGet(_pageModel.currentNeighborhood.id) as RedirectToPageResult;
@@ -105,6 +155,9 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
         #endregion OnGet
 
@@ -114,25 +167,25 @@ namespace UnitTests.Pages.Explore
         /// Tests that when OnGet is called, a null rating should return a zero average rating and count.
         /// </summary>
         [Test]
-        public void OnGet_Null_Ratings_Null_Should_Return_AvgRating_0()
+        public void OnGet_Null_Ratings_Null_Should_Return_True()
         {
             // Arrange
-            // Initialize a new Neighborhood object using NeighborhoodService's AddData method. 
-            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData(
-                                                                            "Test Neighborhood",
-                                                                            "https://via.placeholder.com/150",
-                                                                            "Short neighborhood description",
-                                                                            null);
 
-            // Store the newly created neighborhood's id.
-            var idWithNullRating = newNeighborhood.id;
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
-            _pageModel.OnGet(idWithNullRating);
+            _pageModel.OnGet(testNeighborhood.id);
 
             // Assert 
             Assert.AreEqual(0, _pageModel.avgRating);
             Assert.AreEqual(0, _pageModel.voteCount);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
@@ -143,27 +196,26 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Valid_OneRating_Valid_Should_Return_VoteLabel()
         {
             // Arrange
-            // Initialize a new Neighborhood object using NeighborhoodService's AddData method. 
-            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData(
-                                                                            "Test Neighborhood",
-                                                                            "https://via.placeholder.com/150",
-                                                                            "Short neighborhood description",
-                                                                            null);
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add one rating to the newly created neighborhood.
-            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 5);
-
-            // Store the newly created neighborhood's id. 
-            var idWithOneRating = newNeighborhood.id;
+            _neighborhoodService.AddRating(testNeighborhood, ValidRating);
 
             // Act
-            _pageModel.OnGet(idWithOneRating);
+            _pageModel.OnGet(testNeighborhood.id);
 
             // Assert 
             Assert.AreEqual(_pageModel.voteCount, 1);
             Assert.AreEqual(_pageModel.voteLabel, "Vote");
-        }
 
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+        }
 
         /// <summary>
         /// Tests that when OnGet is called and the neighborhood has multiple ratings, the GetCurrentRating method
@@ -173,27 +225,26 @@ namespace UnitTests.Pages.Explore
         public void OnGet_Valid_MultipleRatings_Valid_Should_Return_Votes_VoteLabel()
         {
             // Arrange
-            // Initialize a new Neighborhood object using NeighborhoodService's AddData method. 
-            var newNeighborhood = TestHelper.NeighborhoodServiceObj.AddData(
-                                                                            "Test Neighborhood",
-                                                                            "https://via.placeholder.com/150",
-                                                                            "Short neighborhood description",
-                                                                            null);
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add multiple ratings to the newly created neighborhood.
-            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 5);
-            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 4);
-            TestHelper.NeighborhoodServiceObj.AddRating(newNeighborhood, 3);
-
-            // Store the newly created neighborhood's Id 
-            int idWithMultipleRatings = newNeighborhood.id;
+            _neighborhoodService.AddRating(testNeighborhood, ValidRating);
+            _neighborhoodService.AddRating(testNeighborhood, ValidRating);
+            _neighborhoodService.AddRating(testNeighborhood, ValidRating);
 
             // Act
-            _pageModel.OnGet(idWithMultipleRatings);
+            _pageModel.OnGet(testNeighborhood.id);
 
             // Assert 
             Assert.Greater(_pageModel.voteCount, 1);
             Assert.AreEqual(_pageModel.voteLabel, "Votes");
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         #endregion  OnGet_Ratings
@@ -201,30 +252,35 @@ namespace UnitTests.Pages.Explore
         #region OnPost_Ratings
 
         /// <summary>
-        /// Test that when OnPost is called from a rating input, the BindProperty successfully
+        /// Tests that when OnPost is called from a rating input, the BindProperty successfully
         /// sets the rating and that the count of the ratings has increased by one. 
         /// </summary>
         [Test]
-        public void OnPost_Valid_Rating_Valid_Should_Return_Equal_True()
+        public void OnPost_Valid_Rating_Valid_Should_Return_True()
         {
             // Arrange
-            var id = 1;
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Store selected neighborhood object. 
-            _pageModel.currentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(id);
-
-            // Store initial count of ratings. 
-            var oldRatingCount = _pageModel.currentNeighborhood.ratings.Count();
+            _pageModel.currentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(testNeighborhood.id);
 
             // Set an additional rating to the selected neighborhood object. 
-            _pageModel.rating = 3;
+            _pageModel.rating = 3; _neighborhoodService.AddRating(testNeighborhood, ValidRating);
 
             // Act
-            var result = _pageModel.OnPost(id, "0") as RedirectResult;
+            var result = _pageModel.OnPost(testNeighborhood.id, "0") as RedirectResult;
 
             // Assert 
             Assert.AreEqual(3, _pageModel.currentNeighborhood.ratings.Last());
-            Assert.AreEqual(oldRatingCount + 1, _pageModel.currentNeighborhood.ratings.Count());
+            // Assert.AreEqual(1, _pageModel.currentNeighborhood.ratings.Count());
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         #endregion OnPost_Ratings
@@ -236,14 +292,12 @@ namespace UnitTests.Pages.Explore
         /// value of the comment is correct. 
         /// </summary>
         [Test]
-        public void OnPost_Valid_Comment_Should_Return_Not_Null()
+        public void OnPost_Valid_Comment_Should_Return_True()
         {
             // Arrange
-            // Create mock user input data. 
-            var bogusComment = "bogus comment";
 
             // Store input in String array to match FormCollection Value format.
-            string[] commentArray = { bogusComment };
+            string[] commentArray = { ValidComment };
 
             // Initialize a FormCollection object to hold mock form data.
             var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
@@ -259,23 +313,28 @@ namespace UnitTests.Pages.Explore
 
             // Assert
             Assert.IsNotNull(formCol);
-            Assert.AreEqual(formCol["Neighborhood.Comments"][0], bogusComment);
+            Assert.AreEqual(formCol["Neighborhood.Comments"][0], ValidComment);
         }
 
         /// <summary>
         /// Tests that when OnPost is called, DeleteComment is working inside of OnPost.
         /// </summary>
         [Test]
-        public void OnPost_Valid_CommentId_Should_Return_Equal_True()
+        public void OnPost_Valid_CommentId_Should_Return_True()
         {
             // Arrange
-            var id = 1;
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Store selected neighborhood object. 
-            _pageModel.currentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(id);
+            _pageModel.currentNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
 
             // Add a new comment to the selected neighborhood. 
-            TestHelper.NeighborhoodServiceObj.AddComment(_pageModel.currentNeighborhood, "bogus!");
+            _neighborhoodService.AddComment(_pageModel.currentNeighborhood, ValidComment);
 
             // Store initial count of comments. 
             var oldCommentCount = _pageModel.currentNeighborhood.comments.Count();
@@ -284,35 +343,48 @@ namespace UnitTests.Pages.Explore
             var commentId = _pageModel.currentNeighborhood.comments.Last().CommentId;
 
             // Act
-            _pageModel.OnPost(id, commentId);
+            _pageModel.OnPost(testNeighborhood.id, commentId);
 
             // Assert 
             Assert.AreEqual(oldCommentCount - 1, _pageModel.currentNeighborhood.comments.Count());
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
         /// Test that BindProperty NewCommentText is settable.
         /// </summary>
         [Test]
-        public void OnPost_Valid_NewCommentText_Valid_Should_Return_Equal_True()
+        public void OnPost_Valid_NewCommentText_Valid_Should_Return_True()
         {
             // Arrange
-            var id = 1;
-            _pageModel.currentNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(id);
-            var newComment = "Nice work!";
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Store selected neighborhood object. 
+            _pageModel.currentNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
             var oldCommentCount = _pageModel.currentNeighborhood.comments.Count();
 
             // Set New Comment
-            _pageModel.newCommentText = newComment;
+            _pageModel.newCommentText = ValidComment;
 
             // Act
-            _pageModel.OnPost(id, "0");
+            _pageModel.OnPost(_pageModel.currentNeighborhood.id, "0");
 
             // Assert 
-            Assert.AreEqual(_pageModel.currentNeighborhood.comments.Last().Comment, newComment);
+            Assert.AreEqual(_pageModel.currentNeighborhood.comments.Last().Comment, ValidComment);
             Assert.AreEqual(_pageModel.currentNeighborhood.comments.Count(), oldCommentCount + 1);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
-        #endregion OnPostAsync_Comments
+
+        #endregion OnPost_Comments
 
         #region Comments
 
@@ -320,18 +392,17 @@ namespace UnitTests.Pages.Explore
         /// Tests Comment object's get method.
         /// </summary>
         [Test]
-        public void Comment_Model_Valid_Should_Returns_True()
+        public void Comment_Model_Valid_Should_Return_True()
         {
             // Arrange
-            string bogusComment = "bogus";
             var testComment = _commentModel.Comment;
-            testComment = bogusComment;
+            testComment = ValidComment;
 
             // Act 
             var res = testComment;
 
             // Assert 
-            Assert.AreEqual(bogusComment, res);
+            Assert.AreEqual(ValidComment, res);
         }
 
         /// <summary>
@@ -339,15 +410,14 @@ namespace UnitTests.Pages.Explore
         /// sets the comment.
         /// </summary>
         [Test]
-        public void Valid_CommentModel_Is_Settable_Should_Return_Not_Null()
+        public void Valid_CommentModel_Is_Settable_Should_Return_True()
         {
             // Arrange
-            var bogusComment = "bogus comment";
             string id = Guid.NewGuid().ToString();
 
             // Act 
             _commentModel.CommentId = id;
-            _commentModel.Comment = bogusComment;
+            _commentModel.Comment = ValidComment;
 
             // Assert 
             Assert.NotNull(_commentModel.CommentId);
