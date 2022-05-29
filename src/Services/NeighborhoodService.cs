@@ -153,23 +153,36 @@ namespace LetsGoSEA.WebSite.Services
             // Get contentRootPath to save the file on server.
             var wwwrootPath = WebHostEnvironment.WebRootPath;
 
-            // Extract the file name of submitted file.
-            var fileName = Path.GetFileName(imageFiles[0].FileName);
-
-            // Create the relative image path to be saved in database to help with image retrieval.
-            var relativeImagePath = @"image/Neighborhood/" + fileName;
-
-            // Create absolute image path to upload the file on server.
-            var absImagePath = Path.Combine(wwwrootPath, relativeImagePath);
-
-            // Physically upload/copy the file onto server using Absolute Path.
-            using (var filestream = new FileStream(absImagePath, FileMode.Create))
+            // For each submitted file:
+            for (var i = 0; i < imageFiles.Count(); i++)
             {
-                imageFiles[0].CopyTo(filestream);
-            }
+                // Extract the file name.
+                var fileName = Path.GetFileName(imageFiles[i].FileName);
 
-            //Add image path to database.
-            neighborhood.imagePath = relativeImagePath;
+                // Create the relative image path to be saved in database to help with image retrieval.
+                var relativeImagePath = @"image/Neighborhood/" + fileName;
+
+                // Create absolute image path to upload the file on server.
+                var absImagePath = Path.Combine(wwwrootPath, relativeImagePath);
+
+                // Physically upload/copy the file onto server using Absolute Path.
+                using (var filestream = new FileStream(absImagePath, FileMode.Create))
+                {
+                    imageFiles[i].CopyTo(filestream);
+                }
+
+                // Add image path to database.
+                // If there is at least 1 image path in database, add ",' as separator at the beginning before adding.
+                if (neighborhood.imagePath != "Default")
+                {
+                    neighborhood.imagePath += "," + relativeImagePath;
+                }
+                // If there is no image path in database yet, add image path directly. 
+                if (neighborhood.imagePath == "Default")
+                {
+                    neighborhood.imagePath = relativeImagePath;
+                }
+            }
         }
 
         /// </summary>
