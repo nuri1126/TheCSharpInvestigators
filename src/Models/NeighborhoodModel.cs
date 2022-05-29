@@ -31,6 +31,7 @@ namespace LetsGoSEA.WebSite.Models
 
         // Short description of the neighborhood
         [Required(ErrorMessage = "Please enter a short description.")]
+        [StringLength(200, ErrorMessage = "A Neighborhood description cannot exceed 200 characters. ")]
         public string shortDesc { get; set; } = "Default";
 
         // Ratings for neighborhood
