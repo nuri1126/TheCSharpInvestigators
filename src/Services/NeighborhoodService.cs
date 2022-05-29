@@ -220,7 +220,18 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.shortDesc = data.shortDesc;
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
-            neighborhoodData.imagePath = data.imagePath;
+
+            // If user did not upload image files, update neighborhood imagepath to "default".
+            if (imageFiles == null)
+            {
+                neighborhoodData.imagePath = data.imagePath;
+            }
+
+            // If user has uploaded image files, upload files to database.
+            if (imageFiles != null)
+            {
+                UploadImageIfAvailable(neighborhoodData, imageFiles);
+            }
 
             SaveData(neighborhoods);
 
