@@ -575,16 +575,126 @@ namespace UnitTests.Services
             Assert.AreEqual(false, result1);
             Assert.AreEqual(false, result2);
             Assert.AreEqual(false, result3);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         #endregion Comments
 
         #region Images
+
+        /// <summary>
+        /// Tests HasURLImage will return true given a valid image. 
+        /// </summary>
+        [Test]
+        public void HasURLImage_Valid_Should_Return_True()
+        {
+
+            // Arrange
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+            var result = _neighborhoodService.HasURLImage(testNeighborhood);
+
+            // Assert
+            Assert.AreEqual(true, result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+
+        }
+
+        /// <summary>
+        /// Tests HasURLImage will return false given a null image.
+        /// </summary>
+        [Test]
+        public void HasURLImage_Null_Should_Return_False()
+        {
+
+            // Arrange
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, null, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+            var result = _neighborhoodService.HasURLImage(testNeighborhood);
+
+            // Assert
+            Assert.AreEqual(false, result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+
+        }
+
+        /// <summary>
+        /// Tests HasFileImage will return false given a null image path.
+        /// </summary>
+        [Test]
+        public void HasFileImage_Null_Should_Return_False()
+        {
+
+            // Arrange
+            FormFileCollection imagePath = null;
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, imagePath);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+            var result = _neighborhoodService.HasFileImage(testNeighborhood);
+
+            // Assert
+            Assert.AreEqual(false, result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+
+        }
+
+        /// <summary>
+        /// Tests HasFileImage will return true given a valid image path. 
+        /// </summary>
+        [Test]
+        public void HasFileImage_Valid_Should_Return_True()
+        {
+
+            // Arrange
+
+            var imagePath = GetImagePath();
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Image, ShortDesc, imagePath);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+            var result = _neighborhoodService.HasFileImage(testNeighborhood);
+
+            // Assert
+            Assert.AreEqual(true, result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+
+        }
+
+
+
         /// <summary>
         /// Use AddData() function to test that an image file can be successfully uploaded. 
-        /// Simulates image upload logic by replicating the steps taken when a new Neighborhood is created with 
-        /// a valid image upload. Creates an IFormFile "file" using a mock MemoryStream object "stream" an
-        /// adds the IFormFile to a FormFileCollection. 
         /// </summary>
         [Test]
         public void AddData_UploadImage_Valid_Should_Return_True()
@@ -616,12 +726,12 @@ namespace UnitTests.Services
         /// ImagePath properties. 
         /// </summary>
         [Test]
-        public void GetAllImages_No_URLImage_No_FileImage_CorrectImagePath_Should_Return_True()
+        public void GetAllImages_No_URLImage_No_FileImage_Should_Return_True()
         {
             // Arrange
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
-            _neighborhoodService.AddData(Name, null, ShortDesc, null);
+            _neighborhoodService.AddData(Name, "", ShortDesc, null);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -646,7 +756,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
-            _neighborhoodService.AddData(Name, null, ShortDesc, null);
+            _neighborhoodService.AddData(Name, "", ShortDesc, null);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -691,13 +801,13 @@ namespace UnitTests.Services
         /// ImagePath properties.
         /// </summary>
         [Test]
-        public void GetAllImages_Has_URLImage_Has_FileImage_Should_Return_AllImages()
+        public void GetAllImages_Has_URLImage_Has_FileImage_Should_Return_True()
         {
             // Arrange
 
             var imagePath = GetImagePath();
 
-            // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
+            // Add test neighborhood to database all valid parameters. 
             _neighborhoodService.AddData(Name, Image, ShortDesc, imagePath);
 
             // Retrieve test neighborhood.
@@ -708,7 +818,7 @@ namespace UnitTests.Services
             var countOfFileImage = testNeighborhood.imagePath.Split(",").Length;
 
             // Act
-            var result = TestHelper.NeighborhoodServiceObj.GetAllImages(testNeighborhood);
+            var result = _neighborhoodService.GetAllImages(testNeighborhood);
 
             // Assert 
             Assert.True(countOfURLImage > 0);
@@ -718,6 +828,29 @@ namespace UnitTests.Services
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
+
+        [Test]
+        public void GetAllImages_Has_URLImage()
+        {
+            // Arrange
+
+            var imagePath = GetImagePath();
+
+            // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
+            _neighborhoodService.AddData(Name, "", ShortDesc, imagePath);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+
+            // Assert 
+            Assert.AreEqual("", testNeighborhood.image);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+        }
+
 
         #endregion Images
 
