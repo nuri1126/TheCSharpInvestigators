@@ -371,6 +371,47 @@ namespace LetsGoSEA.WebSite.Services
         }
 
         /// <summary>
+        /// Helper function to determine if neighborhood is seeded with valid URL image.
+        /// </summary>
+        /// <param name="neighborhood">NeighborhoodModel neighborhood</param>
+        /// <returns>true</returns>
+        public bool HasURLImage(NeighborhoodModel neighborhood)
+        {
+            if (neighborhood.image == "")
+            {
+                return false;
+            }
+
+            if (neighborhood.image == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Helper function to determine if neighborhood is seeded with valid file image.
+        /// </summary>
+        /// <param name="neighborhood">NeighborhoodModel neighborhood</param>
+        /// <returns>true</returns>
+        public bool HasFileImage(NeighborhoodModel neighborhood)
+        {
+
+            if (neighborhood.imagePath == "Default")
+            {
+                return false;
+            }
+
+            if (neighborhood.imagePath == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Get all images from the database, including the URL images and Uploaded file images, if applicable.
         /// </summary>
         /// <param name="neighborhood">the neighborhood to get all images from</param>
@@ -383,8 +424,10 @@ namespace LetsGoSEA.WebSite.Services
             // Placeholder image if no URL image or file image is available.
             var noImagePath = "/image/no_image.jpg";
 
-            var hasURLImage = neighborhood.image != "" && neighborhood.image != null;
-            var hasFileImage = neighborhood.imagePath != null && neighborhood.imagePath != "" && neighborhood.imagePath != "Default";
+            //var hasURLImage = neighborhood.image != "" && neighborhood.image != null;
+            var hasURLImage = HasURLImage(neighborhood);
+            // var hasFileImage = neighborhood.imagePath != null && neighborhood.imagePath != "" && neighborhood.imagePath != "Default";
+            var hasFileImage = HasFileImage(neighborhood);
 
             // Add all URL images to the image list if present.
             if (hasURLImage)
