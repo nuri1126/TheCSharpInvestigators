@@ -50,7 +50,10 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
                 return Page();
             }
 
-            neighborhoodService.UpdateData(neighborhood);
+            // Get user input (uploade files) from the form.
+            var imageFiles = Request.Form.Files;
+
+            neighborhoodService.UpdateData(neighborhood, imageFiles);
 
             return RedirectToPage("./Index");
         }
