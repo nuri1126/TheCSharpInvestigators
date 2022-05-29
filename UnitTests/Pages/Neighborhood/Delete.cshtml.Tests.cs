@@ -90,7 +90,7 @@ namespace UnitTests.Pages.Neighborhood
             _pageModel.neighborhood = _neighborhoodService.CreateID();
             _pageModel.neighborhood.name = Name;
             _pageModel.neighborhood.id = 999;
-            _neighborhoodService.UpdateData(_pageModel.neighborhood);
+            _neighborhoodService.UpdateData(_pageModel.neighborhood, null);
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
