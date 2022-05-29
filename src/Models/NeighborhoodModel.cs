@@ -13,6 +13,7 @@ namespace LetsGoSEA.WebSite.Models
         // Validating Neighborhood name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a neighborhood name.")]
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid neighborhood name.")]
+        [StringLength(20, ErrorMessage = "A Neighborhood name cannot exceed 20 characters. ")]
         public string name { get; set; } = "Default";
 
         // Image URL
