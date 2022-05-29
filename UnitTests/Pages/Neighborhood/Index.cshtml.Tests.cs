@@ -12,7 +12,7 @@ namespace UnitTests.Pages.Neighborhood
     {
         #region TestSetup
 
-        // IndexModel object
+        // IndexModel object.
         private static IndexModel _pageModel;
 
         /// <summary>
