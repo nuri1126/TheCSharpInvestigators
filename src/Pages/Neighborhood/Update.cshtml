@@ -11,7 +11,7 @@
 <h1>Update</h1>
 
 <div class="container">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.HiddenFor(x => x.neighborhood.id)
 
@@ -67,6 +67,13 @@
             <label asp-for="neighborhood.shortDesc" class="control-label">Short Descripton</label>
             <input asp-for="neighborhood.shortDesc" class="form-control" />
             <span asp-validation-for="neighborhood.shortDesc" class="text-danger"></span>
+        </div>
+
+        <br />
+        <!--Allow user to upload photo(s)-->
+         <div>
+            <label asp-for="neighborhood.imagePath">Upload New Photo (May select multiple photos to upload)</label>
+            <input type="file" name="files" class="form-control" multiple>
         </div>
 
         <br />
