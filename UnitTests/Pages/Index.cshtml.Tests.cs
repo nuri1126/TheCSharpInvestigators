@@ -14,7 +14,7 @@ namespace UnitTests.Pages
     {
         #region TestSetup
 
-        // IndexModel object
+        // IndexModel object.
         private static IndexModel _pageModel;
 
         /// <summary>
