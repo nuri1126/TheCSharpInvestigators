@@ -14,7 +14,7 @@ namespace UnitTests.Pages
         #region TestSetup
 
         // ErrorModel object
-        public static ErrorModel _pageModel;
+        private static ErrorModel _pageModel;
 
         /// <summary>
         /// Initialize mock Logger. 
