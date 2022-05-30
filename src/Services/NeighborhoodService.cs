@@ -213,6 +213,7 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.image = data.image;
             neighborhoodData.city = data.city;
             neighborhoodData.state = data.state;
+            neighborhoodData.address = data.address;
             neighborhoodData.shortDesc = data.shortDesc;
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
