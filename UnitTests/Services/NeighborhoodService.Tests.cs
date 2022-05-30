@@ -745,5 +745,38 @@ namespace UnitTests.Services
 
         #endregion Images
 
+        #region UpdateData
+        /// <summary>
+        /// Test UpdateData function when the first parameter "data" has null image (eg. if user erased all the URL links),
+        /// the image property will be re-assigned to "Default" to match Model initialization.
+        /// </summary>
+        [Test]
+        public void UpdateData_Null_Image_Property_Reassigned_To_Default()
+        {
+            // Arrange
+
+            // Add test neighborhood to database with GLOBALLY DEFINED IMAGE LINK.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood as the NEIGHBORHOOD TO BE UPDATED.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Create a mock neighborood to be passed as the first parameter in UpdateData() function holding NULL IMAGE.
+            var data = new NeighborhoodModel()
+            {
+                id = testNeighborhood.id,
+                image = null
+            };
+
+            // Act
+            var result = _neighborhoodService.UpdateData(data, null);
+
+            // Assert
+            Assert.AreEqual("Default", _neighborhoodService.GetNeighborhoods().Last().image);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+        }
+        #endregion
     }
 }
