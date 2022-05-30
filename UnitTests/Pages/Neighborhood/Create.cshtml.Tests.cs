@@ -1,4 +1,5 @@
 ﻿using LetsGoSEA.WebSite.Pages.Neighborhood;
+using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
@@ -14,6 +15,18 @@ namespace UnitTests.Pages.Neighborhood
     {
         #region TestSetup
 
+        // Global valid name property for use in tests. 
+        private static readonly string Name = "Bogusland";
+
+        // Global valid image property for use in tests. 
+        private static readonly string Image = "http://via.placeholder.com/150";
+
+        // Global valid shortDesc property for use in tests.
+        private static readonly string ShortDesc = "Test neighborhood description";
+
+        // Global NeighborhodService to use for all test cases. 
+        private NeighborhoodService _neighborhoodService;
+
         // CreateModel object 
         private static CreateModel _pageModel;
 
@@ -23,7 +36,11 @@ namespace UnitTests.Pages.Neighborhood
         [SetUp]
         public void TestInitialize()
         {
-            _pageModel = new CreateModel(TestHelper.NeighborhoodServiceObj)
+            // Abstract NeighborhoodService object from TestHelper.
+            _neighborhoodService = TestHelper.NeighborhoodServiceObj;
+
+            // Initialize pageModel.
+            _pageModel = new CreateModel(_neighborhoodService)
             {
                 PageContext = TestHelper.PageContext
             };
@@ -42,18 +59,15 @@ namespace UnitTests.Pages.Neighborhood
 
             // Arrange
 
-            // Create mock user input data. 
-            var oldNeighborhoodCount = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Count();
-            var newNeighborhoodCount = oldNeighborhoodCount + 1;
-            var newNeighborhoodName = "bogusName";
-            var newNeighborhoodImg = "https://via.placeholder.com/150";
-            var newShortDesc = "bogusDesc";
+            // Generate ID for test neighborhood. 
+            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
+            var newId = oldNeighborhoodCount + 1;
 
             // Store mock user input in String arrays to match FormCollection Value format.
-            string[] idArray = { newNeighborhoodCount.ToString() };
-            string[] nameArray = { newNeighborhoodName };
-            string[] imageArray = { newNeighborhoodImg };
-            string[] shortDescArray = { newShortDesc };
+            string[] idArray = { newId.ToString() };
+            string[] nameArray = { Name };
+            string[] imageArray = { Image };
+            string[] shortDescArray = { ShortDesc };
 
             // Create a FormCollection object to hold mock form data.
             var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
@@ -70,16 +84,15 @@ namespace UnitTests.Pages.Neighborhood
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
 
-            // Assert
-            Assert.IsNotNull(formCol);
-            Assert.AreEqual(formCol["Neighborhood.Id"][0], newNeighborhoodCount.ToString());
-            Assert.AreEqual(formCol["Neighborhood.Name"][0], newNeighborhoodName);
-            Assert.AreEqual(formCol["Neighborhood.Image"][0], newNeighborhoodImg);
-            Assert.AreEqual(formCol["Neighborhood.ShortDesc"][0], newShortDesc);
-
-            // If success, return Index page. 
-            Assert.NotNull(result);
+            // Assert page is successful.
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Assert.AreEqual(true, result.PageName.Contains("Index"));
+
+            // Assert a new test neighborhood was created with correct data.
+            Assert.AreEqual(oldNeighborhoodCount + 1, _neighborhoodService.GetNeighborhoods().Count());
+            Assert.AreEqual(Name, _neighborhoodService.GetNeighborhoods().Last().name);
+            Assert.AreEqual(Image, _neighborhoodService.GetNeighborhoods().Last().image);
+            Assert.AreEqual(ShortDesc, _neighborhoodService.GetNeighborhoods().Last().shortDesc);
         }
 
         #endregion OnPost
