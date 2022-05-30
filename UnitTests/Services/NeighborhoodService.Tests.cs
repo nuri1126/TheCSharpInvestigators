@@ -51,22 +51,28 @@ namespace UnitTests.Services
         /// Global mock FormFileCollection generator creates ImagePath neighborhood
         /// property for use in Images region. 
         /// </summary>
-        public FormFileCollection GetImagePath()
+        /// <param name="testImageFiles">A dictionary of test image files, K = image file name, V = image file content</param>
+        public FormFileCollection GetImagePath(Dictionary<string, string> testImageFiles)
         {
-            // Setup mock file using a memory stream.
-            var content = "Random content";
-            var imageFileName = "test.jpg";
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(content);
-            writer.Flush();
-            stream.Position = 0;
-
-            // Create FormFile with desired data.
+            // Create a FormFileCollection.
             var imageFiles = new FormFileCollection();
-            IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", imageFileName);
-            imageFiles.Add(file);
 
+            foreach(KeyValuePair<string, string> testImageFile in testImageFiles)
+            {
+                // Setup mock file using a memory stream.
+                var imageFileNames = testImageFile.Key;
+                var content = testImageFile.Value;
+                var stream = new MemoryStream();
+                var writer = new StreamWriter(stream);
+                writer.Write(content);
+                writer.Flush();
+                stream.Position = 0;
+
+                // Create FormFile with desired data.
+                IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", imageFileNames);
+                imageFiles.Add(file);
+            }
+           
             return imageFiles;
         }
 
@@ -584,14 +590,25 @@ namespace UnitTests.Services
 
         #region Images
         /// <summary>
-        /// Use AddData() function to test that an image file can be successfully uploaded. 
+        /// Use AddData() function to test that multiple image files can be successfully uploaded. 
         /// </summary>
         [Test]
         public void AddData_UploadImage_Valid_Should_Return_True()
         {
             // Arrange
+            var testImageFile = new Dictionary<string, string>()
+            {
+                { "testImage_1.jpg", "test image 1 content" },
+                { "testImage_2.jpg", "test image 2 content" },
+                { "testImage_3.jpg", "test image 2 content" },
+            };
 
-            var imagePath = GetImagePath();
+            var imagePath = GetImagePath(testImageFile);
+
+            var expectedImagePaths = 
+                "image/Neighborhood/testImage_1.jpg," +
+                "image/Neighborhood/testImage_2.jpg," +
+                "image/Neighborhood/testImage_3.jpg";
 
             // Act
 
@@ -605,7 +622,7 @@ namespace UnitTests.Services
             Assert.AreEqual(Name, testNeighborhood.name);
             Assert.AreEqual("Default", testNeighborhood.image);
             Assert.AreEqual(ShortDesc, testNeighborhood.shortDesc);
-            Assert.AreEqual("image/Neighborhood/test.jpg", testNeighborhood.imagePath);
+            Assert.AreEqual(expectedImagePaths, testNeighborhood.imagePath);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
@@ -694,8 +711,11 @@ namespace UnitTests.Services
         public void GetAllImages_Has_URLImage_Has_FileImage_Should_Return_Correct_Totalcount()
         {
             // Arrange
-
-            var imagePath = GetImagePath();
+            var testImageFiles = new Dictionary<string, string>()
+            {
+                { "testImage.jpg", "test image content" },
+            };
+            var imagePath = GetImagePath(testImageFiles);
 
             // Add test neighborhood to database all valid parameters. 
             _neighborhoodService.AddData(Name, Image, ShortDesc, imagePath);
