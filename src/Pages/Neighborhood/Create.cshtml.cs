@@ -31,6 +31,11 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <returns>Redirect to index page</returns>
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+
             // Get user input from the form: name, image link, short description, uploaded files.
             var name = Request.Form["Neighborhood.Name"];
             var address = Request.Form["Neighborhood.Address"];
@@ -46,7 +51,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
             neighborhood = neighborhoodService.AddData(name, address, imageURLs, shortDesc, imageFiles);
 
             // Redirect to Update page with reference to the new neighborhood
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Neighborhood/Index");
         }
     }
 }
