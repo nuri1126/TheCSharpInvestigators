@@ -33,6 +33,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             // Get user input from the form: name, image link, short description, uploaded files.
             var name = Request.Form["Neighborhood.Name"];
+            var address = Request.Form["Neighborhood.Address"];
             var imageURLs = Request.Form["Neighborhood.Image"];
             var shortDesc = Request.Form["Neighborhood.ShortDesc"];
             var imageFiles = Request.Form.Files;
@@ -42,7 +43,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
              * This Neighborhood object is different from the object created in OnGet(). This 
              * object will store user input and eventually convert them to JSON.
              */
-            neighborhood = neighborhoodService.AddData(name, imageURLs, shortDesc, imageFiles);
+            neighborhood = neighborhoodService.AddData(name, address, imageURLs, shortDesc, imageFiles);
 
             // Redirect to Update page with reference to the new neighborhood
             return RedirectToPage("./Index");
