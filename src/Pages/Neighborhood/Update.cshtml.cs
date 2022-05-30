@@ -1,4 +1,5 @@
-﻿using LetsGoSEA.WebSite.Models;
+﻿using System;
+using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -31,9 +32,21 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Loads the Data
         /// </summary>
         /// <param name="id">id of the neighborhood to update</param>
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+            
             neighborhood = neighborhoodService.GetNeighborhoodById(id);
+
+            if (neighborhood == null)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+
+            return Page();
         }
 
         /// <summary>
@@ -42,7 +55,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Call the data layer to Update that data
         /// Then return to the index page.
         /// </summary>
-        /// <returns>reditect to Index page</returns>
+        /// <returns>redirect to Index page</returns>
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -50,7 +63,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
                 return Page();
             }
 
-            // Get user input (uploade files) from the form.
+            // Get user input (uploaded files) from the form.
             var imageFiles = Request.Form.Files;
 
             neighborhoodService.UpdateData(neighborhood, imageFiles);
