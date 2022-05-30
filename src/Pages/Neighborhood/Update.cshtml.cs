@@ -60,7 +60,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return RedirectToPage("/Neighborhood/Index");
             }
 
             // Get user input (uploaded files) from the form.
@@ -68,7 +68,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
 
             neighborhoodService.UpdateData(neighborhood, imageFiles);
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Neighborhood/Index");
         }
     }
 }
