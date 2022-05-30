@@ -1,5 +1,6 @@
 ﻿using LetsGoSEA.WebSite.Models;
 using LetsGoSEA.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 
@@ -28,9 +29,16 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// <summary>
         /// REST OnGet, return all data.
         /// </summary>
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             neighborhoods = neighborhoodService.GetNeighborhoods();
+
+            return Page();
         }
     }
 }
