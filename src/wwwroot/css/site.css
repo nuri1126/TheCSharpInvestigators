@@ -69,7 +69,7 @@ a.navbar-brand {
     font-family: 'Montserrat', sans-serif;
     font-size: 240%;
     text-align: center;
-    word-break: break-all;
+    word-break: normal;
 }
 
 /* Provide sufficient contrast against white background */
