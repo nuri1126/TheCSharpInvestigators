@@ -23,6 +23,9 @@ namespace UnitTests.Pages.Neighborhood
 
         // Global valid image property for use in tests. 
         private static readonly string Image = "http://via.placeholder.com/150";
+        
+        // Global valid address property for use in tests
+        private static readonly string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
         // Global valid shortDesc property for use in tests.
         private static readonly string ShortDesc = "Test neighborhood description";
@@ -30,7 +33,7 @@ namespace UnitTests.Pages.Neighborhood
         // Global imgFiles property for use in tests. 
         private static readonly IFormFileCollection ImgFilesNull = null;
 
-        // Global NeighborhodService to use for all test cases. 
+        // Global NeighborhoodService to use for all test cases. 
         private NeighborhoodService _neighborhoodService;
 
         // DeleteModel object.
@@ -61,7 +64,7 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
 
             // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
