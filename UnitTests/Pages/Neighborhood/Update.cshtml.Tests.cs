@@ -115,6 +115,53 @@ namespace UnitTests.Pages.Neighborhood
             TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
 
+        /// <summary>
+        /// Tests OnGet when ModelState is invalid should return false and redirect to Index page.
+        /// </summary>
+        [Test]
+        public void OnGet_InValid_ModelState_Should_Return_False_and_Redirect_To_Index()
+        {
+            // Arrange
+            _pageModel.neighborhood = new NeighborhoodModel
+            {
+                id = 666,
+                name = "Invalid Name",
+                shortDesc = "Invalid Desc"
+            };
+
+            // Force an invalid error state
+            _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
+
+            // Act
+            var result = _pageModel.OnGet(_pageModel.neighborhood.id) as RedirectToPageResult;
+
+            // Assert
+            Assert.AreEqual(false, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+        }
+
+        /// <summary>
+        /// Tests OnGet when neighborhood is null should redirect to Index page.
+        /// </summary>
+        [Test]
+        public void OnGet_Null_Neighborhood_Should_Redirect_To_Index()
+        {
+            // Arrange
+            _pageModel.neighborhood = new NeighborhoodModel
+            {
+                id = 666,
+                name = "Invalid Name",
+                shortDesc = "Invalid Desc"
+            };
+
+            // Act
+            var result = _pageModel.OnGet(_pageModel.neighborhood.id) as RedirectToPageResult;
+
+            // Assert
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+        }
+
         #endregion OnGet
 
         #region OnPost
@@ -156,7 +203,7 @@ namespace UnitTests.Pages.Neighborhood
 
             // Assert page is successful.
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, result != null && result.PageName.Contains("Index"));
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
 
             // Assert test neighborhood was updated with correct data.
             Assert.AreEqual("New_Bogusland", _neighborhoodService.GetNeighborhoods().Last().name);
@@ -171,19 +218,12 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests that when a neighborhood is trying to be updated with invalid data should
-        /// the ModelState becomes invalid.
+        /// Tests OnPost when ModelState is invalid should return false and redirect to Index.
         /// </summary>
         [Test]
-        public void OnPost_InValid_ModelState_Should_Return_False()
+        public void OnPost_InValid_ModelState_Should_Return_False_and_Redirect_To_Index()
         {
             // Arrange
-            _pageModel.neighborhood = new NeighborhoodModel
-            {
-                id = 666,
-                name = "Invalid Name",
-                shortDesc = "Invalid Desc"
-            };
 
             // Force an invalid error state
             _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
