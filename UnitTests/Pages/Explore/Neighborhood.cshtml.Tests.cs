@@ -19,25 +19,28 @@ namespace UnitTests.Pages.Explore
         #region TestSetup
 
         // Global invalid id property for use in tests. 
-        private static readonly int InvalidId = -1;
+        private const int InvalidId = -1;
 
         // Global valid name property for use in tests. 
-        private static readonly string Name = "Bogusland";
+        private const string Name = "Bogusland";
 
         // Global valid image property for use in tests. 
-        private static readonly string Image = "http://via.placeholder.com/150";
+        private const string Image = "http://via.placeholder.com/150";
+
+        // Global valid address property for use in tests
+        private const string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
         // Global valid shortDesc property for use in tests.
-        private static readonly string ShortDesc = "Test neighborhood description";
+        private const string ShortDesc = "Test neighborhood description";
 
         // Global imgFiles property for use in tests. 
         private static IFormFileCollection ImgFilesNull = null;
 
         // Global valid Rating for use in AddRatings region.
-        private static readonly int ValidRating = 5;
+        private const int ValidRating = 5;
 
         // Global valid comment input for use in Comments region.
-        private static readonly string ValidComment = "Bogus";
+        private const string ValidComment = "Bogus";
 
         // NeighborhoodModel object.
         private static NeighborhoodModel _pageModel;
@@ -45,7 +48,7 @@ namespace UnitTests.Pages.Explore
         // CommentModel object.
         private static LetsGoSEA.WebSite.Models.CommentModel _commentModel;
 
-        // Global NeighborhodService to use for all test cases. 
+        // Global NeighborhoodService to use for all test cases. 
         private NeighborhoodService _neighborhoodService;
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -103,7 +106,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -172,7 +175,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -198,7 +201,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -226,7 +229,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -261,7 +264,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -325,7 +328,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -360,7 +363,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -394,6 +397,7 @@ namespace UnitTests.Pages.Explore
         [Test]
         public void Comment_Model_Valid_Should_Return_True()
         {
+            // TODO: This test doesn't really make sense
             // Arrange
             var testComment = _commentModel.Comment;
             testComment = ValidComment;
