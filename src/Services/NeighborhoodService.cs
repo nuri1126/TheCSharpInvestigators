@@ -106,11 +106,12 @@ namespace LetsGoSEA.WebSite.Services
         /// Create a new neighborhood object, add user input data to it, and save object in JSON file.
         /// </summary>
         /// <param name="name">name data entered by user</param>
+        /// <param name="address">Address of the neighborhood</param>
         /// <param name="imageURLs">image URLs entered by user</param>
         /// <param name="shortDesc">short description entered by user</param>
         /// <param name="imageFiles">image files added by user</param>
         /// <returns>A new NeighborhoodModel object to be later saved in JSON</returns>
-        public NeighborhoodModel AddData(string name, string imageURLs, string shortDesc, IFormFileCollection imageFiles)
+        public NeighborhoodModel AddData(string name, string address, string imageURLs, string shortDesc, IFormFileCollection imageFiles)
         {
 
             // If user did not enter image URL, change imageURLs to "Default" to match Model initialization.
@@ -126,6 +127,7 @@ namespace LetsGoSEA.WebSite.Services
                 id = GetNeighborhoods().Count() + 1,
                 name = name,
                 image = imageURLs,
+                address = address,
                 city = "Seattle",
                 state = "WA",
                 shortDesc = shortDesc
@@ -197,7 +199,7 @@ namespace LetsGoSEA.WebSite.Services
         public NeighborhoodModel UpdateData(NeighborhoodModel data, IFormFileCollection imageFiles)
         {
             var neighborhoods = GetNeighborhoods();
-            var neighborhoodData = GetNeighborhoodById(data.id);
+            var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(data.id));
             if (neighborhoodData == null)
             {
                 return null;
@@ -296,7 +298,7 @@ namespace LetsGoSEA.WebSite.Services
         /// Generates a new unique identifier.
         /// </summary>
         /// <returns>String version of GUID</returns>
-        public string CreateNewCommentId()
+        private string CreateNewCommentId()
         {
             var options = new GenerationOptions(useNumbers: true, length: 8);
             return ShortId.Generate(options);
