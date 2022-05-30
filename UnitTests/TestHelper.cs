@@ -66,6 +66,15 @@ namespace UnitTests
             MockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns(TestFixture.DataContentRootPath);
             MockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns(TestFixture.ImageContentRootPath);
 
+            PageContext = InitiatePageContext();
+
+            // Initialize test services with MockWebHostEnvironment. 
+            NeighborhoodServiceObj = new NeighborhoodService(MockWebHostEnvironment.Object);
+            AboutUsServiceObj = new AboutUsService(MockWebHostEnvironment.Object);
+        }
+
+        public static PageContext InitiatePageContext()
+        {
             // Initialize and set TraceIdentifier propertiy for HttpContextDefault. 
             HttpContextDefault = new DefaultHttpContext()
             {
@@ -85,15 +94,11 @@ namespace UnitTests
             TempData = new TempDataDictionary(HttpContextDefault, Mock.Of<ITempDataProvider>());
 
             // Initialize PageContext object and set ViewData and HttpContext properties. 
-            PageContext = new PageContext(ActionContext)
+            return new PageContext(ActionContext)
             {
                 ViewData = ViewData,
                 HttpContext = HttpContextDefault
             };
-
-            // Initialize test services with MockWebHostEnvironment. 
-            NeighborhoodServiceObj = new NeighborhoodService(MockWebHostEnvironment.Object);
-            AboutUsServiceObj = new AboutUsService(MockWebHostEnvironment.Object);
         }
     }
 }
