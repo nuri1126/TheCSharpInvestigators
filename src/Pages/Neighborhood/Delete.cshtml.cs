@@ -31,9 +31,21 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         /// Loads the Data
         /// </summary>
         /// <param name="id">id of the neighborhood to delete</param>
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+            
             neighborhood = neighborhoodService.GetNeighborhoodById(id);
+
+            if (neighborhood == null)
+            {
+                return RedirectToPage("/Neighborhood/Index");
+            }
+
+            return Page();
         }
 
         /// <summary>
