@@ -51,26 +51,19 @@ namespace UnitTests.Pages.Neighborhood
 
         #endregion TestSetup
 
-        #region OnPost
+        #region TestSetupHelper
         /// <summary>
-        /// Tests that when OnPost is called, the Create page gathers Form input and 
-        /// returns the Index Page.
+        /// Creates a mock form collection with mock data.
         /// </summary>
-        [Test]
-        public void OnPost_Valid_Should_Get_Form_Input_Should_Return_True()
+        /// <param name="id">The ID of the neighborhood to save mock data to.</param>
+        /// <returns></returns>
+        private FormCollection GetMockFormCollection(int id)
         {
-
-            // Arrange
-
-            // Generate ID for test neighborhood. 
-            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
-            var newId = oldNeighborhoodCount + 1;
-
             // Store mock user input in String arrays to match FormCollection Value format.
-            string[] idArray = { newId.ToString() };
+            string[] idArray = { id.ToString() };
             string[] nameArray = { Name };
             string[] imageArray = { Image };
-            string[] addressArray = {Address};
+            string[] addressArray = { Address };
             string[] shortDescArray = { ShortDesc };
 
             // Create a FormCollection object to hold mock form data.
@@ -83,15 +76,30 @@ namespace UnitTests.Pages.Neighborhood
                 { "Neighborhood.ShortDesc", shortDescArray}
             });
 
+            return formCol;
+        }
+        #endregion TestSetupHelper
+
+        #region OnPost
+        /// <summary>
+        /// Tests that when OnPost is called, the Create page gathers Form input and 
+        /// successfully creates a new Neighborhood card with the correct information.
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_Should_Collect_Form_Input_And_Create_New_Neighborhood()
+        {
+
+            // Arrange
+
+            // Generate new ID for test neighborhood. 
+            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
+            var newId = oldNeighborhoodCount + 1;
+
             // Link FormCollection object with HTTPContext.
-            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = GetMockFormCollection(newId);
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
-
-            // Assert page is successful.
-            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, result.PageName.Contains("Index"));
 
             // Assert a new test neighborhood was created with correct data.
             Assert.AreEqual(oldNeighborhoodCount + 1, _neighborhoodService.GetNeighborhoods().Count());
@@ -102,7 +110,31 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests OnPost when ModelState is invalid should return false and redirect to Index.
+        /// Tests when OnPost is called, a valid Model State should return true and redirect to Index page.
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_Model_State_Should_Return_True_And_Redirect_To_Index()
+        {
+
+            // Arrange
+
+            // Generate new ID for test neighborhood. 
+            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
+            var newId = oldNeighborhoodCount + 1;
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = GetMockFormCollection(newId);
+
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
+
+            // Assert page is successful.
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+        }
+
+        /// <summary>
+        /// Tests when OnPost is called, an invalid Model State should return false and redirect to Index.
         /// </summary>
         [Test]
         public void OnPost_InValid_ModelState_Should_Return_False_and_Redirect_To_Index()
@@ -113,10 +145,11 @@ namespace UnitTests.Pages.Neighborhood
             _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
 
             // Act
-            var result = _pageModel.OnPost() as ActionResult;
+            var result = _pageModel.OnPost() as RedirectToPageResult;
 
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
         #endregion OnPost
