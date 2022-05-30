@@ -20,11 +20,14 @@ namespace UnitTests.Pages.Neighborhood
 
         // Global valid image property for use in tests. 
         private static readonly string Image = "http://via.placeholder.com/150";
+        
+        // Global valid address property for use in tests
+        private static readonly string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
         // Global valid shortDesc property for use in tests.
         private static readonly string ShortDesc = "Test neighborhood description";
 
-        // Global NeighborhodService to use for all test cases. 
+        // Global NeighborhoodService to use for all test cases. 
         private NeighborhoodService _neighborhoodService;
 
         // CreateModel object 
@@ -67,6 +70,7 @@ namespace UnitTests.Pages.Neighborhood
             string[] idArray = { newId.ToString() };
             string[] nameArray = { Name };
             string[] imageArray = { Image };
+            string[] addressArray = {Address};
             string[] shortDescArray = { ShortDesc };
 
             // Create a FormCollection object to hold mock form data.
@@ -75,6 +79,7 @@ namespace UnitTests.Pages.Neighborhood
                 { "Neighborhood.Id", idArray},
                 { "Neighborhood.Name", nameArray },
                 { "Neighborhood.Image", imageArray},
+                {"Neighborhood.Address", addressArray},
                 { "Neighborhood.ShortDesc", shortDescArray}
             });
 
@@ -92,6 +97,7 @@ namespace UnitTests.Pages.Neighborhood
             Assert.AreEqual(oldNeighborhoodCount + 1, _neighborhoodService.GetNeighborhoods().Count());
             Assert.AreEqual(Name, _neighborhoodService.GetNeighborhoods().Last().name);
             Assert.AreEqual(Image, _neighborhoodService.GetNeighborhoods().Last().image);
+            Assert.AreEqual(Address, _neighborhoodService.GetNeighborhoods().Last().address);
             Assert.AreEqual(ShortDesc, _neighborhoodService.GetNeighborhoods().Last().shortDesc);
         }
 
