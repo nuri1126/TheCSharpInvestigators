@@ -68,17 +68,15 @@ namespace LetsGoSEA.WebSite.Services
         private void SaveData(IEnumerable<NeighborhoodModel> neighborhoods)
         {
             // Re-write all the neighborhood data to JSON file
-            using (var outputStream = File.Create(NeighborhoodFileName))
-            {
-                JsonSerializer.Serialize<IEnumerable<NeighborhoodModel>>(
-                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
-                    {
-                        SkipValidation = true,
-                        Indented = true
-                    }),
-                    neighborhoods
-                );
-            }
+            using var outputStream = File.Create(NeighborhoodFileName);
+            JsonSerializer.Serialize(
+                new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                {
+                    SkipValidation = true,
+                    Indented = true
+                }),
+                neighborhoods
+            );
         }
 
         /// <summary>
@@ -107,7 +105,6 @@ namespace LetsGoSEA.WebSite.Services
         /// <summary>
         /// Create a new neighborhood object, add user input data to it, and save object in JSON file.
         /// </summary>
-        /// <param name="ID">ID generated in CreateID() method</param>
         /// <param name="name">name data entered by user</param>
         /// <param name="imageURLs">image URLs entered by user</param>
         /// <param name="shortDesc">short description entered by user</param>
@@ -135,7 +132,7 @@ namespace LetsGoSEA.WebSite.Services
             };
 
             // If user uploaded image files, upload files to database
-            if (imageFiles != null && imageFiles.Count() > 0)
+            if (imageFiles != null && imageFiles.Any())
             {
                 UploadImageIfAvailable(data, imageFiles);
             }
@@ -200,17 +197,14 @@ namespace LetsGoSEA.WebSite.Services
         public NeighborhoodModel UpdateData(NeighborhoodModel data, IFormFileCollection imageFiles)
         {
             var neighborhoods = GetNeighborhoods();
-            var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(data.id));
+            var neighborhoodData = GetNeighborhoodById(data.id);
             if (neighborhoodData == null)
             {
                 return null;
             }
 
             // If user deleted all URL images, reset image field to "Default" to match Model initialization.
-            if (data.image == null)
-            {
-                data.image = "Default";
-            }
+            data.image ??= "Default";
 
             // Update neighborhood data.
             neighborhoodData.name = data.name;
@@ -274,23 +268,17 @@ namespace LetsGoSEA.WebSite.Services
                 return false;
             }
 
-            // Check Rating for boundries, do not allow ratings below 0.
-            if (rating < 0)
+            switch (rating)
             {
-                return false;
-            }
-
-            // Check Rating for boundries, do not allow ratings above 5.
-            if (rating > 5)
-            {
-                return false;
+                // Check Rating for boundaries, do not allow ratings below 0.
+                case < 0:
+                // Check Rating for boundaries, do not allow ratings above 5.
+                case > 5:
+                    return false;
             }
 
             // Check to see if ratings exist, if there are not, then create the array.
-            if (neighborhood.ratings == null)
-            {
-                neighborhood.ratings = new int[] { };
-            }
+            neighborhood.ratings ??= Array.Empty<int>();
 
             // Add the Rating to the Array.
             var ratings = neighborhood.ratings.ToList();
@@ -311,7 +299,7 @@ namespace LetsGoSEA.WebSite.Services
         public string CreateNewCommentId()
         {
             var options = new GenerationOptions(useNumbers: true, length: 8);
-            return ShortId.Generate(options).ToString();
+            return ShortId.Generate(options);
         }
 
 
@@ -329,16 +317,13 @@ namespace LetsGoSEA.WebSite.Services
                 return false;
             }
 
-            // Check comment is null, return false.
-            if (comment == null)
+            switch (comment)
             {
-                return false;
-            }
-
-            // Check comment is empty, return false.
-            if (comment == "")
-            {
-                return false;
+                // Check comment is null, return false.
+                case null:
+                // Check comment is empty, return false.
+                case "":
+                    return false;
             }
 
             // Check to see if comments exist, if there are not, then create the list.
@@ -357,7 +342,7 @@ namespace LetsGoSEA.WebSite.Services
                     // Assign the comment to the CommentModel object.
                     Comment = comment
                 }
-            ); ;
+            );
 
             // Save the neighborhood.
             UpdateData(neighborhood, null);
@@ -421,31 +406,27 @@ namespace LetsGoSEA.WebSite.Services
             var noImagePath = "/image/no_image.jpg";
 
             // Whether the neighborhood is seeded with any URL image link. 
-            var hasURLImage = neighborhood.image != "Default";
+            var hasUrlImage = neighborhood.image != "Default";
 
             // Whether the neighborhood is seeded with any uploaded image file.
             var hasFileImage = neighborhood.imagePath != "Default";
 
             // Add all URL images to the image list if present.
-            if (hasURLImage)
+            if (hasUrlImage)
             {
                 var urlImages = neighborhood.image.Split(',');
-                foreach (var urlImage in urlImages) { allImages.Add(urlImage); }
+                allImages.AddRange(urlImages);
             }
 
             // Add all file images to the image list if present.
             if (hasFileImage)
             {
                 var fileImages = neighborhood.imagePath.Split(',');
-                foreach (var fileImage in fileImages)
-                {
-                    var addPathSlash = "/" + fileImage;
-                    allImages.Add(addPathSlash);
-                }
+                allImages.AddRange(fileImages.Select(fileImage => "/" + fileImage));
             }
 
             // Add placeholder image if no image is present in the database.
-            else if (!hasURLImage && !hasFileImage)
+            else if (!hasUrlImage)
             {
                 allImages.Add(noImagePath);
             }
