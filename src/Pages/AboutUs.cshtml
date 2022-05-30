@@ -7,34 +7,43 @@
     Layout = "Shared/_Layout";
 }
 
-<h1 class="aboutus-content-h1">@ViewData["Title"]</h1>
-<br>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<p class="aboutus-content-p">
-    We are the CSI &ndash;&ndash; C Sharp Investigators &ndash;&ndash; a group of computer science student from Seattle University! <br />
-    With the expanding city population, we decided to build this website to help Seattleites navigate, explore, and
-    investigate our neighborhoods more easily.
-    For the computer nerds out there, we built this website using C# and ASP.NET and various APIs to
-    gather our analytics and visuals. Feel free to connect with us on LinkedIn!
-</p>
-<div>
-    <p class="aboutus-content-p">
+@* <div class="about-us h-100 p-5 text-white bg-dark rounded-3"> *@
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">@ViewData["Title"]</h1>
+            <br>
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+            <p class="fs-4">
+                We are the CSI &ndash;&ndash; C Sharp Investigators &ndash;&ndash; a group of computer science student from Seattle University! <br/>
+                With the expanding city population, we decided to build this website to help Seattleites navigate, explore, and
+                investigate our neighborhoods more easily.
+                For the computer nerds out there, we built this website using C# and ASP.NET and various APIs to
+                gather our analytics and visuals. Feel free to connect with us on LinkedIn!
+            </p>
+        
+    <!--
+    <p class="fs-4">
         LetsGoSea provides current and future Seattleites with a digital platform to connect to the heart of their community,
         to explore the surrounding neighborhoods, and to make better decisions about where and how they will live, work, and spend their leisure time in the Emerald City.
-
+        
         Simply click on a neighborhood card to access content that illustrates the lifestyle in each
         community -- with pictures of the neighborhood, an overall happiness rating, and a crime index.
         You can zoom in and out of the map to locate the areas’ most popular eateries, parks, and tourist attractions.
         To get an inside look on your neighborhood, you can also check out the analytics and visualizations we have prepared for you about various local issues,
         including cost of living, real estate metrics, crime statistics, and more.
-
+        
         Have something to say? Feel free to rate and comment on your experience about a particular neighborhood.
         You may share your likes, dislikes, observations,and concerns!
         Are you ready to explore?
     </p>
+    -->
+    </div>
+    
+
 </div>
+
 <!--Owl card slider-->
 <link rel="stylesheet" type="text/css" href="~/css/owl.carousel.min.css">
 <section id="slider" class="pt-5">
@@ -51,7 +60,9 @@
                             <div class="mb-0 text-center member-name">
                                 <h1>
                                     @teamMember.name
-                                    <a href=@teamMember.linkedIn target="blank"><img src=~/image/linkin_logo.jpg alt="LinkedIn Logo" width="10" !important /></a>
+                                    <a href=@teamMember.linkedIn target="blank">
+                                        <img src=~/image/linkin_logo.jpg alt="LinkedIn Logo" width="10" !important/>
+                                    </a>
                                 </h1>
                                 <p>@teamMember.bio</p>
                                 <br>
