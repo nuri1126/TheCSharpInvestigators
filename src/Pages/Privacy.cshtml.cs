@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LetsGoSEA.WebSite.Pages
 {
@@ -8,23 +8,12 @@ namespace LetsGoSEA.WebSite.Pages
     /// </summary>
     public class PrivacyModel : PageModel
     {
-        // Logger property.
-        private readonly ILogger<PrivacyModel> _logger;
-
-        /// <summary>
-        /// Creates a Privacy logger which uses a log category equal to the name of the model.
-        /// </summary>
-        /// <param name="logger">An instance of the built-in ILogger service to use</param>
-        public PrivacyModel(ILogger<PrivacyModel> logger)
-        {
-            _logger = logger;
-        }
-
         /// <summary>
         /// Default OnGet.
         /// </summary>
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
     }
 }
