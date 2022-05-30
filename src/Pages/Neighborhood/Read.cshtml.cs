@@ -11,7 +11,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
     /// </summary>
     public class ReadModel : PageModel
     {
-        // Data middletier.
+        // Data middle tier.
         private NeighborhoodService neighborhoodService { get; }
 
         // The data to show.
@@ -28,11 +28,6 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             this.neighborhoodService = neighborhoodService;
         }
-
-
-        [BindProperty]
-        // Current Neighborhood to be displayed to the user.
-        public Models.NeighborhoodModel currentNeighborhood { get; set; }
 
         /// <summary>
         /// REST Get request.
