@@ -52,7 +52,7 @@ namespace UnitTests.Pages.Neighborhood
             // Initialize pageModel.
             _pageModel = new UpdateModel(_neighborhoodService)
             {
-                PageContext = TestHelper.PageContext
+                PageContext = TestHelper.InitiatePageContext()
             };
         }
         #endregion TestSetup
@@ -132,32 +132,24 @@ namespace UnitTests.Pages.Neighborhood
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
             // Retrieve test neighborhood.
-            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+            _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // Update test neighborhood's name and short description.
-            _pageModel.neighborhood = new NeighborhoodModel
-            {
-                id = testNeighborhood.id,
-                name = "New_Bogusland",
-                shortDesc = "New_Test neighborhood description",
-            };
-
-            // Update test neighborhood by uploading test images.
-            // Set up mock test-image files.
-            var testImageFiles = new Dictionary<string, string>()
+            // UPDATE TEST NEIGHBORHOOD name, address, image, and short description.
+            _pageModel.neighborhood.name = "New_Bogusland";
+            _pageModel.neighborhood.address = "New_BogusAddress";
+            _pageModel.neighborhood.image = "https://via.placeholder.com/99";
+            _pageModel.neighborhood.shortDesc = "New_Test neighborhood description";
+           
+            // UPDATE TEST NEIGHBORHOOD by uploading test images.
+            var testImageFiles = new Dictionary<string, string>()  // Set up mock test-image files.
             {
                 { "testImage.jpg", "test image content" },
             };
-
-            // Get mock test-image paths.
-            var imagePaths = GetImagePath(testImageFiles);
-
-            // Create a FormCollection object to hold mock image paths.
-            var formCol = new FormCollection(null, imagePaths);
+            var imagePaths = GetImagePath(testImageFiles);         // Get mock test-image paths.
+            var formCol = new FormCollection(null, imagePaths);    // Create a FormCollection object to hold mock image paths.
 
             // Link FormCollection object with HTTPContext.
             TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
-
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
@@ -168,11 +160,14 @@ namespace UnitTests.Pages.Neighborhood
 
             // Assert test neighborhood was updated with correct data.
             Assert.AreEqual("New_Bogusland", _neighborhoodService.GetNeighborhoods().Last().name);
+            Assert.AreEqual("New_BogusAddress", _neighborhoodService.GetNeighborhoods().Last().address);
+            Assert.AreEqual("https://via.placeholder.com/99", _neighborhoodService.GetNeighborhoods().Last().image);
             Assert.AreEqual("New_Test neighborhood description", _neighborhoodService.GetNeighborhoods().Last().shortDesc);
             Assert.AreEqual("image/Neighborhood/testImage.jpg", _neighborhoodService.GetNeighborhoods().Last().imagePath);
 
+         
             // TearDown
-            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+            TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
         }
 
         /// <summary>
