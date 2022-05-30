@@ -537,3 +537,42 @@ div.comment {
     max-height: 200px;
     object-fit: cover;
 }
+
+/* 404 Not Found */
+#not-found {
+    position: relative;
+    height: 50vh;
+}
+
+#not-found .not-found {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.not-found {
+    max-width: 520px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.not-found .not-found-404 {
+    position: relative;
+    margin: 0 auto 20px;
+    z-index: -1;
+}
+
+.not-found a {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 13px 23px;
+    background: #ff6300;
+    transition: 0.2s all;
+    
+}
