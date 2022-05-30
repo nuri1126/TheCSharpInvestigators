@@ -28,6 +28,10 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             this.neighborhoodService = neighborhoodService;
         }
+        
+        [BindProperty]
+        // Current neighborhood to be displayed to the user.
+        public NeighborhoodModel currentNeighborhood { get; set; }
 
         /// <summary>
         /// REST Get request.
