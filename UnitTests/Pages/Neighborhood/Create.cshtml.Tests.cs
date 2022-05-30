@@ -45,7 +45,7 @@ namespace UnitTests.Pages.Neighborhood
             // Initialize pageModel.
             _pageModel = new CreateModel(_neighborhoodService)
             {
-                PageContext = TestHelper.PageContext
+                PageContext = TestHelper.InitiatePageContext()
             };
         }
 
@@ -99,6 +99,24 @@ namespace UnitTests.Pages.Neighborhood
             Assert.AreEqual(Image, _neighborhoodService.GetNeighborhoods().Last().image);
             Assert.AreEqual(Address, _neighborhoodService.GetNeighborhoods().Last().address);
             Assert.AreEqual(ShortDesc, _neighborhoodService.GetNeighborhoods().Last().shortDesc);
+        }
+
+        /// <summary>
+        /// Tests OnPost when ModelState is invalid should return false and redirect to Index.
+        /// </summary>
+        [Test]
+        public void OnPost_InValid_ModelState_Should_Return_False_and_Redirect_To_Index()
+        {
+            // Arrange
+
+            // Force an invalid error state
+            _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
+
+            // Act
+            var result = _pageModel.OnPost() as ActionResult;
+
+            // Assert
+            Assert.AreEqual(false, _pageModel.ModelState.IsValid);
         }
 
         #endregion OnPost
