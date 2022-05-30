@@ -59,12 +59,12 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return RedirectToPage("/Neighborhood/Index");
             }
 
             neighborhoodService.DeleteData(neighborhood.id);
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Neighborhood/Index");
         }
     }
 }
