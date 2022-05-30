@@ -1,6 +1,4 @@
 ﻿using LetsGoSEA.WebSite.Pages;
-using Microsoft.Extensions.Logging;
-using Moq;
 using NUnit.Framework;
 
 namespace UnitTests.Pages
@@ -10,27 +8,9 @@ namespace UnitTests.Pages
     /// </summary>
     public class PrivacyTests
     {
-        #region TestSetup
 
         // PrivacyModel object.
-        private static PrivacyModel _pageModel;
-
-        /// <summary>
-        /// Initialize mock Logger. 
-        /// </summary>
-        [SetUp]
-        public void TestInitialize()
-        {
-            var mockLoggerDirect = Mock.Of<ILogger<PrivacyModel>>();
-
-            _pageModel = new PrivacyModel(mockLoggerDirect)
-            {
-                PageContext = TestHelper.PageContext,
-                TempData = TestHelper.TempData,
-            };
-        }
-
-        #endregion TestSetup
+        private static readonly PrivacyModel _pageModel = new PrivacyModel();
 
         #region OnGet
         /// <summary>
