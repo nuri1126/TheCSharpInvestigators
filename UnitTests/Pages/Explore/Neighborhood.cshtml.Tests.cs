@@ -392,29 +392,11 @@ namespace UnitTests.Pages.Explore
         #region Comments
 
         /// <summary>
-        /// Tests Comment object's get method.
-        /// </summary>
-        [Test]
-        public void Comment_Model_Valid_Should_Return_True()
-        {
-            // TODO: This test doesn't really make sense
-            // Arrange
-            var testComment = _commentModel.Comment;
-            testComment = ValidComment;
-
-            // Act 
-            var res = testComment;
-
-            // Assert 
-            Assert.AreEqual(ValidComment, res);
-        }
-
-        /// <summary>
         /// Test that when OnPost is called from a comment input, the BindProperty successfully
-        /// sets the comment.
+        /// sets the comment. Also tests the {get} method of Comment.
         /// </summary>
         [Test]
-        public void Valid_CommentModel_Is_Settable_Should_Return_True()
+        public void Valid_CommentModel_Is_Settable_Is_Gettable_Should_Return_True()
         {
             // Arrange
             string id = Guid.NewGuid().ToString();
