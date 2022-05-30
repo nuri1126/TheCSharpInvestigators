@@ -1,4 +1,4 @@
-﻿/* Default CSS Stylesheet */
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap'); /* Default CSS Stylesheet */
 
 /* Rating star */
 .stars {
@@ -11,7 +11,7 @@
     background-color: inherit;
 }
 
-#expore-page-star {
+#explore-page-star {
     font-size: 25px !important;
 }
 
@@ -134,8 +134,6 @@ button.accept-policy {
 /* Home Page
 -------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-
 html {
     position: relative;
     min-height: 100%;
@@ -161,14 +159,14 @@ h1.homepage-title-content {
 @media {
     /* homepage title font details*/
     h1.homepage-title-content {
-        text-shadow: 6px 6px 0px rgba(0,0,0,0.3);
+        text-shadow: 6px 6px 0 rgba(0,0,0,0.3);
         font-family: 'Montserrat', sans-serif !important;
         font-size: 600% !important;
     }
 
-    /* homapage tagline font details*/
+    /* homepage tagline font details*/
     p.homepage-tagline-content {
-        text-shadow: 6px 6px 0px rgba(0,0,0,0.3);
+        text-shadow: 6px 6px 0 rgba(0,0,0,0.3);
         font-family: 'Montserrat', sans-serif !important;
         font-size: 120% !important;
         font-weight: 100 !important;
@@ -181,7 +179,7 @@ h1.homepage-title-content {
         font-size: 300% !important;
     }
 
-    /* homapage tagline font details*/
+    /* homepage tagline font details*/
     p.homepage-tagline-content {
         font-size: 100% !important;
         font-weight: 100 !important;
@@ -194,7 +192,7 @@ h1.homepage-title-content {
         font-size: 200% !important;
     }
 
-    /* homapage tagline font details*/
+    /* homepage tagline font details*/
     p.homepage-tagline-content {
         font-size: 80% !important;
         font-weight: 100 !important;
@@ -230,9 +228,9 @@ h1.homepage-title-content {
     animation-duration: 2s;
 }
 
-    .banner .intro-text h1 span {
-        color: #ff432e;
-    }
+.banner .intro-text h1 span {
+    color: #ff432e;
+}
 
 .banner .intro-text p {
     color: #fff;
@@ -322,15 +320,16 @@ ul {
 
 /* About Us Page
 -------------------------------------------------- */
-.aboutus-content-h1{
+
+.about-us h1 {
     text-align: center;
     font-weight: bold;
     font-size: 30px
 }
 
-.aboutus-content-p {
+.about-us p {
     font-size: 20px;
-    color: #84a98c;
+
     font-weight: bold;
     text-align: justify;
 }
@@ -354,7 +353,6 @@ ul {
 .member-name p {
     text-align: justify;
     margin: 20px 40px;
-    color: dimgray;
 }
 
 .member-name h1 img {
@@ -382,19 +380,22 @@ ul {
 .slider .owl-item.active.center .slider-card {
     transform: scale(1.15);
     opacity: 1;
-    /*background: #84A98C;*/ /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #84a98c, #cadD2c5); /* Chrome 10-25, Safari 5.1-6 */
+    background: #84A98C;  /* fallback for old browsers */ 
     background: linear-gradient(to bottom, #84a98c, #cad2c5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
 }
 
+.slider .owl-item.active.center .member-name h1 {
+    color: #000000;
+}
+
 .slider .owl-item.active.center .member-name p {
-    color: white;
+    color: #000000;
 }
 
 .slider-card {
     background: #fff;
-    padding: 0px 0px;
+    padding: 0 0;
     margin: 50px 15px 90px 15px;
     border-radius: 5px;
     box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%);
@@ -412,7 +413,7 @@ ul {
 }
 
 .slider-card img {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0 0;
     display: block;
     margin-left: auto;
     margin-right: auto;
