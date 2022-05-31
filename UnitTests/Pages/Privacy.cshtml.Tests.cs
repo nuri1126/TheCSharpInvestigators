@@ -14,10 +14,10 @@ namespace UnitTests.Pages
 
         #region OnGet
         /// <summary>
-        /// Test that when OnGet is called, the model state is valid and returns a valid Page. 
+        /// Test that when OnGet is called, Privacy PageModel is valid. 
         /// </summary>
         [Test]
-        public void OnGet_Valid_ModelState_Should_Return_True()
+        public void OnGet_Valid_ModelState_IsValid_Should_Return_True()
         {
             // Arrange
 
