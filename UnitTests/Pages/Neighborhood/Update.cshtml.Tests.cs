@@ -40,7 +40,7 @@ namespace UnitTests.Pages.Neighborhood
         private static UpdateModel _pageModel;
 
         /// <summary>
-        /// //Initialize UpdateModel with a NeighborhoodService object. 
+        /// Initialize UpdateModel with a NeighborhoodService object. 
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -58,6 +58,40 @@ namespace UnitTests.Pages.Neighborhood
         #endregion TestSetup
 
         #region TestSetup Helper 
+        /// <summary>
+        /// This method simulates the abstraction of user input data from the Update Razor Page 
+        /// and use those data to update the neighborhood object on the Update Model page.
+        /// </summary>
+        /// <param name="oldNeighborhood"></param>
+        private void UpdateNeighborhoodWithTestData(NeighborhoodModel oldNeighborhood)
+        {
+            oldNeighborhood.name = "New_Bogusland";
+            oldNeighborhood.address = "New_BogusAddress";
+            oldNeighborhood.image = "https://via.placeholder.com/99";
+            oldNeighborhood.shortDesc = "New_Test neighborhood description";
+        }
+
+        /// <summary>
+        /// This method updates the neighborhood object with new ImagePath by simulating upload image action.
+        /// </summary>
+        private void UpdateNeighborhoodWithTestFileImage()
+        {
+            // Set up mock test-image files.
+            var testImageFiles = new Dictionary<string, string>()  
+            {
+                { "testImage.jpg", "test image content" },
+            };
+
+            // Get mock test-image paths.
+            var imagePaths = GetImagePath(testImageFiles);
+
+            // Create a FormCollection object to hold mock image paths.
+            var formCol = new FormCollection(null, imagePaths);
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+        }
+
         /// <summary>
         /// Global mock FormFileCollection generator creates ImagePath neighborhood
         /// property for use in Images region. 
@@ -90,11 +124,11 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
         /// <summary>
-        /// Test that when OnGet is called, all neighborhoods in the database
-        /// are returned.
+        /// Test that when OnGet is called, a valid Model State should return true 
+        /// and all neighborhoods in the database are returned.
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_Neighborhoods()
+        public void OnGet_Valid_Should_Return_True_And_Return_All_Neighborhoods()
         {
             // Arrange
 
@@ -116,10 +150,10 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests OnGet when ModelState is invalid should return false and redirect to Index page.
+        /// Tests when OnGet is called, an invalid ModelState should return false and redirect to Index page.
         /// </summary>
         [Test]
-        public void OnGet_InValid_ModelState_Should_Return_False_and_Redirect_To_Index()
+        public void OnGet_InValid_ModelState_Should_Return_False_And_Redirect_To_Index()
         {
             // Arrange
             _pageModel.neighborhood = new NeighborhoodModel
@@ -141,10 +175,10 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests OnGet when neighborhood is null should redirect to Index page.
+        /// Tests when OnGet is called, a valid Model State with a null neighborhood should redirect to Index page.
         /// </summary>
         [Test]
-        public void OnGet_Null_Neighborhood_Should_Redirect_To_Index()
+        public void OnGet_Valid_ModelState_Null_Neighborhood_Should_Redirect_To_Index()
         {
             // Arrange
             _pageModel.neighborhood = new NeighborhoodModel
@@ -167,11 +201,11 @@ namespace UnitTests.Pages.Neighborhood
         #region OnPost
 
         /// <summary>
-        /// Test that when a neighborhood is updated and OnPost is called, the
-        /// neighborhood is returned with the updates in affect.
+        /// Test when a neighborhood is updated and OnPost is called, the
+        /// neighborhood is returned with the updates in effect.
         /// </summary>
         [Test]
-        public void OnPost_Valid_Should_Return_True()
+        public void OnPost_Valid_Should_Update_Neighborhood_With_New_Data()
         {
             // Arrange
 
@@ -181,29 +215,14 @@ namespace UnitTests.Pages.Neighborhood
             // Retrieve test neighborhood.
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // UPDATE TEST NEIGHBORHOOD name, address, image, and short description.
-            _pageModel.neighborhood.name = "New_Bogusland";
-            _pageModel.neighborhood.address = "New_BogusAddress";
-            _pageModel.neighborhood.image = "https://via.placeholder.com/99";
-            _pageModel.neighborhood.shortDesc = "New_Test neighborhood description";
-           
-            // UPDATE TEST NEIGHBORHOOD by uploading test images.
-            var testImageFiles = new Dictionary<string, string>()  // Set up mock test-image files.
-            {
-                { "testImage.jpg", "test image content" },
-            };
-            var imagePaths = GetImagePath(testImageFiles);         // Get mock test-image paths.
-            var formCol = new FormCollection(null, imagePaths);    // Create a FormCollection object to hold mock image paths.
+            // UPDATE TEST NEIGHBORHOOD with new name, address, image, and short description.
+            UpdateNeighborhoodWithTestData(_pageModel.neighborhood);
 
-            // Link FormCollection object with HTTPContext.
-            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+            // UPDATE TEST NEIGHBORHOOD by uploading a test image.
+            UpdateNeighborhoodWithTestFileImage();
 
-            // Act
-            var result = _pageModel.OnPost() as RedirectToPageResult;
-
-            // Assert page is successful.
-            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual(true, result.PageName.Contains("Index"));
+             // Act
+             var result = _pageModel.OnPost() as RedirectToPageResult;
 
             // Assert test neighborhood was updated with correct data.
             Assert.AreEqual("New_Bogusland", _neighborhoodService.GetNeighborhoods().Last().name);
@@ -218,10 +237,42 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests OnPost when ModelState is invalid should return false and redirect to Index.
+        /// Test when a neighborhood is updated and OnPost is called, the Model State is valid and page is redirected to Index 
+        /// upon finishing.
         /// </summary>
         [Test]
-        public void OnPost_InValid_ModelState_Should_Return_False_and_Redirect_To_Index()
+        public void OnPost_Valid_ModelState_Should_Return_True_And_Redirect_To_Index()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // UPDATE TEST NEIGHBORHOOD with new name, address, image, and short description.
+            UpdateNeighborhoodWithTestData(_pageModel.neighborhood);
+
+            // UPDATE TEST NEIGHBORHOOD by uploading a test image.
+            UpdateNeighborhoodWithTestFileImage();
+
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
+
+            // Assert page is successful.
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
+        }
+
+        /// <summary>
+        /// Tests when OnPost is called, an invalid ModelState should return false and redirect to Index.
+        /// </summary>
+        [Test]
+        public void OnPost_InValid_ModelState_Should_Return_False_And_Redirect_To_Index()
         {
             // Arrange
 
