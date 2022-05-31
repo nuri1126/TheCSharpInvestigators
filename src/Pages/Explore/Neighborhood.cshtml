@@ -63,7 +63,7 @@
     <!--Show images-->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         @{
-            var neighborhoodImages = @Model.allImages; 
+            var neighborhoodImages = @Model.allImages;
         }
         @if (neighborhoodImages.Count() != 1)
         {
@@ -144,28 +144,33 @@
         </h3>
 
         <!--Display existing comments-->
-        foreach (var comment in Model.currentNeighborhood.comments)
-        {
-            <div class="comment-row">
-                @comment.Comment
-                <div>
-                    <form method="post">
-                        <div class="comment">
-                            <input type ="hidden" value=@comment.CommentId class="comment-box" name="CommentId">
-                            <button type="submit" class="btn btn-primary" value=@comment.CommentId>Remove Comment ID</button>
+        <ul>
+            @foreach (var comment in Model.currentNeighborhood.comments)
+            {
+                <i>
+                    <div class="container">
+                        <div class="row bi-chat-dots" id="row-reduce-top-margin">
+                            <div class="col-8" id="remove-comment-overflow">
+                                @comment.Comment
+                            </div>
+                            <div class="col-3 remove-comment">
+                                <form method="post">
+                                    <input type="hidden" value=@comment.CommentId class="comment-box" name="CommentId">
+                                    <button type="submit" class="btn btn-primary" value=@comment.CommentId>Remove Comment</button>
+                                </form>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-
-        }
+                    </div>
+                </i>
+            }
+        </ul>
 
         <br />
 
         <!--Allow user to enter new comment in the box and click save-->
         <div>
             <form method="post">
-                <div class="comment">
+                <div class="save-comment">
                     <textarea class="comment-box" name="NewCommentText" rows="5" maxlength=@Model.commentMaxChar></textarea>
                     <span class="comment-max-char">Max characters allowed: @Model.commentMaxChar</span>
                     <button type="submit" class="btn btn-primary">Save Comment</button>
