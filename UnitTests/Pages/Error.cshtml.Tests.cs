@@ -34,6 +34,7 @@ namespace UnitTests.Pages
         #endregion TestSetup
 
         #region OnGet
+
         /// <summary>
         /// Tests that when OnGet is called, a valid state and id is returned. 
         /// </summary>
@@ -73,6 +74,7 @@ namespace UnitTests.Pages
             Assert.AreEqual("trace", _pageModel.requestedId);
             Assert.AreEqual(true, _pageModel.ShowRequestId);
         }
+
         #endregion OnGet
     }
 }
