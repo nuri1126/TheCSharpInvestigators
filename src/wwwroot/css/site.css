@@ -515,17 +515,18 @@ ul {
 
 /*Comments*/
 
-div.comment {
+div.remove-comment {
     display: inline-grid;
-    width: 100%;
+    width: 20%;
 }
 
-.comment-row {
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    margin-bottom: 5px;
+#remove-comment-overflow {
     overflow-wrap: break-word;
+}
+
+div.save-comment {
+    display: inline-grid;
+    width: 100%;
 }
 
 .comment-box {
