@@ -70,6 +70,37 @@
         </div>
 
         <br />
+
+        <!--Allow user to delete uploaded image-->
+        @{
+            var currentImagePaths = @Model.neighborhood.imagePath;
+        }
+        @if (currentImagePaths != "Default") {
+             <div class="form-group">
+            <label asp-for="neighborhood.imagePath" class="control-label">Delete uploaded image(s)</label>
+            <ul class="uploadedImage-list">
+                @foreach (var fileImage in currentImagePaths.Split(','))
+                {
+                    <li>
+                        <div class="container">
+                            <div class="row" id="row-reduce-top-margin">
+                                <div class="col-sm">
+                                    <label>@fileImage</label>
+                                </div>
+                                <div class="col-sm">
+                                    <input value="Delete function is coming" class="btn btn-sm btn-danger" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+            <span asp-validation-for="neighborhood.imagePath" class="text-danger"></span>
+        </div>
+        }
+
+        <br />
+
         <!--Allow user to upload photo(s)-->
          <div>
             <label asp-for="neighborhood.imagePath">Upload New Photo (May select multiple photos to upload)</label>
