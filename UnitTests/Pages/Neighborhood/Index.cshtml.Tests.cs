@@ -1,5 +1,4 @@
 ﻿using LetsGoSEA.WebSite.Pages.Neighborhood;
-using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using System.Linq;
 
@@ -28,6 +27,7 @@ namespace UnitTests.Pages.Neighborhood
         #endregion TestSetup
 
         #region OnGet
+
         /// <summary>
         /// Test that when OnGet is called, a valid ModelState should return true and
         /// return all neighborhoods in the database.
@@ -64,5 +64,6 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         #endregion OnGet
+
     }
 }
