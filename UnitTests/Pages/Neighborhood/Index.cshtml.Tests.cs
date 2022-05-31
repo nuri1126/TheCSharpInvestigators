@@ -3,7 +3,6 @@ using NUnit.Framework;
 using System.Linq;
 
 namespace UnitTests.Pages.Neighborhood
-
 {
     /// <summary>
     /// Unit test for the Index Page.
