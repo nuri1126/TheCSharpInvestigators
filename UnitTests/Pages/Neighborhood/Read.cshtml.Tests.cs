@@ -17,19 +17,19 @@ namespace UnitTests.Pages.Neighborhood
         #region TestSetup
 
         // Global valid name property for use in tests. 
-        private static readonly string Name = "Bogusland";
+        private const string Name = "Bogusland";
 
         // Global valid image property for use in tests. 
-        private static readonly string Image = "http://via.placeholder.com/150";
-        
+        private const string Image = "http://via.placeholder.com/150";
+
         // Global valid address property for use in tests
-        private static readonly string Address = "401 NE Northgate Way, Seattle, WA 98125";
+        private const string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
         // Global valid shortDesc property for use in tests.
-        private static readonly string ShortDesc = "Test neighborhood description";
+        private const string ShortDesc = "Test neighborhood description";
 
         // Global imgFiles property for use in tests. 
-        private static readonly IFormFileCollection ImgFilesNull = null;
+        private const IFormFileCollection ImgFilesNull = null;
 
         // Global NeighborhoodService to use for all test cases. 
         private NeighborhoodService _neighborhoodService;
@@ -53,6 +53,7 @@ namespace UnitTests.Pages.Neighborhood
         #endregion TestSetup
 
         #region OnGet
+
         /// <summary>
         /// Tests that when OnGet is called, the ModelState is valid and the 
         /// selected neighborhood is returned.
