@@ -151,7 +151,16 @@
                 <div class="comment-id">
                     comment ID: @comment.CommentId
                 </div>
+                <div>
+                    <form method="post">
+                        <div class="comment">
+                            <input type ="hidden" value=@comment.CommentId class="comment-box" name="CommentId">
+                            <button type="submit" class="btn btn-primary" value=@comment.CommentId>Remove Comment ID</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
         }
 
         <br />
@@ -168,20 +177,6 @@
         </div>
 
         <br />
-
-
-        <h6>
-            Remove Comment ID:
-        </h6>
-        <!--Allow user to remove comment by CommentId-->
-        <div>
-            <form method="post">
-                <div class="comment">
-                    <input value="" class="comment-box" name="CommentId">
-                    <button type="submit" class="btn btn-primary">Remove Comment ID</button>
-                </div>
-            </form>
-        </div>
 
     }
 
