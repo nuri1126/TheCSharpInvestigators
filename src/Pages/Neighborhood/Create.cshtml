@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <label asp-for="neighborhood.image" class="control-label">Link to Neighborhood Image</label>
-            <input asp-for="neighborhood.image" class="form-control" onblur="doesimageExist(this.value)" id="image-input" />
+            <input asp-for="neighborhood.image" class="form-control" id="image-input"/>
             <span asp-validation-for="neighborhood.image" class="text-danger"></span>
             <span class="text-danger visually-hidden" id="image-error-text">Please provide a valid image URL</span>
         </div>
@@ -69,7 +69,8 @@
         <!--Allow user to upload photo(s)-->
         <div>
             <label asp-for="neighborhood.imagePath">Upload Photo (May select multiple photos to upload)</label>
-            <input type="file" name="files" class="form-control" multiple>
+            <input type="file" name="files" class="form-control" id="image-upload" multiple>
+            <span class="text-danger visually-hidden" id="image-upload-error-text">Please upload a valid image</span>
         </div>
 
         <br />
@@ -86,44 +87,6 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<script>
-    // Check if the supplied URL contains an image
-    const doesimageExist = (url) => {
-
-        // Check if there are multiple images
-        let imageUrls = url.split(',');
-
-        // Check each url
-        imageUrls.forEach(url => {
-            new Promise((resolve) => {
-                let saveBtn = document.getElementById("save");
-                let imageInput = document.getElementById("image-input");
-                let errorText = document.getElementById("image-error-text");
-                const img = new image();
-                img.src = url;
-
-                // URL Contains image - Valid URL
-                img.onload = () => {
-                    resolve(true);
-                    saveBtn.disabled = false;
-                    saveBtn.ariaInvalid = false;
-                    imageInput.classList.remove('input-error');
-                    if (!errorText.classList.contains("visually-hidden")) {
-                        errorText.classList.add('visually-hidden');
-                    }
-                };
-
-                // URL does not contain image - invalid URL
-                img.onerror = () => {
-                    resolve(false);
-                    saveBtn.disabled = true;
-                    saveBtn.ariaInvalid = true;
-                    imageInput.classList.add('input-error');
-                    if (errorText.classList.contains("visually-hidden")) {
-                        errorText.classList.remove('visually-hidden');
-                    }
-                };
-            });
-        });
-    };
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossOrigin="anonymous"></script>
+<script src="~/js/imageUploadValidation.js"></script>
