@@ -2,6 +2,7 @@
 using LetsGoSEA.WebSite.Pages.Neighborhood;
 using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using System.Linq;
 
@@ -53,10 +54,11 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
         /// <summary>
-        /// Tests that when OnGet is called, the selected neighborhood is returned.
+        /// Tests that when OnGet is called, the ModelState is valid and the 
+        /// selected neighborhood is returned.
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_True()
+        public void OnGet_Valid_Should_Return_True_And_Return_Correct_Neighborhood()
         {
 
             // Arrange
@@ -80,11 +82,11 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests that when OnGet is called on an invalid neighborhood, the 
-        /// Model state becomes invalid.
+        /// Tests that when OnGet is called, an invalid ModelState will return false and 
+        /// redirect to Index.
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Should_Return_False()
+        public void OnGet_Invalid_ModelState_Should_Return_False_And_Redirect_To_Index()
         {
 
             // Arrange
@@ -99,36 +101,35 @@ namespace UnitTests.Pages.Neighborhood
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
 
             // Act
-            var result = _pageModel.OnGet(_pageModel.neighborhood.id);
-
-            // Assert
-            Assert.AreEqual(false, _pageModel.ModelState.IsValid);
-
-        }
-
-        /// <summary>
-        /// Tests that when OnGet is called on an invalid neighborhood, the 
-        /// Model state becomes invalid.
-        /// </summary>
-        [Test]
-        public void OnGet_Null_Should_Return_False()
-        {
-            /*
-            // Arrange
-
-            // Act
-            _pageModel.neighborhood = null;
-
-            // Force an invalid error state.
-            _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
-
             var result = _pageModel.OnGet(_pageModel.neighborhood.id) as RedirectToPageResult;
 
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
-            //Assert.AreEqual(true, result.PageName.Contains("Index"));
-            Assert.IsInstanceOf(typeof(RedirectToPageResult), result);
-            */
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+
+        }
+
+        /// <summary>
+        /// Tests that when OnGet is called, a valid ModelState with a null neighborhoood 
+        /// will cause page to redirect to Index.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_ModelState_Null_Neighborhood_Should_Redirect_To_Index()
+        {
+            // Arrange
+            _pageModel.neighborhood = new NeighborhoodModel
+            {
+                id = 666,
+                name = "Invalid Name",
+                shortDesc = "Invalid Desc"
+            };
+
+            // Act
+            var result = _pageModel.OnGet(_pageModel.neighborhood.id) as RedirectToPageResult;
+
+            // Assert
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
         #endregion OnGet
