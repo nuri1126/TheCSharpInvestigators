@@ -114,6 +114,11 @@ a {
     align-items: center;
 }
 
+#navbar-toggle-border {
+    border-width: 0.05em;
+    border-color: black;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
