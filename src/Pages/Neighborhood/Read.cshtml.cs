@@ -14,8 +14,8 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         // Data middle tier.
         private NeighborhoodService neighborhoodService { get; }
 
-        // The data to show.
-        public NeighborhoodModel neighborhood;
+        // Current neighborhood to be displayed to the user.
+        public NeighborhoodModel neighborhood { get; set; }
 
         // Store the list of all neighborhood images.
         public List<string> allImages;
@@ -28,11 +28,7 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
         {
             this.neighborhoodService = neighborhoodService;
         }
-        
-        [BindProperty]
-        // Current neighborhood to be displayed to the user.
-        public NeighborhoodModel currentNeighborhood { get; set; }
-
+       
         /// <summary>
         /// REST Get request.
         /// </summary>
