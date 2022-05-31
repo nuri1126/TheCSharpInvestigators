@@ -28,50 +28,51 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
-        <div>
+        <div class="navbar-big-container">
             <img class="navbar-logo" src="~/image/space-needle.svg" />
             <a class="navbar-brand" asp-area="" asp-page="/Index">LetsGoSEA</a>
-        </div>
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-menu">Menu</span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <!-- Explore Link with dropdown-->
-                    <li class="nav-item">
-                        <div class="btn-group">
-                            <a class="btn" asp-area="" asp-page="/Explore/Index">Explore</a>
-                            <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                @foreach (var neighborhood in NeighborhoodService.GetNeighborhoods())
-                                {
-                                    <li>
-                                        <a class="dropdown-item" asp-page="/Explore/Neighborhood" asp-route-id="@neighborhood.id">@neighborhood.name</a>
-                                    </li>
-                                }
+           
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-menu">Menu</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Explore Link with dropdown-->
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <a class="btn" asp-area="" asp-page="/Explore/Index">Explore</a>
+                                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @foreach (var neighborhood in NeighborhoodService.GetNeighborhoods())
+                                    {
+                                        <li>
+                                            <a class="dropdown-item" asp-page="/Explore/Neighborhood" asp-route-id="@neighborhood.id">@neighborhood.name</a>
+                                        </li>
+                                    }
 
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- Neighborhood Index Link-->
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Neighborhood/Index">Neighborhood Index</a>
-                    </li>
-                    <!-- About Us Link-->
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/AboutUs">About Us</a>
-                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- Neighborhood Index Link-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Neighborhood/Index">Neighborhood Index</a>
+                        </li>
+                        <!-- About Us Link-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/AboutUs">About Us</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
