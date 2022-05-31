@@ -30,11 +30,10 @@ namespace UnitTests.Pages.Explore
         #region OnGet
 
         /// <summary>
-        /// Tests Index.cshtml OnGet method. A valid call to OnGet should return 
-        /// the current list of Neighborhood objects. 
+        /// Test that when OnGet is called, the Index PageModel is valid.
         /// </summary>
         [Test]
-        public void OnGet_Valid_Model_valid_Should_Return_True()
+        public void OnGet_Valid_ModelState_IsValid_Should_Return_True()
         {
             // Arrange
 
@@ -44,6 +43,21 @@ namespace UnitTests.Pages.Explore
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+        }
+
+        /// <summary>
+        /// Test that when OnGet is called, neighborhoods are returned.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Should_Return_Neighborhoods()
+        {
+            // Arrange
+
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
             Assert.AreEqual(true, _pageModel.neighborhoods.ToList().Any());
         }
 
