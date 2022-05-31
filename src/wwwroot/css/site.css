@@ -594,3 +594,8 @@ div.comment {
     transition: 0.2s all;
     
 }
+
+/*Update page upload image*/
+#row-reduce-top-margin {
+    margin-top: 0.5rem;
+}
