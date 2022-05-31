@@ -20,17 +20,19 @@ namespace UnitTests.Pages
         [SetUp]
         public void TestInitialize()
         {
+            // Initialize AboutUsModel with a NeighborhoodService object. 
             _pageModel = new LetsGoSEA.WebSite.Pages.AboutUsModel(TestHelper.AboutUsServiceObj);
         }
 
         #endregion TestSetup
 
         #region OnGet
+
         /// <summary>
-        /// Test that when OnGet is called, valid team member objects are returned to the page. 
+        /// Test that when OnGet is called, the AboutUs PageModel is valid. 
         /// </summary>
         [Test]
-        public void OnGet_Valid_Members_Should_Return_True()
+        public void OnGet_Valid_ModelState_IsValid_Should_Return_True()
         {
             // Arrange
 
@@ -39,6 +41,20 @@ namespace UnitTests.Pages
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+        }
+
+        /// <summary>
+        /// Test that when OnGet is called, valid team member objects are returned.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Members_Should_ListofMembers()
+        {
+            // Arrange
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
             Assert.AreEqual(true, _pageModel.members.ToList().Any());
         }
 
@@ -58,7 +74,6 @@ namespace UnitTests.Pages
             foreach (var member in members)
             {
                 Assert.NotNull(member.name);
-                Assert.NotNull(member.bio);
                 Assert.NotNull(member.linkedIn);
                 Assert.NotNull(member.image);
                 Assert.NotNull(member.bio);
