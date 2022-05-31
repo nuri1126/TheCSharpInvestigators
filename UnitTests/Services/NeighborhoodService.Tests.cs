@@ -18,7 +18,7 @@ namespace UnitTests.Services
 
         // Global valid name property for use in tests. 
         private static readonly string Name = "Bogusland";
-        
+
         // Global valid address property for use in tests
         private static readonly string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
@@ -60,7 +60,7 @@ namespace UnitTests.Services
             // Create a FormFileCollection.
             var imageFiles = new FormFileCollection();
 
-            foreach(KeyValuePair<string, string> testImageFile in testImageFiles)
+            foreach (KeyValuePair<string, string> testImageFile in testImageFiles)
             {
                 // Setup mock file using a memory stream.
                 var imageFileNames = testImageFile.Key;
@@ -75,7 +75,7 @@ namespace UnitTests.Services
                 IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", imageFileNames);
                 imageFiles.Add(file);
             }
-           
+
             return imageFiles;
         }
 
@@ -148,6 +148,26 @@ namespace UnitTests.Services
         }
 
         #endregion GetNeighborhoodData
+
+        #region CreateID
+        /// <summary>
+        /// Tests when CreateID function is called, there is no change in the database since
+        /// this function only creates a TEMPORARY neighborhood object (to show on Create browser).
+        /// </summary>
+        [Test]
+        public void CreateID()
+        {
+            // Arrange
+            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count(); 
+
+            // Act
+            _neighborhoodService.CreateID();
+
+            // Assert
+            Assert.AreEqual(oldNeighborhoodCount, _neighborhoodService.GetNeighborhoods().Count());
+        }
+
+        #endregion
 
         #region Ratings
         /// <summary>
@@ -609,7 +629,7 @@ namespace UnitTests.Services
 
             var imagePath = GetImagePath(testImageFile);
 
-            var expectedImagePaths = 
+            var expectedImagePaths =
                 "image/Neighborhood/testImage_1.jpg," +
                 "image/Neighborhood/testImage_2.jpg," +
                 "image/Neighborhood/testImage_3.jpg";
@@ -642,7 +662,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
-            _neighborhoodService.AddData(Name, Address,"", ShortDesc, null);
+            _neighborhoodService.AddData(Name, Address, "", ShortDesc, null);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -777,6 +797,29 @@ namespace UnitTests.Services
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
-        #endregion
+
+        /// <summary>
+        /// Test UpdateData function: when the first parameter "data" does not find a matching
+        /// neighborhood in the database to update, it will return null.
+        /// </summary>
+        [Test]
+        public void UpdateData_Invalid_Neighborhood_Return_Null()
+        {
+            // Arrange
+            var invalidNeighborhood = new NeighborhoodModel
+            {
+                id = 666,
+                name = "Invalid Name",
+                shortDesc = "Invalid Desc"
+            };
+
+            // Act
+            var result = _neighborhoodService.UpdateData(invalidNeighborhood, null);
+
+            // Assert
+            Assert.AreEqual(null, result);
+        }
+
+        #endregion UpdateData
     }
 }
