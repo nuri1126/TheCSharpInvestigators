@@ -19,19 +19,19 @@ namespace UnitTests.Pages.Neighborhood
         #region TestSetup
 
         // Global valid name property for use in tests. 
-        private static readonly string Name = "Bogusland";
+        private const string Name = "Bogusland";
 
         // Global valid image property for use in tests. 
-        private static readonly string Image = "https://via.placeholder.com/150";
-        
+        private const string Image = "https://via.placeholder.com/150";
+
         // Global valid address property for use in tests
-        private static readonly string Address = "401 NE Northgate Way, Seattle, WA 98125";
+        private const string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
         // Global valid shortDesc property for use in tests.
-        private static readonly string ShortDesc = "Test neighborhood description";
+        private const string ShortDesc = "Test neighborhood description";
 
         // Global imgFiles property for use in tests. 
-        private static readonly IFormFileCollection ImgFilesNull = null;
+        private const IFormFileCollection ImgFilesNull = null;
 
         // Global NeighborhoodService to use for all test cases. 
         private NeighborhoodService _neighborhoodService;
@@ -55,9 +55,11 @@ namespace UnitTests.Pages.Neighborhood
                 PageContext = TestHelper.InitiatePageContext()
             };
         }
+
         #endregion TestSetup
 
         #region TestSetup Helper 
+
         /// <summary>
         /// This method simulates the abstraction of user input data from the Update Razor Page 
         /// and use those data to update the neighborhood object on the Update Model page.
@@ -77,7 +79,7 @@ namespace UnitTests.Pages.Neighborhood
         private void UpdateNeighborhoodWithTestFileImage()
         {
             // Set up mock test-image files.
-            var testImageFiles = new Dictionary<string, string>()  
+            var testImageFiles = new Dictionary<string, string>()
             {
                 { "testImage.jpg", "test image content" },
             };
@@ -120,9 +122,11 @@ namespace UnitTests.Pages.Neighborhood
 
             return imageFiles;
         }
+
         #endregion TestSetup Helper 
 
         #region OnGet
+
         /// <summary>
         /// Test that when OnGet is called, a valid Model State should return true 
         /// and all neighborhoods in the database are returned.
@@ -215,14 +219,14 @@ namespace UnitTests.Pages.Neighborhood
             // Retrieve test neighborhood.
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // UPDATE TEST NEIGHBORHOOD with new name, address, image, and short description.
+            // Update testNeighborhood with new name, address, image, and short description.
             UpdateNeighborhoodWithTestData(_pageModel.neighborhood);
 
-            // UPDATE TEST NEIGHBORHOOD by uploading a test image.
+            // Update testNeighborhood by uploading a test image.
             UpdateNeighborhoodWithTestFileImage();
 
-             // Act
-             var result = _pageModel.OnPost() as RedirectToPageResult;
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
 
             // Assert test neighborhood was updated with correct data.
             Assert.AreEqual("New_Bogusland", _neighborhoodService.GetNeighborhoods().Last().name);
@@ -231,7 +235,7 @@ namespace UnitTests.Pages.Neighborhood
             Assert.AreEqual("New_Test neighborhood description", _neighborhoodService.GetNeighborhoods().Last().shortDesc);
             Assert.AreEqual("image/Neighborhood/testImage.jpg", _neighborhoodService.GetNeighborhoods().Last().imagePath);
 
-         
+
             // TearDown
             TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
         }
@@ -251,10 +255,10 @@ namespace UnitTests.Pages.Neighborhood
             // Retrieve test neighborhood.
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // UPDATE TEST NEIGHBORHOOD with new name, address, image, and short description.
+            // Update test neighborhood with new name, address, image, and short description.
             UpdateNeighborhoodWithTestData(_pageModel.neighborhood);
 
-            // UPDATE TEST NEIGHBORHOOD by uploading a test image.
+            // Update test neighborhood by uploading a test image.
             UpdateNeighborhoodWithTestFileImage();
 
             // Act
