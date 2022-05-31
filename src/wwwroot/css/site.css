@@ -70,6 +70,7 @@ a.navbar-brand {
     font-size: 240%;
     text-align: center;
     word-break: normal;
+    vertical-align: middle;
 }
 
 .navbar-menu {
@@ -104,6 +105,7 @@ a {
     height: 5em;
     width: 5em;
     margin-left: 2em;
+    margin-right: 1em;
 }
 
 /* Sticky footer styles
