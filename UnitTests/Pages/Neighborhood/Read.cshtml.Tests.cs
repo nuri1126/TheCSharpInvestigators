@@ -98,6 +98,7 @@ namespace UnitTests.Pages.Neighborhood
                 name = Name,
                 shortDesc = ShortDesc
             };
+
             // Force an invalid error state.
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
 
@@ -107,7 +108,6 @@ namespace UnitTests.Pages.Neighborhood
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
             Assert.AreEqual(true, result.PageName.Contains("Index"));
-
         }
 
         /// <summary>
@@ -118,6 +118,7 @@ namespace UnitTests.Pages.Neighborhood
         public void OnGet_Valid_ModelState_Null_Neighborhood_Should_Redirect_To_Index()
         {
             // Arrange
+
             _pageModel.neighborhood = new NeighborhoodModel
             {
                 id = 666,
