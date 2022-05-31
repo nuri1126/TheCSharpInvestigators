@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "Update page";
 }
-    
+
 <!--CRUDI: Update page to show: Form for updating neighborhood-->
 <h1>Update</h1>
 
@@ -29,12 +29,13 @@
             <span asp-validation-for="neighborhood.name" class="text-danger"></span>
         </div>
 
-        <br />
+        <br/>
 
         <div class="form-group">
             <label asp-for="neighborhood.image" class="control-label">Link to Neighborhood Image</label>
-            <input asp-for="neighborhood.image" class="form-control" />
+            <input asp-for="neighborhood.image" class="form-control" id="image-input" />
             <span asp-validation-for="neighborhood.image" class="text-danger"></span>
+            <span class="text-danger visually-hidden" id="image-error-text">Please provide a valid image URL</span>
         </div>
 
         <br />
@@ -104,7 +105,8 @@
         <!--Allow user to upload photo(s)-->
          <div>
             <label asp-for="neighborhood.imagePath">Upload New Photo (May select multiple photos to upload)</label>
-            <input type="file" name="files" class="form-control" multiple>
+            <input type="file" name="files" class="form-control" id="image-upload" multiple>
+            <span class="text-danger visually-hidden" id="image-upload-error-text">Please upload a valid image</span>
         </div>
 
         <br />
@@ -120,3 +122,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossOrigin="anonymous"></script>
+<script src="~/js/imageUploadValidation.js"></script>
