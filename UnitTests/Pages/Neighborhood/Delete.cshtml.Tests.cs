@@ -65,10 +65,8 @@ namespace UnitTests.Pages.Neighborhood
         {
             // Arrange
 
-            // Add test neighborhood to database.
+            // Add test neighborhood to database and store test neighborhood.
             TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -142,10 +140,8 @@ namespace UnitTests.Pages.Neighborhood
         {
             // Arrange
 
-            // Add test neighborhood to database.
+            // Add test neighborhood to database and store test neighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -166,7 +162,7 @@ namespace UnitTests.Pages.Neighborhood
         /// redirect page to Index.
         /// </summary>
         [Test]
-        public void OnPost_Invalid_ModelState_Return_False()
+        public void OnPost_Invalid_ModelState_Should_Return_False()
         {
             // Arrange
 
