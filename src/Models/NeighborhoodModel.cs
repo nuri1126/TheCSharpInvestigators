@@ -22,12 +22,12 @@ namespace LetsGoSEA.WebSite.Models
         // Validating City name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a City name.")]
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid City name.")]
-        public string city { get; set; } = "Default";
+        public string city { get; set; } = "Seattle";
 
         // Validating State name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a State name.")]
         [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Please enter a valid State name.")]
-        public string state { get; set; } = "Default";
+        public string state { get; set; } = "WA";
 
         // Short description of the neighborhood
         [Required(ErrorMessage = "Please enter a short description.")]
