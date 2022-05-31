@@ -94,17 +94,17 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
 
             // Generate new ID for test neighborhood. 
-            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
-            var newId = oldNeighborhoodCount + 1;
+            var prevNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
+            var nextId = prevNeighborhoodCount + 1;
 
             // Link FormCollection object with HTTPContext.
-            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = GetMockFormCollection(newId);
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = GetMockFormCollection(nextId);
 
             // Act
-            var result = _pageModel.OnPost() as RedirectToPageResult;
+            _ = _pageModel.OnPost() as RedirectToPageResult;
 
             // Assert a new test neighborhood was created with correct data.
-            Assert.AreEqual(oldNeighborhoodCount + 1, _neighborhoodService.GetNeighborhoods().Count());
+            Assert.AreEqual(prevNeighborhoodCount + 1, _neighborhoodService.GetNeighborhoods().Count());
             Assert.AreEqual(Name, _neighborhoodService.GetNeighborhoods().Last().name);
             Assert.AreEqual(Image, _neighborhoodService.GetNeighborhoods().Last().image);
             Assert.AreEqual(Address, _neighborhoodService.GetNeighborhoods().Last().address);
@@ -112,7 +112,7 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Tests when OnPost is called, a valid Model State should return true and redirect to Index page.
+        /// Tests when OnPost is called, a valid ModelState should return true and redirect to Index page.
         /// </summary>
         [Test]
         public void OnPost_Valid_Model_State_Should_Return_True_And_Redirect_To_Index()
@@ -121,11 +121,11 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
 
             // Generate new ID for test neighborhood. 
-            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
-            var newId = oldNeighborhoodCount + 1;
+            var prevNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count();
+            var nextId = prevNeighborhoodCount + 1;
 
             // Link FormCollection object with HTTPContext.
-            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = GetMockFormCollection(newId);
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = GetMockFormCollection(nextId);
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
