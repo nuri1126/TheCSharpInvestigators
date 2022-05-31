@@ -31,11 +31,12 @@ namespace UnitTests.Pages
         #endregion TestSetup
 
         #region OnGet
+
         /// <summary>
-        /// Tests that when OnGet is called, all neighborhoods are returned. 
+        /// Tests that when OnGet is called, the Index PageModel is valid. 
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_True()
+        public void OnGet_Valid_ModelState_IsValid_Should_Return_True()
         {
             // Arrange
 
@@ -44,8 +45,23 @@ namespace UnitTests.Pages
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+        }
+
+        /// <summary>
+        /// Tests that when OnGet is called, neighborhoods are returned. 
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Should_Return_Neighborhoods()
+        {
+            // Arrange
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
             Assert.AreEqual(true, _pageModel.neighborhoods.ToList().Any());
         }
+
         #endregion OnGet
     }
 }
