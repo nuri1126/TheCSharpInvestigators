@@ -61,11 +61,11 @@ namespace UnitTests.Pages.Neighborhood
         #region TestSetup Helper 
 
         /// <summary>
-        /// This method simulates the abstraction of user input data from the Update Razor Page 
+        /// This method simulates the abstraction of user input data from the Update Page 
         /// and use those data to update the neighborhood object on the Update Model page.
         /// </summary>
         /// <param name="oldNeighborhood"></param>
-        private void UpdateNeighborhoodWithTestData(NeighborhoodModel oldNeighborhood)
+        private static void UpdateNeighborhoodWithTestData(NeighborhoodModel oldNeighborhood)
         {
             oldNeighborhood.name = "New_Bogusland";
             oldNeighborhood.address = "New_BogusAddress";
@@ -74,7 +74,7 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// This method updates the neighborhood object with new ImagePath by simulating upload image action.
+        /// Helper method updates the neighborhood object with new ImagePath by simulating upload image action.
         /// </summary>
         private void UpdateNeighborhoodWithTestFileImage()
         {
@@ -99,7 +99,7 @@ namespace UnitTests.Pages.Neighborhood
         /// property for use in Images region. 
         /// </summary>
         /// <param name="testImageFiles">A dictionary of test image files, K = image file name, V = image file content</param>
-        private FormFileCollection GetImagePath(Dictionary<string, string> testImageFiles)
+        private static FormFileCollection GetImagePath(Dictionary<string, string> testImageFiles)
         {
             // Create a FormFileCollection.
             var imageFiles = new FormFileCollection();
@@ -136,10 +136,8 @@ namespace UnitTests.Pages.Neighborhood
         {
             // Arrange
 
-            // Add test neighborhood to database.
+            // Add test neighborhood to database and store as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -167,7 +165,7 @@ namespace UnitTests.Pages.Neighborhood
                 shortDesc = "Invalid Desc"
             };
 
-            // Force an invalid error state
+            // Force an invalid error state.
             _pageModel.ModelState.AddModelError("InvalidState", "Invalid Neighborhood state");
 
             // Act
