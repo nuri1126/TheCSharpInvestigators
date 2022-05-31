@@ -14,28 +14,28 @@ namespace UnitTests.Services
     public class NeighborhoodServiceTests
     {
         // Global invalid id property for use in tests. 
-        private static readonly int InvalidId = -1;
+        private const int InvalidId = -1;
 
         // Global valid name property for use in tests. 
-        private static readonly string Name = "Bogusland";
+        private const string Name = "Bogusland";
 
         // Global valid address property for use in tests
-        private static readonly string Address = "401 NE Northgate Way, Seattle, WA 98125";
+        private const string Address = "401 NE Northgate Way, Seattle, WA 98125";
 
         // Global valid image property for use in tests. 
-        private static readonly string Image = "http://via.placeholder.com/150";
+        private const string Image = "http://via.placeholder.com/150";
 
         // Global valid shortDesc property for use in tests.
-        private static readonly string ShortDesc = "Test neighborhood description";
+        private const string ShortDesc = "Test neighborhood description";
 
         // Global imgFiles property for use in tests. 
-        private static readonly IFormFileCollection ImgFilesNull = null;
+        private const IFormFileCollection ImgFilesNull = null;
 
         // Global valid Rating for use in AddRatings region.
-        private static readonly int ValidRating = 5;
+        private const int ValidRating = 5;
 
         // Global valid comment input for use in Comments region.
-        private static readonly string ValidComment = "Bogus";
+        private const string ValidComment = "Bogus";
 
         // Global NeighborhoodService to use for all test cases. 
         private NeighborhoodService _neighborhoodService;
@@ -55,7 +55,7 @@ namespace UnitTests.Services
         /// property for use in Images region. 
         /// </summary>
         /// <param name="testImageFiles">A dictionary of test image files, K = image file name, V = image file content</param>
-        private FormFileCollection GetImagePath(Dictionary<string, string> testImageFiles)
+        private static FormFileCollection GetImagePath(Dictionary<string, string> testImageFiles)
         {
             // Create a FormFileCollection.
             var imageFiles = new FormFileCollection();
@@ -79,48 +79,67 @@ namespace UnitTests.Services
             return imageFiles;
         }
 
-        #region GetNeighborhoodData
+        #region GetNeighborhoods
 
         /// <summary>
-        /// Tests GetNeighborhoods returns not null when called.
+        /// Tests GetNeighborhoods returns not null when database is seeded.
         /// </summary>
         [Test]
-        public void GetNeighborhoods_Not_Null_Returns_True()
+        public void GetNeighborhoods_Valid_Should_Return_Not_Null()
         {
             // Arrange
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
             var result = _neighborhoodService.GetNeighborhoods();
 
             //Assert
             Assert.NotNull(result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
         /// Tests GetNeighborhoods returns an IEnumerable. 
         /// </summary>
         [Test]
-        public void GetNeighborhoods_Returns_IEnumerable_Returns_True()
+        public void GetNeighborhoods_Valid_Should_Return_IEnumerable()
         {
             // Arrange
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
             var result = _neighborhoodService.GetNeighborhoods();
 
             //Assert
             Assert.IsInstanceOf(typeof(IEnumerable<NeighborhoodModel>), result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
+
+        #endregion GetNeighborhoods
+
+        #region GetNeighborhoodsById
 
         /// <summary>
         /// Tests GetNeighborhoodById by retrieving the first neighborhood and confirming not null. 
         /// </summary>
         [Test]
-        public void GetNeighborhoodById_Valid_Id_Should_Return_True()
+        public void GetNeighborhoodById_Valid_Should_Return_Not_Null()
         {
             // Arrange
 
-            // Add the test Neighborhood to the database. 
-            var testNeighborhood = TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             //Act
             var result = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
@@ -129,14 +148,14 @@ namespace UnitTests.Services
             Assert.NotNull(result);
 
             // TearDown
-            TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
         /// <summary>
         /// Tests GetNeighborhoodById catches out of bounds input and returns null. 
         /// </summary>
         [Test]
-        public void GetNeighborhoodById_Invalid_Id_Should_Return_True()
+        public void GetNeighborhoodById_Invalid_Should_Return_Null()
         {
             // Arrange
 
@@ -147,34 +166,72 @@ namespace UnitTests.Services
             Assert.Null(invalidResult);
         }
 
-        #endregion GetNeighborhoodData
+        #endregion GetNeighborhoodsById
 
         #region CreateID
+
         /// <summary>
-        /// Tests when CreateID function is called, there is no change in the database since
-        /// this function only creates a TEMPORARY neighborhood object (to show on Create browser).
-        /// </summary>
+        /// Tests that CreateID creates a temporary neighborhood object only and 
+        /// there is no change in the database.
+        /// /// </summary>
         [Test]
-        public void CreateID()
+        public void CreateID_Valid_Should_Return_Same_Database_Object_Count()
         {
             // Arrange
-            var oldNeighborhoodCount = _neighborhoodService.GetNeighborhoods().Count(); 
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Store number of objects in database prior to CreateId. 
+            var prevDatabaseObjectCount = _neighborhoodService.GetNeighborhoods().Count();
 
             // Act
             _neighborhoodService.CreateID();
+            var currDatabaseObjectCount = _neighborhoodService.GetNeighborhoods().Count();
 
             // Assert
-            Assert.AreEqual(oldNeighborhoodCount, _neighborhoodService.GetNeighborhoods().Count());
+            Assert.AreEqual(prevDatabaseObjectCount, currDatabaseObjectCount);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
-        #endregion
-
-        #region Ratings
         /// <summary>
-        /// Tests AddRating, null neighborhood should return false.
+        /// Tests that CreateID returns an id that is 1 larger than the previous id. 
+        /// /// </summary>
+        [Test]
+        public void CreateID_Valid_Should_Return_ID_Increase_By_One()
+        {
+            // Arrange
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Store number of objects in database prior to CreateId. 
+            var prevID = _neighborhoodService.GetNeighborhoods().Last().id;
+
+            // Act
+            NeighborhoodModel data = _neighborhoodService.CreateID();
+            var currID = data.id;
+
+            // Assert
+            Assert.AreEqual(prevID + 1, currID);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+        }
+
+        #endregion CreateID
+
+        #region AddRating
+
+        /// <summary>
+        /// Tests AddRating returns null when null neighborhood provided.
         /// </summary>
         [Test]
-        public void AddRating_Null_Neighborhood_Should_Return_False()
+        public void AddRating_Invalid_Null_Neighborhood_Should_Return_False()
         {
             // Arrange
 
@@ -186,17 +243,15 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddRating on Neighborhood with no existing ratings returns true. 
+        /// Test AddRating on neighborhood with no existing ratings returns true. 
         /// </summary>
         [Test]
         public void AddRating_Valid_Neighborhood_No_Ratings_Returns_True()
         {
             // Arrange
 
-            // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -217,10 +272,8 @@ namespace UnitTests.Services
         {
             // Arrange
 
-            // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add rating. 
@@ -245,16 +298,13 @@ namespace UnitTests.Services
         {
             // Arrange
 
-            // Initialize valid test NeighborhoodModel object. 
-            // Add test neighborhood to database.
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
             _neighborhoodService.AddRating(testNeighborhood, ValidRating);
-            var result = testNeighborhood.ratings.Count();
+            var result = testNeighborhood.ratings.Length;
 
             // Assert
             Assert.AreEqual(1, result);
@@ -271,10 +321,9 @@ namespace UnitTests.Services
         public void AddRating_Valid_Neighborhood_Existing_Ratings_Count_Returns_True()
         {
             // Arrange
-            // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
-            // Retrieve test neighborhood.
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add rating and store existing rating count. 
@@ -283,7 +332,7 @@ namespace UnitTests.Services
 
             // Act
             _neighborhoodService.AddRating(testNeighborhood, ValidRating);
-            var result = testNeighborhood.ratings.Count();
+            var result = testNeighborhood.ratings.Length;
 
             // Assert
             Assert.AreEqual(existingRatingCount + 1, result);
@@ -304,17 +353,15 @@ namespace UnitTests.Services
             // Invalid ratings outside of 0 - 5. 
             int[] outOfBoundsRatings = new int[] { -2, -1, 6, 7 };
 
-            // Add test neighborhood to database.
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
-            var testNeighborhood = TestHelper.NeighborhoodServiceObj.GetNeighborhoods().Last();
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
-            var result1 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[0]);
-            var result2 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[1]);
-            var result3 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[2]);
-            var result4 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, outOfBoundsRatings[3]);
+            var result1 = _neighborhoodService.AddRating(testNeighborhood, outOfBoundsRatings[0]);
+            var result2 = _neighborhoodService.AddRating(testNeighborhood, outOfBoundsRatings[1]);
+            var result3 = _neighborhoodService.AddRating(testNeighborhood, outOfBoundsRatings[2]);
+            var result4 = _neighborhoodService.AddRating(testNeighborhood, outOfBoundsRatings[3]);
 
             // Assert
             Assert.AreEqual(false, result1);
@@ -337,19 +384,17 @@ namespace UnitTests.Services
             // Valid ratings from 0-5. 
             var validRatings = new int[] { 0, 1, 2, 3, 4, 5 };
 
-            // Add test neighborhood to database. 
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
-            var result1 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[0]);
-            var result2 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[1]);
-            var result3 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[2]);
-            var result4 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[3]);
-            var result5 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[4]);
-            var result6 = TestHelper.NeighborhoodServiceObj.AddRating(testNeighborhood, validRatings[5]);
+            var result1 = _neighborhoodService.AddRating(testNeighborhood, validRatings[0]);
+            var result2 = _neighborhoodService.AddRating(testNeighborhood, validRatings[1]);
+            var result3 = _neighborhoodService.AddRating(testNeighborhood, validRatings[2]);
+            var result4 = _neighborhoodService.AddRating(testNeighborhood, validRatings[3]);
+            var result5 = _neighborhoodService.AddRating(testNeighborhood, validRatings[4]);
+            var result6 = _neighborhoodService.AddRating(testNeighborhood, validRatings[5]);
 
             // Assert
             Assert.AreEqual(true, result1);
@@ -363,22 +408,20 @@ namespace UnitTests.Services
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
-        #endregion Ratings
+        #endregion AddRating
 
-        #region Comments
+        #region AddComment
 
         /// <summary>
-        /// Tests AddComment where a valid neighborhood and valid comment return true and update data successfully.
+        /// Tests AddComment where a valid neighborhood and string should return true.
         /// </summary>
         [Test]
-        public void AddComment_Valid_Neighborhood_Valid_Comment_Should_Return_True()
+        public void AddComment_Valid_Comment_Should_Return_True()
         {
             // Arrange
 
-            // Add test neighborhood to database. 
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -392,23 +435,21 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test AddComment on Neighborhood with no existing ratings comments a count of the comments
+        /// Test AddComment on neighborhood with no stored comments a count of the comments
         /// property equal to 1. 
         /// </summary>
         [Test]
-        public void AddComment_Valid_Neighborhood_No_Comments_Count_Equals_1_Should_Return_True()
+        public void AddComment_Valid_No_Stored_Comments_Count_Should_Return_1()
         {
             // Arrange
 
-            // Add test neighborhood to database. 
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
             _neighborhoodService.AddComment(testNeighborhood, ValidComment);
-            var result = testNeighborhood.comments.Count();
+            var result = testNeighborhood.comments.Count;
 
             // Assert
             Assert.AreEqual(1, result);
@@ -417,31 +458,29 @@ namespace UnitTests.Services
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
-
         /// <summary>
         /// Test AddComments on Neighborhood with existing comments returns a count of the previous
         /// comments property + 1.         
         /// /// </summary>
         [Test]
-        public void AddComment_Valid_Neighborhood_Existing_Ratings_Count_Should_Return_True()
+        public void AddComment_Valid_Existing_Ratings_Count_Should_Return_True()
         {
             // Arrange
-            // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
-            // Retrieve test neighborhood.
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add comment and store existing comment count. 
             _neighborhoodService.AddComment(testNeighborhood, ValidComment);
-            var existingCommentCount = testNeighborhood.comments.Count();
+            var prevCommentCount = testNeighborhood.comments.Count;
 
             // Act
             _neighborhoodService.AddComment(testNeighborhood, ValidComment);
-            var result = testNeighborhood.comments.Count();
+            var result = testNeighborhood.comments.Count;
 
             // Assert
-            Assert.AreEqual(existingCommentCount + 1, result);
+            Assert.AreEqual(prevCommentCount + 1, result);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
@@ -451,13 +490,12 @@ namespace UnitTests.Services
         /// Tests AddComment returns false given a null comment.
         /// </summary>
         [Test]
-        public void AddComment_Null_Comment_Should_Return_False()
+        public void AddComment_Invalid_Null_Comment_Should_Return_False()
         {
             // Arrange
-            // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
-            // Retrieve test neighborhood.
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -477,10 +515,9 @@ namespace UnitTests.Services
         public void AddComment_Empty_Comment_Should_Return_False()
         {
             // Arrange
-            // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
 
-            // Retrieve test neighborhood.
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -497,7 +534,7 @@ namespace UnitTests.Services
         /// Tests AddComment returns false given a null neighborhood.  
         /// </summary>
         [Test]
-        public void AddComment_Null_Neighborhood_Should_Return_False()
+        public void AddComment_Invalid_Null_Neighborhood_Should_Return_False()
         {
             // Arrange
 
@@ -508,11 +545,37 @@ namespace UnitTests.Services
             Assert.AreEqual(false, result);
         }
 
+        #endregion AddComment
+
+        #region DeleteComment
+
         /// <summary>
-        /// Test DeleteComment returns false given an invalid commentId. 
+        /// Test DeleteComment returns false given valid neighborhood and null string.
         /// </summary>
         [Test]
-        public void DeleteComment_Null_Neighborhood_Should_Return_False()
+        public void DeleteComment_Invalid_Null_Neighborhood_Should_Return_False()
+        {
+            // Arrange
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+            var result = _neighborhoodService.DeleteComment(testNeighborhood, null);
+
+            // Assert
+            Assert.AreEqual(false, result);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Test DeleteComment returns false given invalid neighborhood and valid string.
+        /// </summary>
+        [Test]
+        public void DeleteComment_Invalid_Null_String__Should_Return_False()
         {
             // Arrange
 
@@ -527,20 +590,16 @@ namespace UnitTests.Services
         /// Tests DeleteComment returns a true given valid input parameters. 
         /// </summary>
         [Test]
-        public void DeleteComment_ValidNeighborhood_ValidCommentId_Should_Return_True()
+        public void DeleteComment_Valid_Should_Return_True()
         {
             // Arrange
 
-            // Add test neighborhood to database.
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // Add valid comment. 
+            // Add valid comment and store the commentId of the newly stored comment. 
             _neighborhoodService.AddComment(testNeighborhood, ValidComment);
-
-            // Store the commentId of the newly stored comment. 
             var commentId = testNeighborhood.comments.Last().CommentId;
 
             // Act
@@ -551,30 +610,28 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Tests that upon DeleteComment, count of comments stored in the neighborhood
+        /// Tests after DeleteComment, count of comments stored in the neighborhood
         /// has decreased by 1. 
         /// </summary>
         [Test]
-        public void DeleteComment_Comments_Count_Decrease_By_1_Should_Return_True()
+        public void DeleteComment_Valid_Count_Decrease_By_1_Should_Return_True()
         {
             // Arrange
 
-            // Add test neighborhood to database.
+            // Add neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add valid comment, store count of comments, store the comment's id. 
             _neighborhoodService.AddComment(testNeighborhood, ValidComment);
-            var commentCount = testNeighborhood.comments.Count();
+            var commentCount = testNeighborhood.comments.Count;
             var commentId = testNeighborhood.comments.Last().CommentId;
 
             // Act
             _neighborhoodService.DeleteComment(testNeighborhood, commentId);
 
             // Assert
-            Assert.AreEqual(commentCount - 1, testNeighborhood.comments.Count());
+            Assert.AreEqual(commentCount - 1, testNeighborhood.comments.Count);
         }
 
         /// <summary>
@@ -585,21 +642,18 @@ namespace UnitTests.Services
         {
             // Arrange
 
-            // Add test neighborhood to database.
+            // Add test neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            var validNeighborhood = _neighborhoodService.GetNeighborhoodById(1);
             string invalidId0 = "-1";
             string invalidId1 = "0";
             string invalidId2 = "bogus";
 
             // Act
-            var result1 = _neighborhoodService.DeleteComment(validNeighborhood, invalidId0);
-            var result2 = _neighborhoodService.DeleteComment(validNeighborhood, invalidId1);
-            var result3 = _neighborhoodService.DeleteComment(validNeighborhood, invalidId2);
+            var result1 = _neighborhoodService.DeleteComment(testNeighborhood, invalidId0);
+            var result2 = _neighborhoodService.DeleteComment(testNeighborhood, invalidId1);
+            var result3 = _neighborhoodService.DeleteComment(testNeighborhood, invalidId2);
 
             // Assert
             Assert.AreEqual(false, result1);
@@ -610,9 +664,10 @@ namespace UnitTests.Services
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
-        #endregion Comments
+        #endregion DeleteComment
 
-        #region Images
+        #region AddData_UploadImages
+
         /// <summary>
         /// Use AddData() function to test that multiple image files can be successfully uploaded. 
         /// </summary>
@@ -620,6 +675,7 @@ namespace UnitTests.Services
         public void AddData_UploadImage_Valid_Should_Return_True()
         {
             // Arrange
+
             var testImageFile = new Dictionary<string, string>()
             {
                 { "testImage_1.jpg", "test image 1 content" },
@@ -636,10 +692,8 @@ namespace UnitTests.Services
 
             // Act
 
-            // Add test neighborhood to database.
+            // Add test neighborhood to database and store it as testNeighborhood.
             _neighborhoodService.AddData(Name, Address, "", ShortDesc, imagePath);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Assert 
@@ -652,19 +706,21 @@ namespace UnitTests.Services
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
+        #endregion AddData_UploadImages
+
+        #region GetAllImages
+
         /// <summary>
         /// Test GetAllImages returns "no_image.jpg" when called on a neighborhood with null Image and 
         /// ImagePath properties. 
         /// </summary>
         [Test]
-        public void GetAllImages_No_URLImage_No_FileImage_Should_Return_Placeholder_Image()
+        public void GetAllImages_Valid_No_URLImage_No_FileImage_Should_Return_Placeholder_Image()
         {
             // Arrange
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
             _neighborhoodService.AddData(Name, Address, "", ShortDesc, null);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -688,15 +744,13 @@ namespace UnitTests.Services
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
             _neighborhoodService.AddData(Name, Address, "", ShortDesc, null);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
             var result = _neighborhoodService.GetAllImages(testNeighborhood);
 
             // Assert
-            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual(1, result.Count);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
@@ -707,12 +761,10 @@ namespace UnitTests.Services
         /// and only URL images.
         /// </summary>
         [Test]
-        public void GetAllImages_No_FileImage_Count_Should_Return_NumberOf_URLImages()
+        public void GetAllImages_Valid_No_FileImage_Count_Should_Return_NumberOf_URLImages()
         {
             // Add test neighborhood to database with only Image property (no ImagePath property). 
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc, null);
-
-            // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             var numOfURLImage = testNeighborhood.image.Split(",").Length;
@@ -721,7 +773,7 @@ namespace UnitTests.Services
             var result = _neighborhoodService.GetAllImages(testNeighborhood);
 
             // Assert
-            Assert.AreEqual(numOfURLImage, result.Count());
+            Assert.AreEqual(numOfURLImage, result.Count);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
@@ -732,7 +784,7 @@ namespace UnitTests.Services
         /// ImagePath properties.
         /// </summary>
         [Test]
-        public void GetAllImages_Has_URLImage_Has_FileImage_Should_Return_Correct_TotalCount()
+        public void GetAllImages_Valid_Has_URLImage_Has_FileImage_Should_Return_Correct_TotalCount()
         {
             // Arrange
             var testImageFiles = new Dictionary<string, string>()
@@ -757,13 +809,13 @@ namespace UnitTests.Services
             // Assert 
             Assert.True(countOfURLImage > 0);
             Assert.True(countOfFileImage > 0);
-            Assert.AreEqual(countOfURLImage + countOfFileImage, result.Count());
+            Assert.AreEqual(countOfURLImage + countOfFileImage, result.Count);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
         }
 
-        #endregion Images
+        #endregion GetAllImages
 
         #region UpdateData
         /// <summary>
@@ -771,15 +823,14 @@ namespace UnitTests.Services
         /// the image property will be re-assigned to "Default" to match Model initialization.
         /// </summary>
         [Test]
-        public void UpdateData_Null_Image_Property_Reassigned_To_Default()
+        public void UpdateData_Valid_Null_Image_Property_Reassigned_To_Default()
         {
             // Arrange
 
             // Add test neighborhood to database with GLOBALLY DEFINED IMAGE LINK.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
-
-            // Retrieve test neighborhood as the NEIGHBORHOOD TO BE UPDATED.
+            _neighborhoodService.AddData(Name, Address, null, ShortDesc, ImgFilesNull);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
 
             // Create a mock neighborood to be passed as the first parameter in UpdateData() function holding NULL IMAGE.
             var data = new NeighborhoodModel()
@@ -799,7 +850,7 @@ namespace UnitTests.Services
         }
 
         /// <summary>
-        /// Test UpdateData function: when the first parameter "data" does not find a matching
+        /// Test UpdateData function when the first parameter "data" does not find a matching
         /// neighborhood in the database to update, it will return null.
         /// </summary>
         [Test]
