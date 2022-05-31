@@ -56,10 +56,11 @@ namespace UnitTests.Pages.Neighborhood
 
         #region OnGet
         /// <summary>
-        /// Tests that when OnGet is called on a valid neighborhood, that neighborhood is returned.
+        /// Tests that when OnGet is called on a valid neighborhood, the ModelState is valid and 
+        /// the selected neighborhood is returned.
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_Neighborhood()
+        public void OnGet_Valid_Should_Return_True_And_Return_Correct_Neighborhood()
         {
             // Arrange
 
@@ -80,40 +81,12 @@ namespace UnitTests.Pages.Neighborhood
             TestHelper.NeighborhoodServiceObj.DeleteData(testNeighborhood.id);
         }
 
-        #endregion OnGet
-
-        #region OnPost
         /// <summary>
-        /// Tests that when OnPost is called on a valid neighborhood, the record is deleted from the database.
+        /// Tests that when OnGet is called, an invalid ModelState will return false and 
+        /// redirect page to Index.
         /// </summary>
         [Test]
-        public void OnPost_Delete_Valid_Neighborhood_Should_Return_Neighborhoods()
-        {
-            // Create neighborhood object to delete. 
-            _pageModel.neighborhood = _neighborhoodService.CreateID();
-            _pageModel.neighborhood.name = Name;
-            _pageModel.neighborhood.id = 999;
-            _neighborhoodService.UpdateData(_pageModel.neighborhood, null);
-
-            // Act
-            var result = _pageModel.OnPost() as RedirectToPageResult;
-
-            // Assert
-            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Debug.Assert(result != null, nameof(result) + " != null");
-            Assert.AreEqual(true, result.PageName.Contains("Index"));
-
-            // Confirm the item is deleted.
-            Assert.AreEqual(null, TestHelper.NeighborhoodServiceObj.GetNeighborhoodById(_pageModel.neighborhood.id));
-
-        }
-
-        /// <summary>
-        /// Test that when OnPost is called on an invalid neighborhood, the ModelState 
-        /// becomes invalid. 
-        /// </summary>
-        [Test]
-        public void OnPost_Invalid_Model_NotValid_Should_Return_False()
+        public void OnGet_Invalid_ModelState_Should_Return_False_And_Redirect_To_Index()
         {
             // Arrange
             _pageModel.neighborhood = new NeighborhoodModel
@@ -122,15 +95,89 @@ namespace UnitTests.Pages.Neighborhood
                 name = Name,
                 shortDesc = ShortDesc
             };
+            // Force an invalid error state.
+            _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
+
+            // Act
+            var result = _pageModel.OnGet(_pageModel.neighborhood.id) as RedirectToPageResult;
+
+            // Assert
+            Assert.AreEqual(false, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+        }
+
+        /// <summary>
+        /// Tests that when OnGet is called, a valid ModelState with a null neighborhoood 
+        /// will cause page to redirect to Index.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_ModelState_Null_Neighborhood_Should_Redirect_To_Index()
+        {
+            // Arrange
+            _pageModel.neighborhood = new NeighborhoodModel
+            {
+                id = 666,
+                name = "Invalid Name",
+                shortDesc = "Invalid Desc"
+            };
+
+            // Act
+            var result = _pageModel.OnGet(_pageModel.neighborhood.id) as RedirectToPageResult;
+
+            // Assert
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+        }
+
+        #endregion OnGet
+
+        #region OnPost
+        /// <summary>
+        /// Tests that when OnPost is called on a valid neighborhood, the ModeState is valid, 
+        /// the record is deleted from the database and the page is redirected to index.
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_Neighborhood_Should_Return_Neighborhoods()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+
+            // Retrieve test neighborhood.
+            _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
+
+            // Assert model state is valid and and page is redirected 
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Debug.Assert(result != null, nameof(result) + " != null");
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
+
+            // Confirm the item is deleted.
+            Assert.AreEqual(null, _neighborhoodService.GetNeighborhoodById(_pageModel.neighborhood.id));
+
+        }
+
+        /// <summary>
+        /// Test that when OnPost is called, an invalid ModelState should return false 
+        /// redirect page to Index.
+        /// </summary>
+        [Test]
+        public void OnPost_Invalid_ModelState_Return_False()
+        {
+            // Arrange
 
             // Force an invalid error state.
             _pageModel.ModelState.AddModelError("InvalidState", "Neighborhood is invalid");
 
             // Act
-            var result = _pageModel.OnPost() as ActionResult;
+            var result = _pageModel.OnPost() as RedirectToPageResult;
 
             // Assert
             Assert.AreEqual(false, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
         #endregion OnPostAsync
