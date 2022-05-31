@@ -69,7 +69,7 @@
         <!--Allow user to upload photo(s)-->
         <div>
             <label asp-for="neighborhood.imagePath">Upload Photo (May select multiple photos to upload)</label>
-            <input type="file" name="files" class="form-control" id="image-upload"  accept="image/*" multiple>
+            <input type="file" name="files" class="form-control" id="image-upload"  accept="image/jpeg, image/png" multiple>
             <span class="text-danger visually-hidden" id="image-upload-error-text">Please upload a valid image</span>
         </div>
 
