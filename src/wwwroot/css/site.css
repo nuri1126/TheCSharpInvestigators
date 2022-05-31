@@ -108,6 +108,12 @@ a {
     margin-right: 1em;
 }
 
+.navbar-big-container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
