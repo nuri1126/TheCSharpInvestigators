@@ -26,7 +26,7 @@
         <br />
 
         <div class="form-group">
-            <label asp-for="neighborhood.image" class="control-label">Link to Neighborhood Image</label>
+            <label asp-for="neighborhood.image" class="control-label">Link to Neighborhood Image (Add additional links separated by a comma)</label>
             <input asp-for="neighborhood.image" class="form-control" id="image-input"/>
             <span asp-validation-for="neighborhood.image" class="text-danger"></span>
             <span class="text-danger visually-hidden" id="image-error-text">Please provide a valid image URL</span>
@@ -66,7 +66,7 @@
 
         <!--Allow user to upload photo(s)-->
         <div>
-            <label asp-for="neighborhood.imagePath">Upload Photo (May select multiple photos to upload)</label>
+            <label asp-for="neighborhood.imagePath">Upload Photo (May select multiple photos to upload, Only accept JPG and PNG images)</label>
             <input type="file" name="files" class="form-control" id="image-upload"  accept="image/jpeg, image/png" multiple>
             <span class="text-danger visually-hidden" id="image-upload-error-text">Please upload a valid image</span>
         </div>
