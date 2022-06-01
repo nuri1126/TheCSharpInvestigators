@@ -11,8 +11,13 @@ $(function () {
     let validImageUrl = imageInput.val().length >= 0;
     let validImageUpload = imageUpload[0].files.length > 0;
 
-    // Disable Save button
-    saveBtn.attr("disabled", "disabled");
+    // Set initial Save button attribute
+    if(validateImageInputs()) {
+        saveBtn.removeAttr("disabled");
+    } else {
+        // Disable Save button
+        saveBtn.attr("disabled", "disabled");    
+    }
 
     // Validates if the user has provided us with either a valid Image URL or File Upload
     function validateImageInputs() {
