@@ -6,18 +6,30 @@ $(function () {
     let imageInput = $("#image-input"); // Image URL Input Text Box
     let urlErrorText = $("#image-error-text"); // Image URL error text
     let uploadErrorText = $("#image-upload-error-text"); // Image upload error text
-    let imageUpload = $("image-upload");
+    let imageUpload = $("#image-upload"); // File upload element
 
     let validImageUrl = imageInput.val().length >= 0;
-    let validImageUpload = $("#image-upload")[0].files.length > 0;
+    let validImageUpload = imageUpload[0].files.length > 0;
 
     // Disable Save button
     saveBtn.attr("disabled", "disabled");
 
     // Validates if the user has provided us with either a valid Image URL or File Upload
-    function validateImageInput() {
-        if ((validImageUrl && imageInput.val() !== "") || validImageUpload) {
+    function validateImageInputs() {
+        /*
+        Three conditions need to be tests for verifying either Image URL(s) and/or Image upload:
+        1. A valid image url is provided but the no images are to be uploaded
+        2. No image url provided but images are to be uploaded
+        3. Valid image urls and images are to be uploaded
+         */
+        
+        if(  (validImageUrl && imageInput.val().length > 0 && imageUpload[0].files.length === 0 ) || 
+             (validImageUrl && imageInput.val().length === 0 && validImageUpload) ||
+             (validImageUrl && imageInput.val().length > 0 && validImageUpload)
+        ) {
+        // if ((validImageUrl && imageInput.val() !== "") || validImageUpload) {
             // Remove error messages
+            console.log("Valid form");
             imageInput.removeClass("input-error");
             urlErrorText.removeClass("visually-hidden").addClass("visually-hidden");
             uploadErrorText.removeClass("visually-hidden").addClass("visually-hidden");
@@ -25,19 +37,18 @@ $(function () {
             // Enable Save button
             saveBtn.removeAttr("disabled");
             saveBtn.ariaInvalid = false;
-
+            return true;
         } else {
+            // Disable Save button
             saveBtn.attr("disabled", "disabled");
             saveBtn.ariaInvalid = true;
+            return false;
         }
     }
-
-    // Image Url validation
-    imageInput.blur(function () {
-        console.log("Image Url input detected");
-        let imageUrls = $(this).val().split(",");
-
-
+    
+    // Validate the Image URL(s) provided by the user
+    function validateImageUrl() {
+        let imageUrls = imageInput.val().split(",");
         // Check each url
         imageUrls.forEach((url) => {
             new Promise((resolve) => {
@@ -58,9 +69,8 @@ $(function () {
             });
         });
 
-        if ($(this).val() === "") {
+        if (imageInput.val() === "") {
             validImageUrl = true;
-            console.log("Empty url value: ", validImageUrl);
         }
 
         if (validImageUrl) {
@@ -72,17 +82,11 @@ $(function () {
             imageInput.removeClass("input-error").addClass("input-error");
             urlErrorText.removeClass("visually-hidden");
         }
-
-        validateImageInput();
-    });
-
-    // Image upload validation
-    $(document).on("input", "input:file", function (e) {
-
-        let uploadFileCount = e.target.files.length;
-        validImageUpload = uploadFileCount > 0;
-        console.log("Valid image upload? ", validImageUpload);
-        console.log("Checking Image Url: ", validImageUrl);
+        
+    }
+    
+    function validateImageUpload() {
+        validImageUpload = imageUpload[0].files.length > 0;
         // Check if a url is provided
         if (validImageUpload) {
             imageUpload.removeClass("input-error");
@@ -93,7 +97,27 @@ $(function () {
             imageUpload.removeClass("input-error").addClass("input-error");
             uploadErrorText.removeClass("visually-hidden");
         }
+    }
+    
+    // Image Url validation on blur and keyup
+    imageInput.on("blur keyup", function () {
+        validateImageUrl();
+        validateImageInputs();
+    });
 
-        validateImageInput();
+    // Image upload validation
+    $(document).on("input", "input:file", function () {
+        validateImageUpload();
+        validateImageInputs();
+    });
+    
+    // Check Image on submit - Defensive Programming
+    $("#form").submit(function(e) {
+       validateImageUrl();
+       validateImageUpload();
+       let validForm = validateImageInputs();
+       if(!validForm) {
+           e.preventDefault();
+       }
     });
 });
