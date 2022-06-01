@@ -11,7 +11,7 @@
 <h1>Update</h1>
 
 <div class="container">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="form">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.HiddenFor(x => x.neighborhood.id)
 
@@ -113,7 +113,7 @@
 
         <div class="form-group">
             <a type="button" value="Cancel" class="= btn btn-primary" asp-page="/Neighborhood/Index">Cancel</a> 
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-primary" id="save" />
         </div>
     </form>
 
