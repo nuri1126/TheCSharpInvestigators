@@ -12,7 +12,7 @@
 <h1>Create</h1>
 
 <div class="container">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="form">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @Html.HiddenFor(x => x.neighborhood.id)
 
@@ -37,7 +37,6 @@
         <div class="form-group">
             <label asp-for="neighborhood.city" class="control-label">City</label>
             <input asp-for="neighborhood.city" class="form-control" readonly value="Seattle" />
-            @* <span asp-validation-for="neighborhood.City" class="text-danger"></span> *@
         </div>
 
         <br />
@@ -45,7 +44,6 @@
         <div class="form-group">
             <label asp-for="neighborhood.state" class="control-label">State</label>
             <input asp-for="neighborhood.state" class="form-control" readonly value="WA" />
-            @* <span asp-validation-for="neighborhood.State" class="text-danger"></span> *@
         </div>
 
         <br />
