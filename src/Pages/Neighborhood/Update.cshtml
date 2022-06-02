@@ -70,23 +70,22 @@
             <span asp-validation-for="neighborhood.shortDesc" class="text-danger"></span>
         </div>
 
-        <br />
-
         <!--Allow user to delete uploaded image-->
         @{
-            var currentImagePaths = @Model.neighborhood.imagePath;
+            var currentUploadedModels = @Model.neighborhood.uploadedImages;
         }
-        @if (currentImagePaths != "Default") {
-             <div class="form-group">
-            <label asp-for="neighborhood.imagePath" class="control-label">Delete uploaded image(s)</label>
-            <ul class="uploadedImage-list">
-                @foreach (var fileImage in currentImagePaths.Split(','))
+        @if (currentUploadedModels.Count != 0) {
+            <br />
+            <div class="form-group">
+            <label asp-for="neighborhood.uploadedImages" class="control-label">Delete uploaded image(s)</label>
+            <ul>
+                @foreach (var fileImage in currentUploadedModels)
                 {
                     <li>
                         <div class="container">
                             <div class="row" id="row-reduce-top-margin">
                                 <div class="col-sm">
-                                    <label>@fileImage</label>
+                                    <label>@fileImage.UploadedImageName</label>
                                 </div>
                                 <div class="col-sm">
                                     <input value="Delete function is coming" class="btn btn-sm btn-danger" disabled/>
@@ -96,7 +95,7 @@
                     </li>
                 }
             </ul>
-            <span asp-validation-for="neighborhood.imagePath" class="text-danger"></span>
+            <span asp-validation-for="neighborhood.uploadedImages" class="text-danger"></span>
         </div>
         }
 
@@ -104,7 +103,7 @@
 
         <!--Allow user to upload photo(s)-->
          <div>
-            <label asp-for="neighborhood.imagePath">Upload New Photo (May select multiple photos to upload, Only accept JPG and PNG images)</label>
+            <label asp-for="neighborhood.uploadedImages">Upload New Photo (May select multiple photos to upload, Only accept JPG and PNG images)</label>
             <input type="file" name="files" class="form-control" id="image-upload" accept="image/jpeg, image/png" multiple>
             <span class="text-danger visually-hidden" id="image-upload-error-text">Please upload a valid image</span>
         </div>
