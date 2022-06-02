@@ -223,12 +223,6 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
 
-            //// If user did not upload image files, update neighborhood imagepath to "default".
-            //if (imageFiles == null)
-            //{
-            //    neighborhoodData.imagePath = data.imagePath;
-            //}
-
             // If user has uploaded image files, upload files to database.
             if (imageFiles != null)
             {
@@ -332,12 +326,6 @@ namespace LetsGoSEA.WebSite.Services
                 // Check comment is empty, return false.
                 case "":
                     return false;
-            }
-
-            // Check to see if comments exist, if there are not, then create the list.
-            if (neighborhood.comments.Count == 0)
-            {
-                neighborhood.comments = new List<CommentModel>();
             }
 
             // Add comment to the comment list.
