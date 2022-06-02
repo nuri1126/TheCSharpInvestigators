@@ -182,7 +182,7 @@ namespace LetsGoSEA.WebSite.Services
                     new UploadedImageModel()
                     {
                         // Assign new ID to UploadedImageModel object.
-                        UploadedImageId = CreateNewCommentId(), 
+                        UploadedImageId = GenerateRandomID(), 
 
                         // Assign upoladed image name
                         UploadedImageName = imageFiles[i].FileName,
@@ -304,7 +304,7 @@ namespace LetsGoSEA.WebSite.Services
         /// Generates a new unique identifier.
         /// </summary>
         /// <returns>String version of GUID</returns>
-        private string CreateNewCommentId()
+        private string GenerateRandomID()
         {
             var options = new GenerationOptions(useNumbers: true, length: 8);
             return ShortId.Generate(options);
@@ -345,7 +345,7 @@ namespace LetsGoSEA.WebSite.Services
                 new CommentModel()
                 {
                     // Assign new Id to the CommentModel object.
-                    CommentId = CreateNewCommentId(),
+                    CommentId = GenerateRandomID(),
 
                     // Assign the comment to the CommentModel object.
                     Comment = comment
