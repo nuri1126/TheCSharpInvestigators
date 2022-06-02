@@ -685,11 +685,6 @@ namespace UnitTests.Services
 
             var imagePath = GetImagePath(testImageFile);
 
-            var expectedImagePaths =
-                "image/Neighborhood/testImage_1.jpg," +
-                "image/Neighborhood/testImage_2.jpg," +
-                "image/Neighborhood/testImage_3.jpg";
-
             // Act
 
             // Add test neighborhood to database and store it as testNeighborhood.
@@ -700,7 +695,9 @@ namespace UnitTests.Services
             Assert.AreEqual(Name, testNeighborhood.name);
             Assert.AreEqual("Default", testNeighborhood.image);
             Assert.AreEqual(ShortDesc, testNeighborhood.shortDesc);
-            Assert.AreEqual(expectedImagePaths, testNeighborhood.imagePath);
+            Assert.AreEqual("testImage_1.jpg", testNeighborhood.uploadedImages.First().UploadedImageName);
+            Assert.AreEqual("testImage_2.jpg", testNeighborhood.uploadedImages.ElementAt(1).UploadedImageName);
+            Assert.AreEqual("testImage_3.jpg", testNeighborhood.uploadedImages.Last().UploadedImageName);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
@@ -801,7 +798,7 @@ namespace UnitTests.Services
 
             // Store count of images in Image property and count of uploaded images in ImagePath property.
             var countOfURLImage = testNeighborhood.image.Split(",").Length;
-            var countOfFileImage = testNeighborhood.imagePath.Split(",").Length;
+            var countOfFileImage = testNeighborhood.uploadedImages.Count();
 
             // Act
             var result = _neighborhoodService.GetAllImages(testNeighborhood);
