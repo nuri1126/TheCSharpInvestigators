@@ -44,9 +44,7 @@ namespace LetsGoSEA.WebSite.Models
         [Required(ErrorMessage = "Please enter a valid address")]
         public string address { get; set; } = "Default";
 
-        // Image files of neighborhood
-        [Display(Name = "Image File")]
-        [StringLength(100)]
-        public string imagePath { get; set; } = "Default";
+        // Image files of neighorhood
+        public List<UploadedImageModel> uploadedImages { get; set; } = new List<UploadedImageModel>();
     }
 }
