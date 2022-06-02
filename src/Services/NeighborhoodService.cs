@@ -181,6 +181,12 @@ namespace LetsGoSEA.WebSite.Services
                 neighborhood.uploadedImages.Add(
                     new UploadedImageModel()
                     {
+                        // Assign new ID to UploadedImageModel object.
+                        UploadedImageId = CreateNewCommentId(), 
+
+                        // Assign upoladed image name
+                        UploadedImageName = imageFiles[i].FileName,
+
                         // Assign uploaded image path
                         UploadedImagePath = relativeImagePath,
                     });
