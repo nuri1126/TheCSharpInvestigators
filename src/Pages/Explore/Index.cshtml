@@ -49,7 +49,7 @@
                 <!-- Neighborhood image section on Index Page -->
                 <div class="card-header" id="index-image-height">
                     @{bool hasURLimage = (@neighborhood.image != "Default");}
-                    @{bool hasFileimage = (@neighborhood.imagePath != "Default");}
+                    @{bool hasFileimage = (@neighborhood.uploadedImages.Count != 0);}
 
                     <!-- If has URLimage, show the first one -->
                     @if (hasURLimage)
@@ -59,7 +59,7 @@
                     <!-- Else: if has Fileimage, show the first one -->
                     @if (!hasURLimage && hasFileimage)
                     {
-                        <img src="@neighborhood.imagePath.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
+                        <img src="@neighborhood.uploadedImages.First().UploadedImagePath" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
                     }
                     <!-- If no image provided, show placeholder image -->
                     @if (!hasURLimage && !hasFileimage)
