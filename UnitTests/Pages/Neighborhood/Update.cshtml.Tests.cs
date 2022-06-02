@@ -231,7 +231,7 @@ namespace UnitTests.Pages.Neighborhood
             Assert.AreEqual("New_BogusAddress", _neighborhoodService.GetNeighborhoods().Last().address);
             Assert.AreEqual("https://via.placeholder.com/99", _neighborhoodService.GetNeighborhoods().Last().image);
             Assert.AreEqual("New_Test neighborhood description", _neighborhoodService.GetNeighborhoods().Last().shortDesc);
-            Assert.AreEqual("image/Neighborhood/testImage.jpg", _neighborhoodService.GetNeighborhoods().Last().imagePath);
+            Assert.AreEqual("image/Neighborhood/testImage.jpg", _neighborhoodService.GetNeighborhoods().Last().uploadedImages.First().UploadedImagePath);
 
 
             // TearDown
