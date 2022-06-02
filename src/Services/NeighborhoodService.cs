@@ -177,17 +177,16 @@ namespace LetsGoSEA.WebSite.Services
                     imageFiles[i].CopyTo(filestream);
                 }
 
-                // Add image path to database.
-                // If there is at least 1 image path in database, add ",' as separator at the beginning before adding.
-                if (neighborhood.imagePath != "Default")
-                {
-                    neighborhood.imagePath += "," + relativeImagePath;
-                }
-                // If there is no image path in database yet, add image path directly. 
-                if (neighborhood.imagePath == "Default")
-                {
-                    neighborhood.imagePath = relativeImagePath;
-                }
+                // Add uploaded images to database
+                neighborhood.uploadedImages.Add(
+                    new UploadedImageModel()
+                    {
+                        // Assign uploaded image path
+                        UploadedImagePath = relativeImagePath,
+                    });
+
+                // Save the neighborhood.
+                UpdateData(neighborhood, null);
             }
         }
 
@@ -218,11 +217,11 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
 
-            // If user did not upload image files, update neighborhood imagepath to "default".
-            if (imageFiles == null)
-            {
-                neighborhoodData.imagePath = data.imagePath;
-            }
+            //// If user did not upload image files, update neighborhood imagepath to "default".
+            //if (imageFiles == null)
+            //{
+            //    neighborhoodData.imagePath = data.imagePath;
+            //}
 
             // If user has uploaded image files, upload files to database.
             if (imageFiles != null)
@@ -412,7 +411,7 @@ namespace LetsGoSEA.WebSite.Services
             var hasUrlImage = neighborhood.image != "Default";
 
             // Whether the neighborhood is seeded with any uploaded image file.
-            var hasFileImage = neighborhood.imagePath != "Default";
+            var hasFileImage = neighborhood.uploadedImages.Count != 0;
 
             // Add all URL images to the image list if present.
             if (hasUrlImage)
@@ -424,8 +423,10 @@ namespace LetsGoSEA.WebSite.Services
             // Add all file images to the image list if present.
             if (hasFileImage)
             {
-                var fileImages = neighborhood.imagePath.Split(',');
-                allImages.AddRange(fileImages.Select(fileImage => "/" + fileImage));
+                foreach (var uploadedImageModel in neighborhood.uploadedImages)
+                {
+                    allImages.Add("/" + uploadedImageModel.UploadedImagePath);
+                }
             }
 
             // Add placeholder image if no image is present in the database.
