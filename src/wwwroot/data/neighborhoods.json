@@ -42,7 +42,11 @@
     "city": "Seattle",
     "state": "WA",
     "shortDesc": "Walkable, historic, and full of fun things to do, Ballard is a hot spot for young and old",
-    "ratings": null,
+    "ratings": [
+      5,
+      4,
+      4
+    ],
     "comments": [],
     "address": "2001 NW Canoe Pl, Seattle, WA 98117",
     "uploadedImages": []
@@ -213,17 +217,5 @@
         "UploadedImagePath": "image/Neighborhood/west_seattle_shutters_stock.jpg"
       }
     ]
-  },
-  {
-    "id": 18,
-    "name": "A",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwKS__3aeYLOiN8j1Le-GtHt2zI33vYTNQysiewAEC_w\u0026s ",
-    "city": "Seattle",
-    "state": "WA",
-    "shortDesc": "a",
-    "ratings": null,
-    "comments": [],
-    "address": "a",
-    "uploadedImages": []
   }
 ]
