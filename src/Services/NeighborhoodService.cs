@@ -141,10 +141,10 @@ namespace LetsGoSEA.WebSite.Services
 
             // Get the current set, and append the new record to it 
             var dataset = GetNeighborhoods();
-            dataset = dataset.Append(data);
+            var newdataset = dataset.Append(data);
 
             // Save data set in JSON
-            SaveData(dataset);
+            SaveData(newdataset);
 
             return data;
         }
@@ -190,9 +190,6 @@ namespace LetsGoSEA.WebSite.Services
                         // Assign uploaded image path
                         UploadedImagePath = relativeImagePath,
                     });
-
-                // Save the neighborhood.
-                UpdateData(neighborhood, null);
             }
         }
 
@@ -222,6 +219,11 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.shortDesc = data.shortDesc;
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
+
+            if (imageFiles == null)
+            {
+                neighborhoodData.uploadedImages = data.uploadedImages;
+            }
 
             // If user has uploaded image files, upload files to database.
             if (imageFiles != null)
@@ -430,6 +432,50 @@ namespace LetsGoSEA.WebSite.Services
             }
 
             return allImages;
+        }
+
+        /// <summary>
+        /// Deletes an uploaded image from the NeighborhoodModel in JSON file. 
+        /// Also deletes the physical image file from the server. <======================TO BE IMPLEMENTED 
+        /// </summary>
+        /// <param name="neighborhood">Current neighborhood</param>
+        /// <param name="imageIdToDelete">Unique ID of the uploadedImageModel to be deleted </param> 
+        /// <returns>true if the uploaded image was deleted successfully from both JSON file and the image folder</returns>
+        public bool DeleteUploadedImage(NeighborhoodModel neighborhood, string imageIdToDelete)
+        {
+            // ==================> Second parameter may be changed to an Enumerable type if needed 
+
+            // If neighborhood is null, return false.
+            if (neighborhood == null)
+            {
+                return false;
+            }
+
+            var currentUploadedImages = neighborhood.uploadedImages;
+            int deleteIdIdx = -1;
+
+            // Search for uploaded image to remove, store index.
+            for (var i = 0; i < currentUploadedImages.Count; i++)
+            {
+                var image = currentUploadedImages.ElementAt(i);
+                if (image.UploadedImageId.Equals(imageIdToDelete))
+                {
+                    deleteIdIdx = i;
+                    break;
+                }
+            }
+
+            // Invalid ID.
+            if (deleteIdIdx == -1)
+                return false;
+
+            // Remove the selected UploadedImageModel from JSON file.
+            currentUploadedImages.RemoveAt(deleteIdIdx);
+
+            // Save the neighborhood.
+            UpdateData(neighborhood, null);
+
+            return true;
         }
     }
 }
