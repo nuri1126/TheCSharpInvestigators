@@ -513,8 +513,14 @@ ul {
     margin-top: -4em;
 }
 
-/*Comments*/
+/*Explore Page*/
+.form-control-searchbar {
+    width: 800px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
 
+/*Comments*/
 div.remove-comment {
     display: inline-grid;
     width: 20%;
