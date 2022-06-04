@@ -52,6 +52,29 @@
             <span asp-validation-for="neighborhood.shortDesc" class="text-danger"></span>
         </div>
 
+         <!--Show uploaded images-->
+        @{
+            var currentUploadedModels = @Model.neighborhood.uploadedImages;
+        }
+        @if (currentUploadedModels.Count != 0)
+        {
+            <br />
+
+            <div class="form-group">
+                <label asp-for="neighborhood.uploadedImages" class="control-label">Uploaded image(s)</label>
+                
+                @foreach (var fileImage in currentUploadedModels)
+                {
+                    <br />
+                    <span>&nbsp&nbsp</span>
+                    <input type="checkbox" name="DeleteFile" value="@fileImage.UploadedImageId" id="@fileImage.UploadedImageId" checked disabled/>
+                    <label for="@fileImage.UploadedImageId">@fileImage.UploadedImageName</label>
+                }
+            
+                <span asp-validation-for="neighborhood.uploadedImages" class="text-danger"></span>
+            </div>
+        }
+
         <br />
 
         <div class="form-group">
