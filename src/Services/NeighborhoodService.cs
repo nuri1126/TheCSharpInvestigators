@@ -193,12 +193,13 @@ namespace LetsGoSEA.WebSite.Services
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Finds neighborhood in NeighborhoodModel, updates the neighborhood, and saves the Neighborhood.
         /// </summary>
-        ///<param name="data">neighborhood data to be saved</param>
-        /// <param name="imageFiles">the image file user uploaded</param>
-        public NeighborhoodModel UpdateData(NeighborhoodModel data, IFormFileCollection imageFiles)
+        /// <param name="data">neighborhood data to be saved</param>
+        /// <param name="deleteImageIds">IDs of uploaded images user wants to delete</param>
+        /// <param name="imagesToUpload">the image file user uploaded</param>
+        public NeighborhoodModel UpdateData(NeighborhoodModel data, string[] deleteImageIds, IFormFileCollection imagesToUpload)
         {
             var neighborhoods = GetNeighborhoods();
             var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(data.id));
@@ -220,15 +221,16 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
 
-            if (imageFiles == null)
+            // If user has selected uploaded images to delete, delete files from database and server. 
+            if (deleteImageIds != null)
             {
-                neighborhoodData.uploadedImages = data.uploadedImages;
+                DeleteUploadedImage(neighborhoodData, deleteImageIds);
             }
 
             // If user has uploaded image files, upload files to database.
-            if (imageFiles != null)
+            if (imagesToUpload != null)
             {
-                UploadImageIfAvailable(neighborhoodData, imageFiles);
+                UploadImageIfAvailable(neighborhoodData, imagesToUpload);
             }
 
             SaveData(neighborhoods);
@@ -289,9 +291,8 @@ namespace LetsGoSEA.WebSite.Services
             ratings.Add(rating);
             neighborhood.ratings = ratings.ToArray();
 
-
             // Save the data back to the data store.
-            UpdateData(neighborhood, null);
+            UpdateData(neighborhood, null, null);
 
             return true;
         }
@@ -343,7 +344,7 @@ namespace LetsGoSEA.WebSite.Services
             );
 
             // Save the neighborhood.
-            UpdateData(neighborhood, null);
+            UpdateData(neighborhood, null, null);
 
             return true;
         }
@@ -385,7 +386,7 @@ namespace LetsGoSEA.WebSite.Services
             neighborhood.comments.RemoveAt(commentIdx);
 
             // Save the neighborhood.
-            UpdateData(neighborhood, null);
+            UpdateData(neighborhood, null, null);
 
             return true;
         }
@@ -439,43 +440,15 @@ namespace LetsGoSEA.WebSite.Services
         /// Also deletes the physical image file from the server. <======================TO BE IMPLEMENTED 
         /// </summary>
         /// <param name="neighborhood">Current neighborhood</param>
-        /// <param name="imageIdToDelete">Unique ID of the uploadedImageModel to be deleted </param> 
-        /// <returns>true if the uploaded image was deleted successfully from both JSON file and the image folder</returns>
-        public bool DeleteUploadedImage(NeighborhoodModel neighborhood, string imageIdToDelete)
+        /// <param name="deleteImageIds">IDs of the uploaded image Models to be deleted </param> 
+        public void DeleteUploadedImage(NeighborhoodModel neighborhood, string[] deleteImageIds)
         {
-            // ==================> Second parameter may be changed to an Enumerable type if needed 
-
-            // If neighborhood is null, return false.
-            if (neighborhood == null)
-            {
-                return false;
-            }
-
-            var currentUploadedImages = neighborhood.uploadedImages;
-            int deleteIdIdx = -1;
-
-            // Search for uploaded image to remove, store index.
-            for (var i = 0; i < currentUploadedImages.Count; i++)
-            {
-                var image = currentUploadedImages.ElementAt(i);
-                if (image.UploadedImageId.Equals(imageIdToDelete))
-                {
-                    deleteIdIdx = i;
-                    break;
-                }
-            }
-
-            // Invalid ID.
-            if (deleteIdIdx == -1)
-                return false;
-
             // Remove the selected UploadedImageModel from JSON file.
-            currentUploadedImages.RemoveAt(deleteIdIdx);
-
-            // Save the neighborhood.
-            UpdateData(neighborhood, null);
-
-            return true;
+            foreach (var id in deleteImageIds)
+            {
+                var imageToRemove = neighborhood.uploadedImages.Single(r => r.UploadedImageId.Equals(id));
+                neighborhood.uploadedImages.Remove(imageToRemove);
+            }
         }
     }
 }
