@@ -66,7 +66,7 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
 
             // Add test neighborhood to database and store test neighborhood.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -141,7 +141,7 @@ namespace UnitTests.Pages.Neighborhood
             // Arrange
 
             // Add test neighborhood to database and store test neighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
