@@ -67,16 +67,23 @@ namespace LetsGoSEA.WebSite.Services
         /// <param name="neighborhoods">all the neighborhood objects to be saved</param>
         private void SaveData(IEnumerable<NeighborhoodModel> neighborhoods)
         {
-            // Re-write all the neighborhood data to JSON file
-            using var outputStream = File.Create(NeighborhoodFileName);
-            JsonSerializer.Serialize(
-                new Utf8JsonWriter(outputStream, new JsonWriterOptions
-                {
-                    SkipValidation = true,
-                    Indented = true
-                }),
-                neighborhoods
-            );
+            try
+            {
+                // Re-write all the neighborhood data to JSON file
+                using var outputStream = File.Create(NeighborhoodFileName);
+                JsonSerializer.Serialize(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                    {
+                        SkipValidation = true,
+                        Indented = true
+                    }),
+                    neighborhoods
+                );
+            }
+            catch (IOException)
+            {
+                SaveData(neighborhoods);
+            }
         }
 
         /// <summary>
@@ -109,9 +116,8 @@ namespace LetsGoSEA.WebSite.Services
         /// <param name="address">Address of the neighborhood</param>
         /// <param name="imageURLs">image URLs entered by user</param>
         /// <param name="shortDesc">short description entered by user</param>
-        /// <param name="imageFiles">image files added by user</param>
         /// <returns>A new NeighborhoodModel object to be later saved in JSON</returns>
-        public NeighborhoodModel AddData(string name, string address, string imageURLs, string shortDesc, IFormFileCollection imageFiles)
+        public NeighborhoodModel AddData(string name, string address, string imageURLs, string shortDesc)
         {
 
             // If user did not enter image URL, change imageURLs to "Default" to match Model initialization.
@@ -133,12 +139,6 @@ namespace LetsGoSEA.WebSite.Services
                 shortDesc = shortDesc
             };
 
-            // If user uploaded image files, upload files to database
-            if (imageFiles != null && imageFiles.Any())
-            {
-                UploadImageIfAvailable(data, imageFiles);
-            }
-
             // Get the current set, and append the new record to it 
             var dataset = GetNeighborhoods();
             var newdataset = dataset.Append(data);
@@ -150,11 +150,12 @@ namespace LetsGoSEA.WebSite.Services
         }
 
         /// <summary>
-        /// Upload user-uploaded file images to database for selected neighborhood.
+        /// Upload file images to database for selected neighborhood.
         /// </summary>
         /// <param name="neighborhood">the neighborhood user uploaded photo for</param>
         /// <param name="imageFiles">the image files user uploaded</param>
-        private void UploadImageIfAvailable(NeighborhoodModel neighborhood, IFormFileCollection imageFiles)
+        /// <returns>The updated NeighborhoodModel object</returns>
+        public NeighborhoodModel UploadImageIfAvailable(NeighborhoodModel neighborhood, IFormFileCollection imageFiles)
         {
             // Get contentRootPath to save the file on server.
             var wwwrootPath = WebHostEnvironment.WebRootPath;
@@ -191,16 +192,18 @@ namespace LetsGoSEA.WebSite.Services
                         UploadedImagePath = relativeImagePath,
                     });
             }
+
+            return UpdateData(neighborhood);
         }
 
         /// <summary>
-        /// Finds neighborhood in NeighborhoodModel, updates the neighborhood, and saves the Neighborhood.
+        /// Finds neighborhood in NeighborhoodModel, updates the neighborhood with user entered data, and saves the Neighborhood.
         /// </summary>
         /// <param name="data">neighborhood data to be saved</param>
-        /// <param name="deleteImageIds">IDs of uploaded images user wants to delete</param>
-        /// <param name="imagesToUpload">the image file user uploaded</param>
-        public NeighborhoodModel UpdateData(NeighborhoodModel data, string[] deleteImageIds, IFormFileCollection imagesToUpload)
+        /// <returns>The updated NeighborhoodModel object.</returns>
+        public NeighborhoodModel UpdateData(NeighborhoodModel data)
         {
+            // Access the deep copy of neighborhood in database to update.
             var neighborhoods = GetNeighborhoods();
             var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(data.id));
             if (neighborhoodData == null)
@@ -221,16 +224,9 @@ namespace LetsGoSEA.WebSite.Services
             neighborhoodData.ratings = data.ratings;
             neighborhoodData.comments = data.comments;
 
-            // If user has selected uploaded images to delete, delete files from database and server. 
-            if (deleteImageIds != null)
+            if (data.uploadedImages.Count != 0)
             {
-                DeleteUploadedImage(neighborhoodData, deleteImageIds);
-            }
-
-            // If user has uploaded image files, upload files to database.
-            if (imagesToUpload != null)
-            {
-                UploadImageIfAvailable(neighborhoodData, imagesToUpload);
+                neighborhoodData.uploadedImages = data.uploadedImages;
             }
 
             SaveData(neighborhoods);
@@ -292,7 +288,7 @@ namespace LetsGoSEA.WebSite.Services
             neighborhood.ratings = ratings.ToArray();
 
             // Save the data back to the data store.
-            UpdateData(neighborhood, null, null);
+            UpdateData(neighborhood);
 
             return true;
         }
@@ -344,7 +340,7 @@ namespace LetsGoSEA.WebSite.Services
             );
 
             // Save the neighborhood.
-            UpdateData(neighborhood, null, null);
+            UpdateData(neighborhood);
 
             return true;
         }
@@ -386,7 +382,7 @@ namespace LetsGoSEA.WebSite.Services
             neighborhood.comments.RemoveAt(commentIdx);
 
             // Save the neighborhood.
-            UpdateData(neighborhood, null, null);
+            UpdateData(neighborhood);
 
             return true;
         }
@@ -441,7 +437,8 @@ namespace LetsGoSEA.WebSite.Services
         /// </summary>
         /// <param name="neighborhood">Current neighborhood</param>
         /// <param name="deleteImageIds">IDs of the uploaded image Models to be deleted </param> 
-        public void DeleteUploadedImage(NeighborhoodModel neighborhood, string[] deleteImageIds)
+        /// <returns>The updated NeighborhoodModel object.</returns>
+        public NeighborhoodModel DeleteUploadedImage(NeighborhoodModel neighborhood, string[] deleteImageIds)
         {
             // Remove the selected UploadedImageModel from JSON file.
             foreach (var id in deleteImageIds)
@@ -449,6 +446,8 @@ namespace LetsGoSEA.WebSite.Services
                 var imageToRemove = neighborhood.uploadedImages.Single(r => r.UploadedImageId.Equals(id));
                 neighborhood.uploadedImages.Remove(imageToRemove);
             }
+
+            return UpdateData(neighborhood);
         }
     }
 }
