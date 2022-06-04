@@ -13,6 +13,8 @@ namespace UnitTests.Services
     /// </summary>
     public class NeighborhoodServiceTests
     {
+
+        #region TestSetup
         // Global invalid id property for use in tests. 
         private const int InvalidId = -1;
 
@@ -78,6 +80,8 @@ namespace UnitTests.Services
 
             return imageFiles;
         }
+
+        #endregion Test Setup
 
         #region GetNeighborhoods
 
@@ -811,6 +815,188 @@ namespace UnitTests.Services
         }
 
         #endregion GetAllImages
+
+        #region DeleteUploadedImageand DeletePhysicalImageFile
+
+        // null check neighborhood 
+
+        /// <summary>
+        /// Tests DeleteUploadedImage returns null given a null NeighborhoodModel. 
+        /// </summary>
+        [Test]
+        public void DeleteUploadedImage_Invalid_Null_Neighborhorhood_Should_Return_Null()
+        {
+            // Arrange
+
+            // Dummy valid input 
+            string[] imageIds = { "1", "2", "3" };
+
+            // Act 
+            var result = _neighborhoodService.DeleteUploadedImage(null, imageIds);
+
+            // Assert
+            Assert.AreEqual(null, result);
+
+        }
+
+        // null check deleteImageIds
+        /// <summary>
+        /// Tests that DeleteUploadedImage returns null when given null deleteImageIds. 
+        /// </summary>
+        [Test]
+        public void DeleteUploadedImage_Invalid_Null_ImageIds_Should_Return_Null()
+        {
+            // Arrange
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Act 
+            var result = _neighborhoodService.DeleteUploadedImage(testNeighborhood, null);
+
+            // Assert
+            Assert.AreEqual(null, result);
+
+
+        }
+
+        /// <summary>
+        /// Tests that the count of uploaded images in the database decreases by the number
+        /// of deleteImg Ids provided to DeleteUploadedImage. 
+        /// </summary>
+        [Test]
+        public void DeleteUploadedImage_Valid_Count_Uploaded_Images_Should_Decrease_By_Size_ImageIds()
+        {
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+
+            // Get shallow copy of neighborhood. 
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Setup dummy imagePath to represent an image upload and add it. 
+            var testImageFile = new Dictionary<string, string>()
+            {
+                { "testImage_1.jpg", "test image 1 content" }
+            };
+
+            var imagePath = GetImagePath(testImageFile);
+
+            _neighborhoodService.UploadImageIfAvailable(testNeighborhood, imagePath);
+
+            // Get the latest deepcopy of the neighborhood and store count of saved images. 
+            testNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+            var prevUploadedImgCount = testNeighborhood.uploadedImages.Count;
+
+            // Get the imageId and create a deleteImgIds array. 
+            var id = testNeighborhood.uploadedImages.First().UploadedImageId.ToString();
+            string[] deleteImageIds = { id };
+
+            // Act 
+            _neighborhoodService.DeleteUploadedImage(testNeighborhood, deleteImageIds);
+
+            // Get the latest deepcopy of the neighborhood. 
+            testNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
+            var currUploadedImgCount = testNeighborhood.uploadedImages.Count;
+
+            // Assert
+            Assert.AreEqual(prevUploadedImgCount - imagePath.Count, currUploadedImgCount);
+
+        }
+
+        /// <summary>
+        /// Tests DeleteUploadedImages deletes the correct images. 
+        /// </summary>
+        [Test]
+        public void DeleteUploadedImage_Valid_Correct_Img_Should_Be_Deleted()
+        {
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+
+            // Get shallow copy of neighborhood. 
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Setup dummy imagePath to represent an image upload and add it. 
+            var testImageFile = new Dictionary<string, string>()
+            {
+                { "testImage_1.jpg", "test image 1 content" },
+                { "testImage_2.jpg", "test image 2 content" }
+            };
+
+            var imagePath = GetImagePath(testImageFile);
+
+            _neighborhoodService.UploadImageIfAvailable(testNeighborhood, imagePath);
+
+            // Get the latest deepcopy of the neighborhood and store count of saved images. 
+            testNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
+            // Get the imageId and create a deleteImgIds array. 
+            var id = testNeighborhood.uploadedImages.First().UploadedImageId.ToString();
+            string[] deleteImageIds = { id };
+
+            // Act 
+            _neighborhoodService.DeleteUploadedImage(testNeighborhood, deleteImageIds);
+
+            // Get the latest deepcopy of the neighborhood. 
+            testNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
+            // Check that the first img is not there. 
+            var result = testNeighborhood.uploadedImages.First().UploadedImageId; 
+
+            // Assert
+            Assert.AreNotEqual(id, result);
+        }
+
+
+        // Tests DeleteUploadedImages does not delete other images whose ids are not included
+        // in deleteImgIds. 
+        [Test]
+        public void DeleteUploadedImage_Valid_Other_Imgs_Should_Exist()
+        {
+
+            // Add neighborhood to database and store it as testNeighborhood.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+
+            // Get shallow copy of neighborhood. 
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Setup dummy imagePath to represent an image upload and add it. 
+            var testImageFile = new Dictionary<string, string>()
+            {
+                { "testImage_1.jpg", "test image 1 content" },
+                { "testImage_2.jpg", "test image 2 content" }
+            };
+
+            var imagePath = GetImagePath(testImageFile);
+
+            _neighborhoodService.UploadImageIfAvailable(testNeighborhood, imagePath);
+
+            // Get the latest deepcopy of the neighborhood and store count of saved images. 
+            testNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
+            // Get the imageId and create a deleteImgIds array. 
+            var imageIdDeleteId = testNeighborhood.uploadedImages.First().UploadedImageId.ToString();
+            var imageToKeepId = testNeighborhood.uploadedImages.Last().UploadedImageId.ToString();
+            string[] deleteImageIds = { imageIdDeleteId };
+
+
+            // Act 
+            _neighborhoodService.DeleteUploadedImage(testNeighborhood, deleteImageIds);
+
+            // Get the latest deepcopy of the neighborhood. 
+            testNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
+            // Check that the second img is still saved. 
+            var result = testNeighborhood.uploadedImages.Last().UploadedImageId;
+
+            // Assert
+            Assert.AreEqual(imageToKeepId, result);
+        }
+
+        #endregion DeleteUploadedImageand DeletePhysicalImageFile
 
         #region UpdateData
         /// <summary>
