@@ -48,7 +48,7 @@
                                     <span class="visually-hidden">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    @foreach (var neighborhood in NeighborhoodService.GetNeighborhoods())
+                                    @foreach (var neighborhood in NeighborhoodService.GetNeighborhoods().OrderBy(neighborhood=>neighborhood.name))
                                     {
                                         <li>
                                             <a class="dropdown-item" asp-page="/Explore/Neighborhood" asp-route-id="@neighborhood.id">@neighborhood.name</a>
