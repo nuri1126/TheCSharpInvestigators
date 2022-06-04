@@ -73,14 +73,14 @@ namespace UnitTests.Pages.Explore
         #region OnGet
         /// <summary>
         /// Tests the selected Neighborhood's .cshtml OnGet method. A valid call to
-        /// OnGet should return that neighborhood's page to the browser. 
+        /// OnGet should return valid model state and correct neighborhood. 
         /// </summary>
         [Test]
         public void OnGet_Valid_CurrentNeighborhood_Should_Return_True()
         {
             // Arrange
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -106,7 +106,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -175,7 +175,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -201,7 +201,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -229,7 +229,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -264,7 +264,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -328,7 +328,7 @@ namespace UnitTests.Pages.Explore
             // Arrange
 
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
@@ -363,7 +363,7 @@ namespace UnitTests.Pages.Explore
         {
             // Arrange
             // Add test neighborhood to database.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
