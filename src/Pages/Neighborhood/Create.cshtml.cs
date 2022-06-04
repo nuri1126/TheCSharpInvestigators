@@ -48,7 +48,13 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
              * This Neighborhood object is different from the object created in OnGet(). This 
              * object will store user input and eventually convert them to JSON.
              */
-            neighborhood = neighborhoodService.AddData(name, address, imageURLs, shortDesc, imageFiles);
+            neighborhood = neighborhoodService.AddData(name, address, imageURLs, shortDesc);
+            
+            // If user has uploaded new images, upload those images to current neighborhood.
+            if (imageFiles.Count != 0)
+            {
+                neighborhoodService.UploadImageIfAvailable(neighborhood, imageFiles);
+            }
 
             // Redirect to Update page with reference to the new neighborhood
             return RedirectToPage("/Neighborhood/Index");
