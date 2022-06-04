@@ -439,13 +439,21 @@ namespace LetsGoSEA.WebSite.Services
         /// <returns>The updated NeighborhoodModel object.</returns>
         public NeighborhoodModel DeleteUploadedImage(NeighborhoodModel neighborhood, string[] deleteImageIds)
         {
-            // Access the deep copy of neighborhood in database to update.
-            var neighborhoods = GetNeighborhoods();
-            var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(neighborhood.id));
-            if (neighborhoodData == null)
+            // Check for invalid input. 
+            if (neighborhood == null)
             {
                 return null;
             }
+
+            if (deleteImageIds == null)
+            {
+                return null; 
+            }
+
+            // Access the deep copy of neighborhood in database to update.
+            var neighborhoods = GetNeighborhoods();
+            var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(neighborhood.id));
+
 
             foreach (var id in deleteImageIds)
             {
