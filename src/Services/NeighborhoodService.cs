@@ -235,7 +235,7 @@ namespace LetsGoSEA.WebSite.Services
         }
 
         /// <summary>
-        /// Remove the neighborhood record from the system.
+        /// Remove the neighborhood record from the system. Also remove physical image files associated with this neighborhood.
         /// </summary>
         /// <param name="id">id of the neighborhood to NOT be saved</param>
         /// <returns>the neighborhood object to be deleted</returns>
@@ -246,6 +246,12 @@ namespace LetsGoSEA.WebSite.Services
 
             // Get the record to be deleted.
             var data = dataSet.FirstOrDefault(m => m.id == id);
+
+            // Remove all uploaded image files associated with this neighborhood. 
+            foreach (var imageModel in data.uploadedImages)
+            {
+                DeletePhysicalImageFile(imageModel);
+            }
 
             // Only save the remaining records in the system.
             var newDataSet = GetNeighborhoods().Where(m => m.id != id);
