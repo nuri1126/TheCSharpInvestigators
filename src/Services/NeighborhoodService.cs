@@ -439,19 +439,28 @@ namespace LetsGoSEA.WebSite.Services
         /// <returns>The updated NeighborhoodModel object.</returns>
         public NeighborhoodModel DeleteUploadedImage(NeighborhoodModel neighborhood, string[] deleteImageIds)
         {
+            // Access the deep copy of neighborhood in database to update.
+            var neighborhoods = GetNeighborhoods();
+            var neighborhoodData = neighborhoods.FirstOrDefault(x => x.id.Equals(neighborhood.id));
+            if (neighborhoodData == null)
+            {
+                return null;
+            }
+
             foreach (var id in deleteImageIds)
             {
                 // Find the UploadedImage Model to remove.
-                var imageToRemove = neighborhood.uploadedImages.Single(r => r.UploadedImageId.Equals(id));
+                var imageToRemove = neighborhoodData.uploadedImages.Single(r => r.UploadedImageId.Equals(id));
 
                 // Remove the model from JSON file.
-                neighborhood.uploadedImages.Remove(imageToRemove);
+                neighborhoodData.uploadedImages.Remove(imageToRemove);
 
                 // Delete the physical image from server. 
                 DeletePhysicalImageFile(imageToRemove);
             }
 
-            return UpdateData(neighborhood);
+            SaveData(neighborhoods);
+            return neighborhoodData;
         }
 
         /// <summary>
