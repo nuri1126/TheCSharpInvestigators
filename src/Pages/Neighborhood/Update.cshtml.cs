@@ -63,10 +63,29 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
                 return RedirectToPage("/Neighborhood/Index");
             }
 
-            // Get user input (uploaded files) from the form.
-            var imageFiles = Request.Form.Files;
+            // Get user selected images to delete from the form.
+            var deleteImageIds = Request.Form["DeleteFile"].ToArray();
 
-            neighborhoodService.UpdateData(neighborhood, imageFiles);
+            // Get user uploaded image files from the form.
+            var imagesToUpload = Request.Form.Files;
+
+            // If neighborhood is not null, update neighborhood with user entered data. 
+            if (neighborhood != null)
+            {
+                neighborhood = neighborhoodService.UpdateData(neighborhood);
+            }
+
+            // If user selected images to delete, delete those images from current neighborhood.
+            if (neighborhood != null && deleteImageIds.Length != 0)
+            {
+                neighborhood = neighborhoodService.DeleteUploadedImage(neighborhood, deleteImageIds);
+            }
+
+            // If user has uploaded new images, upload those images to current neighborhood. 
+            if (neighborhood != null && imagesToUpload.Count != 0)
+            {
+                neighborhoodService.UploadImageIfAvailable(neighborhood, imagesToUpload);
+            }
 
             return RedirectToPage("/Neighborhood/Index");
         }
