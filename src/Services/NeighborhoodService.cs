@@ -432,22 +432,48 @@ namespace LetsGoSEA.WebSite.Services
         }
 
         /// <summary>
-        /// Deletes an uploaded image from the NeighborhoodModel in JSON file. 
-        /// Also deletes the physical image file from the server. <======================TO BE IMPLEMENTED 
+        /// Deletes an uploaded image from JSON file and the server. 
         /// </summary>
         /// <param name="neighborhood">Current neighborhood</param>
         /// <param name="deleteImageIds">IDs of the uploaded image Models to be deleted </param> 
         /// <returns>The updated NeighborhoodModel object.</returns>
         public NeighborhoodModel DeleteUploadedImage(NeighborhoodModel neighborhood, string[] deleteImageIds)
         {
-            // Remove the selected UploadedImageModel from JSON file.
             foreach (var id in deleteImageIds)
             {
+                // Find the UploadedImage Model to remove.
                 var imageToRemove = neighborhood.uploadedImages.Single(r => r.UploadedImageId.Equals(id));
+
+                // Remove the model from JSON file.
                 neighborhood.uploadedImages.Remove(imageToRemove);
+
+                // Delete the physical image from server. 
+                DeletePhysicalImageFile(imageToRemove);
             }
 
             return UpdateData(neighborhood);
+        }
+
+        /// <summary>
+        /// Deletes physical image file from the server.
+        /// </summary>
+        /// <param name="imageToRemove">Image to remove</param>
+        private void DeletePhysicalImageFile(UploadedImageModel imageToRemove)
+        {
+            // Get contentRootPath to save the file on server.
+            var wwwrootPath = WebHostEnvironment.WebRootPath;
+
+            // Get relative image path to remove. 
+            var relativePath = imageToRemove.UploadedImagePath;
+
+            // Create absolute image path.
+            var absImagePath = Path.Combine(wwwrootPath, relativePath);
+
+            FileInfo imageFile = new FileInfo(absImagePath);
+            if (imageFile.Exists)
+            {
+                imageFile.Delete();
+            }
         }
     }
 }
