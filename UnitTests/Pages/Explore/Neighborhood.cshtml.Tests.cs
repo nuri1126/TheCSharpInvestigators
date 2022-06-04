@@ -97,25 +97,18 @@ namespace UnitTests.Pages.Explore
         }
 
         /// <summary>
-        /// Tests that when OnGet is called, if provided an incorrect NeighborhoodModel object to 
-        /// retrieve, the browser is redirected to the Index. 
+        /// Tests that when OnGet is called, an invalid model state should return false and redirect to Index. 
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Model_Valid_Should_Return_False()
+        public void OnGet_Invalid_Model_Should_Return_False_And_Redirect_To_Index()
         {
             // Arrange
 
             // Add test neighborhood to database.
-            TestHelper.NeighborhoodServiceObj.AddData(Name, Address, Image, ShortDesc);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
             // Retrieve test neighborhood.
-            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
-
-            // Assign invalid id to test neighborhood. 
-            testNeighborhood.id = InvalidId;
-
-            // Initialize an invalid Neighborhood to attempt to retrieve. 
-            _pageModel.currentNeighborhood = testNeighborhood;
+            _pageModel.currentNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
 
@@ -130,7 +123,7 @@ namespace UnitTests.Pages.Explore
             Assert.AreEqual(true, result.PageName.Contains("Index"));
 
             // TearDown
-            _neighborhoodService.DeleteData(testNeighborhood.id);
+            _neighborhoodService.DeleteData(_pageModel.currentNeighborhood.id);
         }
 
         /// <summary>
@@ -138,29 +131,17 @@ namespace UnitTests.Pages.Explore
         /// the browser is redirected to the Index. 
         /// </summary>
         [Test]
-        public void OnGet_Invalid_Id_InValid_Should_Return_Explore()
+        public void OnGet_Invalid_Id_Should_Redirect_To_Index()
         {
             // Arrange
 
-            // Retrieve test neighborhood.
-            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
-
-            // Assign invalid id to test neighborhood. 
-            testNeighborhood.id = InvalidId;
-
-            // Initialize an invalid Neighborhood to attempt to retrieve. 
-            _pageModel.currentNeighborhood = testNeighborhood;
-
             // Act
-            var result = _pageModel.OnGet(_pageModel.currentNeighborhood.id) as RedirectToPageResult;
+            var result = _pageModel.OnGet(InvalidId) as RedirectToPageResult;
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
             Debug.Assert(result != null, nameof(result) + " != null");
             Assert.AreEqual(true, result.PageName.Contains("Index"));
-
-            // TearDown
-            _neighborhoodService.DeleteData(testNeighborhood.id);
         }
         #endregion OnGet
 
