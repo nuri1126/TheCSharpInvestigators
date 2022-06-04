@@ -62,7 +62,11 @@ namespace LetsGoSEA.WebSite.Pages.Neighborhood
                 return RedirectToPage("/Neighborhood/Index");
             }
 
-            neighborhoodService.DeleteData(neighborhood.id);
+            // Delete all JSON data and image files associated with this neighborhood.
+            if (neighborhood != null)
+            {
+                neighborhoodService.DeleteData(neighborhood.id);
+            }
 
             return RedirectToPage("/Neighborhood/Index");
         }
