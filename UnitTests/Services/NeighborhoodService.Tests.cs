@@ -90,7 +90,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -112,7 +112,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -138,7 +138,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             //Act
@@ -180,7 +180,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Store number of objects in database prior to CreateId. 
@@ -206,7 +206,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Store number of objects in database prior to CreateId. 
@@ -251,7 +251,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -273,7 +273,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add rating. 
@@ -299,7 +299,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -323,7 +323,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add rating and store existing rating count. 
@@ -354,7 +354,7 @@ namespace UnitTests.Services
             int[] outOfBoundsRatings = new int[] { -2, -1, 6, 7 };
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -385,7 +385,7 @@ namespace UnitTests.Services
             var validRatings = new int[] { 0, 1, 2, 3, 4, 5 };
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -421,7 +421,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -444,7 +444,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -468,7 +468,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add comment and store existing comment count. 
@@ -495,7 +495,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -517,7 +517,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -558,7 +558,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -595,7 +595,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add valid comment and store the commentId of the newly stored comment. 
@@ -619,7 +619,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Add valid comment, store count of comments, store the comment's id. 
@@ -643,7 +643,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add test neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             string invalidId0 = "-1";
@@ -688,8 +688,8 @@ namespace UnitTests.Services
             // Act
 
             // Add test neighborhood to database and store it as testNeighborhood.
-            _neighborhoodService.AddData(Name, Address, "", ShortDesc, imagePath);
-            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+            var testNeighborhood = _neighborhoodService.AddData(Name, Address, "", ShortDesc);
+            _neighborhoodService.UploadImageIfAvailable(testNeighborhood, imagePath);
 
             // Assert 
             Assert.AreEqual(Name, testNeighborhood.name);
@@ -717,7 +717,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
-            _neighborhoodService.AddData(Name, Address, "", ShortDesc, null);
+            _neighborhoodService.AddData(Name, Address, "", ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -740,7 +740,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add test neighborhood to database with NO IMAGE URL and NO IMAGE FILE.
-            _neighborhoodService.AddData(Name, Address, "", ShortDesc, null);
+            _neighborhoodService.AddData(Name, Address, "", ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             // Act
@@ -761,7 +761,7 @@ namespace UnitTests.Services
         public void GetAllImages_Valid_No_FileImage_Count_Should_Return_NumberOf_URLImages()
         {
             // Add test neighborhood to database with only Image property (no ImagePath property). 
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, null);
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
             var numOfURLImage = testNeighborhood.image.Split(",").Length;
@@ -791,10 +791,8 @@ namespace UnitTests.Services
             var imagePath = GetImagePath(testImageFiles);
 
             // Add test neighborhood to database all valid parameters. 
-            _neighborhoodService.AddData(Name, Address, Image, ShortDesc, imagePath);
-
-            // Retrieve test neighborhood.
-            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+            var testNeighborhood = _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+            _neighborhoodService.UploadImageIfAvailable(testNeighborhood, imagePath);
 
             // Store count of images in Image property and count of uploaded images in ImagePath property.
             var countOfURLImage = testNeighborhood.image.Split(",").Length;
@@ -825,7 +823,7 @@ namespace UnitTests.Services
             // Arrange
 
             // Add test neighborhood to database with GLOBALLY DEFINED IMAGE LINK.
-            _neighborhoodService.AddData(Name, Address, null, ShortDesc, ImgFilesNull);
+            _neighborhoodService.AddData(Name, Address, null, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
 
@@ -837,7 +835,7 @@ namespace UnitTests.Services
             };
 
             // Act
-            var result = _neighborhoodService.UpdateData(data, null);
+            var result = _neighborhoodService.UpdateData(data);
 
             // Assert
             Assert.AreEqual("Default", _neighborhoodService.GetNeighborhoods().Last().image);
@@ -862,7 +860,7 @@ namespace UnitTests.Services
             };
 
             // Act
-            var result = _neighborhoodService.UpdateData(invalidNeighborhood, null);
+            var result = _neighborhoodService.UpdateData(invalidNeighborhood);
 
             // Assert
             Assert.AreEqual(null, result);
