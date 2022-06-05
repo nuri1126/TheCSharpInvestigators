@@ -74,6 +74,68 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
+        /// Helper method to simulate form action of NOT uploading any new image.
+        /// </summary>
+        /// <returns>an empty FormFileCollection with count = 0</returns>
+        private FormFileCollection UploadNoNewImages()
+        {
+            // Set up mock test-image files.
+            var testImageFiles = new Dictionary<string, string>()
+            {
+            };
+
+            // Get mock test-image paths.
+            var noImageToUpload = GetImageFileCollection(testImageFiles);
+
+            return noImageToUpload;
+        }
+
+        /// <summary>
+        /// Helper method to mock user form input of uploading two new images. 
+        /// </summary>
+        /// <returns>a FormFileCollection object containing all the image files</returns>
+        private FormFileCollection UploadTwoNewImage()
+        {
+            // Set up mock test-image files.
+            var testImageFiles = new Dictionary<string, string>()
+            {
+                { "testImage_A.jpg", "test image 1 content" },
+                { "testImage_B.jpg", "test image 2 content" },
+            };
+
+            // Convert mock files to image file collection.
+            var imagesToUpload = GetImageFileCollection(testImageFiles);
+
+            return imagesToUpload;
+        }
+
+        /// <summary>
+        /// Helper method to mock user form input of NOT selecting any image file to delete.
+        /// </summary>
+        /// <returns>a string array with length = 0 since no images were selected for deletion</returns>
+        private string[] DeleteNoImageFile()
+        {
+            // Set up image IDs to delete.
+            string[] noImageToDelete = { };
+
+            return noImageToDelete;
+        }
+
+        /// <summary>
+        /// Helper method to mock user form input of selecting the FIRST and THIRD uploaded images to delete.
+        /// </summary>
+        /// <returns>a string array holding the IDs of uploaded images to delete</returns>
+        private string[] DeleteFirstAndThirdImageFile()
+        {
+            // Set up image IDs to delete.
+            var firstImageId = _pageModel.neighborhood.uploadedImages.First().UploadedImageId;
+            var thirdImageId = _pageModel.neighborhood.uploadedImages.ElementAt(2).UploadedImageId;
+            string[] deleteImageIdArray = { firstImageId, thirdImageId };
+
+            return deleteImageIdArray;
+        }
+
+        /// <summary>
         /// Global mock FormFileCollection generator converts mock image files into a FormFileCollection.
         /// </summary>
         /// <param name="testImageFiles">A dictionary of test image files, K = image file name, V = image file content</param>
