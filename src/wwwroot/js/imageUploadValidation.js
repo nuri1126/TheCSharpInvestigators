@@ -12,7 +12,7 @@ $(function () {
     let validImageUpload = imageUpload[0].files.length > 0;
 
     // Set initial Save button attribute
-    if(validateImageInputs()) {
+    if(validateImageUrlAndUpload()) {
         saveBtn.removeAttr("disabled");
     } else {
         // Disable Save button
@@ -20,7 +20,7 @@ $(function () {
     }
 
     // Validates if the user has provided us with either a valid Image URL or File Upload
-    function validateImageInputs() {
+    function validateImageUrlAndUpload() {
         /*
         Three conditions need to be tests for verifying either Image URL(s) and/or Image upload:
         1. A valid image url is provided but the no images are to be uploaded
@@ -92,7 +92,16 @@ $(function () {
     
     function validateImageUpload() {
         validImageUpload = imageUpload[0].files.length > 0;
-        // Check if a url is provided
+        
+        // Check if the user uploaded images with extension .jpg, .jpeg, .png
+        let reg = /\.(jpe?g|.png)/i;
+        for(let i = 0; i < imageUpload[0].files.length; i++) {
+            if(imageUpload[0].files[i].name.search(reg) === _1) {
+                validImageUpload = false;
+            }
+        }
+        
+        // Update messages 
         if (validImageUpload) {
             imageUpload.removeClass("input-error");
             uploadErrorText.removeClass("visually-hidden").addClass("visually-hidden");
@@ -107,20 +116,20 @@ $(function () {
     // Image Url validation on blur and keyup
     imageInput.on("blur keyup", function () {
         validateImageUrl();
-        validateImageInputs();
+        validateImageUrlAndUpload();
     });
 
     // Image upload validation
     $(document).on("input", "input:file", function () {
         validateImageUpload();
-        validateImageInputs();
+        validateImageUrlAndUpload();
     });
     
     // Check Image on submit - Defensive Programming
     $("#form").submit(function(e) {
        validateImageUrl();
        validateImageUpload();
-       let validForm = validateImageInputs();
+       let validForm = validateImageUrlAndUpload();
        if(!validForm) {
            e.preventDefault();
        }
