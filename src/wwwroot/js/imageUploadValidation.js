@@ -10,6 +10,7 @@ $(function () {
 
     let validImageUrl = imageInput.val().length >= 0;
     let validImageUpload = imageUpload[0].files.length > 0;
+    let detectUploadedImages = $("input[name='DeleteFile']").length > 0;
 
     // Set initial Save button attribute
     if(validateImageUrlAndUpload()) {
@@ -22,15 +23,17 @@ $(function () {
     // Validates if the user has provided us with either a valid Image URL or File Upload
     function validateImageUrlAndUpload() {
         /*
-        Three conditions need to be tests for verifying either Image URL(s) and/or Image upload:
+        Three conditions need to be tested for verifying either Image URL(s) and/or Image upload:
         1. A valid image url is provided but the no images are to be uploaded
         2. No image url provided but images are to be uploaded
         3. Valid image urls and images are to be uploaded
+        4. There are already uploaded images for the neighborhood
          */
         
         if(  (validImageUrl && imageInput.val().length > 0 && imageUpload[0].files.length === 0 ) || 
              (validImageUrl && imageInput.val().length === 0 && validImageUpload) ||
-             (validImageUrl && imageInput.val().length > 0 && validImageUpload)
+             (validImageUrl && imageInput.val().length > 0 && validImageUpload) ||
+             (detectUploadedImages)
         ) {
         // if ((validImageUrl && imageInput.val() !== "") || validImageUpload) {
             // Remove error messages
