@@ -526,6 +526,14 @@ div.remove-comment {
     width: 20%;
 }
 
+/*Delete comment button*/
+#neighborhood-delete-comment-icon {
+    color: red;
+    fill: currentColor;
+    border-radius: 8px;
+    border-color: red;
+}
+
 #remove-comment-overflow {
     overflow-wrap: break-word;
 }
