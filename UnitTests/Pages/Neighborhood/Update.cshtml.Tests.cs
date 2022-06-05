@@ -64,7 +64,7 @@ namespace UnitTests.Pages.Neighborhood
         /// This method simulates the abstraction of user input data from the Update Page 
         /// and use those data to update the neighborhood object on the Update Model page.
         /// </summary>
-        /// <param name="oldNeighborhood"></param>
+        /// <param name="oldNeighborhood">Neighborhood to update</param>
         private static void UpdateNeighborhoodWithTestData(NeighborhoodModel oldNeighborhood)
         {
             oldNeighborhood.name = "New_Bogusland";
@@ -74,32 +74,11 @@ namespace UnitTests.Pages.Neighborhood
         }
 
         /// <summary>
-        /// Helper method updates the neighborhood object with new ImagePath by simulating upload image action.
-        /// </summary>
-        private void UpdateNeighborhoodWithTestFileImage()
-        {
-            // Set up mock test-image files.
-            var testImageFiles = new Dictionary<string, string>()
-            {
-                { "testImage.jpg", "test image content" },
-            };
-
-            // Get mock test-image paths.
-            var imagePaths = GetImagePath(testImageFiles);
-
-            // Create a FormCollection object to hold mock image paths.
-            var formCol = new FormCollection(null, imagePaths);
-
-            // Link FormCollection object with HTTPContext.
-            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
-        }
-
-        /// <summary>
-        /// Global mock FormFileCollection generator creates ImagePath neighborhood
-        /// property for use in Images region. 
+        /// Global mock FormFileCollection generator converts mock image files into a FormFileCollection.
         /// </summary>
         /// <param name="testImageFiles">A dictionary of test image files, K = image file name, V = image file content</param>
-        private static FormFileCollection GetImagePath(Dictionary<string, string> testImageFiles)
+        /// <returns>a FormFileCollection object containing all the image files</returns>
+        private static FormFileCollection GetImageFileCollection(Dictionary<string, string> testImageFiles)
         {
             // Create a FormFileCollection.
             var imageFiles = new FormFileCollection();
@@ -203,47 +182,58 @@ namespace UnitTests.Pages.Neighborhood
         #region OnPost
 
         /// <summary>
-        /// Test when a neighborhood is updated and OnPost is called, the
-        /// neighborhood is returned with the updates in effect.
+        /// Test Update OnPost method: when user enters VALID TEXTBOX INPUT for a valid neighborhood
+        /// (WITHOUT selecting any image file to delete and WITHOUT uploading any new image), the
+        /// neighborhood is updated with new textbox data in effect and no change to uploaded image count.
         /// </summary>
         [Test]
-        public void OnPost_Valid_Should_Update_Neighborhood_With_New_Data()
+        public void OnPost_Valid_Neighborhood_Valid_Textbox_Input_Should_Update_Neighborhood_With_New_Data()
         {
             // Arrange
 
             // Add test neighborhood to database.
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
 
-            // Retrieve test neighborhood.
+            // Retrieve test neighborhood and its uploaded image count.
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
+            var oldUploadedImageCount = _pageModel.neighborhood.uploadedImages.Count();
 
             // Update testNeighborhood with new name, address, image, and short description.
             UpdateNeighborhoodWithTestData(_pageModel.neighborhood);
 
-            // Update testNeighborhood by uploading a test image.
-            UpdateNeighborhoodWithTestFileImage();
+            // Simulate form action: no image files are deleted or added.
+            var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+            {
+                { "DeleteFile", DeleteNoImageFile() }
+            }, UploadNoNewImages());
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
 
-            // Assert test neighborhood was updated with correct data.
-            Assert.AreEqual("New_Bogusland", _neighborhoodService.GetNeighborhoods().Last().name);
-            Assert.AreEqual("New_BogusAddress", _neighborhoodService.GetNeighborhoods().Last().address);
-            Assert.AreEqual("https://via.placeholder.com/99", _neighborhoodService.GetNeighborhoods().Last().image);
-            Assert.AreEqual("New_Test neighborhood description", _neighborhoodService.GetNeighborhoods().Last().shortDesc);
-            Assert.AreEqual("image/Neighborhood/testImage.jpg", _neighborhoodService.GetNeighborhoods().Last().uploadedImages.First().UploadedImagePath);
+            // Retrieve test neighborhood again.
+            var updatedNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
+            // Assert test neighborhood was updated with correct data.
+            Assert.AreEqual("New_Bogusland", updatedNeighborhood.name);
+            Assert.AreEqual("New_BogusAddress", updatedNeighborhood.address);
+            Assert.AreEqual("https://via.placeholder.com/99", updatedNeighborhood.image);
+            Assert.AreEqual("New_Test neighborhood description", updatedNeighborhood.shortDesc);
+            Assert.AreEqual(oldUploadedImageCount, updatedNeighborhood.uploadedImages.Count());
 
             // TearDown
             TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
         }
 
         /// <summary>
-        /// Test when a neighborhood is updated and OnPost is called, the Model State is valid and page is redirected to Index 
-        /// upon finishing.
+        /// Test Update OnPost method: when user deletes certain uploaded images for a valid neighborhood
+        /// (WITHOUT updating any textbox data and WITHOUT uploading any new image), the neighborhood is updated
+        /// with selected uploaded images removed and no new images added.
         /// </summary>
         [Test]
-        public void OnPost_Valid_ModelState_Should_Return_True_And_Redirect_To_Index()
+        public void OnPost_Valid_Neighborhood_Valid_DeleteImageId_Should_Delete_Uploaded_Images()
         {
             // Arrange
 
@@ -253,11 +243,106 @@ namespace UnitTests.Pages.Neighborhood
             // Retrieve test neighborhood.
             _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // Update test neighborhood with new name, address, image, and short description.
-            UpdateNeighborhoodWithTestData(_pageModel.neighborhood);
+            // Add test image files to test neighborhood. 
+            /* NOTE: We are NOT using mock Form to add these test images.
+             * We are using UploadeImageIfAvailable() method in NeighborhoodService.cs 
+             * to DIRECTLY add test images to our test neighborhood.
+             */
+            var testImageFile = new Dictionary<string, string>()
+            {
+                { "testImage_1.jpg", "test image 1 content" },
+                { "testImage_2.jpg", "test image 2 content" },
+                { "testImage_3.jpg", "test image 2 content" },
+            };
+            var imagePath = GetImageFileCollection(testImageFile);
+            _neighborhoodService.UploadImageIfAvailable(_pageModel.neighborhood, imagePath);
 
-            // Update test neighborhood by uploading a test image.
-            UpdateNeighborhoodWithTestFileImage();
+            // Simulate form action: Delete first and third uploaded images, upload no new image.
+            var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+            {
+                { "DeleteFile", DeleteFirstAndThirdImageFile() }
+                }, UploadNoNewImages());
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
+
+            // Retrieve test neighborhood again.
+            var updatedNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Assert FIRST AND THIRD uploaded images have been successfully deleted and only 1 image is left.
+            Assert.AreEqual("testImage_2.jpg", updatedNeighborhood.uploadedImages.First().UploadedImageName);
+            Assert.AreEqual(1, updatedNeighborhood.uploadedImages.Count());
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
+        }
+
+        /// <summary>
+        /// Test Update OnPost method: when user uploads new image files for a valid neighborhood
+        /// (WITHOUT updating any textbox data and WITHOUT deleting any image file), the neighborhood is updated
+        /// with new uploaded images with correct count.
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_Neighborhood_Valid_NewUpload_Should_Add_Uploaded_Images()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+
+            // Retrieve test neighborhood.
+            _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Simulate form action: upload two new image files, delete none.
+            var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+            {
+                { "DeleteFile", DeleteNoImageFile() }
+            }, UploadTwoNewImage());
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
+
+            // Retrieve test neighborhood again.
+            var updatedNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Assert correct image files are uploaded with correct count.
+            Assert.AreEqual("testImage_A.jpg", updatedNeighborhood.uploadedImages.First().UploadedImageName);
+            Assert.AreEqual("testImage_B.jpg", updatedNeighborhood.uploadedImages.Last().UploadedImageName);
+            Assert.AreEqual(2, _neighborhoodService.GetNeighborhoods().Last().uploadedImages.Count());
+
+            // TearDown
+            TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
+        }
+
+        /// <summary>
+        /// Test Update OnPost: when no change is made to a valid neighborhood, the Model State is still valid and page is redirected to Index 
+        /// upon finishing.
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_Neighborhood_No_Change_Should_Return_Valid_Model_State_And_Redirect_To_Index()
+        {
+            // Arrange
+
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+
+            // Retrieve test neighborhood.
+            _pageModel.neighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Simulate form action: no image files are deleted or added.
+            var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+            {
+                { "DeleteFile", DeleteNoImageFile() }
+            }, UploadNoNewImages());
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
 
             // Act
             var result = _pageModel.OnPost() as RedirectToPageResult;
@@ -268,6 +353,32 @@ namespace UnitTests.Pages.Neighborhood
 
             // TearDown
             TestHelper.NeighborhoodServiceObj.DeleteData(_pageModel.neighborhood.id);
+        }
+
+        /// <summary>
+        /// Test Update OnPost: a valid Model state with a NULL neighborhood should redirect page to Index. 
+        /// </summary>
+        [Test]
+        public void OnPost_Null_Neighborhood_Valid_ModelState_Should_Redirect_To_Index()
+        {
+            // Arrange a null neighborhood.
+            _pageModel.neighborhood = null;
+
+            // Form action does not matter here.
+            var formCol = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+            {
+                { "DeleteFile", DeleteNoImageFile() }
+            }, UploadNoNewImages());
+
+            // Link FormCollection object with HTTPContext.
+            TestHelper.HttpContextDefault.Request.HttpContext.Request.Form = formCol;
+
+            // Act
+            var result = _pageModel.OnPost() as RedirectToPageResult;
+
+            // Assert page is successful.
+            Assert.AreEqual(true, _pageModel.ModelState.IsValid);
+            Assert.AreEqual(true, result.PageName.Contains("Index"));
         }
 
         /// <summary>
