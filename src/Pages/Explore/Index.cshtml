@@ -58,7 +58,7 @@
             <div class="card h-100">
                 <!-- Neighborhood image section on Index Page -->
                 <div class="card-header" id="index-image-height">
-                    @{ bool hasURLimage = (@neighborhood.image != "Default"); }
+                    @{ bool hasURLimage = (@neighborhood.image != ""); }
                     @{ bool hasFileimage = (@neighborhood.uploadedImages.Count != 0); }
 
                     <!-- If has URLimage, show the first one -->
