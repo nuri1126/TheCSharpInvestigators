@@ -515,7 +515,7 @@ ul {
 
 /*Explore Page*/
 .form-control-searchbar {
-    width: 800px;
+    width:90%;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
 }
