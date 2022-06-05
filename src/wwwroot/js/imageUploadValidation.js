@@ -94,7 +94,7 @@ $(function () {
         validImageUpload = imageUpload[0].files.length > 0;
         
         // Check if the user uploaded images with extension .jpg, .jpeg, .png
-        let reg = /\.(jpe?g|.png)/i;
+        let reg = /\.(jpe?g|png)/i;
         for(let i = 0; i < imageUpload[0].files.length; i++) {
             if(imageUpload[0].files[i].name.search(reg) === -1) {
                 validImageUpload = false;
