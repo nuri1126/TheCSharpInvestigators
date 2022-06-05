@@ -1,6 +1,7 @@
 ﻿using LetsGoSEA.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -119,8 +120,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             {
                 // Add Rating to neighborhood model 
                 neighborhoodService.AddRating(currentNeighborhood, rating);
-
-                //return Redirect("/Explore/Neighborhood/" + id.ToString());
+                return Redirect("/Explore/Neighborhood/" + id.ToString() + "#top");
             }
 
             if (newCommentText != "")
@@ -142,7 +142,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
 
             //Update current rating
             GetCurrentRating();
-            return Redirect("/Explore/Neighborhood/" + id.ToString());
+            return Redirect("/Explore/Neighborhood/" + id.ToString() + "#top");
         }
     }
 }
