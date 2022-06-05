@@ -697,7 +697,7 @@ namespace UnitTests.Services
 
             // Assert 
             Assert.AreEqual(Name, testNeighborhood.name);
-            Assert.AreEqual("Default", testNeighborhood.image);
+            Assert.AreEqual("", testNeighborhood.image);
             Assert.AreEqual(ShortDesc, testNeighborhood.shortDesc);
             Assert.AreEqual("testImage_1.jpg", testNeighborhood.uploadedImages.First().UploadedImageName);
             Assert.AreEqual("testImage_2.jpg", testNeighborhood.uploadedImages.ElementAt(1).UploadedImageName);
@@ -1024,7 +1024,7 @@ namespace UnitTests.Services
             var result = _neighborhoodService.UpdateData(data);
 
             // Assert
-            Assert.AreEqual("Default", _neighborhoodService.GetNeighborhoods().Last().image);
+            Assert.AreEqual("", _neighborhoodService.GetNeighborhoods().Last().image);
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
