@@ -30,10 +30,20 @@
     <!-- Filter buttons -->
     <div class="p-2">
         <div class="btn-group">
-            <button type="button" class="btn btn-outline-secondary" id="asc">
+            <button type="button" 
+                    class="btn btn-outline-secondary"
+                    id="asc"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Sort by highest rating to lowest">
                 <i class="bi bi-sort-down"></i>
             </button>
-            <button type="button" class="btn btn-outline-secondary" id="desc">
+            <button type="button"
+                    class="btn btn-outline-secondary"
+                    id="desc"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Sort by lowest rating to highest">
                 <i class="bi bi-sort-down-alt"></i>
             </button>
         </div>
@@ -48,13 +58,13 @@
             <div class="card h-100">
                 <!-- Neighborhood image section on Index Page -->
                 <div class="card-header" id="index-image-height">
-                    @{bool hasURLimage = (@neighborhood.image != "Default");}
-                    @{bool hasFileimage = (@neighborhood.uploadedImages.Count != 0);}
+                    @{ bool hasURLimage = (@neighborhood.image != "Default"); }
+                    @{ bool hasFileimage = (@neighborhood.uploadedImages.Count != 0); }
 
                     <!-- If has URLimage, show the first one -->
                     @if (hasURLimage)
                     {
-                        <img src="@neighborhood.image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">          
+                        <img src="@neighborhood.image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
                     }
                     <!-- Else: if has Fileimage, show the first one -->
                     @if (!hasURLimage && hasFileimage)
@@ -80,7 +90,6 @@
                         else
                         {
                             <span class="avg-rating visually hidden" avg-rating="-1"></span>
-
                         }
                     }
                 </div>
@@ -100,6 +109,11 @@
     // Setting up jQuery
     $(document).ready(function ()
     {
+        
+        // Enable Tooltip
+        const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle='tooltip']");
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        
         // Search box class
         const searchBoxClass = ".form-control-searchbar";
         
