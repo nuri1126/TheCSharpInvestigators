@@ -33,7 +33,7 @@ $(function () {
         if(  (validImageUrl && imageInput.val().length > 0 && imageUpload[0].files.length === 0 ) || 
              (validImageUrl && imageInput.val().length === 0 && validImageUpload) ||
              (validImageUrl && imageInput.val().length > 0 && validImageUpload) ||
-             (detectUploadedImages)
+             (validImageUrl && imageInput.val().length === 0 && imageUpload[0].files.length === 0  && detectUploadedImages)
         ) {
         // if ((validImageUrl && imageInput.val() !== "") || validImageUpload) {
             // Remove error messages
