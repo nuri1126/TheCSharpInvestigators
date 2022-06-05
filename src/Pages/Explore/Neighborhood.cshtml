@@ -168,17 +168,17 @@
         <br />
 
         <!--Allow user to enter new comment in the box and click save-->
-        <div>
-            <form method="post">
-                <div class="save-comment">
-                    <textarea class="comment-box" name="NewCommentText" rows="5" maxlength=@Model.commentMaxChar></textarea>
-                    <span class="comment-max-char">Max characters allowed: @Model.commentMaxChar</span>
-                    <button type="submit" class="btn btn-primary">Save Comment</button>
-                </div>
-            </form>
-        </div>
+    <div id="comments">
+        <form method="post">
+            <div class="save-comment">
+                <textarea class="comment-box" name="NewCommentText" rows="5" maxlength=@Model.commentMaxChar></textarea>
+                <span class="comment-max-char">Max characters allowed: @Model.commentMaxChar</span>
+                <button type="submit" class="btn btn-primary">Save Comment</button>
+            </div>
+        </form>
+    </div>
 
-        <br />
+    <br />
 
     }
 
