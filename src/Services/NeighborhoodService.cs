@@ -204,6 +204,9 @@ namespace LetsGoSEA.WebSite.Services
                 return null;
             }
 
+            // If user deleted all URL images, reset image field from NULL to "" to match Model initialization.
+            data.image ??= "";
+
             // Update neighborhood data.
             neighborhoodData.name = data.name;
             neighborhoodData.image = data.image;
