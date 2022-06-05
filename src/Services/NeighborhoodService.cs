@@ -119,13 +119,6 @@ namespace LetsGoSEA.WebSite.Services
         /// <returns>A new NeighborhoodModel object to be later saved in JSON</returns>
         public NeighborhoodModel AddData(string name, string address, string imageURLs, string shortDesc)
         {
-
-            // If user did not enter image URL, change imageURLs to "Default" to match Model initialization.
-            if (imageURLs == "")
-            {
-                imageURLs = "Default";
-            }
-
             // Create a new neighborhood model
             var data = new NeighborhoodModel()
             {
@@ -183,7 +176,7 @@ namespace LetsGoSEA.WebSite.Services
                     new UploadedImageModel()
                     {
                         // Assign new ID to UploadedImageModel object.
-                        UploadedImageId = GenerateRandomID(), 
+                        UploadedImageId = GenerateRandomID(),
 
                         // Assign upoladed image name
                         UploadedImageName = imageFiles[i].FileName,
@@ -210,9 +203,6 @@ namespace LetsGoSEA.WebSite.Services
             {
                 return null;
             }
-
-            // If user deleted all URL images, reset image field to "Default" to match Model initialization.
-            data.image ??= "Default";
 
             // Update neighborhood data.
             neighborhoodData.name = data.name;
@@ -407,7 +397,7 @@ namespace LetsGoSEA.WebSite.Services
             var noImagePath = "/image/no_image.jpg";
 
             // Whether the neighborhood is seeded with any URL image link. 
-            var hasUrlImage = neighborhood.image != "Default";
+            var hasUrlImage = neighborhood.image != "";
 
             // Whether the neighborhood is seeded with any uploaded image file.
             var hasFileImage = neighborhood.uploadedImages.Count != 0;
