@@ -127,6 +127,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             {
                 // Add Comment to neighborhood model
                 neighborhoodService.AddComment(currentNeighborhood, newCommentText);
+                return Redirect("/Explore/Neighborhood/" + id.ToString() + "#comments");
 
                 // Redirect to comment section of the page
                 //return Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor");
@@ -135,12 +136,13 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             if (CommentId != "")
             {
                 neighborhoodService.DeleteComment(currentNeighborhood, CommentId);
+                return Redirect("/Explore/Neighborhood/" + id.ToString() + "#comments");
+
             }
 
             //Update current rating
             GetCurrentRating();
-
-            return Redirect("/Explore/Neighborhood/" + id.ToString()+"#comments");
+            return Redirect("/Explore/Neighborhood/" + id.ToString());
         }
     }
 }
