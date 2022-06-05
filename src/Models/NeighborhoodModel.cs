@@ -18,7 +18,7 @@ namespace LetsGoSEA.WebSite.Models
 
         // Image URL
         [RegularExpression(@"(https?:\/\/.*)", ErrorMessage = "Please enter secured urls")]
-        public string image { get; set; } = "Default";
+        public string image { get; set; } = "";
 
         // Validating City name to allow only alpha characters
         [Required(ErrorMessage = "Please enter a City name.")]
