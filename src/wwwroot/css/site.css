@@ -606,7 +606,27 @@ div.save-comment {
     
 }
 
-/*Update page upload image*/
+/* Update page upload image */
 #row-reduce-top-margin {
     margin-top: 0.5rem;
+}
+
+/* Neighborhood Index Table styles */
+
+tbody tr:hover {
+    background-color: #506ef7;
+    
+}
+
+tbody tr:hover td:first-child {
+    color: #fff3cd;
+    font-weight: 500;
+}
+
+tr:hover a {
+    color: black;
+}
+
+tr:hover a:hover {
+    color: #fff3cd;
 }
