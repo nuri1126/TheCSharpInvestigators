@@ -140,7 +140,7 @@ namespace LetsGoSEA.WebSite.Pages.Explore
             //Update current rating
             GetCurrentRating();
 
-            return Redirect("/Explore/Neighborhood/" + id.ToString());
+            return Redirect("/Explore/Neighborhood/" + id.ToString()+"#comments");
         }
     }
 }
