@@ -65,25 +65,18 @@ namespace LetsGoSEA.WebSite.Services
         /// Save All neighborhood data to storage.
         /// </summary>
         /// <param name="neighborhoods">all the neighborhood objects to be saved</param>
-        private void SaveData(IEnumerable<NeighborhoodModel> neighborhoods)
+        public void SaveData(IEnumerable<NeighborhoodModel> neighborhoods)
         {
-            try
-            {
-                // Re-write all the neighborhood data to JSON file
-                using var outputStream = File.Create(NeighborhoodFileName);
-                JsonSerializer.Serialize(
-                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
-                    {
-                        SkipValidation = true,
-                        Indented = true
-                    }),
-                    neighborhoods
-                );
-            }
-            catch (IOException)
-            {
-                SaveData(neighborhoods);
-            }
+            // Re-write all the neighborhood data to JSON file
+            using var outputStream = File.Create(NeighborhoodFileName);
+            JsonSerializer.Serialize(
+                new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                {
+                    SkipValidation = true,
+                    Indented = true
+                }),
+                neighborhoods
+            );
         }
 
         /// <summary>
