@@ -7,180 +7,180 @@
     Layout = "Shared/_Layout";
 }
 
-<h1>Explore the beautiful neighborhoods of Seattle!</h1>
-
 <!-- Search box div -->
 
-<div class="d-flex">
-    <div class="p-2 flex-grow-1">
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-text">
-                    <i>
-                        <!-- Search icon svg -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                    </i>
-                </span>
-                <input type="text" id="Search" placeholder="Search Neighborhoods" class="form-control-searchbar"/>
+<div class="search-bar-background">
+    <h1 class="explore-tagline">"Explore the beautiful neighborhoods of Seattle!"</h1>
+    <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i>
+                            <!-- Search icon svg -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </i>
+                    </span>
+                    <input type="text" id="Search" placeholder="Search Neighborhoods" class="form-control-searchbar"/>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Filter buttons -->
-    <div class="p-2">
-        <div class="btn-group">
-            <button type="button" 
-                    class="btn btn-outline-secondary"
-                    id="asc"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Sort by highest rating to lowest">
-                <i class="bi bi-sort-down"></i>
-            </button>
-            <button type="button"
-                    class="btn btn-outline-secondary"
-                    id="desc"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Sort by lowest rating to highest">
-                <i class="bi bi-sort-down-alt"></i>
-            </button>
+        <!-- Filter buttons -->
+        <div class="p-2">
+            <div class="btn-group">
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        id="asc"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Sort by highest rating to lowest">
+                    <i class="bi bi-sort-down"></i>
+                </button>
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        id="desc"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Sort by lowest rating to highest">
+                    <i class="bi bi-sort-down-alt"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
-<!--Display each neighborhood in card view-->
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var neighborhood in @Model.neighborhoods.OrderBy(neighborhood => neighborhood.name))
-    {
-        <div class="col">
-            <div class="card h-100">
-                <!-- Neighborhood image section on Index Page -->
-                <div class="card-header" id="index-image-height">
-                    @{ bool hasURLimage = (@neighborhood.image != ""); }
-                    @{ bool hasFileimage = (@neighborhood.uploadedImages.Count != 0); }
+    <!--Display each neighborhood in card view-->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var neighborhood in @Model.neighborhoods.OrderBy(neighborhood => neighborhood.name))
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <!-- Neighborhood image section on Index Page -->
+                    <div class="card-header" id="index-image-height">
+                        @{ bool hasURLimage = (@neighborhood.image != ""); }
+                        @{ bool hasFileimage = (@neighborhood.uploadedImages.Count != 0); }
 
-                    <!-- If has URLimage, show the first one -->
-                    @if (hasURLimage)
-                    {
-                        <img src="@neighborhood.image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
-                    }
-                    <!-- Else: if has Fileimage, show the first one -->
-                    @if (!hasURLimage && hasFileimage)
-                    {
-                        <img src="@neighborhood.uploadedImages.First().UploadedImagePath" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
-                    }
-                    <!-- If no image provided, show placeholder image -->
-                    @if (!hasURLimage && !hasFileimage)
-                    {
-                        <img src=/image/no_image.jpg class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
-                    }
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">@neighborhood.name</h5>
-                    <p class="card-text">@neighborhood.shortDesc</p>
-                    @{
-                        if (neighborhood.ratings != null)
+                        <!-- If has URLimage, show the first one -->
+                        @if (hasURLimage)
                         {
-                            <span class="avg-rating" avg-rating="@neighborhood.ratings.Average()">
-                                @neighborhood.ratings.Average().ToString("0.00")<i class="fa fa-star" id="explore-page-star"></i>
-                            </span>
+                            <img src="@neighborhood.image.Split(',').First()" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
                         }
-                        else
+                        <!-- Else: if has Fileimage, show the first one -->
+                        @if (!hasURLimage && hasFileimage)
                         {
-                            <span class="avg-rating visually hidden" avg-rating="-1"></span>
+                            <img src="@neighborhood.uploadedImages.First().UploadedImagePath" class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
                         }
-                    }
-                </div>
-                <div class="card-footer">
-                    <a class="btn btn-primary" asp-page="Neighborhood" asp-route-id="@neighborhood.id">Explore more</a>
+                        <!-- If no image provided, show placeholder image -->
+                        @if (!hasURLimage && !hasFileimage)
+                        {
+                            <img src=/image/no_image.jpg class="card-img-top" id="index-image-height" alt="Picture of @neighborhood.name">
+                        }
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@neighborhood.name</h5>
+                        <p class="card-text">@neighborhood.shortDesc</p>
+                        @{
+                            if (neighborhood.ratings != null)
+                            {
+                                <span class="avg-rating" avg-rating="@neighborhood.ratings.Average()">
+                                    @neighborhood.ratings.Average().ToString("0.00")<i class="fa fa-star" id="explore-page-star"></i>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="avg-rating visually hidden" avg-rating="-1"></span>
+                            }
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" asp-page="Neighborhood" asp-route-id="@neighborhood.id">Explore more</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 
-<script>
-    // Setting up jQuery
-    $(document).ready(function ()
-    {
-        
-        // Enable Tooltip
-        const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle='tooltip']");
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-        
-        // Search box class
-        const searchBoxClass = ".form-control-searchbar";
-        
-        // Reset the search box
-        $(searchBoxClass).val("");
-        
-        // Keyup action
-        // Gets the search string from the search box
-        // If the search string is found, all the other neighborhood cards are hidden.
-        // Only the card matching the search string is displayed
-        $(searchBoxClass).on("keyup", function () {
-            // Get the search string from the input box
-            let searchString = $(this).val().toLowerCase();
+    <script>
+        // Setting up jQuery
+        $(document).ready(function () {
 
-            // Iterate over each element to find the one matching the search string
-            $(".card").each(function () {
-                // Find the title of each card
-                let neighborhoodName = $(this).find("h5.card-title").text().toLowerCase();
+            // Enable Tooltip
+            const tooltipTriggerList = document.querySelectorAll("[data-bs-toggle='tooltip']");
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
-                // If the search string doesn't match, hide the card
-                if (neighborhoodName.indexOf(searchString) === -1) {
-                    $(this).parent().fadeOut("fast");
+            // Search box class
+            const searchBoxClass = ".form-control-searchbar";
+
+            // Reset the search box
+            $(searchBoxClass).val("");
+
+            // Keyup action
+            // Gets the search string from the search box
+            // If the search string is found, all the other neighborhood cards are hidden.
+            // Only the card matching the search string is displayed
+            $(searchBoxClass).on("keyup", function () {
+                // Get the search string from the input box
+                let searchString = $(this).val().toLowerCase();
+
+                // Iterate over each element to find the one matching the search string
+                $(".card").each(function () {
+                    // Find the title of each card
+                    let neighborhoodName = $(this).find("h5.card-title").text().toLowerCase();
+
+                    // If the search string doesn't match, hide the card
+                    if (neighborhoodName.indexOf(searchString) === -1) {
+                        $(this).parent().fadeOut("fast");
+                    }
+                    else {
+                        // Show the card matching the search string
+                        $(this).parent().fadeIn("fast");
+                    }
+                });
+            });
+
+            // Filter button
+            let filterButtonDesc = "#desc";
+            $(filterButtonDesc).click(() => {
+                // function to sort cards by rating in descending order
+                function cardSort(x, y) {
+                    x = parseFloat($(x).find("span.avg-rating").attr("avg-rating")).toFixed(2);
+                    y = parseFloat($(y).find("span.avg-rating").attr("avg-rating")).toFixed(2);
+                    //returns the larger of the two avg ratings
+                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
                 }
-                else {
-                    // Show the card matching the search string
-                    $(this).parent().fadeIn("fast");
+                // sets cards that are already sorted
+                let sorted = $(".col").sort(cardSort);
+                let cards = $(".row");
+                cards.empty();
+                // appends cards that have already been evaluated
+                cards.append(sorted);
+
+            });
+
+            let filterButtonAsc = "#asc";
+            // function to sort cards by ratings in ascending order
+            $(filterButtonAsc).click(() => {
+
+                function cardSort(x, y) {
+                    // finds average ratings of cards
+                    x = parseFloat($(x).find("span.avg-rating").attr("avg-rating")).toFixed(2);
+                    y = parseFloat($(y).find("span.avg-rating").attr("avg-rating")).toFixed(2);
+
+                    // compares both and returns the smaller value
+                    return ((x > y) ? -1 : ((x < y) ? 1 : 0));
                 }
+                // order of cards already evaluated
+                let sorted = $(".col").sort(cardSort);
+                let cards = $(".row");
+                cards.empty();
+                // returns the sorted order of cards
+                cards.append(sorted);
             });
         });
-
-        // Filter button
-        let filterButtonDesc = "#desc";
-        $(filterButtonDesc).click(() => {
-            // function to sort cards by rating in descending order
-            function cardSort(x, y) {
-                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating")).toFixed(2);
-                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating")).toFixed(2);
-                //returns the larger of the two avg ratings
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            }
-            // sets cards that are already sorted
-            let sorted = $(".col").sort(cardSort);
-            let cards = $(".row");
-            cards.empty();
-            // appends cards that have already been evaluated
-            cards.append(sorted);
-
-        });
-
-        let filterButtonAsc = "#asc";
-        // function to sort cards by ratings in ascending order
-        $(filterButtonAsc).click(() => {
-
-            function cardSort(x, y) {
-                // finds average ratings of cards 
-                x = parseFloat($(x).find("span.avg-rating").attr("avg-rating")).toFixed(2);
-                y = parseFloat($(y).find("span.avg-rating").attr("avg-rating")).toFixed(2);
-
-                // compares both and returns the smaller value
-                return ((x > y) ? -1 : ((x < y) ? 1 : 0));
-            }
-            // order of cards already evaluated
-            let sorted = $(".col").sort(cardSort);
-            let cards = $(".row");
-            cards.empty();
-            // returns the sorted order of cards
-            cards.append(sorted);
-        });
-    });
-</script>
+    </script>
