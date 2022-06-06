@@ -261,7 +261,6 @@ namespace UnitTests.Pages.Explore
 
             // Assert 
             Assert.AreEqual(3, _pageModel.currentNeighborhood.ratings.Last());
-            // Assert.AreEqual(1, _pageModel.currentNeighborhood.ratings.Count());
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
@@ -363,6 +362,33 @@ namespace UnitTests.Pages.Explore
             // Assert 
             Assert.AreEqual(_pageModel.currentNeighborhood.comments.Last().Comment, ValidComment);
             Assert.AreEqual(_pageModel.currentNeighborhood.comments.Count(), oldCommentCount + 1);
+
+            // TearDown
+            _neighborhoodService.DeleteData(testNeighborhood.id);
+        }
+
+        /// <summary>
+        /// Test that the last return statement is reached so user is redirected to top 
+        /// of page. 
+        /// </summary>
+        [Test]
+        public void OnPost_Valid_EmptyCommentText_Valid_Should_Redirect_To_Top()
+        {
+            // Arrange
+            // Add test neighborhood to database.
+            _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
+
+            // Retrieve test neighborhood.
+            var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
+
+            // Store selected neighborhood object. 
+            _pageModel.currentNeighborhood = _neighborhoodService.GetNeighborhoodById(testNeighborhood.id);
+
+            // Act
+            var result = _pageModel.OnPost(_pageModel.currentNeighborhood.id, "");
+
+            // Assert 
+            Assert.That(result, Is.TypeOf<RedirectResult>());
 
             // TearDown
             _neighborhoodService.DeleteData(testNeighborhood.id);
