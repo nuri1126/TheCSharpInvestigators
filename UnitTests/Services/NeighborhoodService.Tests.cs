@@ -602,8 +602,11 @@ namespace UnitTests.Services
             _neighborhoodService.AddData(Name, Address, Image, ShortDesc);
             var testNeighborhood = _neighborhoodService.GetNeighborhoods().Last();
 
-            // Add valid comment and store the commentId of the newly stored comment. 
+            // Add valid comments and store the commentId of the last stored comment. 
             _neighborhoodService.AddComment(testNeighborhood, ValidComment);
+            _neighborhoodService.AddComment(testNeighborhood, ValidComment);
+            _neighborhoodService.AddComment(testNeighborhood, ValidComment);
+
             var commentId = testNeighborhood.comments.Last().CommentId;
 
             // Act
@@ -1053,5 +1056,6 @@ namespace UnitTests.Services
         }
 
         #endregion UpdateData
+
     }
 }
