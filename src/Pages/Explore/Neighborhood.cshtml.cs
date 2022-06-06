@@ -112,36 +112,30 @@ namespace LetsGoSEA.WebSite.Pages.Explore
         /// <param name="CommentId"></param>
         public IActionResult OnPost(int id, string CommentId)
         {
-            // Assign the user's selected neighborhood to the CurrentNeighborhood var
+            // Assign the user's selected neighborhood to the CurrentNeighborhood var.
             currentNeighborhood = neighborhoodService.GetNeighborhoodById(id);
-
 
             if (rating != 0)
             {
-                // Add Rating to neighborhood model 
+                // Add Rating to neighborhood model.
                 neighborhoodService.AddRating(currentNeighborhood, rating);
+                GetCurrentRating();
                 return Redirect("/Explore/Neighborhood/" + id.ToString() + "#top");
             }
 
             if (newCommentText != "")
             {
-                // Add Comment to neighborhood model
+                // Add Comment to neighborhood model.
                 neighborhoodService.AddComment(currentNeighborhood, newCommentText);
                 return Redirect("/Explore/Neighborhood/" + id.ToString() + "#comments");
-
-                // Redirect to comment section of the page
-                //return Redirect("/Explore/Neighborhood/" + id.ToString() + "/#commentAnchor");
             }
 
             if (CommentId != "")
             {
                 neighborhoodService.DeleteComment(currentNeighborhood, CommentId);
                 return Redirect("/Explore/Neighborhood/" + id.ToString() + "#comments");
-
             }
 
-            //Update current rating
-            GetCurrentRating();
             return Redirect("/Explore/Neighborhood/" + id.ToString() + "#top");
         }
     }
