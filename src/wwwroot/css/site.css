@@ -15,6 +15,34 @@
     font-size: 25px !important;
 }
 
+.search-bar-background {
+    display: block;
+    position: relative;
+    background-color: rgba(16,69,71,0.5);
+    width: 90vw;
+    margin-left: calc((100% - 90vw) / 2);
+    text-align: center;
+    background-position-y: 20em;
+    border-radius: 0.25rem;
+}
+
+    .search-bar-background h1 {
+        margin: 0 !important;
+        padding: 2% !important;
+    }
+
+.explore-tagline {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    text-shadow: 6px 6px 0 rgba(0,0,0,0.1);
+    font-size: 240%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+
 .checked {
     color: orange;
 }
